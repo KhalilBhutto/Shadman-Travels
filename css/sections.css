@@ -1,0 +1,876 @@
+/* ═══════════════════════════════════════════
+   SECTIONS.CSS — All Content Sections
+   Project Shadman Platform
+═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   AIRLINES SECTION
+═══════════════════════════════════════════ */
+.airlines-sec {
+  background: var(--cream);
+}
+
+/* ── Filter Bar ── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  padding: 9px 20px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border: 2px solid #ddd;
+  background: white;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--g700);
+  color: var(--gold2);
+  border-color: var(--g700);
+}
+
+/* ── Airline Grid ── */
+.airlines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+/* ── Airline Card ── */
+.acard {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #ebe9e3;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.acard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 2px solid var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.acard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.acard:hover::after {
+  opacity: 1;
+}
+
+.acard-top {
+  background: linear-gradient(135deg, var(--g800), var(--g600));
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.acard-top::before {
+  content: '✈';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  opacity: 0.06;
+}
+
+.airline-badge {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(201, 160, 40, 0.4);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.acard-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.acard-hub {
+  font-size: 0.68rem;
+  color: var(--gold2);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.acard-body {
+  padding: 18px 20px 20px;
+}
+
+.acard-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* ── Destination Chips ── */
+.dest-section {
+  margin-bottom: 12px;
+}
+
+.dest-section-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g700);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dest-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #f0ede6;
+}
+
+.dest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dest-chip {
+  background: #f5f2eb;
+  color: var(--g700);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+  border: 1px solid #e8e3d8;
+  transition: all 0.15s;
+}
+
+.dest-chip:hover {
+  background: var(--g700);
+  color: var(--gold2);
+  border-color: var(--g700);
+}
+
+.dest-chip.new {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+/* ── Airline Card Footer ── */
+.acard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #f0ede6;
+}
+
+.seats-badge {
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+  border: 1px solid #fed7aa;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.book-btn {
+  background: var(--g700);
+  color: var(--gold2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+.book-btn:hover {
+  background: var(--gold);
+  color: var(--g900);
+}
+
+.acard.hidden {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   POPULAR ROUTES SECTION
+═══════════════════════════════════════════ */
+.routes-sec {
+  background: linear-gradient(180deg, var(--g900) 0%, var(--g800) 100%);
+  padding: 96px 32px;
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+/* ── Route Card ── */
+.route-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 160, 40, 0.12);
+  border-radius: 14px;
+  padding: 22px;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.route-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201, 160, 40, 0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.route-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.route-card:hover::before {
+  opacity: 1;
+}
+
+.route-from-to {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.route-city {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.route-arrow {
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.route-code {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-top: 1px;
+}
+
+.route-airline {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.route-price-label {
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.route-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.route-price span {
+  font-size: 0.85rem;
+}
+
+.route-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--g900);
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   WHY CHOOSE US SECTION
+═══════════════════════════════════════════ */
+.why-sec {
+  background: white;
+  padding: 96px 32px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.why-left .sec-head {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.why-left .sec-divider {
+  margin: 16px 0 0;
+}
+
+.why-list {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.why-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  background: #fafaf8;
+  transition: all 0.3s;
+}
+
+.why-item:hover {
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+}
+
+.why-item-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--g700);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(201, 160, 40, 0.3);
+}
+
+.why-item-text h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--g700);
+  margin-bottom: 4px;
+}
+
+.why-item-text p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Why Right Panel ── */
+.why-right {
+  background: linear-gradient(135deg, var(--g800), var(--g900));
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(201, 160, 40, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-right::before {
+  content: '✈';
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  font-size: 12rem;
+  opacity: 0.03;
+  line-height: 1;
+}
+
+.why-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.wstat {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 160, 40, 0.12);
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.wstat:hover {
+  background: rgba(201, 160, 40, 0.06);
+  border-color: rgba(201, 160, 40, 0.3);
+}
+
+.wstat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  display: block;
+}
+
+.wstat-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.why-right-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* ── Cert Badges ── */
+.certbadges {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.certbadge {
+  flex: 1;
+  min-width: 120px;
+  background: rgba(201, 160, 40, 0.08);
+  border: 1px solid rgba(201, 160, 40, 0.2);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.certbadge .ci {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.certbadge .ct {
+  font-size: 0.65rem;
+  color: var(--gold2);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS SECTION
+═══════════════════════════════════════════ */
+.testi-sec {
+  background: var(--cream);
+  padding: 96px 32px;
+}
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* ── Testimonial Card (static) ── */
+.testi-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid #ebe9e3;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.testi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--gold);
+}
+
+/* ── Testimonial Card (carousel) ── */
+.testi-card-c {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid #ebe9e3;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.testi-card-c:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--gold);
+}
+
+.testi-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.testi-text {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testi-stars {
+  color: var(--gold);
+  font-size: 0.8rem;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testi-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g700), var(--g500));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--gold2);
+  font-weight: 700;
+  border: 2px solid rgba(201, 160, 40, 0.3);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.testi-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--g700);
+}
+
+.testi-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ── Testimonial Carousel ── */
+.testi-carousel-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.testi-carousel {
+  position: relative;
+  min-height: 240px;
+}
+
+.testi-slide {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+.testi-slide.active {
+  display: grid;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-12px); }
+}
+
+/* ═══════════════════════════════════════════
+   COMING SOON SECTION
+═══════════════════════════════════════════ */
+.coming-sec {
+  background: linear-gradient(135deg, var(--g900), var(--g800));
+  padding: 96px 32px;
+}
+
+.coming-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.coming-card {
+  border-radius: 18px;
+  border: 1px dashed rgba(201, 160, 40, 0.25);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s;
+}
+
+.coming-card:hover {
+  background: rgba(201, 160, 40, 0.04);
+  border-style: solid;
+  border-color: rgba(201, 160, 40, 0.4);
+  transform: translateY(-4px);
+}
+
+.coming-big-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.25;
+}
+
+.coming-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--g900);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.coming-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.coming-card p {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+}
+
+.coming-card .notify-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid rgba(201, 160, 40, 0.25);
+  border-radius: 50px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.coming-card .notify-btn:hover {
+  background: var(--gold);
+  color: var(--g900);
+  border-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT SECTION
+═══════════════════════════════════════════ */
+.contact-sec {
+  background: white;
+  padding: 96px 32px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-left h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--g700);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.contact-left .sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 400px;
+}
+
+/* ── Contact Methods ── */
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.cm {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #fafaf8;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.cm:hover {
+  border-color: var(--gold);
+  background: white;
+}
+
+.cm-icon {
+  width: 46px;
+  height: 46px;
+  background: var(--g700);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 1.5px solid rgba(201, 160, 40, 0.3);
+  flex-shrink: 0;
+}
+
+.cm-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cm-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--g700);
+  margin-top: 2px;
+}
+
+.cm-val a {
+  color: var(--g700);
+  transition: color 0.2s;
+}
+
+.cm-val a:hover {
+  color: var(--gold);
+}
+
+/* ── Contact Social Buttons ── */
+.contact-social {
+  display: flex;
+  gap: 10px;
+}
+
+.cs-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--g700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  border: 1px solid rgba(201, 160, 40, 0.2);
+  color: var(--gold2);
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.cs-btn:hover {
+  background: var(--gold);
+  color: var(--g900);
+  transform: translateY(-2px);
+}

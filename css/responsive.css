@@ -1,0 +1,101 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE.CSS — All Media Queries
+   Project Shadman Platform
+═══════════════════════════════════════════ */
+
+/* ── 1100px Breakpoint ── */
+@media (max-width: 1100px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .search-card {
+    max-width: 560px;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-right {
+    order: -1;
+  }
+
+  .foot-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* ── 900px Breakpoint ── */
+@media (max-width: 900px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-cell:nth-child(2) {
+    border-right: none;
+  }
+
+  .testi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testi-slide {
+    grid-template-columns: 1fr;
+  }
+
+  .coming-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 600px Breakpoint ── */
+@media (max-width: 600px) {
+  .sec {
+    padding: 64px 20px;
+  }
+
+  .hero-inner {
+    padding: 60px 20px 40px;
+  }
+
+  .routes-sec {
+    padding: 64px 20px;
+  }
+
+  .contact-sec,
+  .why-sec,
+  .testi-sec,
+  .coming-sec {
+    padding: 64px 20px;
+  }
+
+  footer {
+    padding: 48px 20px 24px;
+  }
+
+  .foot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .routes-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

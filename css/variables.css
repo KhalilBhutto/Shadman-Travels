@@ -1,0 +1,31 @@
+/* ═══════════════════════════════════════════
+   VARIABLES.CSS — Design Tokens & Root Variables
+   Project Shadman Platform
+═══════════════════════════════════════════ */
+
+:root {
+  /* ── Color System ── */
+  --g900: #060f09;
+  --g800: #0b1e10;
+  --g700: #0f2916;
+  --g600: #163d22;
+  --g500: #1d5230;
+  --g400: #246640;
+
+  /* ── Gold Palette ── */
+  --gold:     #c9a028;
+  --gold2:    #e4bc5a;
+  --gold3:    #f5dfa0;
+  --goldpale: #fdf6e3;
+
+  /* ── Neutral / Base ── */
+  --white:  #ffffff;
+  --cream:  #f8f4ec;
+  --ink:    #1a1a1a;
+  --muted:  #6b7280;
+
+  /* ── UI Tokens ── */
+  --border: rgba(201, 160, 40, 0.18);
+  --shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+  --r:      14px;
+}
