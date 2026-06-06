@@ -8,7 +8,7 @@
 'use strict';
 
 /* ─── GOOGLE SHEETS SUBMISSION ENDPOINT ─── */
-const SHEETS_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwU10GNoOnSphx5Vsmr4mzHRUi60FtLvWUs5y_-WrTS--duoCZGNGbhz89qLi5kMc6TSg/exec';
 
 /* ─── BUSINESS INFO ─── */
 const BUSINESS = {
