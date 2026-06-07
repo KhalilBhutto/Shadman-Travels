@@ -424,6 +424,14 @@ payload.enquiryId = 'ENQ-' + Date.now();
   })
     .then(() => {
       toast.style.display = 'block';
+      
+      // GA4 Conversion Tracking
+if (typeof gtag === 'function') {
+  gtag('event', 'flight_inquiry_submit', {
+    trip_type: payload.tripType,
+    travel_class: payload.travelClass
+  });
+}
       btn.classList.remove('loading');
       btn.innerHTML = '✈ Get Exclusive Fare — Call Now';
 
