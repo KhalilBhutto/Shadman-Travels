@@ -61,6 +61,39 @@ document.addEventListener('DOMContentLoaded', function () {
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    /* ─── GA4 CONTACT CLICK TRACKING ───────────
+     Tracks WhatsApp, Phone and Email clicks.
+  ─────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href') || '';
+
+    // WhatsApp
+    if (href.includes('wa.me')) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'whatsapp_click');
+      }
+    }
+
+    // Phone
+    if (href.startsWith('tel:')) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'phone_click');
+      }
+    }
+
+    // Email
+    if (href.startsWith('mailto:')) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'email_click');
+      }
+    }
+
+  });
+
   console.info(
     '%c✈ Shadman Travels & Tours — Project Shadman Platform loaded.',
     'color:#c9a028;font-weight:bold;font-size:13px'
