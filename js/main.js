@@ -40,16 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ─── NOTIFY BUTTONS (Coming Soon section) ─
-     Same pattern — call the office.
-  ─────────────────────────────────────────── */
-  document.querySelectorAll('.notify-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.location.href = BUSINESS.phoneHref;
-    });
-  });
-
   /* ─── CONTACT FORM SUBMIT BUTTON ───────────
      The contact-section quote form submit
      currently redirects to tel: — keep consistent.

@@ -14,6 +14,7 @@
 
 <meta name="robots" content="index, follow"/>
 
+<link rel="stylesheet" href="css/notify-modal.css">
 <link rel="canonical" href="https://shadmantravels.com/"/>
 
 <meta name="theme-color" content="#0f172a"/>
@@ -295,6 +296,38 @@
           </div>
         </div>
       </div>
+      <div class="sf">
+  <label>Preferred Airline</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">✈️</span>
+    <select id="ow-airline" class="ap-input" style="padding-left:34px">
+      <option>No Preference</option>
+      <option>PIA</option>
+      <option>Emirates</option>
+      <option>Qatar Airways</option>
+      <option>Turkish Airlines</option>
+      <option>Etihad Airways</option>
+      <option>Saudia</option>
+      <option>AirSial</option>
+      <option>FlyDubai</option>
+    </select>
+  </div>
+</div>
+
+<div class="sf">
+  <label>Travel Purpose</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">🌍</span>
+    <select id="ow-purpose" class="ap-input" style="padding-left:34px">
+      <option>Tourism</option>
+      <option>Business</option>
+      <option>Umrah</option>
+      <option>Hajj</option>
+      <option>Visit Family</option>
+      <option>Study</option>
+    </select>
+  </div>
+</div>
 
       <!-- ── ROUND TRIP ── -->
       <div class="tab-panel" id="panel-roundtrip" style="display:none">
@@ -391,6 +424,39 @@
             </div>
           </div>
         </div>
+        <div class="sf">
+  <label>Preferred Airline</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">✈️</span>
+    <select id="rt-airline" class="ap-input" style="padding-left:34px">
+      <option>No Preference</option>
+      <option>PIA</option>
+      <option>Emirates</option>
+      <option>Qatar Airways</option>
+      <option>Turkish Airlines</option>
+      <option>Etihad Airways</option>
+      <option>Saudia</option>
+      <option>AirSial</option>
+      <option>FlyDubai</option>
+    </select>
+  </div>
+</div>
+
+<div class="sf">
+  <label>Travel Purpose</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">🌍</span>
+    <select id="rt-purpose" class="ap-input" style="padding-left:34px">
+      <option>Tourism</option>
+      <option>Business</option>
+      <option>Umrah</option>
+      <option>Hajj</option>
+      <option>Visit Family</option>
+      <option>Study</option>
+    </select>
+  </div>
+</div>
+
         <!-- RT Extra passenger details -->
         <div class="extra-pax-section" id="rt-extra-pax" style="display:none">
           <div class="extra-pax-title">Additional Passenger Names</div>
@@ -495,6 +561,40 @@
             </div>
           </div>
         </div>
+
+        <div class="sf">
+  <label>Preferred Airline</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">✈️</span>
+    <select id="mc-airline" class="ap-input" style="padding-left:34px">
+      <option>No Preference</option>
+      <option>PIA</option>
+      <option>Emirates</option>
+      <option>Qatar Airways</option>
+      <option>Turkish Airlines</option>
+      <option>Etihad Airways</option>
+      <option>Saudia</option>
+      <option>AirSial</option>
+      <option>FlyDubai</option>
+    </select>
+  </div>
+</div>
+
+<div class="sf">
+  <label>Travel Purpose</label>
+  <div class="sf-wrap">
+    <span class="sf-icon">🌍</span>
+    <select id="mc-purpose" class="ap-input" style="padding-left:34px">
+      <option>Tourism</option>
+      <option>Business</option>
+      <option>Umrah</option>
+      <option>Hajj</option>
+      <option>Visit Family</option>
+      <option>Study</option>
+    </select>
+  </div>
+</div>
+
         <!-- MC Extra passenger details -->
         <div class="extra-pax-section" id="mc-extra-pax" style="display:none">
           <div class="extra-pax-title">Additional Passenger Names</div>
@@ -1588,7 +1688,10 @@
         <div class="coming-tag">Coming Soon</div>
         <h3>Umrah &amp; Hajj Packages</h3>
         <p>Carefully curated Umrah and Hajj packages including flights, luxury hotels in Makkah &amp; Madinah, and guided services.</p>
-        <button class="notify-btn" onclick="window.location.href='tel:+923000041510'">🔔 Get Notified</button>
+        <button class="notify-btn"
+        data-service="Umrah & Hajj Packages">
+    🔔 Get Notified
+</button>
       </div>
       <div class="coming-card reveal delay-2">
         <div class="coming-img" style="height:160px;border-radius:12px;overflow:hidden;margin-bottom:20px;background:linear-gradient(135deg,#1a2a3a,#2d4566);position:relative">
@@ -1597,7 +1700,10 @@
         <div class="coming-tag">Coming Soon</div>
         <h3>International Tours</h3>
         <p>Group &amp; private tours to Europe, Southeast Asia, Middle East, Turkey, Baku, Morocco and beyond with all-inclusive packages.</p>
-        <button class="notify-btn" onclick="window.location.href='tel:+923000041510'">🔔 Get Notified</button>
+        <button class="notify-btn"
+        data-service="International Tours">
+    🔔 Get Notified
+</button>
       </div>
       <div class="coming-card reveal delay-3">
         <div class="coming-img" style="height:160px;border-radius:12px;overflow:hidden;margin-bottom:20px;background:linear-gradient(135deg,#1a2d1a,#2d5232);position:relative">
@@ -1606,7 +1712,10 @@
         <div class="coming-tag">Coming Soon</div>
         <h3>Domestic Tours</h3>
         <p>Explore Pakistan's most beautiful destinations with upcoming guided tours, family packages, adventure trips, and customized travel experiences.</p>
-        <button class="notify-btn" onclick="window.location.href='tel:+923000041510'">🔔 Get Notified</button>
+        <button class="notify-btn"
+        data-service="Domestic Tours">
+    🔔 Get Notified
+</button>
       </div>
     </div>
   </div>
@@ -1678,10 +1787,58 @@
      EXTERNAL SCRIPTS — Project Shadman Platform
      Phase 3: index.html Refactor
 ═══════════════════════════════════════════ -->
+<div id="notifyModal" class="notify-modal">
+    <div class="notify-modal-content">
+
+        <button class="notify-close" id="notifyClose">
+            &times;
+        </button>
+
+        <h2>Get Notified</h2>
+
+        <p id="notifyServiceText"></p>
+
+        <form id="notifyForm">
+
+            <input
+                type="text"
+                id="notifyName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="tel"
+                id="notifyPhone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <input
+                type="email"
+                id="notifyEmail"
+                placeholder="Email Address"
+                required
+            >
+
+            <button type="submit" class="submit-btn">
+                Notify Me
+            </button>
+
+        </form>
+
+        <div id="notifySuccess" style="display:none;">
+            Thank you! We'll notify you when this service becomes available.
+        </div>
+
+    </div>
+</div>
+
 <script src="js/config.js"></script>
 <script src="js/airports.js"></script>
 <script src="js/navbar.js"></script>
 <script src="js/forms.js"></script>
+<script src="js/notify.js"></script>
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
 

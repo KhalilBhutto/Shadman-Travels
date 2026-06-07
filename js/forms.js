@@ -296,13 +296,20 @@ function submitToSheets() {
   const tab = getActiveTab();
   const ts  = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
 
-  const payload = {
-    timestamp:   ts,
-    name:        name,
-    phone:       phone,
-    email:       email || '—',
-    tripType:    '',
-  };
+const payload = {
+  timestamp: ts,
+  name: name,
+  phone: phone,
+  email: email || '—',
+  tripType: '',
+
+  passengerBreakdown: '',
+  additionalTravelers: '',
+
+  preferredAirline: '',
+  travelPurpose: '',
+  enquiryId: ''
+};
 
   if (tab === 'oneway') {
     payload.tripType    = 'One Way';
@@ -312,6 +319,24 @@ function submitToSheets() {
     payload.returnDate  = '—';
     payload.passengers  = document.getElementById('ow-pax').value;
     payload.travelClass = document.getElementById('ow-class').value;
+    payload.preferredAirline =
+  document.getElementById('ow-airline').value;
+
+payload.travelPurpose =
+  document.getElementById('ow-purpose').value;
+
+    payload.passengerBreakdown =
+   `Adults: ${paxState.ow.adults} | ` +
+   `Children: ${paxState.ow.children} | ` +
+   `Infants: ${paxState.ow.infants}`;
+
+  const extraNames = [];
+   document.querySelectorAll('#ow-pax-names input').forEach(input => {
+   if (input.value.trim()) extraNames.push(input.value.trim());
+});
+
+payload.additionalTravelers =
+  extraNames.length ? extraNames.join(' | ') : '—';
     payload.legs        = '—';
 
   } else if (tab === 'roundtrip') {
@@ -322,6 +347,23 @@ function submitToSheets() {
     payload.returnDate  = document.getElementById('rt-ret').value  || 'Not set';
     payload.passengers  = document.getElementById('rt-pax').value;
     payload.travelClass = document.getElementById('rt-class').value;
+    payload.preferredAirline =
+  document.getElementById('rt-airline').value;
+
+payload.travelPurpose =
+  document.getElementById('rt-purpose').value;
+    payload.passengerBreakdown =
+  `Adults: ${paxState.rt.adults} | ` +
+  `Children: ${paxState.rt.children} | ` +
+  `Infants: ${paxState.rt.infants}`;
+
+const extraNames = [];
+document.querySelectorAll('#rt-pax-names input').forEach(input => {
+  if (input.value.trim()) extraNames.push(input.value.trim());
+});
+
+payload.additionalTravelers =
+  extraNames.length ? extraNames.join(' | ') : '—';
     payload.legs        = '—';
 
   } else {
@@ -342,6 +384,23 @@ function submitToSheets() {
     payload.legs        = legs.join(' | ');
     payload.passengers  = document.getElementById('mc-pax').value;
     payload.travelClass = document.getElementById('mc-class').value;
+    payload.preferredAirline =
+  document.getElementById('mc-airline').value;
+
+payload.travelPurpose =
+  document.getElementById('mc-purpose').value;
+    payload.passengerBreakdown =
+  `Adults: ${paxState.mc.adults} | ` +
+  `Children: ${paxState.mc.children} | ` +
+  `Infants: ${paxState.mc.infants}`;
+
+const extraNames = [];
+document.querySelectorAll('#mc-pax-names input').forEach(input => {
+  if (input.value.trim()) extraNames.push(input.value.trim());
+});
+
+payload.additionalTravelers =
+  extraNames.length ? extraNames.join(' | ') : '—';
   }
 
   // Fallback: no sheet configured — just call
@@ -351,8 +410,11 @@ function submitToSheets() {
   }
 
   // Submit to Google Sheets
-  btn.classList.add('loading');
-  btn.innerHTML = '⏳ Sending Enquiry...';
+btn.classList.add('loading');
+btn.innerHTML = '⏳ Sending Enquiry...';
+
+// Generate unique Lead ID
+payload.enquiryId = 'ENQ-' + Date.now();
 
   fetch(SHEETS_URL, {
     method:  'POST',
