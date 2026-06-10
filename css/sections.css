@@ -418,7 +418,7 @@
   border: 1.5px solid rgba(201, 160, 40, 0.3);
 }
 
-.why-item-text h4 {
+.why-item-text h3 {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--g700);
