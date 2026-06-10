@@ -112,7 +112,7 @@ nav.scrolled {
 .brand-text .tag {
   font-family: 'Cinzel', serif;
   font-size: 0.52rem;
-  color: var(--gold);
+  color: #a67c00;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   margin-top: 2px;
