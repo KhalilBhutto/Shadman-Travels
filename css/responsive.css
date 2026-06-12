@@ -98,4 +98,13 @@
   .routes-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .sf-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pax-popup {
+  position: static;
+  margin-top: 8px;
+  }
 }
