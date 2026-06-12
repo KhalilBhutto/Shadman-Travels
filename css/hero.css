@@ -7,10 +7,11 @@
 .hero {
   position: relative;
   min-height: 100svh;
+  height: auto;
   background: var(--g900);
   display: flex;
-  align-items: center;
-  overflow: hidden;
+  align-items: flex-start;
+  overflow: visible;
 }
 
 #starCanvas {
@@ -24,6 +25,7 @@
 .hero-mesh {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201, 160, 40, 0.07) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 20% 80%, rgba(22, 61, 34, 0.8) 0%, transparent 70%);
@@ -33,13 +35,13 @@
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 80px 32px 60px;
   display: grid;
   grid-template-columns: 1fr 480px;
-  gap: 64px;
-  align-items: center;
+  gap: 48px;
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -169,4 +171,37 @@
 .route-badge .arr {
   color: var(--gold);
   font-size: 0.65rem;
+}
+
+/* ── Premium World Map Background ── */
+.hero-map {
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../images/world-map.svg");
+  background-repeat: no-repeat;
+  background-position: center 35%;
+  background-size: 120%;
+
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Mobile Hero Height Fix ── */
+@media (max-width: 768px) {
+
+  .hero {
+    min-height: 100svh;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 60px 20px 40px;
+  }
+
 }
