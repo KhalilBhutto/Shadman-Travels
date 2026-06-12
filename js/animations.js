@@ -35,6 +35,9 @@ window.addEventListener('load', () => {
   const ctx   = canvas.getContext('2d');
   let   stars = [];
 
+  let animationId = null;
+  let running = true;
+
   function resize() {
     canvas.width  = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -58,8 +61,10 @@ window.addEventListener('load', () => {
       });
     }
   }
-
+  
   function draw() {
+    if (!running) return;
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     stars.forEach(s => {
       // Twinkle
@@ -81,8 +86,23 @@ window.addEventListener('load', () => {
       ctx.fillStyle = `rgba(201,160,40,${s.a * 0.6})`;
       ctx.fill();
     });
-    requestAnimationFrame(draw);
+    animationId = requestAnimationFrame(draw);
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      running = false;
+
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    } else {
+      if (!running) {
+        running = true;
+        draw();
+      }
+    }
+  });
 
   window.addEventListener('resize', resize);
   resize();
