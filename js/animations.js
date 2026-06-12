@@ -43,7 +43,10 @@ window.addEventListener('load', () => {
 
   function init() {
     stars = [];
-    for (let i = 0; i < 160; i++) {
+
+    const starCount = window.innerWidth < 768 ? 100 : 160;
+
+    for (let i = 0; i < starCount; i++) {
       stars.push({
         x:  Math.random() * canvas.width,
         y:  Math.random() * canvas.height,
