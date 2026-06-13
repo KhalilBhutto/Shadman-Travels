@@ -82,10 +82,17 @@ window.addEventListener('load', () => {
       if (s.y > canvas.height) s.y = 0;
 
       ctx.beginPath();
+
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = "rgba(255,215,90,0.8)";
+
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,160,40,${s.a * 0.6})`;
+      ctx.fillStyle = `rgba(255,215,90,${s.a * 0.75})`;
       ctx.fill();
+      ctx.shadowBlur = 0;
+      
     });
+
     animationId = requestAnimationFrame(draw);
   }
 

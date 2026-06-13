@@ -15,20 +15,46 @@
 }
 
 #starCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+
+  pointer-events:none;
+
+  z-index:0;
+
 }
 
 .hero-mesh {
   position: absolute;
   inset: 0;
   z-index: 1;
+  pointer-events: none;
+
   background:
-    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201, 160, 40, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(22, 61, 34, 0.8) 0%, transparent 70%);
+
+    radial-gradient(
+      circle at 20% 35%,
+      rgba(201,160,40,0.12),
+      transparent 35%
+    ),
+
+    radial-gradient(
+      circle at 80% 40%,
+      rgba(255,215,90,0.08),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(22,61,34,0.9),
+      transparent 65%
+    );
 }
 
 /* ── Hero Layout ── */
@@ -49,29 +75,66 @@
   color: var(--white);
 }
 
-/* ── Eyebrow Badge ── */
+/* ── Premium Eyebrow Badge ── */
+
 .hero-eyebrow {
+
   display: inline-flex;
+
   align-items: center;
+
   gap: 10px;
-  background: rgba(201, 160, 40, 0.1);
-  border: 1px solid rgba(201, 160, 40, 0.3);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201,160,40,0.16),
+      rgba(201,160,40,0.05)
+    );
+
+  border:
+    1px solid rgba(201,160,40,0.45);
+
   color: var(--gold2);
+
   font-size: 0.72rem;
-  font-weight: 600;
+
+  font-weight: 700;
+
   letter-spacing: 0.18em;
+
   text-transform: uppercase;
-  padding: 7px 18px;
+
+  padding: 8px 20px;
+
   border-radius: 50px;
+
   margin-bottom: 24px;
+
+  box-shadow:
+    0 0 25px rgba(201,160,40,0.12),
+    inset 0 1px rgba(255,255,255,0.15);
+
+  backdrop-filter: blur(12px);
+
 }
 
 .hero-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+
+  width: 7px;
+
+  height: 7px;
+
   background: var(--gold);
+
   border-radius: 50%;
-  animation: blink 1.5s infinite;
+
+  box-shadow:
+    0 0 12px var(--gold);
+
+  animation:
+    blink 1.5s infinite;
+
 }
 
 @keyframes blink {
@@ -79,27 +142,75 @@
   50%       { opacity: 0.3; }
 }
 
-/* ── Headline ── */
+/* ── Premium Hero Headline ── */
+
 .hero h1 {
+
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 5.5vw, 5.2rem);
+
+  font-size:
+    clamp(3rem, 5.5vw, 5.2rem);
+
   font-weight: 600;
+
   line-height: 1.08;
+
   margin-bottom: 20px;
-  letter-spacing: -0.01em;
+
+  letter-spacing: -0.02em;
+
+  text-shadow:
+    0 0 35px rgba(201,160,40,0.12);
+
 }
 
 .hero h1 em {
+
   font-style: italic;
+
   color: var(--gold2);
+
+  text-shadow:
+    0 0 22px rgba(201,160,40,0.35);
+
 }
 
 .hero h1 .line2 {
+
   display: block;
-  background: linear-gradient(90deg, var(--gold), var(--gold2));
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      var(--gold2),
+      #fff1b8
+    );
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
+  background-size:200%;
+
+  animation:
+    textShine 6s ease-in-out infinite;
+
+}
+
+
+@keyframes textShine {
+
+  0%,100% {
+    background-position:0%;
+  }
+
+  50% {
+    background-position:100%;
+  }
+
 }
 
 /* ── Subheading ── */
@@ -112,32 +223,173 @@
   font-weight: 300;
 }
 
-/* ── CTA Buttons ── */
+/* ── Premium CTA Buttons ── */
+
 .hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+
 }
 
-/* ── Trust Pills ── */
-.hero-trust {
-  display: flex;
-  gap: 20px;
-  margin-top: 28px;
-  flex-wrap: wrap;
+
+.hero-actions .btn {
+
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:14px;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+
 }
+
+
+/* gold shine sweep */
+
+.hero-actions .btn::before {
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-120%;
+
+  width:80%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.35),
+      transparent
+    );
+
+  transform:skewX(-20deg);
+
+  transition:.5s;
+
+}
+
+
+.hero-actions .btn:hover::before {
+
+  left:140%;
+
+}
+
+
+.hero-actions .btn:hover {
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 15px 35px rgba(201,160,40,.25);
+
+}
+
+
+
+/* ── Premium Trust Pills ── */
+
+.hero-trust {
+
+  display:flex;
+
+  gap:14px;
+
+  margin-top:32px;
+
+  flex-wrap:wrap;
+
+}
+
 
 .trust-pill {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.75rem;
-  font-weight: 500;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+
+  padding:
+    8px 14px;
+
+
+  border-radius:50px;
+
+
+  background:
+    rgba(255,255,255,.05);
+
+
+  border:
+    1px solid rgba(201,160,40,.18);
+
+
+  backdrop-filter:
+    blur(10px);
+
+
+  color:
+    rgba(255,255,255,.65);
+
+
+  font-size:.72rem;
+
+  font-weight:600;
+
+
+  transition:
+    all .25s ease;
+
 }
 
+
+
+.trust-pill:hover {
+
+
+  transform:
+    translateY(-3px);
+
+
+  border-color:
+    rgba(201,160,40,.55);
+
+
+  color:
+    var(--gold2);
+
+
+  background:
+    rgba(201,160,40,.08);
+
+
+  box-shadow:
+    0 10px 25px rgba(201,160,40,.15);
+
+}
+
+
 .trust-pill svg {
-  flex-shrink: 0;
+
+  width:16px;
+  height:16px;
+
+  color:
+    var(--gold);
+
+  flex-shrink:0;
+
 }
 
 /* ── Route Badges ── */
@@ -202,6 +454,52 @@
     flex-direction: column;
     gap: 32px;
     padding: 60px 20px 40px;
+  }
+
+}
+
+/* ── Floating Gold Atmosphere ── */
+
+.hero::before {
+
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  left:-180px;
+  top:35%;
+
+  z-index:0;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,160,40,0.12),
+      transparent 65%
+    );
+
+  filter:blur(30px);
+
+  animation:heroGlow 8s ease-in-out infinite;
+
+  pointer-events:none;
+
+}
+
+
+@keyframes heroGlow {
+
+  0%,100% {
+    transform:translateY(0);
+    opacity:.7;
+  }
+
+  50% {
+    transform:translateY(-40px);
+    opacity:1;
   }
 
 }

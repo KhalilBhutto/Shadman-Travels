@@ -5,13 +5,99 @@
 
 /* ── Search Card ── */
 .search-card {
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.98),
+      rgba(248,246,240,0.94)
+    );
+
+  backdrop-filter: blur(24px);
+
+  border-radius: 24px;
+
   padding: 32px;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(201, 160, 40, 0.15);
+
+  box-shadow:
+    0 35px 90px rgba(0,0,0,0.38),
+    0 0 40px rgba(201,160,40,0.12),
+    inset 0 1px rgba(255,255,255,0.8);
+
+  border:
+    1px solid rgba(201,160,40,0.18);
+
   position: relative;
+
   overflow: hidden;
+
+}
+
+/* ── Floating Search Card Motion ── */
+
+.search-card {
+
+  animation:
+    searchFloat 6s ease-in-out infinite,
+    cardEnter .8s ease forwards;
+
+}
+
+
+@keyframes searchFloat {
+
+  0%,100% {
+
+    transform:
+      translateY(0);
+
+  }
+
+
+  50% {
+
+    transform:
+      translateY(-8px);
+
+  }
+
+}
+
+@keyframes cardEnter {
+
+  from {
+
+    opacity:0;
+
+    transform:
+      translateY(25px);
+
+  }
+
+
+  to {
+
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+/* ── Search Card Hover Depth ── */
+
+.search-card:hover {
+
+  box-shadow:
+
+    0 45px 110px rgba(0,0,0,.45),
+
+    0 0 55px rgba(201,160,40,.20),
+
+    inset 0 1px rgba(255,255,255,.9);
+
 }
 
 .search-card::before {
@@ -20,10 +106,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px;
   background: linear-gradient(90deg, var(--g600), var(--gold), var(--gold2), var(--g600));
   background-size: 200%;
-  animation: shimmer 3s linear infinite;
+  animation: shimmer 4s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -783,4 +869,39 @@
 .fsub:hover {
   background: linear-gradient(135deg, var(--g600), var(--g400));
   transform: translateY(-1px);
+}
+
+/* ── Search Card Luxury Glow ── */
+
+.search-card::after {
+
+  content:"";
+
+  position:absolute;
+
+  width:240px;
+  height:240px;
+
+  right:-100px;
+  bottom:-100px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,160,40,0.18),
+      transparent 70%
+    );
+
+  pointer-events:none;
+
+}
+
+@media(max-width:768px){
+
+  .search-card {
+
+    animation:none;
+
+  }
+
 }
