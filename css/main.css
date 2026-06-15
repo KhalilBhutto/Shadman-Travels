@@ -360,11 +360,18 @@ ul {
   height: 60px;
   background: #25d366;
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 1.7rem;
+
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.25);
+
   box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
+
   animation: wapulse 2.5s ease infinite;
   transition: transform 0.2s;
   text-decoration: none;
@@ -372,6 +379,16 @@ ul {
 
 .wa-fab:hover {
   transform: scale(1.12);
+
+  box-shadow: 0 10px 45px rgba(37,211,102,.75);
+}
+
+.wa-fab i {
+
+  font-size: 2rem;
+  line-height: 1;
+  color: white;
+
 }
 
 @keyframes wapulse {
