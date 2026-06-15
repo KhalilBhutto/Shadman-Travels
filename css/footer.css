@@ -69,8 +69,34 @@ footer {
   text-decoration: none;
 }
 
+/* ── Social Brand Colors ── */
+
+.fs-btn .fa-whatsapp {
+  color:#25d366;
+}
+
+
+.fs-btn .fa-instagram {
+  color:#e1306c;
+}
+
+
+.fs-btn .fa-at {
+  color:#6001d2;
+}
+
+
+.fs-btn .fa-phone {
+  color:var(--gold);
+}
+
 .fs-btn:hover {
   background: var(--gold);
+  transform: translateY(-2px);
+}
+
+
+.fs-btn:hover i {
   color: var(--g900);
 }
 
@@ -96,6 +122,34 @@ footer {
 
 .foot-col ul li a:hover {
   color: var(--gold2);
+}
+
+/* ── Contact Icons ── */
+
+#contact li i {
+  width:18px;
+  margin-right:8px;
+  text-align:center;
+}
+
+
+#contact .fa-phone {
+  color:var(--gold);
+}
+
+
+#contact .fa-at {
+  color:#6001d2;
+}
+
+
+#contact .fa-instagram {
+  color:#e1306c;
+}
+
+
+#contact .fa-globe {
+  color:#25d366;
 }
 
 /* ── License Badge ── */
