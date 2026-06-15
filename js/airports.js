@@ -77,16 +77,48 @@ const AIRPORTS = [
  * @param {HTMLElement} listEl  - The .ap-list container
  * @param {string}      q       - Search query string
  */
-function renderOptions(listEl, q) {
+function renderOptions(listEl, q, currentInput) {
   listEl.innerHTML = '';
   const lq       = q.toLowerCase().trim();
-  const filtered = lq
-    ? AIRPORTS.filter(a =>
-        a.name.toLowerCase().includes(lq)  ||
-        a.code.toLowerCase().includes(lq)  ||
-        a.group.toLowerCase().includes(lq)
-      )
-    : AIRPORTS;
+  const wrapEl = currentInput?.closest('.ap-wrap');
+  let excludedValue = '';
+
+  if (wrapEl) {
+    const isToField =
+      currentInput.id?.includes('-to') ||
+      currentInput.classList.contains('mc-to');
+
+    if (isToField) {
+      let fromInput = null;
+
+      if (currentInput.id?.startsWith('ow-')) {
+        fromInput = document.getElementById('ow-from');
+      } else if (currentInput.id?.startsWith('rt-')) {
+        fromInput = document.getElementById('rt-from');
+      } else {
+        const leg = wrapEl.closest('.mc-leg');
+        fromInput = leg?.querySelector('.mc-from');
+      }
+
+      excludedValue = fromInput?.value || '';
+    }
+  }
+  const filtered = AIRPORTS.filter(a => {
+    const airportValue = `${a.name} (${a.code})`;
+
+    const matchesSearch =
+      !lq ||
+      a.name.toLowerCase().includes(lq) ||
+      a.code.toLowerCase().includes(lq) ||
+      a.group.toLowerCase().includes(lq);
+
+    const notSelectedOrigin =
+      !excludedValue ||
+      airportValue.toLowerCase().trim() !==
+      excludedValue.toLowerCase().trim();
+
+      return matchesSearch && notSelectedOrigin;
+    });
 
   if (!filtered.length) {
     const no      = document.createElement('div');
@@ -118,7 +150,7 @@ function renderOptions(listEl, q) {
  * @param {HTMLElement} dd    - The .ap-dropdown container
  * @param {string}      query - Initial query to pre-populate the search box
  */
-function buildDropdown(dd, query) {
+function buildDropdown(dd, query, currentInput) {
   dd.innerHTML = '';
 
   // Search row
@@ -131,13 +163,13 @@ function buildDropdown(dd, query) {
   const listEl       = document.createElement('div');
   listEl.className   = 'ap-list';
   dd.appendChild(listEl);
-  renderOptions(listEl, query || '');
+  renderOptions(listEl, query || '', currentInput);
 
   const searchInput = searchRow.querySelector('.ap-search-input');
   if (query) searchInput.value = query;
 
   searchInput.addEventListener('input', function () {
-    renderOptions(listEl, this.value);
+  renderOptions(listEl, this.value, currentInput);
   });
 
   // Prevent the dropdown from closing when clicking inside it
@@ -162,13 +194,12 @@ function initCombobox(wrapEl) {
   // Open dropdown on focus
   input.addEventListener('focus', function () {
     wrapEl.classList.add('open');
-    buildDropdown(dd, this.value);
+    buildDropdown(dd, '', input);
   });
-
   // Live-filter as user types
   input.addEventListener('input', function () {
     const listEl = dd.querySelector('.ap-list');
-    if (listEl) renderOptions(listEl, this.value);
+    if (listEl) renderOptions(listEl, this.value, input);
     this.classList.toggle('has-value', !!this.value);
   });
 
