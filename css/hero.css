@@ -503,3 +503,16 @@
   }
 
 }
+
+.phone-icon,
+.whatsapp-icon {
+  margin-right: 8px;
+}
+
+.phone-icon {
+  color: #25D366;
+}
+
+.whatsapp-icon {
+  color: #25D366;
+}
