@@ -418,6 +418,10 @@
   border: 1.5px solid rgba(201, 160, 40, 0.3);
 }
 
+.why-item-icon i {
+  color: var(--gold);
+}
+
 .why-item-text h3 {
   font-size: 0.9rem;
   font-weight: 700;
@@ -522,6 +526,10 @@
 .certbadge .ci {
   font-size: 1.4rem;
   margin-bottom: 6px;
+}
+
+.certbadge .ci i {
+  color: var(--gold);
 }
 
 .certbadge .ct {
@@ -638,7 +646,7 @@
 /* ── Testimonial Carousel ── */
 .testi-carousel-wrap {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .testi-carousel {

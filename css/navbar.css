@@ -246,6 +246,16 @@ nav.scrolled {
   color: var(--gold2);
 }
 
+.mobile-phone-icon {
+  color: var(--gold2);
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.mob-cta .mobile-phone-icon {
+  color: var(--g900);
+}
+
 .mob-cta {
   margin-top: 16px;
   background: var(--gold);

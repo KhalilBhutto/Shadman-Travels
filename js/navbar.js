@@ -16,15 +16,28 @@ const overlayEl    = document.getElementById('overlay');
 
 /* ─── MOBILE MENU ─── */
 function toggleMobileMenu() {
-  mobileMenuEl.classList.toggle('open');
-  hamBtn.classList.toggle('open');
-  overlayEl.classList.toggle('show');
+  const isOpen = mobileMenuEl.classList.toggle('open');
+
+  hamBtn.classList.toggle('open', isOpen);
+  overlayEl.classList.toggle('show', isOpen);
+
+  mobileMenuEl.setAttribute('aria-hidden', String(!isOpen));
+  hamBtn.setAttribute('aria-expanded', String(isOpen));
+
+  if (!isOpen) {
+    hamBtn.focus();
+  }
 }
 
 function closeMobileMenu() {
+  hamBtn.focus();
+
   mobileMenuEl.classList.remove('open');
   hamBtn.classList.remove('open');
   overlayEl.classList.remove('show');
+
+  mobileMenuEl.setAttribute('aria-hidden', 'true');
+  hamBtn.setAttribute('aria-expanded', 'false');
 }
 
 /* ─── STICKY NAV — add .scrolled class after 80 px ─── */

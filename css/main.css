@@ -166,6 +166,11 @@ ul {
   font-size: 1rem;
 }
 
+.trust-phone-icon,
+.trust-shield-icon {
+  color: #25D366;
+}
+
 .tm-sep {
   color: rgba(201, 160, 40, 0.3);
   font-size: 1.2rem;
@@ -243,6 +248,16 @@ ul {
   font-size: 1.4rem;
   margin-bottom: 8px;
   opacity: 0.7;
+}
+
+.stats-phone-icon {
+  color: #25D366;
+  opacity: 1;
+}
+
+.stats-plane-icon {
+  color: var(--gold);
+  opacity: 1;
 }
 
 /* ── Section Utility ── */
