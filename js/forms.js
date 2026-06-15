@@ -187,6 +187,9 @@ function addMCLeg() {
   const legEl    = tmp.firstElementChild;
 
   document.getElementById('mc-extra-legs').appendChild(legEl);
+  
+  // Apply date limits to newly added date fields
+  setupDateRestrictions();
 
   // Wire up airport comboboxes on the new leg
   legEl.querySelectorAll('.ap-wrap').forEach(w => initCombobox(w));
@@ -451,6 +454,67 @@ if (typeof gtag === 'function') {
 }
 
 /* ═══════════════════════════════════════════
+   DATE RESTRICTIONS
+═══════════════════════════════════════════ */
+
+function setupDateRestrictions() {
+  const today = new Date();
+
+  const minDate = today.toISOString().split('T')[0];
+
+  const maxDateObj = new Date(today);
+  maxDateObj.setFullYear(maxDateObj.getFullYear() + 1);
+
+  const maxDate = maxDateObj.toISOString().split('T')[0];
+
+  // Apply min/max to all date inputs
+  document.querySelectorAll('input[type="date"]').forEach(input => {
+    input.min = minDate;
+    input.max = maxDate;
+  });
+
+  // Round-trip logic
+  const rtDep = document.getElementById('rt-dep');
+  const rtRet = document.getElementById('rt-ret');
+
+  if (rtDep && rtRet) {
+    rtDep.onchange = function () {
+      rtRet.min = this.value || minDate;
+
+      if (rtRet.value && rtRet.value < this.value) {
+        rtRet.value = this.value;
+      }
+    };
+  }
+
+// Multi-city sequential dates
+function updateMultiCityDates() {
+  const mcDates = document.querySelectorAll('.mc-date');
+
+  let previousDate = minDate;
+
+  mcDates.forEach(dateInput => {
+
+    dateInput.min = previousDate;
+    dateInput.max = maxDate;
+
+    if (dateInput.value && dateInput.value < previousDate) {
+      dateInput.value = previousDate;
+    }
+
+    previousDate = dateInput.value || previousDate;
+  });
+}
+
+document.querySelectorAll('.mc-date').forEach(dateInput => {
+  dateInput.onchange = updateMultiCityDates;
+});
+
+// Run once immediately
+updateMultiCityDates();
+}
+
+/* ═══════════════════════════════════════════
    OUTSIDE-CLICK CLOSE — popups & dropdowns
 ═══════════════════════════════════════════ */
 document.addEventListener('mousedown', function (e) {
@@ -486,4 +550,5 @@ window.submitToSheets  = submitToSheets;
 ═══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', function () {
   initTripTabs();
+  setupDateRestrictions();
 });
