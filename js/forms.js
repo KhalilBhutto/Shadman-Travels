@@ -510,7 +510,184 @@ for (const input of dobInputs) {
   }
 }
 
-  const tab = getActiveTab();
+const tab = getActiveTab();
+  if (tab === 'oneway') {
+  const from = document.getElementById('ow-from');
+  const to = document.getElementById('ow-to');
+
+  if (!from.value.trim()) {
+    valEl.textContent = '⚠ Please select a departure airport.';
+    valEl.style.display = 'block';
+
+    showFieldError(from);
+
+    from.focus();
+    from.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (!to.value.trim()) {
+    valEl.textContent = '⚠ Please select a destination airport.';
+    valEl.style.display = 'block';
+
+    showFieldError(to);
+
+    to.focus();
+    to.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+ const dep = document.getElementById('ow-dep');
+
+  if (!dep.value) {
+    valEl.textContent = '⚠ Please select a departure date.';
+    valEl.style.display = 'block';
+
+    showFieldError(dep);
+
+    dep.focus();
+    dep.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+
+} else if (tab === 'roundtrip') {
+  const from = document.getElementById('rt-from');
+  const to = document.getElementById('rt-to');
+
+  if (!from.value.trim()) {
+    valEl.textContent = '⚠ Please select a departure airport.';
+    valEl.style.display = 'block';
+
+    showFieldError(from);
+
+    from.focus();
+    from.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (!to.value.trim()) {
+    valEl.textContent = '⚠ Please select a destination airport.';
+    valEl.style.display = 'block';
+
+    showFieldError(to);
+
+    to.focus();
+    to.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  const dep = document.getElementById('rt-dep');
+  const ret = document.getElementById('rt-ret');
+
+  if (!dep.value) {
+    valEl.textContent = '⚠ Please select a departure date.';
+    valEl.style.display = 'block';
+
+    showFieldError(dep);
+
+    dep.focus();
+    dep.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (!ret.value) {
+    valEl.textContent = '⚠ Please select a return date.';
+    valEl.style.display = 'block';
+
+    showFieldError(ret);
+
+    ret.focus();
+    ret.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+
+
+} else if (tab === 'multicity') {
+  const legs = document.querySelectorAll('#panel-multicity .mc-leg');
+
+  for (const leg of legs) {
+    const from = leg.querySelector('.mc-from');
+    const to = leg.querySelector('.mc-to');
+    const date = leg.querySelector('.mc-date');
+
+    if (!from.value.trim()) {
+      valEl.textContent = '⚠ Please select a departure airport for every leg.';
+      valEl.style.display = 'block';
+
+      showFieldError(from);
+
+      from.focus();
+      from.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      return;
+    }
+
+    if (!to.value.trim()) {
+      valEl.textContent = '⚠ Please select a destination airport for every leg.';
+      valEl.style.display = 'block';
+
+      showFieldError(to);
+
+      to.focus();
+      to.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      return;
+    }
+
+    if (!date.value) {
+      valEl.textContent = '⚠ Please select a departure date for every leg.';
+      valEl.style.display = 'block';
+
+      showFieldError(date);
+
+      date.focus();
+      date.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      return;
+    }
+  }
+}
+
+
   const ts  = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
 
 const payload = {
