@@ -673,25 +673,26 @@ const tab = getActiveTab();
   }
 
   if (ret.value < dep.value) {
-  valEl.textContent =
-    '⚠ Return date cannot be before departure date.';
-  valEl.style.display = 'block';
+    valEl.textContent =
+      '⚠ Return date cannot be earlier than departure date.';
+    valEl.style.display = 'block';
 
-  showFieldError(ret);
+    showFieldError(ret);
 
-  ret.focus();
-  ret.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
-  });
+    ret.focus();
+    ret.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
 
-  return;
-}
-
+    return;
+  } 
 
 
 } else if (tab === 'multicity') {
   const legs = document.querySelectorAll('#panel-multicity .mc-leg');
+
+  let previousDate = null;
 
   for (const leg of legs) {
     const from = leg.querySelector('.mc-from');
@@ -740,7 +741,6 @@ const tab = getActiveTab();
       showFieldError(to);
 
       from.focus();
-
       from.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
@@ -763,6 +763,25 @@ const tab = getActiveTab();
 
       return;
     }
+
+    if (previousDate && date.value < previousDate) {
+      valEl.textContent =
+        '⚠ Multi City dates must be in chronological order.';
+      valEl.style.display = 'block';
+
+      showFieldError(date);
+
+      date.focus();
+      date.scrollIntoView({
+       behavior: 'smooth',
+       block: 'center'
+      });
+
+      return;
+    }
+
+    previousDate = date.value;
+
   }
 }
 
