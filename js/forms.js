@@ -148,17 +148,22 @@ function updatePaxUI(tab) {
       <label>${passenger.number}${getOrdinal(passenger.number)} ${passenger.type} Full Name</label>
       <input
         type="text"
-        placeholder="e.g. Ali Khan"
+        class="passenger-name"
+        placeholder="e.g. Ali Raza"
         autocomplete="off"
       />
 
       ${
         passenger.needsDob
           ? `
-            <label style="margin-top:8px;">Date of Birth</label>
-            <input type="date" class="child-infant-dob" />
+            <label class="dob-label">Date of Birth</label>
+            <input
+              type="date"
+              class="child-infant-dob"
+              data-passenger-type="${passenger.type.toLowerCase()}"
+            />
           `
-          : ''
+        : ''
       }
     `;
 
@@ -331,7 +336,49 @@ function getActiveTab() {
  *  - falls back to tel: if SHEETS_URL is not configured, OR
  *  - submits to Google Sheets via fetch (no-cors).
  */
+function isValidPhone(phone) {
+  const cleaned = phone.replace(/\s+/g, '');
+
+  const pattern =
+    /^(\+92|0)?3\d{9}$/;
+
+  return pattern.test(cleaned);
+}
+
+function getAgeInYears(dateString) {
+  const dob = new Date(dateString);
+  const today = new Date();
+
+  let age = today.getFullYear() - dob.getFullYear();
+
+  const monthDiff = today.getMonth() - dob.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < dob.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
+
+function isValidPassengerAge(type, dob) {
+  const age = getAgeInYears(dob);
+
+  if (type === 'infant') {
+    return age < 2;
+  }
+
+  if (type === 'child') {
+    return age >= 2 && age <= 11;
+  }
+
+  return true;
+}
+
 function submitToSheets() {
+  console.log('submitToSheets called');
   const btn    = document.getElementById('searchSubmitBtn');
   const toast  = document.getElementById('gs-toast');
   const errEl  = document.getElementById('gs-error');
@@ -348,11 +395,89 @@ function submitToSheets() {
   const email = (document.getElementById('cf-email').value || '').trim();
 
   // Validate required fields
-  if (!name || !phone) {
+  if (!name) {
+    valEl.textContent = '⚠ Please enter the 1st Adult Full Name.';
     valEl.style.display = 'block';
-    document.getElementById(name ? 'cf-phone' : 'cf-name').focus();
+    document.getElementById('cf-name').focus();
     return;
   }
+
+  if (!phone) {
+    valEl.textContent = '⚠ Please enter your WhatsApp / Phone number.';
+    valEl.style.display = 'block';
+    document.getElementById('cf-phone').focus();
+    return;
+  }
+
+  // Validate phone number format
+  if (!isValidPhone(phone)) {
+
+    errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.';
+    errEl.style.display = 'block';
+
+    document.getElementById('cf-phone').focus();
+
+    return;
+  }
+
+  
+
+  // Validate additional passenger names
+const passengerNames = document.querySelectorAll('.passenger-name');
+
+for (const input of passengerNames) {
+  if (!input.value.trim()) {
+    valEl.textContent = '⚠ Please enter all passenger names.';
+    valEl.style.display = 'block';
+
+    input.focus();
+    input.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+}
+
+// Validate child and infant DOBs
+const dobInputs = document.querySelectorAll('.child-infant-dob');
+
+for (const input of dobInputs) {
+  const dob = input.value;
+  const type = input.dataset.passengerType;
+
+  if (!dob) {
+    valEl.textContent =
+      '⚠ Please select all child and infant dates of birth.';
+    valEl.style.display = 'block';
+
+    input.focus();
+    input.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (!isValidPassengerAge(type, dob)) {
+    valEl.textContent =
+      type === 'infant'
+        ? '⚠ Infants must be under 2 years old.'
+        : '⚠ Children must be between 2 and 11 years old.';
+
+    valEl.style.display = 'block';
+
+    input.focus();
+    input.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+}
 
   const tab = getActiveTab();
   const ts  = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
