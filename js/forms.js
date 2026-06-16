@@ -672,6 +672,22 @@ const tab = getActiveTab();
     return;
   }
 
+  if (ret.value < dep.value) {
+  valEl.textContent =
+    '⚠ Return date cannot be before departure date.';
+  valEl.style.display = 'block';
+
+  showFieldError(ret);
+
+  ret.focus();
+  ret.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+
+  return;
+}
+
 
 
 } else if (tab === 'multicity') {
