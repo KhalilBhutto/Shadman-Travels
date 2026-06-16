@@ -545,6 +545,27 @@ const tab = getActiveTab();
     return;
   }
 
+  if (
+    from.value.trim().toLowerCase() ===
+    to.value.trim().toLowerCase()
+  ) {
+    valEl.textContent =
+      '⚠ Departure and destination airports cannot be the same.';
+    valEl.style.display = 'block';
+
+    showFieldError(from);
+    showFieldError(to);
+
+    from.focus();
+
+    from.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+  
  const dep = document.getElementById('ow-dep');
 
   if (!dep.value) {
@@ -590,6 +611,27 @@ const tab = getActiveTab();
 
     to.focus();
     to.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (
+    from.value.trim().toLowerCase() ===
+    to.value.trim().toLowerCase()
+  ) {
+    valEl.textContent =
+      '⚠ Departure and destination airports cannot be the same.';
+    valEl.style.display = 'block';
+
+    showFieldError(from);
+    showFieldError(to);
+
+    from.focus();
+
+    from.scrollIntoView({
       behavior: 'smooth',
       block: 'center'
     });
@@ -663,6 +705,27 @@ const tab = getActiveTab();
 
       to.focus();
       to.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      return;
+    }
+
+    if (
+      from.value.trim().toLowerCase() ===
+      to.value.trim().toLowerCase()
+    ) {
+      valEl.textContent =
+        '⚠ Departure and destination airports cannot be the same for any flight.';
+      valEl.style.display = 'block';
+
+      showFieldError(from);
+      showFieldError(to);
+
+      from.focus();
+
+      from.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
