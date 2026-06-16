@@ -377,6 +377,16 @@ function isValidPassengerAge(type, dob) {
   return true;
 }
 
+function showFieldError(input) {
+  if (!input) return;
+  input.classList.add('input-error');
+}
+
+function clearFieldError(input) {
+  if (!input) return;
+  input.classList.remove('input-error');
+}
+
 function submitToSheets() {
   console.log('submitToSheets called');
   const btn    = document.getElementById('searchSubmitBtn');
@@ -389,6 +399,9 @@ function submitToSheets() {
   errEl.style.display = 'none';
   valEl.style.display = 'none';
 
+  // Clear previous field errors
+  document.querySelectorAll('.input-error').forEach(clearFieldError);
+
   // Collect contact info
   const name  = (document.getElementById('cf-name').value  || '').trim();
   const phone = (document.getElementById('cf-phone').value || '').trim();
@@ -398,14 +411,23 @@ function submitToSheets() {
   if (!name) {
     valEl.textContent = '⚠ Please enter the 1st Adult Full Name.';
     valEl.style.display = 'block';
-    document.getElementById('cf-name').focus();
+    const nameInput = document.getElementById('cf-name');
+
+    showFieldError(nameInput);
+    nameInput.focus();
+
     return;
   }
 
   if (!phone) {
     valEl.textContent = '⚠ Please enter your WhatsApp / Phone number.';
     valEl.style.display = 'block';
-    document.getElementById('cf-phone').focus();
+
+    const phoneInput = document.getElementById('cf-phone');
+
+    showFieldError(phoneInput);
+    phoneInput.focus();
+
     return;
   }
 
@@ -415,7 +437,10 @@ function submitToSheets() {
     errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.';
     errEl.style.display = 'block';
 
-    document.getElementById('cf-phone').focus();
+    const phoneInput = document.getElementById('cf-phone');
+
+    showFieldError(phoneInput);
+    phoneInput.focus();
 
     return;
   }
@@ -429,6 +454,8 @@ for (const input of passengerNames) {
   if (!input.value.trim()) {
     valEl.textContent = '⚠ Please enter all passenger names.';
     valEl.style.display = 'block';
+
+    showFieldError(input);
 
     input.focus();
     input.scrollIntoView({
@@ -452,6 +479,8 @@ for (const input of dobInputs) {
       '⚠ Please select all child and infant dates of birth.';
     valEl.style.display = 'block';
 
+    showFieldError(input);
+
     input.focus();
     input.scrollIntoView({
       behavior: 'smooth',
@@ -468,6 +497,8 @@ for (const input of dobInputs) {
         : '⚠ Children must be between 2 and 11 years old.';
 
     valEl.style.display = 'block';
+
+    showFieldError(input);
 
     input.focus();
     input.scrollIntoView({
@@ -734,4 +765,16 @@ window.submitToSheets  = submitToSheets;
 document.addEventListener('DOMContentLoaded', function () {
   initTripTabs();
   setupDateRestrictions();
+});
+
+document.addEventListener('input', (e) => {
+  if (e.target.classList.contains('input-error')) {
+    clearFieldError(e.target);
+  }
+});
+
+document.addEventListener('change', (e) => {
+  if (e.target.classList.contains('input-error')) {
+    clearFieldError(e.target);
+  }
 });
