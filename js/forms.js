@@ -566,7 +566,7 @@ const tab = getActiveTab();
     return;
   }
   
- const dep = document.getElementById('ow-dep');
+  const dep = document.getElementById('ow-dep');
 
   if (!dep.value) {
     valEl.textContent = '⚠ Please select a departure date.';
