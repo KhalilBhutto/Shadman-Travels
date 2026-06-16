@@ -36,6 +36,17 @@ function initTripTabs() {
    PASSENGER PICKER
 ═══════════════════════════════════════════ */
 
+function getOrdinal(n) {
+  if (n % 100 >= 11 && n % 100 <= 13) return 'th';
+
+  switch (n % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+}
+
 /**
  * Increment / decrement a passenger type for a given tab.
  * @param {string} tab   - 'ow' | 'rt' | 'mc'
@@ -97,20 +108,67 @@ function updatePaxUI(tab) {
   const namesContainer = document.getElementById(tab + '-pax-names');
 
   if (total > 1) {
-    extraSection.style.display = 'block';
-    namesContainer.innerHTML   = '';
-    const extraCount = Math.min(total - 1, 8);
-    for (let i = 0; i < extraCount; i++) {
-      const div       = document.createElement('div');
-      div.className   = 'extra-pax-name';
-      div.innerHTML   = `<label>Passenger ${i + 2} Full Name</label>
-        <input type="text" placeholder="e.g. Ali Khan" autocomplete="off"/>`;
-      namesContainer.appendChild(div);
-    }
-  } else {
-    extraSection.style.display = 'none';
-    namesContainer.innerHTML   = '';
+  extraSection.style.display = 'block';
+  namesContainer.innerHTML = '';
+
+  const passengerList = [];
+
+  // Additional adults (skip primary passenger)
+  for (let i = 2; i <= s.adults; i++) {
+    passengerList.push({
+      type: 'Adult',
+      number: i,
+      needsDob: false
+    });
   }
+
+  // Children
+  for (let i = 1; i <= s.children; i++) {
+    passengerList.push({
+      type: 'Child',
+      number: s.adults + i,
+      needsDob: true
+    });
+  }
+
+  // Infants
+  for (let i = 1; i <= s.infants; i++) {
+    passengerList.push({
+      type: 'Infant',
+      number: s.adults + s.children + i,
+      needsDob: true
+    });
+  }
+
+  passengerList.forEach(passenger => {
+    const div = document.createElement('div');
+    div.className = 'extra-pax-name';
+
+    div.innerHTML = `
+      <label>${passenger.number}${getOrdinal(passenger.number)} ${passenger.type} Full Name</label>
+      <input
+        type="text"
+        placeholder="e.g. Ali Khan"
+        autocomplete="off"
+      />
+
+      ${
+        passenger.needsDob
+          ? `
+            <label style="margin-top:8px;">Date of Birth</label>
+            <input type="date" class="child-infant-dob" />
+          `
+          : ''
+      }
+    `;
+
+    namesContainer.appendChild(div);
+  });
+
+} else {
+  extraSection.style.display = 'none';
+  namesContainer.innerHTML = '';
+}
 }
 
 /**
