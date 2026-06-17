@@ -262,11 +262,23 @@ function addMCLeg() {
   }
 }
 
+/** Reset Multi City back to the default single flight leg. */
+function resetMCLegs() {
+  document.getElementById('mc-extra-legs').innerHTML = '';
+
+  mcLegCount = 1;
+
+  document.getElementById('mcAddBtn').style.display = 'block';
+}
+
 /** Remove a dynamic leg from the hero search-card multi-city panel. */
 function removeMCLeg(n) {
   const el = document.getElementById('mc-leg-' + n);
+
   if (el) el.remove();
+
   mcLegCount = Math.max(1, mcLegCount - 1);
+
   document.getElementById('mcAddBtn').style.display = 'block';
 }
 
@@ -1082,6 +1094,8 @@ if (typeof gtag === 'function') {
           leg.querySelector('.mc-to').value = '';
           leg.querySelector('.mc-date').value = '';
         });
+
+        resetMCLegs();
         
         resetPassengerState('mc');
         document.getElementById('mc-pax').value = '1 Adult';
@@ -1092,11 +1106,13 @@ if (typeof gtag === 'function') {
 
       setTimeout(() => { toast.style.display = 'none'; }, 6000);
     })
-    .catch(() => {
-      errEl.style.display = 'block';
-      btn.classList.remove('loading');
-      btn.innerHTML = '✈ Get Exclusive Fare — Call Now';
-    });
+    .catch(error => {
+     console.error(error);
+
+    errEl.style.display = 'block';
+    btn.classList.remove('loading');
+    btn.innerHTML = '✈ Get Exclusive Fare — Call Now';
+  });
 }
 
 /* ═══════════════════════════════════════════
