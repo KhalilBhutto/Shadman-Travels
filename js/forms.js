@@ -1039,7 +1039,15 @@ btn.classList.add('loading');
 btn.innerHTML = '⏳ Sending Enquiry...';
 
 // Generate unique Lead ID
-payload.enquiryId = 'ENQ-' + Date.now();
+  const now = new Date();
+
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = String(now.getFullYear()).slice(-2);
+
+  const random = Math.floor(1000 + Math.random() * 9000);
+
+  payload.enquiryId = `STT-${day}${month}${year}-${random}`;
 
   fetch(SHEETS_URL, {
     method:  'POST',
