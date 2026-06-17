@@ -149,7 +149,7 @@ function updatePaxUI(tab) {
       <input
         type="text"
         class="passenger-name"
-        placeholder="e.g. Ali Raza"
+        placeholder="e.g. Mohsin Ali"
         autocomplete="off"
       />
 
