@@ -377,6 +377,30 @@ function isValidPassengerAge(type, dob) {
   return true;
 }
 
+function isValidTravelDate(dateValue) {
+  if (!dateValue) return false;
+
+  const parts = dateValue.split('-');
+
+  if (parts.length !== 3) return false;
+
+  const selectedDate = new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2])
+  );
+
+  selectedDate.setHours(0, 0, 0, 0);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const maxDate = new Date(today);
+  maxDate.setFullYear(maxDate.getFullYear() + 1);
+
+  return selectedDate >= today && selectedDate <= maxDate;
+}
+
 function showFieldError(input) {
   if (!input) return;
   input.classList.add('input-error');
@@ -388,6 +412,8 @@ function clearFieldError(input) {
 }
 
 function submitToSheets() {
+  document.activeElement.blur();
+
   console.log('submitToSheets called');
   const btn    = document.getElementById('searchSubmitBtn');
   const toast  = document.getElementById('gs-toast');
@@ -583,6 +609,23 @@ const tab = getActiveTab();
     return;
   }
 
+  if (!isValidTravelDate(dep.value)) {
+
+    valEl.textContent =
+      '⚠ Departure date must be between today and one year from today.';
+    valEl.style.display = 'block';
+
+    showFieldError(dep);
+
+    dep.focus();
+    dep.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }  
+
 
 } else if (tab === 'roundtrip') {
   const from = document.getElementById('rt-from');
@@ -657,8 +700,42 @@ const tab = getActiveTab();
     return;
   }
 
+  if (!isValidTravelDate(dep.value)) {
+    valEl.textContent =
+      '⚠ Departure date must be between today and one year from today.';
+    valEl.style.display = 'block';
+
+    showFieldError(dep);
+
+    dep.focus();
+    dep.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
   if (!ret.value) {
     valEl.textContent = '⚠ Please select a return date.';
+    valEl.style.display = 'block';
+
+    showFieldError(ret);
+
+    ret.focus();
+    ret.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    return;
+  }
+
+  if (!isValidTravelDate(ret.value)) {
+    console.log('INVALID RT RETURN BLOCK REACHED');
+
+    valEl.textContent =
+      '⚠ Return date must be between today and one year from today.';
     valEl.style.display = 'block';
 
     showFieldError(ret);
@@ -760,6 +837,22 @@ const tab = getActiveTab();
         behavior: 'smooth',
         block: 'center'
       });
+
+      return;
+    }
+
+    if (!isValidTravelDate(date.value)) {
+      valEl.textContent =
+        '⚠ Travel dates must be between today and one year from today.';
+      valEl.style.display = 'block';
+
+      showFieldError(date);
+
+      date.focus();
+      date.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+     });
 
       return;
     }
