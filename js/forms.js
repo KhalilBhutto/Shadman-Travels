@@ -411,6 +411,34 @@ function clearFieldError(input) {
   input.classList.remove('input-error');
 }
 
+function resetPassengerState(tab) {
+  paxState[tab] = {
+    adults: 1,
+    children: 0,
+    infants: 0
+  };
+
+  const container = document.getElementById(`${tab}-pax-names`);
+
+  if (container) {
+    container.innerHTML = '';
+  }
+
+  const extraSection = document.getElementById(`${tab}-extra-pax`);
+
+  if (extraSection) {
+    extraSection.style.display = 'none';
+  }
+
+  const extraPhone = document.getElementById(`${tab}-extra-phone`);
+
+  if (extraPhone) {
+    extraPhone.value = '';
+  }
+
+  updatePaxUI(tab);
+}
+
 function submitToSheets() {
   document.activeElement.blur();
 
@@ -1025,6 +1053,42 @@ if (typeof gtag === 'function') {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
+
+      // Reset active trip form
+      if (tab === 'oneway') {
+        document.getElementById('ow-from').value = '';
+        document.getElementById('ow-to').value = '';
+        document.getElementById('ow-dep').value = '';
+        resetPassengerState('ow');
+        document.getElementById('ow-pax').value = '1 Adult';
+        document.getElementById('ow-class').selectedIndex = 0;
+        document.getElementById('ow-airline').selectedIndex = 0;
+        document.getElementById('ow-purpose').selectedIndex = 0;
+
+      } else if (tab === 'roundtrip') {
+        document.getElementById('rt-from').value = '';
+        document.getElementById('rt-to').value = '';
+        document.getElementById('rt-dep').value = '';
+        document.getElementById('rt-ret').value = '';
+        resetPassengerState('rt');
+        document.getElementById('rt-pax').value = '1 Adult';
+        document.getElementById('rt-class').selectedIndex = 0;
+        document.getElementById('rt-airline').selectedIndex = 0;
+        document.getElementById('rt-purpose').selectedIndex = 0;
+
+      } else if (tab === 'multicity') {
+        document.querySelectorAll('#panel-multicity .mc-leg').forEach(leg => {
+          leg.querySelector('.mc-from').value = '';
+          leg.querySelector('.mc-to').value = '';
+          leg.querySelector('.mc-date').value = '';
+        });
+        
+        resetPassengerState('mc');
+        document.getElementById('mc-pax').value = '1 Adult';
+        document.getElementById('mc-class').selectedIndex = 0;
+        document.getElementById('mc-airline').selectedIndex = 0;
+        document.getElementById('mc-purpose').selectedIndex = 0;
+      }
 
       setTimeout(() => { toast.style.display = 'none'; }, 6000);
     })
