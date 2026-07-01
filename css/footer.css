@@ -196,3 +196,26 @@ footer {
   color: var(--gold);
   font-weight: 600;
 }
+
+/* ── Legal Links Row ── */
+.foot-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.74rem;
+  margin: 4px 0;
+}
+
+.foot-legal-links a {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s;
+}
+
+.foot-legal-links a:hover {
+  color: var(--gold2);
+}
+
+.foot-legal-links span {
+  color: rgba(255, 255, 255, 0.2);
+}
