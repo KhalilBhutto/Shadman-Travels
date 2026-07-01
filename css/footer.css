@@ -90,6 +90,14 @@ footer {
   color:var(--gold);
 }
 
+.fs-btn .fa-facebook-f {
+  color:#1877F2;
+}
+
+.fs-btn .fa-map-location-dot {
+  color:#EA4335;
+}
+
 .fs-btn:hover {
   background: var(--gold);
   transform: translateY(-2px);
@@ -137,6 +145,9 @@ footer {
   color:var(--gold);
 }
 
+#contact .fa-whatsapp {
+  color: #25d366;
+}
 
 #contact .fa-at {
   color:#6001d2;
@@ -150,6 +161,14 @@ footer {
 
 #contact .fa-globe {
   color:#25d366;
+}
+
+#contact .fa-facebook-f {
+  color:#1877F2;
+}
+
+#contact .fa-map-location-dot {
+  color:#EA4335;
 }
 
 /* ── License Badge ── */
