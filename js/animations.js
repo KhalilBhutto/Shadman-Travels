@@ -182,10 +182,13 @@ function animateCount(el) {
    No visible controls — accessibility-friendly
    because content is also available as static text.
 ═══════════════════════════════════════════ */
-(function initTestiCarousel() {
+function initTestiCarousel() {
   const slides    = document.querySelectorAll('.testi-slide');
   const total     = slides.length;
   if (!total) return;
+
+  // Clear any existing timer before restarting
+  if (window._testiTimer) clearInterval(window._testiTimer);
 
   let current        = 0;
   let autoSlideTimer = null;
@@ -214,7 +217,10 @@ function animateCount(el) {
   window.testiPrev = function () { stopAuto(); goToSlide(current - 1); startAuto(); };
 
   startAuto();
-})();
+}
+
+// Call once immediately for any server-rendered slides
+initTestiCarousel();
 
 /* ═══════════════════════════════════════════
    AIRLINE CARD FILTER
@@ -237,4 +243,71 @@ function animateCount(el) {
       });
     });
   });
+})();
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS — Load from data/testimonials.json
+   Groups 3 testimonials per slide automatically.
+═══════════════════════════════════════════ */
+(function loadTestimonials() {
+
+  const container = document.getElementById('testi-container');
+  if (!container) return;
+
+  // Show a loading placeholder while the JSON fetches
+  container.innerHTML = '<div class="testi-loading">Loading testimonials...</div>';
+
+  fetch('/data/testimonials.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('Could not load testimonials');
+      return res.json();
+    })
+    .then(function(data) {
+      let html     = '';
+      let isFirst  = true;
+
+      // Group into slides of 3
+      for (let i = 0; i < data.length; i += 3) {
+        const group = data.slice(i, i + 3);
+        html += '<div class="testi-slide' + (isFirst ? ' active' : '') + '">';
+
+        group.forEach(function(t) {
+          html += '<div class="testi-card-c">' +
+            '<div class="testi-quote">"</div>' +
+            '<div class="testi-stars">★★★★★</div>' +
+            '<p class="testi-text">' + escapeHtml(t.text) + '</p>' +
+            '<div class="testi-author">' +
+              '<div class="testi-avatar">' + escapeHtml(t.avatar) + '</div>' +
+              '<div>' +
+                '<div class="testi-name">' + escapeHtml(t.name) + '</div>' +
+                '<div class="testi-meta">' + escapeHtml(t.route) + ' • ' + escapeHtml(t.airline) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        });
+
+        html += '</div>';
+        isFirst = false;
+      }
+
+      container.innerHTML = html;
+
+      // Restart the carousel now that slides exist
+      initTestiCarousel();
+    })
+    .catch(function(err) {
+      console.warn('Testimonials JSON failed to load:', err);
+      // On error, show nothing — the section heading is still visible
+      container.innerHTML = '';
+    });
+
+  // Safely escape user content to prevent XSS
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
 })();
