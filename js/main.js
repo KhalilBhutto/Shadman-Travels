@@ -40,18 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ─── CONTACT FORM SUBMIT BUTTON ───────────
-     The contact-section quote form submit
-     currently redirects to tel: — keep consistent.
-  ─────────────────────────────────────────── */
-  const contactFormSubmit = document.querySelector('.fsub');
-  if (contactFormSubmit) {
-    contactFormSubmit.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.location.href = BUSINESS.phoneHref;
-    });
-  }
-
   /* ─── SET CURRENT YEAR IN FOOTER ───────────
      If the footer copyright element has
      id="footer-year" this keeps it current

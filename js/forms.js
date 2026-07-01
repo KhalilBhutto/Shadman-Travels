@@ -283,57 +283,6 @@ function removeMCLeg(n) {
 }
 
 /* ═══════════════════════════════════════════
-   CONTACT SECTION — QUOTE FORM
-═══════════════════════════════════════════ */
-
-/**
- * Show / hide the correct quote-form fields depending on selected trip type.
- * Called by the rq-trip-type <select> onchange handler.
- */
-function updateQuoteForm() {
-  const type        = document.getElementById('rq-trip-type').value;
-  const simpleFields = document.getElementById('rq-simple-fields');
-  const mcFields    = document.getElementById('rq-multicity-fields');
-  const retWrap     = document.getElementById('rq-return-date-wrap');
-  const paxWrap     = document.getElementById('rq-pax-wrap');
-
-  if (type === 'multicity') {
-    simpleFields.style.display = 'none';
-    mcFields.style.display     = 'block';
-  } else {
-    simpleFields.style.display = 'block';
-    mcFields.style.display     = 'none';
-
-    if (type === 'return') {
-      retWrap.style.display = 'block';
-      paxWrap.style.display = 'none';
-    } else {
-      retWrap.style.display = 'none';
-      paxWrap.style.display = 'block';
-    }
-  }
-}
-
-/** Add a new leg row to the contact-section multi-city quote form. */
-function addRqMcLeg() {
-  rqMcCount++;
-  const div     = document.createElement('div');
-  div.className = 'rq-mc-leg';
-  div.style.cssText =
-    'background:#fafaf8;border:1px solid #eaeaea;border-radius:10px;padding:12px;margin-bottom:8px;position:relative';
-  div.innerHTML = `
-    <div style="font-size:0.65rem;font-weight:800;color:var(--g700);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px">
-      Flight ${rqMcCount}
-    </div>
-    <div class="ff-row">
-      <div class="ff"><label>From</label><input type="text" placeholder="Origin"/></div>
-      <div class="ff"><label>To</label><input type="text" placeholder="Destination"/></div>
-    </div>
-    <div class="ff"><label>Date</label><input type="date"/></div>`;
-  document.getElementById('rq-mc-extra').appendChild(div);
-}
-
-/* ═══════════════════════════════════════════
    FORM SUBMISSION — GOOGLE SHEETS
 ═══════════════════════════════════════════ */
 
@@ -1200,8 +1149,6 @@ window.changePax       = changePax;
 window.togglePaxPopup  = togglePaxPopup;
 window.addMCLeg        = addMCLeg;
 window.removeMCLeg     = removeMCLeg;
-window.updateQuoteForm = updateQuoteForm;
-window.addRqMcLeg      = addRqMcLeg;
 window.submitToSheets  = submitToSheets;
 
 /* ═══════════════════════════════════════════

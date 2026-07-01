@@ -38,4 +38,3 @@ const paxState = {
 /* ─── MULTI-CITY LEG COUNTERS ─── */
 // Tracked here so forms.js and the hero search card share the same counter.
 let mcLegCount    = 1;   // hero search card
-let rqMcCount     = 2;   // contact-section quote form
