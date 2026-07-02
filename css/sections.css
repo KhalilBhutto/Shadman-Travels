@@ -598,7 +598,7 @@
 
 .testi-text {
   font-size: 0.88rem;
-  color: var(--muted);
+  color: #4b5563;
   line-height: 1.7;
   margin-bottom: 20px;
   font-style: italic;
@@ -640,7 +640,7 @@
 
 .testi-meta {
   font-size: 0.72rem;
-  color: var(--muted);
+  color: #4b5563;
 }
 
 /* ── Testimonial Carousel ── */
