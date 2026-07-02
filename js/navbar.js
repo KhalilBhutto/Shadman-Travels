@@ -14,6 +14,20 @@ const mobileMenuEl = document.getElementById('mobileMenu');
 const hamBtn       = document.getElementById('ham');
 const overlayEl    = document.getElementById('overlay');
 
+/* ─── MOBILE MENU FOCUSABILITY ─── */
+// When menu is closed, make all links inside un-tabbable so keyboard
+// users cannot accidentally reach invisible hidden links.
+function setMobileMenuFocusability(isOpen) {
+  const links = mobileMenuEl.querySelectorAll('a, button');
+  links.forEach(function(el) {
+    if (isOpen) {
+      el.removeAttribute('tabindex');
+    } else {
+      el.setAttribute('tabindex', '-1');
+    }
+  });
+}
+
 /* ─── MOBILE MENU ─── */
 function toggleMobileMenu() {
   const isOpen = mobileMenuEl.classList.toggle('open');
@@ -23,6 +37,7 @@ function toggleMobileMenu() {
 
   mobileMenuEl.setAttribute('aria-hidden', String(!isOpen));
   hamBtn.setAttribute('aria-expanded', String(isOpen));
+  setMobileMenuFocusability(isOpen);
 
   if (!isOpen) {
     hamBtn.focus();
@@ -38,6 +53,7 @@ function closeMobileMenu() {
 
   mobileMenuEl.setAttribute('aria-hidden', 'true');
   hamBtn.setAttribute('aria-expanded', 'false');
+  setMobileMenuFocusability(false);
 }
 
 /* ─── STICKY NAV — add .scrolled class after 80 px ─── */
@@ -89,3 +105,5 @@ window.toggleMobileMenu = toggleMobileMenu;
 window.closeMobileMenu  = closeMobileMenu;
 
 document.addEventListener('DOMContentLoaded', initSmoothScroll);
+// Set menu links as un-tabbable on first load (menu starts closed)
+document.addEventListener('DOMContentLoaded', function() { setMobileMenuFocusability(false); });
