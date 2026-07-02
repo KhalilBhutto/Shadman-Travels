@@ -186,13 +186,17 @@ function togglePaxPopup(tab) {
   const trigger = document.getElementById(tab + '-pax-trigger');
   const isOpen  = popup.classList.contains('open');
 
-  // Close all other popups first
+  // Close all other popups first and reset their aria-expanded
   document.querySelectorAll('.pax-popup.open').forEach(p => p.classList.remove('open'));
-  document.querySelectorAll('.pax-trigger.open').forEach(t => t.classList.remove('open'));
+  document.querySelectorAll('.pax-trigger.open').forEach(t => {
+    t.classList.remove('open');
+    t.setAttribute('aria-expanded', 'false');
+  });
 
   if (!isOpen) {
     popup.classList.add('open');
     trigger.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
   }
 }
 
