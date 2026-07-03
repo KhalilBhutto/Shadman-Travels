@@ -192,6 +192,22 @@
   }
 </script>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       § 10 · JAVASCRIPT — deferred for performance
+       defer: download in parallel with HTML parsing,
+       execute only after DOM is fully ready. Order preserved:
+       config → airports → navbar → forms → notify → animations → main
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="js/config.js" defer></script>
+  <script src="js/airports.js" defer></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/forms.js" defer></script>
+  <script src="js/notify.js" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+</head>
+
 </head>
 <body>
 
@@ -2012,22 +2028,6 @@
 
     </div>
   </div><!-- /#notifyModal -->
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       [17] JAVASCRIPT
-       All scripts deferred to end of body for optimal page
-       load performance. Load order is dependency-aware:
-       config → data → UI components → animations → entry point.
-       ═══════════════════════════════════════════════════════════ -->
-  <script src="js/config.js"></script>
-  <script src="js/airports.js"></script>
-  <script src="js/navbar.js"></script>
-  <script src="js/forms.js"></script>
-  <script src="js/notify.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/main.js"></script>
-
 
 </body>
 </html>
