@@ -53,14 +53,13 @@ const AIRPORTS = [
   { group: 'Americas',     name: 'Washington D.C.',      code: 'IAD' },
   { group: 'Americas',     name: 'Houston',              code: 'IAH' },
   // Asia-Pacific
-  { group: 'Asia-Pacific', name: 'Bangkok',              code: 'BKK' },
+  { group: 'Asia-Pacific', name: 'Bangkok Suvarnabhumi', code: 'BKK' },
   { group: 'Asia-Pacific', name: 'Kuala Lumpur',         code: 'KUL' },
   { group: 'Asia-Pacific', name: 'Singapore',            code: 'SIN' },
   { group: 'Asia-Pacific', name: 'Sydney',               code: 'SYD' },
   { group: 'Asia-Pacific', name: 'Melbourne',            code: 'MEL' },
   { group: 'Asia-Pacific', name: 'Baku',                 code: 'GYD' },
   { group: 'Asia-Pacific', name: 'Maldives',             code: 'MLE' },
-  { group: 'Asia-Pacific', name: 'Bangkok Suvarnabhumi', code: 'BKK' },
   { group: 'Asia-Pacific', name: 'Phuket',               code: 'HKT' },
   // Africa
   { group: 'Africa',       name: 'Cairo',                code: 'CAI' },
