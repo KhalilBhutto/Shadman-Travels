@@ -6,10 +6,10 @@
  *  - Hero search card: trip tabs (one-way / round-trip / multi-city)
  *  - Passenger picker popup (all three panels)
  *  - Hero multi-city dynamic legs
- *  - Contact section quote form (trip type switcher + dynamic multi-city legs)
- *  - Google Sheets / fallback call submission
+ *  - Form validation (dates, airports, passengers, phone)
+ *  - Google Sheets submission / phone fallback
  *
- * Depends on: config.js (SHEETS_URL, paxState, mcLegCount, rqMcCount)
+ * Depends on: config.js (SHEETS_URL, paxState, mcLegCount)
  *             airports.js (initCombobox)
  */
 
