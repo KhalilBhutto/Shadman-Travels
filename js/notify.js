@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
 
+        // Fallback: if SHEETS_URL is not configured, alert and stop
+        if (SHEETS_URL.includes('YOUR_SCRIPT_ID')) {
+            alert('This service is temporarily unavailable. Please call us on +92 300 0041510.');
+            return;
+        }
+
         const payload = {
             formType: 'notify',
             service: selectedService,
