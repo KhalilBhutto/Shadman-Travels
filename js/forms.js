@@ -244,13 +244,19 @@ function mcLegHTML(n) {
     </div>`;
 }
 
+// Monotonic ID counter — never decremented, so IDs are always unique
+let mcLegIdCounter = 1;
+// Count of currently visible legs (used for the 9-leg cap)
+let mcVisibleLegs = 1;
+
 /** Add a new leg to the hero search-card multi-city panel. */
 function addMCLeg() {
-  if (mcLegCount >= 9) return;
-  mcLegCount++;
+  if (mcVisibleLegs >= 9) return;
+  mcLegIdCounter++;
+  mcVisibleLegs++;
 
   const tmp      = document.createElement('div');
-  tmp.innerHTML  = mcLegHTML(mcLegCount);
+  tmp.innerHTML  = mcLegHTML(mcLegIdCounter);
   const legEl    = tmp.firstElementChild;
 
   document.getElementById('mc-extra-legs').appendChild(legEl);
@@ -261,7 +267,7 @@ function addMCLeg() {
   // Wire up airport comboboxes on the new leg
   legEl.querySelectorAll('.ap-wrap').forEach(w => initCombobox(w));
 
-  if (mcLegCount >= 9) {
+  if (mcVisibleLegs >= 9) {
     document.getElementById('mcAddBtn').style.display = 'none';
   }
 }
@@ -270,7 +276,8 @@ function addMCLeg() {
 function resetMCLegs() {
   document.getElementById('mc-extra-legs').innerHTML = '';
 
-  mcLegCount = 1;
+  mcLegIdCounter = 1;
+  mcVisibleLegs  = 1;
 
   document.getElementById('mcAddBtn').style.display = 'block';
 }
@@ -281,7 +288,7 @@ function removeMCLeg(n) {
 
   if (el) el.remove();
 
-  mcLegCount = Math.max(1, mcLegCount - 1);
+  mcVisibleLegs = Math.max(1, mcVisibleLegs - 1);
 
   document.getElementById('mcAddBtn').style.display = 'block';
 }

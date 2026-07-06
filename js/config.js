@@ -36,5 +36,5 @@ const paxState = {
 };
 
 /* ─── MULTI-CITY LEG COUNTERS ─── */
-// Tracked here so forms.js and the hero search card share the same counter.
-let mcLegCount    = 1;   // hero search card
+// mcLegIdCounter and mcVisibleLegs are defined in forms.js
+// (monotonic ID counter + visible leg count for 9-leg cap)
