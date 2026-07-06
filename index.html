@@ -207,7 +207,6 @@
   <script src="js/main.js" defer></script>
 
 </head>
-
 <body>
 
   <!--
@@ -253,6 +252,15 @@
        ═══════════════════════════════════════════════════════════ -->
   <div id="progress"></div>
 
+
+  <!-- ═══════════════════════════════════════════════════════════
+       [03] MOBILE MENU OVERLAY
+       Semi-transparent backdrop behind the open mobile drawer.
+       Closes the menu on click.
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="overlay" id="overlay" onclick="closeMobileMenu()"></div>
+
+
   <!-- ═══════════════════════════════════════════════════════════
        [04] MOBILE MENU
        Slide-in navigation drawer for viewports below the desktop
@@ -268,7 +276,7 @@
     <a href="#routes"      class="mob-link" onclick="closeMobileMenu()">🗺 Popular Routes</a>
     <a href="#why-us"      class="mob-link" onclick="closeMobileMenu()">⭐ Why Us</a>
     <a href="#coming-soon" class="mob-link" onclick="closeMobileMenu()">🚀 Coming Soon</a>
-    <a href="/pages/contact.html"    class="mob-link" onclick="closeMobileMenu()"> <i class="fas fa-phone mobile-phone-icon"></i> Contact</a>
+    <a href="#contact"     class="mob-link" onclick="closeMobileMenu()"> <i class="fas fa-phone mobile-phone-icon"></i> Contact</a>
     <a href="tel:+923000041510" class="mob-cta"> <i class="fas fa-phone mobile-phone-icon"></i> Book a Flight Now</a>
   </div>
 
