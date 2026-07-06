@@ -425,6 +425,7 @@ function submitToSheets() {
   const name  = (document.getElementById('cf-name').value  || '').trim();
   const phone = (document.getElementById('cf-phone').value || '').trim();
   const email = (document.getElementById('cf-email').value || '').trim();
+  const notes = (document.getElementById('cf-notes').value || '').trim();
 
   // Validate required fields
   if (!name) {
@@ -879,11 +880,10 @@ const payload = {
   name: name,
   phone: phone,
   email: email || '—',
+  notes: notes || '—',
   tripType: '',
-
   passengerBreakdown: '',
   additionalTravelers: '',
-
   preferredAirline: '',
   travelPurpose: '',
   enquiryId: ''
@@ -1011,7 +1011,7 @@ if (typeof gtag === 'function') {
       btn.innerHTML = '✈ Get Exclusive Fare — Call Now';
 
       // Clear contact fields on success
-      ['cf-name', 'cf-phone', 'cf-email'].forEach(id => {
+      ['cf-name', 'cf-phone', 'cf-email', 'cf-notes'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
