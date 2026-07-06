@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Shadman Travels & Tours</title>
+  <meta name="description" content="Page not found — return to Shadman Travels & Tours homepage for flight bookings, Umrah packages, and visa services.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Cinzel:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <style>
+    .error-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 140px 24px 100px;
+      text-align: center;
+      color: var(--ink);
+    }
+    .error-code {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      opacity: 0.35;
+      margin-bottom: 16px;
+    }
+    .error-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--g700);
+      margin-bottom: 16px;
+    }
+    .error-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+    .error-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .error-links {
+      margin-top: 40px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .error-links a {
+      color: var(--gold);
+      font-weight: 600;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-text">
+          <div class="name">Shadman Travels</div>
+          <div class="tag">New Horizon Everyday</div>
+        </div>
+      </a>
+      <div class="nav-menu">
+        <a href="/#flights"  class="nav-link">Flights</a>
+        <a href="/#airlines" class="nav-link">Airlines</a>
+        <a href="/#routes"   class="nav-link">Routes</a>
+        <a href="/#why-us"   class="nav-link">About</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="error-wrap">
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-sub">
+      The page you're looking for doesn't exist or may have been moved.<br>
+      Let's get you back on track.
+    </p>
+    <div class="error-actions">
+      <a href="/" class="btn-gold">
+        <i class="fas fa-home"></i> Back to Homepage
+      </a>
+      <a href="tel:+923000041510" class="btn-ghost" style="color:var(--g700);border-color:var(--g700)">
+        <i class="fas fa-phone"></i> Call Us Now
+      </a>
+    </div>
+    <div class="error-links">
+      <a href="/#flights">Search Flights</a>
+      <a href="/#airlines">Our Airlines</a>
+      <a href="/pages/contact.html">Contact Us</a>
+      <a href="/pages/about.html">About Us</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-bottom">
+        <p>© <span id="footer-year">2026</span> Shadman Travels & Tours. All rights reserved.</p>
+        <p><span class="lic">Govt. License #3322</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Keep footer year current
+    const y = document.getElementById('footer-year');
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
