@@ -1,0 +1,36 @@
+name: Build HTML Includes
+
+# Runs whenever a component or index.html changes on main.
+# Skips runs triggered by its own commits, to avoid an infinite loop.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'components/**'
+      - 'index.html'
+      - 'scripts/build-includes.js'
+
+permissions:
+  contents: write
+
+jobs:
+  build-includes:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run include build
+        run: node scripts/build-includes.js
+
+      - name: Commit changes if any
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild HTML includes from components/ [skip ci]"
+          file_pattern: 'index.html'
