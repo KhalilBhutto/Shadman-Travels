@@ -27,6 +27,11 @@ const COMPONENTS_DIR = path.join(ROOT, 'components');
 // Every HTML file that may contain <!-- INCLUDE:... --> markers.
 const TARGET_FILES = [
   'index.html',
+  'pages/about.html',
+  'pages/contact.html',
+  'pages/privacy-policy.html',
+  'pages/terms.html',
+  'pages/cookies.html',
 ];
 
 const INCLUDE_PATTERN = /<!--\s*INCLUDE:(\w[\w-]*)\s*-->[\s\S]*?<!--\s*\/INCLUDE:\1\s*-->/g;
