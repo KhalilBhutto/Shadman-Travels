@@ -252,6 +252,10 @@
   gap: 18px;
 }
 
+#destinationsGrid {
+  min-height: 600px;
+}
+
 /* ── Route Card ── */
 .route-card {
   background: rgba(255, 255, 255, 0.04);
@@ -881,4 +885,78 @@
   background: var(--gold);
   color: var(--g900);
   transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   FAQ SECTION
+═══════════════════════════════════════════ */
+.faq-sec {
+  background: white;
+  padding: 96px 32px;
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid #ebe9e3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fafaf8;
+  transition: border-color 0.2s;
+}
+
+.faq-item.open {
+  border-color: var(--gold);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 18px 22px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--g700);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.faq-chevron {
+  font-size: 0.7rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.25s;
+}
+
+.faq-item.open .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 22px;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 22px 20px;
+}
+
+.faq-answer p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
 }

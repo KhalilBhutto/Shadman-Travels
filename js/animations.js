@@ -119,7 +119,7 @@ window.addEventListener('load', () => {
 /* ═══════════════════════════════════════════
    SCROLL REVEAL  (.reveal / .reveal-left / .reveal-right)
 ═══════════════════════════════════════════ */
-(function initScrollReveal() {
+function initScrollReveal() {
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
@@ -132,7 +132,8 @@ window.addEventListener('load', () => {
   document
     .querySelectorAll('.reveal, .reveal-left, .reveal-right')
     .forEach(el => observer.observe(el));
-})();
+}
+initScrollReveal();
 
 /* ═══════════════════════════════════════════
    STAT COUNTER ANIMATION
@@ -311,3 +312,121 @@ initTestiCarousel();
   }
 
 })();
+
+ /* ═══════════════════════════════════════════
+   DESTINATIONS — Load from data/destinations.json
+   (Renamed from "Routes" — same data, new name)
+   Renders into #destinationsGrid.
+═══════════════════════════════════════════ */
+(function loadDestinations() {
+
+  const container = document.getElementById('destinationsGrid');
+  if (!container) return;
+
+  container.innerHTML = '<div class="testi-loading">Loading destinations...</div>';
+
+  fetch('/data/destinations.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('Could not load destinations');
+      return res.json();
+    })
+    .then(function(data) {
+      let html = '';
+
+      data.forEach(function(r, i) {
+        const revealClass = ['reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 4];
+
+        html += '<div class="route-card ' + revealClass + '">';
+        if (r.tag) html += '<div class="route-tag">' + escapeHtml(r.tag) + '</div>';
+        html += '<div class="route-from-to">';
+        html += '<div><div class="route-city">' + escapeHtml(r.fromCity) + '</div><div class="route-code">' + escapeHtml(r.fromCode) + '</div></div>';
+        html += '<div class="route-arrow">✈ →</div>';
+        html += '<div><div class="route-city">' + escapeHtml(r.toCity) + '</div><div class="route-code">' + escapeHtml(r.toCode) + '</div></div>';
+        html += '</div>';
+        html += '<div class="route-airline">✈ ' + escapeHtml(r.airlines) + '</div>';
+        html += '<div class="route-price-label">Starting From</div>';
+        html += '<div class="route-price"><span>PKR </span>' + escapeHtml(r.price) + '<span>+</span></div>';
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+
+      if (typeof initScrollReveal === 'function') initScrollReveal();
+    })
+    .catch(function(err) {
+      console.warn('Destinations JSON failed to load:', err);
+      container.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.5)">Unable to load destinations right now — please call us at +92 300 0041510.</p>';
+    });
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+})();
+
+
+/* ═══════════════════════════════════════════
+   FAQ — Load from data/faq.json
+   Renders an accordion into #faqList. Each
+   question toggles its own answer open/closed
+   independently — no limit on how many can be
+   open at once.
+═══════════════════════════════════════════ */
+(function loadFAQ() {
+
+  const container = document.getElementById('faqList');
+  if (!container) return;
+
+  container.innerHTML = '<div class="testi-loading">Loading FAQs...</div>';
+
+  fetch('/data/faq.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('Could not load FAQ');
+      return res.json();
+    })
+    .then(function(data) {
+      let html = '';
+
+      data.forEach(function(item, i) {
+        html += '<div class="faq-item reveal" id="faq-item-' + i + '">';
+        html += '<button class="faq-question" onclick="toggleFAQ(' + i + ')" aria-expanded="false" aria-controls="faq-answer-' + i + '">';
+        html += '<span>' + escapeHtml(item.q) + '</span>';
+        html += '<span class="faq-chevron">▼</span>';
+        html += '</button>';
+        html += '<div class="faq-answer" id="faq-answer-' + i + '"><p>' + escapeHtml(item.a) + '</p></div>';
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+
+      if (typeof initScrollReveal === 'function') initScrollReveal();
+    })
+    .catch(function(err) {
+      console.warn('FAQ JSON failed to load:', err);
+      container.innerHTML = '<p style="text-align:center;color:var(--muted)">Unable to load FAQs right now — please call us at +92 300 0041510.</p>';
+    });
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+})();
+
+/** Toggles a single FAQ item open/closed. Exposed globally for the inline onclick. */
+function toggleFAQ(index) {
+  const item = document.getElementById('faq-item-' + index);
+  const question = item.querySelector('.faq-question');
+  const isOpen = item.classList.contains('open');
+
+  item.classList.toggle('open', !isOpen);
+  question.setAttribute('aria-expanded', String(!isOpen));
+}
+window.toggleFAQ = toggleFAQ;

@@ -1,0 +1,74 @@
+[
+  {
+    "tag": "Most Popular",
+    "fromCity": "Karachi",
+    "fromCode": "KHI · Pakistan",
+    "toCity": "Dubai",
+    "toCode": "DXB · UAE",
+    "airlines": "Emirates · FlyDubai · AirSial",
+    "price": "45,000"
+  },
+  {
+    "tag": "High Demand",
+    "fromCity": "Lahore",
+    "fromCode": "LHE · Pakistan",
+    "toCity": "Jeddah",
+    "toCode": "JED · KSA",
+    "airlines": "PIA · Saudia · AirSial",
+    "price": "55,000"
+  },
+  {
+    "tag": null,
+    "fromCity": "Islamabad",
+    "fromCode": "ISB · Pakistan",
+    "toCity": "London",
+    "toCode": "LHR · UK",
+    "airlines": "PIA · Turkish · Emirates",
+    "price": "250,000"
+  },
+  {
+    "tag": "Hot Deal",
+    "fromCity": "Karachi",
+    "fromCode": "KHI · Pakistan",
+    "toCity": "Doha",
+    "toCode": "DOH · Qatar",
+    "airlines": "Qatar Airways",
+    "price": "60,000"
+  },
+  {
+    "tag": null,
+    "fromCity": "Karachi",
+    "fromCode": "KHI · Pakistan",
+    "toCity": "Toronto",
+    "toCode": "YYZ · Canada",
+    "airlines": "Emirates · Qatar · Etihad",
+    "price": "350,000"
+  },
+  {
+    "tag": "New Route",
+    "fromCity": "Lahore",
+    "fromCode": "LHE · Pakistan",
+    "toCity": "Istanbul",
+    "toCode": "IST · Turkey",
+    "airlines": "Turkish Airlines · AirSial",
+    "price": "120,000"
+  },
+  {
+    "tag": null,
+    "fromCity": "Multan",
+    "fromCode": "MUX · Pakistan",
+    "toCity": "Riyadh",
+    "toCode": "RUH · KSA",
+    "airlines": "Saudia · Flynas · PIA",
+    "price": "52,000"
+  },
+  {
+    "tag": "New!",
+    "fromCity": "Karachi",
+    "fromCode": "KHI · Pakistan",
+    "toCity": "Baku",
+    "toCode": "GYD · Azerbaijan",
+    "airlines": "Airblue · SalamAir · FlyDubai",
+    "price": "95,000"
+  }
+]
