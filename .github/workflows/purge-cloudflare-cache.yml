@@ -5,18 +5,16 @@ name: Purge Cloudflare Cache
 # the live site updates, Cloudflare's cache gets cleared right after,
 # so visitors (and you) always see the newest version.
 on:
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types:
-      - completed
+  push:
+    branches: [main]
 
 jobs:
   purge-cache:
     runs-on: ubuntu-latest
-    # Only run if the deploy actually succeeded — no point purging
-    # cache after a failed deploy.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - name: Wait for GitHub Pages to finish deploying
+        run: sleep 60
+
       - name: Purge Cloudflare cache
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
