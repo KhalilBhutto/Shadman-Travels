@@ -8,7 +8,10 @@ on:
     paths:
       - 'components/**'
       - 'index.html'
+      - 'pages/**'
       - 'scripts/build-includes.js'
+      - '.github/workflows/build-includes.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
