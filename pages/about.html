@@ -32,45 +32,57 @@
 
 <!-- INCLUDE:navbar -->
 <nav id="navbar">
-  <div class="nav-inner">
+    <div class="nav-inner">
 
-    <!-- Brand -->
-    <a href="/" class="nav-brand">
-      <div class="brand-text">
-        <div class="name">Shadman Travels</div>
-        <div class="tag">New Horizon Everyday</div>
+      <!-- Brand -->
+      <a href="/" class="nav-brand">
+        <div class="brand-text">
+          <div class="name">Shadman Travels</div>
+          <div class="tag">New Horizon Everyday</div>
+        </div>
+      </a>
+
+      <!-- Desktop navigation links -->
+      <div class="nav-menu">
+        <a href="#flights"     class="nav-link">Flights</a>
+        <a href="#airlines"    class="nav-link">Airlines</a>
+        <a href="#routes"      class="nav-link">Routes</a>
+        <a href="#why-us"      class="nav-link">About</a>
+        <a href="#coming-soon" class="nav-link">Services</a>
+        <a href="/pages/contact.html" class="nav-link">Contact</a>
       </div>
-    </a>
 
-    <!-- Desktop navigation links -->
-    <div class="nav-menu">
-      <a href="#flights"     class="nav-link">Flights</a>
-      <a href="#airlines"    class="nav-link">Airlines</a>
-      <a href="#routes"      class="nav-link">Routes</a>
-      <a href="#why-us"      class="nav-link">About</a>
-      <a href="#coming-soon" class="nav-link">Services</a>
-      <a href="/pages/contact.html" class="nav-link">Contact</a>
+      <!-- Hamburger toggle (mobile only) -->
+      <button
+        class="hamburger"
+        id="ham"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu">
+        <div class="ham-line"></div>
+        <div class="ham-line"></div>
+        <div class="ham-line"></div>
+      </button>
+
     </div>
-
-    <!-- Hamburger toggle (mobile only) -->
-    <button
-      class="hamburger"
-      id="ham"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="mobileMenu">
-      <div class="ham-line"></div>
-      <div class="ham-line"></div>
-      <div class="ham-line"></div>
-    </button>
-
-  </div>
-</nav>
+  </nav>
 <!-- /INCLUDE:navbar -->
 
 <!-- INCLUDE:mobile-menu -->
 <div class="overlay" id="overlay"></div>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
+
+  <div
+    class="mobile-menu"
+    id="mobileMenu"
+    aria-hidden="true">
+    <a href="/#flights"     class="mob-link" onclick="closeMobileMenu()">✈ Flights</a>
+    <a href="/#airlines"    class="mob-link" onclick="closeMobileMenu()">🌍 Airlines</a>
+    <a href="/#routes"      class="mob-link" onclick="closeMobileMenu()">🗺 Popular Routes</a>
+    <a href="/#why-us"      class="mob-link" onclick="closeMobileMenu()">⭐ Why Us</a>
+    <a href="/#coming-soon" class="mob-link" onclick="closeMobileMenu()">🚀 Coming Soon</a>
+    <a href="/pages/contact.html" class="mob-link" onclick="closeMobileMenu()"> <i class="fas fa-phone mobile-phone-icon"></i> Contact</a>
+    <a href="tel:+923000041510" class="mob-cta"> <i class="fas fa-phone mobile-phone-icon"></i> Book a Flight Now</a>
+  </div>
 <!-- /INCLUDE:mobile-menu -->
 
 <main class="legal-wrap">
