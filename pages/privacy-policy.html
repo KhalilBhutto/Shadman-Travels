@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/css/navbar.css">
 <link rel="stylesheet" href="/css/footer.css">
 <link rel="stylesheet" href="/css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
   .legal-wrap{max-width:820px;margin:0 auto;padding:120px 24px 80px;color:var(--ink);}
   .legal-wrap h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--g700);margin-bottom:8px;}
@@ -24,22 +25,48 @@
 </head>
 <body>
 
+<!-- INCLUDE:navbar -->
 <nav id="navbar">
   <div class="nav-inner">
-    <div class="nav-brand">
-      <a href="/" class="brand-text">
+
+    <!-- Brand -->
+    <a href="/" class="nav-brand">
+      <div class="brand-text">
         <div class="name">Shadman Travels</div>
         <div class="tag">New Horizon Everyday</div>
-      </a>
-    </div>
+      </div>
+    </a>
+
+    <!-- Desktop navigation links -->
     <div class="nav-menu">
-      <a href="/#flights" class="nav-link">Flights</a>
-      <a href="/#airlines" class="nav-link">Airlines</a>
-      <a href="/pages/about.html" class="nav-link">About</a>
+      <a href="#flights"     class="nav-link">Flights</a>
+      <a href="#airlines"    class="nav-link">Airlines</a>
+      <a href="#routes"      class="nav-link">Routes</a>
+      <a href="#why-us"      class="nav-link">About</a>
+      <a href="#coming-soon" class="nav-link">Services</a>
       <a href="/pages/contact.html" class="nav-link">Contact</a>
     </div>
+
+    <!-- Hamburger toggle (mobile only) -->
+    <button
+      class="hamburger"
+      id="ham"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobileMenu">
+      <div class="ham-line"></div>
+      <div class="ham-line"></div>
+      <div class="ham-line"></div>
+    </button>
+
   </div>
 </nav>
+<!-- /INCLUDE:navbar -->
+
+<!-- INCLUDE:mobile-menu -->
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
+<!-- /INCLUDE:mobile-menu -->
 
 <main class="legal-wrap">
   <a href="/" class="back-home">← Back to Home</a>
@@ -111,5 +138,6 @@
   </div>
 </footer>
 
+<script src="/js/navbar.js" defer></script>
 </body>
 </html>
