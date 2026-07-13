@@ -226,7 +226,7 @@ initTestiCarousel();
 /* ═══════════════════════════════════════════
    AIRLINE CARD FILTER
 ═══════════════════════════════════════════ */
-(function initAirlineFilter() {
+function initAirlineFilter() {
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function () {
       // Update active state
@@ -244,7 +244,8 @@ initTestiCarousel();
       });
     });
   });
-})();
+}
+initAirlineFilter();
 
 /* ═══════════════════════════════════════════
    TESTIMONIALS — Load from data/testimonials.json
@@ -430,3 +431,70 @@ function toggleFAQ(index) {
   question.setAttribute('aria-expanded', String(!isOpen));
 }
 window.toggleFAQ = toggleFAQ;
+
+/* ═══════════════════════════════════════════
+   AIRLINES — Load from data/airlines.json
+   Replaces the previously hardcoded airline
+   cards. Renders into #airlinesGrid, then
+   re-runs initAirlineFilter() so the existing
+   filter bar still works against the new cards.
+═══════════════════════════════════════════ */
+(function loadAirlines() {
+
+  const container = document.getElementById('airlinesGrid');
+  if (!container) return;
+
+  container.innerHTML = '<div class="testi-loading">Loading airlines...</div>';
+
+  fetch('/data/airlines.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('Could not load airlines');
+      return res.json();
+    })
+    .then(function(data) {
+      let html = '';
+
+      data.forEach(function(a, i) {
+        const revealClass = ['reveal', 'reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 5];
+
+        html += '<div class="acard ' + revealClass + '" data-cat="' + escapeHtml(a.categories.join(' ')) + '">';
+        html += '<div class="acard-top"><div class="airline-badge">' + a.badge + '</div><div>';
+        html += '<div class="acard-name">' + escapeHtml(a.name) + '</div>';
+        html += '<div class="acard-hub">✈ Hub: ' + escapeHtml(a.hub) + '</div>';
+        html += '</div></div>';
+        html += '<div class="acard-body"><p class="acard-desc">' + escapeHtml(a.desc) + '</p>';
+
+        a.destinations.forEach(function(section) {
+          html += '<div class="dest-section"><div class="dest-section-label">' + escapeHtml(section.label) + '</div><div class="dest-chips">';
+          section.chips.forEach(function(chip) {
+            const newClass = chip.new ? ' new' : '';
+            const codeStr = chip.code ? ' (' + escapeHtml(chip.code) + ')' : '';
+            html += '<span class="dest-chip' + newClass + '">' + escapeHtml(chip.name) + codeStr + (chip.new ? ' 🆕' : '') + '</span>';
+          });
+          html += '</div></div>';
+        });
+
+        html += '<div class="acard-footer"><div class="seats-badge">⚡ Limited Seats</div>';
+        html += '<button class="book-btn" onclick="window.location.href=\'tel:+923000041510\'">Book Now →</button></div>';
+        html += '</div></div>';
+      });
+
+      container.innerHTML = html;
+
+      if (typeof initAirlineFilter === 'function') initAirlineFilter();
+      if (typeof initScrollReveal === 'function') initScrollReveal();
+    })
+    .catch(function(err) {
+      console.warn('Airlines JSON failed to load:', err);
+      container.innerHTML = '<p style="text-align:center;color:var(--muted)">Unable to load airline partners right now — please call us at +92 300 0041510.</p>';
+    });
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+})();

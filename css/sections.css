@@ -46,6 +46,10 @@
   gap: 22px;
 }
 
+#airlinesGrid {
+  min-height: 900px;
+}
+
 /* ── Airline Card ── */
 .acard {
   background: white;
