@@ -883,6 +883,7 @@ const tab = getActiveTab();
   const ts  = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
 
 const payload = {
+  secret: FORM_SECRET,
   timestamp: ts,
   name: name,
   phone: phone,

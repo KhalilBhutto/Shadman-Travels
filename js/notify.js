@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const payload = {
+            secret: FORM_SECRET,
             formType: 'notify',
             service: selectedService,
             name: document.getElementById('notifyName').value.trim(),

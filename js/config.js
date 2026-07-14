@@ -10,6 +10,13 @@
 /* ─── GOOGLE SHEETS SUBMISSION ENDPOINT ─── */
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwU10GNoOnSphx5Vsmr4mzHRUi60FtLvWUs5y_-WrTS--duoCZGNGbhz89qLi5kMc6TSg/exec';
 
+/* ─── SHARED FORM SUBMISSION SECRET ───
+   Must match SHARED_SECRET in Code.gs exactly.
+   Blocks casual/automated bot spam — not a
+   determined attacker (this code is publicly
+   visible in the browser, same as SHEETS_URL). */
+const FORM_SECRET = 'shdmn-b7f3-9k2x-travel-2026';
+
 /* ─── BUSINESS INFO ─── */
 const BUSINESS = {
   name:        'Shadman Travels & Tours',
