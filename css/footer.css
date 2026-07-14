@@ -132,6 +132,11 @@ footer {
   color: var(--gold2);
 }
 
+.foot-airline-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 /* ── Contact Icons ── */
 
 #contact li i {
