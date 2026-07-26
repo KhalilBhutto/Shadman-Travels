@@ -6,7 +6,7 @@
  * Initialises all modules that require the DOM to be ready.
  *
  * Load order in index.html:
- *   config.js → navbar.js → forms.js → airports.js → animations.js → main.js
+ *   config.js → airports.js → navbar.js → forms.js → notify.js → animations.js → main.js
  */
 
 'use strict';
