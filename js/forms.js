@@ -1000,13 +1000,22 @@ btn.classList.add('loading');
 btn.innerHTML = '⏳ Sending Enquiry...';
 
   fetch(SHEETS_URL, {
-    method:  'POST',
-    mode:    'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify(payload),
-  })
-    .then(() => {
-      toast.style.display = 'block';
+  method:  'POST',
+  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  body:    JSON.stringify(payload),
+})
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) {
+      throw new Error(data.error || 'Submission failed on server');
+    }
+
+    const idLine = document.getElementById('gs-toast-id');
+    if (idLine) {
+      idLine.textContent = data.enquiryId ? ('Reference: ' + data.enquiryId) : '';
+    }
+
+    toast.style.display = 'block';
       
       // GA4 Conversion Tracking
 if (typeof gtag === 'function') {
