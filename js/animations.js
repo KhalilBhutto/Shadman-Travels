@@ -458,7 +458,7 @@ window.toggleFAQ = toggleFAQ;
         const revealClass = ['reveal', 'reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 5];
 
         html += '<div class="acard ' + revealClass + '" data-cat="' + escapeHtml(a.categories.join(' ')) + '">';
-        html += '<div class="acard-top"><div class="airline-badge">' + a.badge + '</div><div>';
+        html += '<div class="acard-top"><div class="airline-badge"><img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.name) + ' logo" loading="lazy"></div><div>';
         html += '<div class="acard-name">' + escapeHtml(a.name) + '</div>';
         html += '<div class="acard-hub">✈ Hub: ' + escapeHtml(a.hub) + '</div>';
         html += '</div></div>';

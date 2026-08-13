@@ -103,14 +103,21 @@
 .airline-badge {
   width: 50px;
   height: 50px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #ffffff;
   border: 2px solid rgba(201, 160, 40, 0.4);
-  border-radius: 12px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
   flex-shrink: 0;
+  overflow: hidden;
+  padding: 7px;
+}
+
+.airline-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .acard-name {

@@ -1,7 +1,7 @@
 [
   {
     "name": "Airblue",
-    "badge": "🔵",
+    "logo": "/images/airlines/airblue.png",
     "hub": "Karachi & Lahore",
     "categories": ["pak", "gulf", "ksa"],
     "desc": "Flying Redefined — high-frequency routes to UAE, Saudi Arabia & the brand-new Baku direct flight!",
@@ -12,7 +12,7 @@
   },
   {
     "name": "AirSial",
-    "badge": "🟢",
+    "logo": "/images/airlines/airsial.png",
     "hub": "Karachi & Lahore",
     "categories": ["pak", "ksa", "gulf"],
     "desc": "Pakistan-based airline operating high-frequency routes to Middle East & Saudi Arabia with competitive fares.",
@@ -23,7 +23,7 @@
   },
   {
     "name": "Emirates",
-    "badge": "🇦🇪",
+    "logo": "/images/airlines/emirates.png",
     "hub": "Dubai (DXB)",
     "categories": ["gulf", "europe"],
     "desc": "Fly Better — connect to 140+ destinations in 80+ countries seamlessly via Dubai with world-class service.",
@@ -34,7 +34,7 @@
   },
   {
     "name": "Etihad Airways",
-    "badge": "🟡",
+    "logo": "/images/airlines/etihad.png",
     "hub": "Abu Dhabi (AUH)",
     "categories": ["gulf", "europe"],
     "desc": "90+ destinations in 70+ countries via Abu Dhabi. Award-winning premium hospitality at every altitude.",
@@ -45,7 +45,7 @@
   },
   {
     "name": "Fly Jinnah",
-    "badge": "🔴",
+    "logo": "/images/airlines/flyjinnah.png",
     "hub": "Dubai (DXB)",
     "categories": ["pak", "gulf", "ksa"],
     "desc": "Affordable direct flights to Dubai, Sharjah & Saudi Arabia — strong on-time performance record.",
@@ -56,7 +56,7 @@
   },
   {
     "name": "Flyadeal",
-    "badge": "💜",
+    "logo": "/images/airlines/flyadeal.png",
     "hub": "Saudi Arabia",
     "categories": ["ksa"],
     "desc": "Low-cost fares to all Saudi cities. Direct, reliable and affordable — zero compromise on safety.",
@@ -67,7 +67,7 @@
   },
   {
     "name": "FlyDubai",
-    "badge": "🏙",
+    "logo": "/images/airlines/flydubai.png",
     "hub": "Dubai (DXB)",
     "categories": ["gulf", "europe"],
     "desc": "120+ destinations in 60+ countries. Best coverage in Central Asia, Africa & Europe via Dubai.",
@@ -78,7 +78,7 @@
   },
   {
     "name": "Flynas",
-    "badge": "🇸🇦",
+    "logo": "/images/airlines/flynas.png",
     "hub": "Riyadh & Jeddah",
     "categories": ["ksa", "gulf"],
     "desc": "Affordable fares on 70+ routes across Middle East, Europe, Asia & Africa from Saudi Arabia.",
@@ -89,7 +89,7 @@
   },
   {
     "name": "Gulf Air",
-    "badge": "🇧🇭",
+    "logo": "/images/airlines/gulfair.png",
     "hub": "Bahrain (BAH)",
     "categories": ["gulf", "ksa"],
     "desc": "Warm Gulf hospitality on 60+ routes across Middle East, Europe, Africa & Asia via Bahrain.",
@@ -100,7 +100,7 @@
   },
   {
     "name": "Oman Air",
-    "badge": "🇴🇲",
+    "logo": "/images/airlines/omanair.png",
     "hub": "Muscat (MCT)",
     "categories": ["gulf", "europe", "ksa"],
     "desc": "Seamless connections to 60+ destinations — Middle East, Europe, Asia, Australia & North America via Muscat.",
@@ -111,7 +111,7 @@
   },
   {
     "name": "PIA",
-    "badge": "🇵🇰",
+    "logo": "/images/airlines/pia.png",
     "hub": "Karachi",
     "categories": ["pak", "gulf", "europe", "ksa"],
     "desc": "Pakistan International Airlines — connecting Pakistan to 60+ global destinations. Great People to Fly With.",
@@ -122,7 +122,7 @@
   },
   {
     "name": "Qatar Airways",
-    "badge": "🇶🇦",
+    "logo": "/images/airlines/qatarairways.png",
     "hub": "Doha (DOH)",
     "categories": ["gulf", "europe"],
     "desc": "World's Best Airline — 170+ destinations globally. Award-winning service through Doha.",
@@ -133,7 +133,7 @@
   },
   {
     "name": "SalamAir",
-    "badge": "🌿",
+    "logo": "/images/airlines/salamair.png",
     "hub": "Muscat (MCT)",
     "categories": ["gulf", "ksa"],
     "desc": "Budget-friendly fares — zero hidden charges. 40+ destinations across Middle East, Asia & beyond.",
@@ -144,7 +144,7 @@
   },
   {
     "name": "Saudia Airlines",
-    "badge": "🇸🇦",
+    "logo": "/images/airlines/saudia.png",
     "hub": "Jeddah & Riyadh",
     "categories": ["ksa", "europe"],
     "desc": "Direct flights to all Saudi cities from Karachi, Lahore, Islamabad & Multan. Ideal for Umrah & business.",
@@ -155,7 +155,7 @@
   },
   {
     "name": "Turkish Airlines",
-    "badge": "🇹🇷",
+    "logo": "/images/airlines/turkish.png",
     "hub": "Istanbul (IST)",
     "categories": ["europe"],
     "desc": "Connecting 300+ destinations in 120+ countries via Istanbul. Best airline for Europe & Americas.",
