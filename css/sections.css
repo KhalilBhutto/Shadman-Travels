@@ -903,6 +903,25 @@
   display: flex;
   flex-direction: column;
   transition: all 0.3s;
+  overflow: hidden;
+}
+
+.umrah-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(228, 188, 90, 0.14), transparent);
+  animation: acardSweep 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.umrah-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .umrah-card:hover {
@@ -924,8 +943,9 @@
 
 .umrah-badge {
   position: absolute;
-  top: -12px;
-  left: 28px;
+  top: 16px;
+  right: 28px;
+  left: auto;
   background: linear-gradient(135deg, var(--gold), var(--gold2));
   color: var(--g900);
   font-size: 0.62rem;
@@ -934,6 +954,7 @@
   border-radius: 50px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  z-index: 3;
 }
 
 .umrah-card-head h3 {
