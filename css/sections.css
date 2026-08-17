@@ -862,3 +862,203 @@
   color: var(--muted);
   line-height: 1.7;
 }
+
+/* ═══════════════════════════════════════════
+   UMRAH & HAJJ PACKAGES SECTION
+═══════════════════════════════════════════ */
+.umrah-sec {
+  position: relative;
+  padding: 96px 32px;
+  background: #060f09 url("../images/services/umrah-bg.webp") center center / cover no-repeat;
+  overflow: hidden;
+}
+
+.umrah-sec::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6,15,9,0.75) 0%, rgba(6,15,9,0.55) 40%, rgba(6,15,9,0.85) 100%);
+  z-index: 0;
+}
+
+.umrah-sec .sec-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.umrah-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.umrah-card {
+  background: rgba(6, 15, 9, 0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(201, 160, 40, 0.2);
+  border-radius: 18px;
+  padding: 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+
+.umrah-card:hover {
+  border-color: rgba(201, 160, 40, 0.55);
+  transform: translateY(-4px);
+  background: rgba(6, 15, 9, 0.7);
+}
+
+.umrah-featured {
+  background: rgba(201, 160, 40, 0.12);
+  border-color: var(--gold);
+  transform: scale(1.03);
+}
+
+.umrah-featured:hover {
+  transform: scale(1.03) translateY(-4px);
+  background: rgba(201, 160, 40, 0.18);
+}
+
+.umrah-badge {
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--g900);
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 50px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.umrah-card-head h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.umrah-nights {
+  font-size: 0.78rem;
+  color: var(--gold2);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.umrah-nights span {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 400;
+}
+
+.umrah-hotel {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.umrah-stars {
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+
+.umrah-features {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.umrah-features li {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 0 6px 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.umrah-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.umrah-price-row {
+  margin-bottom: 18px;
+}
+
+.umrah-price-label {
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.umrah-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.umrah-price span {
+  font-size: 1.9rem;
+}
+
+.umrah-enquire {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 0.8rem;
+}
+
+.umrah-disclaimer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.8;
+  max-width: 620px;
+  margin: 40px auto 0;
+}
+
+.umrah-wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  color: #25d366;
+  font-weight: 700;
+}
+
+.umrah-wa-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .umrah-grid {
+    grid-template-columns: 1fr;
+  }
+  .umrah-featured {
+    transform: none;
+  }
+  .umrah-featured:hover {
+    transform: translateY(-4px);
+  }
+}
