@@ -81,60 +81,50 @@
 }
 
 .acard-top {
-  background: linear-gradient(135deg, var(--g800), var(--g600));
-  padding: 20px;
+  padding: 26px 20px 22px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   position: relative;
   overflow: hidden;
+  transition: background 0.3s;
 }
 
-.acard-top::before {
-  content: '✈';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 4rem;
-  opacity: 0.06;
-}
-
-.airline-badge {
-  width: 50px;
-  height: 50px;
+.acard-logo-plate {
   background: #ffffff;
-  border: 2px solid rgba(201, 160, 40, 0.4);
-  border-radius: 50%;
+  border-radius: 12px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
-  padding: 7px;
+  max-width: 200px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
-.airline-badge img {
-  width: 100%;
-  height: 100%;
+.acard-logo-plate img {
+  max-height: 42px;
+  max-width: 160px;
+  width: auto;
+  height: auto;
   object-fit: contain;
-}
-
-.acard-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: white;
-  line-height: 1.2;
+  display: block;
 }
 
 .acard-hub {
   font-size: 0.68rem;
-  color: var(--gold2);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-top: 2px;
+  text-align: center;
+}
+
+.acard-hub-light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.acard-hub-dark {
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .acard-body {
@@ -225,8 +215,6 @@
 }
 
 .book-btn {
-  background: var(--g700);
-  color: var(--gold2);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 8px 18px;
@@ -235,14 +223,14 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  transition: all 0.2s;
+  transition: filter 0.2s, transform 0.2s;
   cursor: pointer;
   letter-spacing: 0.04em;
 }
 
 .book-btn:hover {
-  background: var(--gold);
-  color: var(--g900);
+  filter: brightness(1.12);
+  transform: translateY(-1px);
 }
 
 .acard.hidden {

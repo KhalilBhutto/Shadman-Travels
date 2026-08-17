@@ -457,11 +457,13 @@ window.toggleFAQ = toggleFAQ;
       data.forEach(function(a, i) {
         const revealClass = ['reveal', 'reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 5];
 
+        const hubTextClass = a.textOnColor === 'dark' ? 'acard-hub-dark' : 'acard-hub-light';
+
         html += '<div class="acard ' + revealClass + '" data-cat="' + escapeHtml(a.categories.join(' ')) + '">';
-        html += '<div class="acard-top"><div class="airline-badge"><img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.name) + ' logo" loading="lazy"></div><div>';
-        html += '<div class="acard-name">' + escapeHtml(a.name) + '</div>';
-        html += '<div class="acard-hub">✈ Hub: ' + escapeHtml(a.hub) + '</div>';
-        html += '</div></div>';
+        html += '<div class="acard-top" style="background:' + escapeHtml(a.colorTop) + '">';
+        html += '<div class="acard-logo-plate"><img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.name) + ' logo" loading="lazy"></div>';
+        html += '<div class="acard-hub ' + hubTextClass + '">✈ Hub: ' + escapeHtml(a.hub) + '</div>';
+        html += '</div>';
         html += '<div class="acard-body"><p class="acard-desc">' + escapeHtml(a.desc) + '</p>';
 
         a.destinations.forEach(function(section) {
@@ -474,8 +476,10 @@ window.toggleFAQ = toggleFAQ;
           html += '</div></div>';
         });
 
+        const btnTextColor = a.textOnColor === 'dark' ? '#1a1a1a' : '#ffffff';
+
         html += '<div class="acard-footer"><div class="seats-badge">⚡ Limited Seats</div>';
-        html += '<button class="book-btn" onclick="window.location.href=\'tel:+923000041510\'">Book Now →</button></div>';
+        html += '<button class="book-btn" style="background:' + escapeHtml(a.colorBtn) + ';color:' + btnTextColor + '" onclick="window.location.href=\'tel:+923000041510\'">Book Now →</button></div>';
         html += '</div></div>';
       });
 

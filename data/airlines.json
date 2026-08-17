@@ -2,166 +2,1105 @@
   {
     "name": "Airblue",
     "logo": "/images/airlines/airblue.png",
+    "colorTop": "#1B2A5B",
+    "colorBtn": "#2F3E75",
+    "textOnColor": "light",
     "hub": "Karachi & Lahore",
-    "categories": ["pak", "gulf", "ksa"],
+    "categories": [
+      "pak",
+      "gulf",
+      "ksa"
+    ],
     "desc": "Flying Redefined — high-frequency routes to UAE, Saudi Arabia & the brand-new Baku direct flight!",
     "destinations": [
-      { "label": "UAE", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Abu Dhabi","code":"AUH"},{"name":"Sharjah","code":"SHJ"}] },
-      { "label": "Saudi Arabia & More", "chips": [{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Dammam","code":"DMM"},{"name":"Madinah","code":"MED"},{"name":"Baku","code":"GYD","new":true}] }
+      {
+        "label": "UAE",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Abu Dhabi",
+            "code": "AUH"
+          },
+          {
+            "name": "Sharjah",
+            "code": "SHJ"
+          }
+        ]
+      },
+      {
+        "label": "Saudi Arabia & More",
+        "chips": [
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Baku",
+            "code": "GYD",
+            "new": true
+          }
+        ]
+      }
     ]
   },
   {
     "name": "AirSial",
     "logo": "/images/airlines/airsial.png",
+    "colorTop": "#1C8A4B",
+    "colorBtn": "#C9A028",
+    "textOnColor": "light",
     "hub": "Karachi & Lahore",
-    "categories": ["pak", "ksa", "gulf"],
+    "categories": [
+      "pak",
+      "ksa",
+      "gulf"
+    ],
     "desc": "Pakistan-based airline operating high-frequency routes to Middle East & Saudi Arabia with competitive fares.",
     "destinations": [
-      { "label": "Saudi Arabia", "chips": [{"name":"Jeddah","code":"JED"},{"name":"Madinah","code":"MED"},{"name":"Dammam","code":"DMM"},{"name":"Riyadh","code":"RUH"}] },
-      { "label": "UAE & More", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Sharjah","code":"SHJ"},{"name":"Abu Dhabi","code":"AUH"},{"name":"Muscat","code":"MCT"},{"name":"Istanbul","code":"IST"}] }
+      {
+        "label": "Saudi Arabia",
+        "chips": [
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          }
+        ]
+      },
+      {
+        "label": "UAE & More",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Sharjah",
+            "code": "SHJ"
+          },
+          {
+            "name": "Abu Dhabi",
+            "code": "AUH"
+          },
+          {
+            "name": "Muscat",
+            "code": "MCT"
+          },
+          {
+            "name": "Istanbul",
+            "code": "IST"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Emirates",
     "logo": "/images/airlines/emirates.png",
+    "colorTop": "#9E1B32",
+    "colorBtn": "#7A1527",
+    "textOnColor": "light",
     "hub": "Dubai (DXB)",
-    "categories": ["gulf", "europe"],
+    "categories": [
+      "gulf",
+      "europe"
+    ],
     "desc": "Fly Better — connect to 140+ destinations in 80+ countries seamlessly via Dubai with world-class service.",
     "destinations": [
-      { "label": "Europe", "chips": [{"name":"London","code":"LHR"},{"name":"Manchester","code":"MAN"},{"name":"Paris","code":"CDG"},{"name":"Milan","code":"MXP"},{"name":"Rome","code":"FCO"},{"name":"Frankfurt","code":"FRA"},{"name":"Amsterdam","code":"AMS"},{"name":"Zurich","code":"ZRH"}] },
-      { "label": "Americas & Asia", "chips": [{"name":"New York","code":"JFK"},{"name":"Toronto","code":"YYZ"},{"name":"Chicago","code":"ORD"},{"name":"Bangkok","code":"BKK"},{"name":"Kuala Lumpur","code":"KUL"},{"name":"Singapore","code":"SIN"}] }
+      {
+        "label": "Europe",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Manchester",
+            "code": "MAN"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Milan",
+            "code": "MXP"
+          },
+          {
+            "name": "Rome",
+            "code": "FCO"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "Amsterdam",
+            "code": "AMS"
+          },
+          {
+            "name": "Zurich",
+            "code": "ZRH"
+          }
+        ]
+      },
+      {
+        "label": "Americas & Asia",
+        "chips": [
+          {
+            "name": "New York",
+            "code": "JFK"
+          },
+          {
+            "name": "Toronto",
+            "code": "YYZ"
+          },
+          {
+            "name": "Chicago",
+            "code": "ORD"
+          },
+          {
+            "name": "Bangkok",
+            "code": "BKK"
+          },
+          {
+            "name": "Kuala Lumpur",
+            "code": "KUL"
+          },
+          {
+            "name": "Singapore",
+            "code": "SIN"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Etihad Airways",
     "logo": "/images/airlines/etihad.png",
+    "colorTop": "#B8860B",
+    "colorBtn": "#8C6508",
+    "textOnColor": "light",
     "hub": "Abu Dhabi (AUH)",
-    "categories": ["gulf", "europe"],
+    "categories": [
+      "gulf",
+      "europe"
+    ],
     "desc": "90+ destinations in 70+ countries via Abu Dhabi. Award-winning premium hospitality at every altitude.",
     "destinations": [
-      { "label": "Europe & North America", "chips": [{"name":"London","code":"LHR"},{"name":"Manchester","code":"MAN"},{"name":"Paris","code":"CDG"},{"name":"Milan","code":"MXP"},{"name":"Rome","code":"FCO"},{"name":"Toronto","code":"YYZ"},{"name":"New York","code":"JFK"},{"name":"Chicago","code":"ORD"}] },
-      { "label": "Asia & Australia", "chips": [{"name":"Kuala Lumpur","code":"KUL"},{"name":"Singapore","code":"SIN"},{"name":"Sydney","code":"SYD"},{"name":"Melbourne","code":"MEL"},{"name":"Jeddah","code":"JED"},{"name":"Dammam","code":"DMM"}] }
+      {
+        "label": "Europe & North America",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Manchester",
+            "code": "MAN"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Milan",
+            "code": "MXP"
+          },
+          {
+            "name": "Rome",
+            "code": "FCO"
+          },
+          {
+            "name": "Toronto",
+            "code": "YYZ"
+          },
+          {
+            "name": "New York",
+            "code": "JFK"
+          },
+          {
+            "name": "Chicago",
+            "code": "ORD"
+          }
+        ]
+      },
+      {
+        "label": "Asia & Australia",
+        "chips": [
+          {
+            "name": "Kuala Lumpur",
+            "code": "KUL"
+          },
+          {
+            "name": "Singapore",
+            "code": "SIN"
+          },
+          {
+            "name": "Sydney",
+            "code": "SYD"
+          },
+          {
+            "name": "Melbourne",
+            "code": "MEL"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Fly Jinnah",
     "logo": "/images/airlines/flyjinnah.png",
+    "colorTop": "#E31C3D",
+    "colorBtn": "#B4152F",
+    "textOnColor": "light",
     "hub": "Dubai (DXB)",
-    "categories": ["pak", "gulf", "ksa"],
+    "categories": [
+      "pak",
+      "gulf",
+      "ksa"
+    ],
     "desc": "Affordable direct flights to Dubai, Sharjah & Saudi Arabia — strong on-time performance record.",
     "destinations": [
-      { "label": "International", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Sharjah","code":"SHJ"},{"name":"Jeddah","code":"JED"},{"name":"Dammam","code":"DMM"},{"name":"Riyadh","code":"RUH"},{"name":"Bahrain","code":"BAH"}] },
-      { "label": "Domestic Pakistan", "chips": [{"name":"Karachi","code":"KHI"},{"name":"Lahore","code":"LHE"},{"name":"Islamabad","code":"ISB"},{"name":"Quetta","code":"UET"},{"name":"Multan","code":"MUX"},{"name":"Sialkot","code":"SKT"}] }
+      {
+        "label": "International",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Sharjah",
+            "code": "SHJ"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Bahrain",
+            "code": "BAH"
+          }
+        ]
+      },
+      {
+        "label": "Domestic Pakistan",
+        "chips": [
+          {
+            "name": "Karachi",
+            "code": "KHI"
+          },
+          {
+            "name": "Lahore",
+            "code": "LHE"
+          },
+          {
+            "name": "Islamabad",
+            "code": "ISB"
+          },
+          {
+            "name": "Quetta",
+            "code": "UET"
+          },
+          {
+            "name": "Multan",
+            "code": "MUX"
+          },
+          {
+            "name": "Sialkot",
+            "code": "SKT"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Flyadeal",
     "logo": "/images/airlines/flyadeal.png",
+    "colorTop": "#5B2C82",
+    "colorBtn": "#A8C300",
+    "textOnColor": "dark",
     "hub": "Saudi Arabia",
-    "categories": ["ksa"],
+    "categories": [
+      "ksa"
+    ],
     "desc": "Low-cost fares to all Saudi cities. Direct, reliable and affordable — zero compromise on safety.",
     "destinations": [
-      { "label": "Saudi Arabia", "chips": [{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Dammam","code":"DMM"},{"name":"Medina","code":"MED"},{"name":"Qassim","code":"ELQ"}] },
-      { "label": "International", "chips": [{"name":"Istanbul","code":"IST"},{"name":"Dubai","code":"DXB"},{"name":"Cairo","code":"CAI"}] }
+      {
+        "label": "Saudi Arabia",
+        "chips": [
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Medina",
+            "code": "MED"
+          },
+          {
+            "name": "Qassim",
+            "code": "ELQ"
+          }
+        ]
+      },
+      {
+        "label": "International",
+        "chips": [
+          {
+            "name": "Istanbul",
+            "code": "IST"
+          },
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Cairo",
+            "code": "CAI"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "FlyDubai",
     "logo": "/images/airlines/flydubai.png",
+    "colorTop": "#00629B",
+    "colorBtn": "#F7941D",
+    "textOnColor": "dark",
     "hub": "Dubai (DXB)",
-    "categories": ["gulf", "europe"],
+    "categories": [
+      "gulf",
+      "europe"
+    ],
     "desc": "120+ destinations in 60+ countries. Best coverage in Central Asia, Africa & Europe via Dubai.",
     "destinations": [
-      { "label": "UAE, Saudi & Turkey", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Dammam","code":"DMM"},{"name":"Istanbul","code":"SAW"},{"name":"Ankara","code":"ESB"},{"name":"Antalya","code":"AYT"}] },
-      { "label": "Central Asia & Europe", "chips": [{"name":"Almaty","code":"ALA"},{"name":"Tashkent","code":"TAS"},{"name":"Baku","code":"GYD"},{"name":"Nairobi","code":"NBO"},{"name":"Milan","code":"MXP"},{"name":"Prague","code":"PRG"}] }
+      {
+        "label": "UAE, Saudi & Turkey",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Istanbul",
+            "code": "SAW"
+          },
+          {
+            "name": "Ankara",
+            "code": "ESB"
+          },
+          {
+            "name": "Antalya",
+            "code": "AYT"
+          }
+        ]
+      },
+      {
+        "label": "Central Asia & Europe",
+        "chips": [
+          {
+            "name": "Almaty",
+            "code": "ALA"
+          },
+          {
+            "name": "Tashkent",
+            "code": "TAS"
+          },
+          {
+            "name": "Baku",
+            "code": "GYD"
+          },
+          {
+            "name": "Nairobi",
+            "code": "NBO"
+          },
+          {
+            "name": "Milan",
+            "code": "MXP"
+          },
+          {
+            "name": "Prague",
+            "code": "PRG"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Flynas",
     "logo": "/images/airlines/flynas.png",
+    "colorTop": "#00A99D",
+    "colorBtn": "#00807A",
+    "textOnColor": "light",
     "hub": "Riyadh & Jeddah",
-    "categories": ["ksa", "gulf"],
+    "categories": [
+      "ksa",
+      "gulf"
+    ],
     "desc": "Affordable fares on 70+ routes across Middle East, Europe, Asia & Africa from Saudi Arabia.",
     "destinations": [
-      { "label": "Saudi Arabia", "chips": [{"name":"Jeddah","code":"JED"},{"name":"Madinah","code":"MED"},{"name":"Riyadh","code":"RUH"},{"name":"Dammam","code":"DMM"}] },
-      { "label": "UAE & More", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Abu Dhabi","code":"AUH"},{"name":"Sharjah","code":"SHJ"}] }
+      {
+        "label": "Saudi Arabia",
+        "chips": [
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          }
+        ]
+      },
+      {
+        "label": "UAE & More",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Abu Dhabi",
+            "code": "AUH"
+          },
+          {
+            "name": "Sharjah",
+            "code": "SHJ"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Gulf Air",
     "logo": "/images/airlines/gulfair.png",
+    "colorTop": "#A6862C",
+    "colorBtn": "#0B2545",
+    "textOnColor": "light",
     "hub": "Bahrain (BAH)",
-    "categories": ["gulf", "ksa"],
+    "categories": [
+      "gulf",
+      "ksa"
+    ],
     "desc": "Warm Gulf hospitality on 60+ routes across Middle East, Europe, Africa & Asia via Bahrain.",
     "destinations": [
-      { "label": "Gulf & Saudi Arabia", "chips": [{"name":"Bahrain","code":"BAH"},{"name":"Jeddah","code":"JED"},{"name":"Madinah","code":"MED"},{"name":"Riyadh","code":"RUH"},{"name":"Dammam","code":"DMM"},{"name":"Dubai","code":"DXB"},{"name":"Abu Dhabi","code":"AUH"}] },
-      { "label": "Europe & Leisure", "chips": [{"name":"London","code":"LHR"},{"name":"Paris","code":"CDG"},{"name":"Frankfurt","code":"FRA"},{"name":"Athens","code":"ATH"},{"name":"Istanbul","code":"IST"},{"name":"Cairo","code":"CAI"},{"name":"Maldives","code":"MLE"}] }
+      {
+        "label": "Gulf & Saudi Arabia",
+        "chips": [
+          {
+            "name": "Bahrain",
+            "code": "BAH"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Abu Dhabi",
+            "code": "AUH"
+          }
+        ]
+      },
+      {
+        "label": "Europe & Leisure",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "Athens",
+            "code": "ATH"
+          },
+          {
+            "name": "Istanbul",
+            "code": "IST"
+          },
+          {
+            "name": "Cairo",
+            "code": "CAI"
+          },
+          {
+            "name": "Maldives",
+            "code": "MLE"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Oman Air",
     "logo": "/images/airlines/omanair.png",
+    "colorTop": "#B99646",
+    "colorBtn": "#54595E",
+    "textOnColor": "light",
     "hub": "Muscat (MCT)",
-    "categories": ["gulf", "europe", "ksa"],
+    "categories": [
+      "gulf",
+      "europe",
+      "ksa"
+    ],
     "desc": "Seamless connections to 60+ destinations — Middle East, Europe, Asia, Australia & North America via Muscat.",
     "destinations": [
-      { "label": "Middle East & Gulf", "chips": [{"name":"Muscat","code":"MCT"},{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Madinah","code":"MED"},{"name":"Dammam","code":"DMM"},{"name":"Doha","code":"DOH"},{"name":"Bahrain","code":"BAH"}] },
-      { "label": "Europe & Asia-Pacific", "chips": [{"name":"London","code":"LHR"},{"name":"Paris","code":"CDG"},{"name":"Frankfurt","code":"FRA"},{"name":"Bangkok","code":"BKK"},{"name":"Kuala Lumpur","code":"KUL"},{"name":"Sydney","code":"SYD"},{"name":"Toronto","code":"YYZ"}] }
+      {
+        "label": "Middle East & Gulf",
+        "chips": [
+          {
+            "name": "Muscat",
+            "code": "MCT"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          },
+          {
+            "name": "Doha",
+            "code": "DOH"
+          },
+          {
+            "name": "Bahrain",
+            "code": "BAH"
+          }
+        ]
+      },
+      {
+        "label": "Europe & Asia-Pacific",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "Bangkok",
+            "code": "BKK"
+          },
+          {
+            "name": "Kuala Lumpur",
+            "code": "KUL"
+          },
+          {
+            "name": "Sydney",
+            "code": "SYD"
+          },
+          {
+            "name": "Toronto",
+            "code": "YYZ"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "PIA",
     "logo": "/images/airlines/pia.png",
+    "colorTop": "#0B5D2E",
+    "colorBtn": "#B98F33",
+    "textOnColor": "light",
     "hub": "Karachi",
-    "categories": ["pak", "gulf", "europe", "ksa"],
+    "categories": [
+      "pak",
+      "gulf",
+      "europe",
+      "ksa"
+    ],
     "desc": "Pakistan International Airlines — connecting Pakistan to 60+ global destinations. Great People to Fly With.",
     "destinations": [
-      { "label": "Middle East & Gulf", "chips": [{"name":"Dubai","code":"DXB"},{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Abu Dhabi","code":"AUH"},{"name":"Bahrain","code":"BAH"},{"name":"Doha","code":"DOH"},{"name":"Muscat","code":"MCT"}] },
-      { "label": "Europe & UK", "chips": [{"name":"London","code":"LHR"},{"name":"Manchester","code":"MAN"},{"name":"Birmingham","code":"BHX"},{"name":"Paris","code":"CDG"},{"name":"Milan","code":"LIN"},{"name":"Frankfurt","code":"FRA"},{"name":"Istanbul","code":"IST"}] }
+      {
+        "label": "Middle East & Gulf",
+        "chips": [
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Abu Dhabi",
+            "code": "AUH"
+          },
+          {
+            "name": "Bahrain",
+            "code": "BAH"
+          },
+          {
+            "name": "Doha",
+            "code": "DOH"
+          },
+          {
+            "name": "Muscat",
+            "code": "MCT"
+          }
+        ]
+      },
+      {
+        "label": "Europe & UK",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Manchester",
+            "code": "MAN"
+          },
+          {
+            "name": "Birmingham",
+            "code": "BHX"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Milan",
+            "code": "LIN"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "Istanbul",
+            "code": "IST"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Qatar Airways",
     "logo": "/images/airlines/qatarairways.png",
+    "colorTop": "#5C0632",
+    "colorBtn": "#862142",
+    "textOnColor": "light",
     "hub": "Doha (DOH)",
-    "categories": ["gulf", "europe"],
+    "categories": [
+      "gulf",
+      "europe"
+    ],
     "desc": "World's Best Airline — 170+ destinations globally. Award-winning service through Doha.",
     "destinations": [
-      { "label": "Middle East", "chips": [{"name":"Doha","code":"DOH"},{"name":"Dubai","code":"DXB"},{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Bahrain","code":"BAH"},{"name":"Kuwait","code":"KWI"}] },
-      { "label": "Europe & Americas", "chips": [{"name":"London","code":"LHR"},{"name":"Paris","code":"CDG"},{"name":"Frankfurt","code":"FRA"},{"name":"New York","code":"JFK"},{"name":"Toronto","code":"YYZ"},{"name":"Chicago","code":"ORD"},{"name":"Sydney","code":"SYD"},{"name":"Singapore","code":"SIN"}] }
+      {
+        "label": "Middle East",
+        "chips": [
+          {
+            "name": "Doha",
+            "code": "DOH"
+          },
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Bahrain",
+            "code": "BAH"
+          },
+          {
+            "name": "Kuwait",
+            "code": "KWI"
+          }
+        ]
+      },
+      {
+        "label": "Europe & Americas",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "New York",
+            "code": "JFK"
+          },
+          {
+            "name": "Toronto",
+            "code": "YYZ"
+          },
+          {
+            "name": "Chicago",
+            "code": "ORD"
+          },
+          {
+            "name": "Sydney",
+            "code": "SYD"
+          },
+          {
+            "name": "Singapore",
+            "code": "SIN"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "SalamAir",
     "logo": "/images/airlines/salamair.png",
+    "colorTop": "#4F9A43",
+    "colorBtn": "#1E7D9E",
+    "textOnColor": "light",
     "hub": "Muscat (MCT)",
-    "categories": ["gulf", "ksa"],
+    "categories": [
+      "gulf",
+      "ksa"
+    ],
     "desc": "Budget-friendly fares — zero hidden charges. 40+ destinations across Middle East, Asia & beyond.",
     "destinations": [
-      { "label": "Middle East", "chips": [{"name":"Muscat","code":"MCT"},{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Madinah","code":"MED"},{"name":"Kuwait","code":"KWI"},{"name":"Sharjah","code":"SHJ"},{"name":"Dubai","code":"DXB"},{"name":"Doha","code":"DOH"}] },
-      { "label": "Leisure & Tourism", "chips": [{"name":"Baku","code":"GYD"},{"name":"Istanbul","code":"IST"},{"name":"Bangkok","code":"BKK"},{"name":"Phuket","code":"HKT"},{"name":"Kuala Lumpur","code":"KUL"},{"name":"Maldives","code":"MLE"}] }
+      {
+        "label": "Middle East",
+        "chips": [
+          {
+            "name": "Muscat",
+            "code": "MCT"
+          },
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Kuwait",
+            "code": "KWI"
+          },
+          {
+            "name": "Sharjah",
+            "code": "SHJ"
+          },
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Doha",
+            "code": "DOH"
+          }
+        ]
+      },
+      {
+        "label": "Leisure & Tourism",
+        "chips": [
+          {
+            "name": "Baku",
+            "code": "GYD"
+          },
+          {
+            "name": "Istanbul",
+            "code": "IST"
+          },
+          {
+            "name": "Bangkok",
+            "code": "BKK"
+          },
+          {
+            "name": "Phuket",
+            "code": "HKT"
+          },
+          {
+            "name": "Kuala Lumpur",
+            "code": "KUL"
+          },
+          {
+            "name": "Maldives",
+            "code": "MLE"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Saudia Airlines",
     "logo": "/images/airlines/saudia.png",
+    "colorTop": "#00723C",
+    "colorBtn": "#00522A",
+    "textOnColor": "light",
     "hub": "Jeddah & Riyadh",
-    "categories": ["ksa", "europe"],
+    "categories": [
+      "ksa",
+      "europe"
+    ],
     "desc": "Direct flights to all Saudi cities from Karachi, Lahore, Islamabad & Multan. Ideal for Umrah & business.",
     "destinations": [
-      { "label": "Saudi Arabia", "chips": [{"name":"Jeddah","code":"JED"},{"name":"Riyadh","code":"RUH"},{"name":"Madinah","code":"MED"},{"name":"Dammam","code":"DMM"}] },
-      { "label": "Europe & Americas", "chips": [{"name":"London","code":"LHR"},{"name":"Manchester","code":"MAN"},{"name":"Paris","code":"CDG"},{"name":"Toronto","code":"YYZ"},{"name":"New York","code":"JFK"},{"name":"Los Angeles","code":"LAX"},{"name":"Dubai","code":"DXB"},{"name":"Cairo","code":"CAI"}] }
+      {
+        "label": "Saudi Arabia",
+        "chips": [
+          {
+            "name": "Jeddah",
+            "code": "JED"
+          },
+          {
+            "name": "Riyadh",
+            "code": "RUH"
+          },
+          {
+            "name": "Madinah",
+            "code": "MED"
+          },
+          {
+            "name": "Dammam",
+            "code": "DMM"
+          }
+        ]
+      },
+      {
+        "label": "Europe & Americas",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Manchester",
+            "code": "MAN"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Toronto",
+            "code": "YYZ"
+          },
+          {
+            "name": "New York",
+            "code": "JFK"
+          },
+          {
+            "name": "Los Angeles",
+            "code": "LAX"
+          },
+          {
+            "name": "Dubai",
+            "code": "DXB"
+          },
+          {
+            "name": "Cairo",
+            "code": "CAI"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Turkish Airlines",
     "logo": "/images/airlines/turkish.png",
+    "colorTop": "#C9302C",
+    "colorBtn": "#C9302C",
+    "textOnColor": "light",
     "hub": "Istanbul (IST)",
-    "categories": ["europe"],
+    "categories": [
+      "europe"
+    ],
     "desc": "Connecting 300+ destinations in 120+ countries via Istanbul. Best airline for Europe & Americas.",
     "destinations": [
-      { "label": "Europe", "chips": [{"name":"London","code":"LHR"},{"name":"Manchester","code":"MAN"},{"name":"Birmingham","code":"BHX"},{"name":"Paris","code":"CDG"},{"name":"Frankfurt","code":"FRA"},{"name":"Milan","code":"MXP"},{"name":"Barcelona","code":"BCN"},{"name":"Amsterdam","code":"AMS"}] },
-      { "label": "Americas & Turkey", "chips": [{"name":"New York","code":"JFK"},{"name":"Chicago","code":"ORD"},{"name":"Washington D.C.","code":""},{"name":"Antalya","code":""},{"name":"Cappadocia","code":""},{"name":"Bodrum","code":""}] }
+      {
+        "label": "Europe",
+        "chips": [
+          {
+            "name": "London",
+            "code": "LHR"
+          },
+          {
+            "name": "Manchester",
+            "code": "MAN"
+          },
+          {
+            "name": "Birmingham",
+            "code": "BHX"
+          },
+          {
+            "name": "Paris",
+            "code": "CDG"
+          },
+          {
+            "name": "Frankfurt",
+            "code": "FRA"
+          },
+          {
+            "name": "Milan",
+            "code": "MXP"
+          },
+          {
+            "name": "Barcelona",
+            "code": "BCN"
+          },
+          {
+            "name": "Amsterdam",
+            "code": "AMS"
+          }
+        ]
+      },
+      {
+        "label": "Americas & Turkey",
+        "chips": [
+          {
+            "name": "New York",
+            "code": "JFK"
+          },
+          {
+            "name": "Chicago",
+            "code": "ORD"
+          },
+          {
+            "name": "Washington D.C.",
+            "code": ""
+          },
+          {
+            "name": "Antalya",
+            "code": ""
+          },
+          {
+            "name": "Cappadocia",
+            "code": ""
+          },
+          {
+            "name": "Bodrum",
+            "code": ""
+          }
+        ]
+      }
     ]
   }
 ]
