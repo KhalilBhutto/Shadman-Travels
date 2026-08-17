@@ -152,6 +152,7 @@
 .wf.active-step { border-color: var(--g900); background: white; box-shadow: 0 0 0 1px var(--g900); }
 .wf-icon-circle { width: 27px; height: 27px; border-radius: 50%; background: #9aa0a6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
 .wf-icon-circle svg { width: 13px; height: 13px; color: white; transition: color .2s; }
+.wf-icon-circle i { font-size: .78rem; color: white; }
 .wf-icon-circle.filled { background: var(--gold); }
 .wf-clear { display: none; position: absolute; right: 8px; top: 8px; width: 18px; height: 18px; border-radius: 50%; align-items: center; justify-content: center; color: var(--muted); font-size: 1rem; line-height: 1; cursor: pointer; }
 .wf-clear.show { display: flex; }
@@ -163,6 +164,7 @@
 .swap-circle { width: 26px; height: 26px; border-radius: 50%; background: #f6f4ee; display: flex; align-items: center; justify-content: center; color: var(--g700); transition: all .2s; cursor: pointer; }
 .swap-circle:hover { background: var(--gold); color: white; transform: rotate(180deg); }
 .swap-circle svg { width: 12px; height: 12px; }
+.swap-circle i { font-size: .68rem; }
 .wf-searchbtn { display: flex; align-items: stretch; }
 .search-btn2 { background: var(--gold); color: var(--g900); border: none; border-radius: 50px; padding: 0 32px; font-weight: 700; font-size: .85rem; cursor: pointer; white-space: nowrap; transition: all .2s; }
 .search-btn2:hover { background: var(--gold2); }

@@ -340,10 +340,10 @@ function buildMcLegEl(i) {
   row.className = 'mc-leg-row2';
   row.innerHTML = `
     <div class="mc-leg-badge">Flight ${i + 1}</div>
-    <div class="wf" data-part="from"><div class="wf-icon-circle ${leg.from ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 14.6l-6.3-3.6V5.4c0-1-.8-2.3-1.8-2.9l-.6-.3-.6.3c-1 .6-1.8 1.9-1.8 2.9V11l-6.3 3.6c-.3.2-.5.5-.5.9v1.6l7.4-1.9v3.6l-2.2 1.5v1.5l3.4-.8.3-.1.3.1 3.4.8v-1.5l-2.2-1.5v-3.6l7.4 1.9v-1.6c0-.4-.2-.7-.5-.9z"/></svg></div>
+    <div class="wf" data-part="from"><div class="wf-icon-circle ${leg.from ? 'filled' : ''}"><i class="fas fa-plane-departure"></i></div>
       <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 ${leg.from ? '' : 'placeholder'}">${leg.from || 'City or airport'}</div></div><div class="popup ap-popup"></div></div>
-    <div class="wf-swap2" data-swap="1"><div class="swap-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 10l5-5 5 5M7 14l5 5 5-5"/></svg></div></div>
-    <div class="wf" data-part="to"><div class="wf-icon-circle ${leg.to ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="currentColor" style="transform:scaleY(-1)"><path d="M21.7 14.6l-6.3-3.6V5.4c0-1-.8-2.3-1.8-2.9l-.6-.3-.6.3c-1 .6-1.8 1.9-1.8 2.9V11l-6.3 3.6c-.3.2-.5.5-.5.9v1.6l7.4-1.9v3.6l-2.2 1.5v1.5l3.4-.8.3-.1.3.1 3.4.8v-1.5l-2.2-1.5v-3.6l7.4 1.9v-1.6c0-.4-.2-.7-.5-.9z"/></svg></div>
+    <div class="wf-swap2" data-swap="1"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
+    <div class="wf" data-part="to"><div class="wf-icon-circle ${leg.to ? 'filled' : ''}"><i class="fas fa-plane-arrival"></i></div>
       <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="popup ap-popup"></div></div>
     <div class="wf" data-part="date"><div class="wf-icon-circle ${leg.date ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
       <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div><div class="popup cal-popup"></div></div>
