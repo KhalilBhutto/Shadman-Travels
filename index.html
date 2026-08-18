@@ -1050,29 +1050,34 @@
             <div class="wf-icon-circle" id="fromIconC"><i class="fas fa-plane-departure"></i></div>
             <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 placeholder" id="fromValue">City or airport</div></div>
             <div class="wf-clear" id="fromClear" title="Clear">×</div>
-            <div class="popup ap-popup" id="fromPopup"></div>
+            
           </div>
           <div class="wf-swap2" id="swapBtn"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
           <div class="wf" id="toField">
             <div class="wf-icon-circle" id="toIconC"><i class="fas fa-plane-arrival"></i></div>
             <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 placeholder" id="toValue">City or airport</div></div>
             <div class="wf-clear" id="toClear" title="Clear">×</div>
-            <div class="popup ap-popup" id="toPopup"></div>
+            
           </div>
           <div class="wf" id="guestsField">
             <div class="wf-icon-circle" id="guestsIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><circle cx="16.5" cy="8" r="2.4" opacity=".75"/><path d="M14.8 14.3c.5-.13 1.1-.2 1.7-.2 2.6 0 4.5 2.1 4.5 5.4" opacity=".75"/></svg></div>
             <div class="wf-text"><div class="wf-label2">Guests and Cabin</div><div class="wf-val2 placeholder" id="guestsValue">Add</div></div>
-            <div class="popup guests-popup" id="guestsPopup"></div>
+            
           </div>
           <div class="wf" id="dateField">
             <div class="wf-icon-circle" id="dateIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
             <div class="wf-text"><div class="wf-label2">Travelling when?</div><div class="wf-val2 placeholder" id="dateValue">Add dates</div></div>
-            <div class="popup cal-popup" id="calPopup"></div>
+            >
           </div>
           <div class="wf-searchbtn">
             <button class="search-btn2" id="searchBtn" disabled>Search</button>
           </div>
         </div>
+
+        <div class="popup-panel ap-popup" id="fromPopup"></div>
+        <div class="popup-panel ap-popup" id="toPopup"></div>
+        <div class="popup-panel guests-popup" id="guestsPopup"></div>
+        <div class="popup-panel cal-popup" id="calPopup"></div>
 
         <div class="mc-legs2" id="mcLegs"></div>
         <div class="mc-add-row2" id="mcAddRow" style="display:none;">
@@ -1256,6 +1261,12 @@
       </div>
 
     </div><!-- /umrah-grid -->
+
+    <div style="text-align:center;margin-top:36px" class="reveal">
+      <a href="/pages/umrah-packages.html" class="btn-gold" style="display:inline-flex">
+        View All 20 Packages →
+      </a>
+    </div>
 
     <p class="umrah-disclaimer">
       Package prices are per person (twin/triple sharing), subject to season, hotel availability &amp; airline fares — contact us for this week's confirmed rates.

@@ -318,7 +318,7 @@ function handleDateClick(d, legIndex) {
 }
 
 function closeAllPopups() {
-  document.querySelectorAll('.popup').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.popup, .popup-panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.wf').forEach(w => w.classList.remove('active-step'));
 }
 function setActiveStep(fieldId) {
@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener('click', (e) => {
     const path = typeof e.composedPath === 'function' ? e.composedPath() : [e.target];
-    const insideWidget = path.some(el => el && el.classList && (el.classList.contains('wf') || el.classList.contains('popup')));
+    const insideWidget = path.some(el => el && el.classList && (el.classList.contains('wf') || el.classList.contains('popup') || el.classList.contains('popup-panel')));
     if (!insideWidget) closeAllPopups();
   });
 

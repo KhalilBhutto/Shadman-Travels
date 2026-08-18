@@ -32,6 +32,7 @@ const TARGET_FILES = [
   'pages/privacy-policy.html',
   'pages/terms.html',
   'pages/cookies.html',
+  'pages/umrah-packages.html',
 ];
 
 const INCLUDE_PATTERN = /<!--\s*INCLUDE:(\w[\w-]*)\s*-->[\s\S]*?<!--\s*\/INCLUDE:\1\s*-->/g;
