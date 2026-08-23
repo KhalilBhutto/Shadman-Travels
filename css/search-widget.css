@@ -190,6 +190,8 @@
 .mc-remove2 { display: flex; align-items: center; justify-content: center; padding: 0 14px; color: #b5b0a0; cursor: pointer; }
 .mc-remove2:hover { color: #c0392b; }
 .mc-add-row2 { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.mc-guests-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid #f0ede6; }
+.mc-guests-row .wf { flex: 1; }
 .mc-add-btn2 { background: none; border: 1.5px dashed #d8cfa8; color: var(--gold); padding: 8px 16px; border-radius: 9px; font-size: .75rem; font-weight: 700; cursor: pointer; }
 .mc-add-btn2:hover { border-color: var(--gold); background: var(--goldpale); }
 .mc-add-btn2:disabled { opacity: .35; cursor: not-allowed; }

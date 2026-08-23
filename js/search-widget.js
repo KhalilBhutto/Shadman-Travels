@@ -74,17 +74,15 @@ function renderField(which) {
   if (which === 'guests') {
     const { adults, children, infants } = wState.pax;
     const total = adults + children + infants;
-    const valEl = document.getElementById('guestsValue');
-    const iconEl = document.getElementById('guestsIconC');
-    if (wState.guestsConfirmed) {
-      valEl.textContent = total + ' Guest' + (total !== 1 ? 's' : '') + ', ' + wState.cabin;
-      valEl.classList.remove('placeholder');
-      iconEl.classList.add('filled');
-    } else {
-      valEl.textContent = 'Add';
-      valEl.classList.add('placeholder');
-      iconEl.classList.remove('filled');
-    }
+    const labelText = wState.guestsConfirmed ? (total + ' Guest' + (total !== 1 ? 's' : '') + ', ' + wState.cabin) : 'Add';
+    [['guestsValue', 'guestsIconC'], ['mcGuestsValue', 'mcGuestsIconC']].forEach(([valId, iconId]) => {
+      const valEl = document.getElementById(valId);
+      const iconEl = document.getElementById(iconId);
+      if (!valEl || !iconEl) return;
+      valEl.textContent = labelText;
+      valEl.classList.toggle('placeholder', !wState.guestsConfirmed);
+      iconEl.classList.toggle('filled', wState.guestsConfirmed);
+    });
   }
   if (which === 'date') {
     const valEl = document.getElementById('dateValue'), iconEl = document.getElementById('dateIconC');
@@ -107,13 +105,11 @@ function renderField(which) {
 }
 
 function updateSearchBtn() {
-  const btn = document.getElementById('searchBtn');
-  if (!btn) return;
   let ready = wState.from && wState.to;
   if (wState.trip === 'rt') ready = ready && wState.depart && wState.ret;
   if (wState.trip === 'ow') ready = ready && wState.depart;
   if (wState.trip === 'mc') ready = wState.mcLegs.every(l => l.from && l.to && l.date);
-  btn.disabled = !ready;
+  document.querySelectorAll('.search-btn2').forEach(btn => { btn.disabled = !ready; });
 }
 
 /* ─── AIRPORT PICKER (reuses global AIRPORTS from airports.js) ─── */
@@ -749,6 +745,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('fromField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) { openAirportPopup('from'); setActiveStep('fromField'); } });
   document.getElementById('toField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) { openAirportPopup('to'); setActiveStep('toField'); } });
   document.getElementById('guestsField').addEventListener('click', (e) => { if (!e.target.closest('.popup')) { openGuestsPopup(); setActiveStep('guestsField'); } });
+  document.getElementById('mcGuestsField').addEventListener('click', (e) => { if (!e.target.closest('.popup')) { openGuestsPopup(); setActiveStep('mcGuestsField'); } });
   document.getElementById('dateField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && wState.trip !== 'mc') { openCalendarPopup(); setActiveStep('dateField'); } });
   document.getElementById('swapBtn').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -774,6 +771,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('mainRow').style.display = mcMode ? 'none' : 'grid';
       document.getElementById('mcLegs').classList.toggle('show', mcMode);
       document.getElementById('mcAddRow').style.display = mcMode ? 'flex' : 'none';
+      document.getElementById('mcGuestsRow').style.display = mcMode ? 'flex' : 'none';
       if (mcMode) renderAllMcLegs();
       updateSearchBtn(); closeAllPopups(); updateHeroTicket();
     });
@@ -785,12 +783,13 @@ document.addEventListener('DOMContentLoaded', function () {
     renderAllMcLegs(); updateSearchBtn(); updateHeroTicket();
   });
 
-  document.getElementById('searchBtn').addEventListener('click', () => {
+  function handleSearchClick() {
     saveRecentSearch();
     updateHeroTicket();
     document.getElementById('htName').scrollIntoView({ behavior: 'smooth', block: 'center' });
     document.getElementById('htName').focus();
-  });
+  }
+  document.querySelectorAll('.search-btn2').forEach(btn => btn.addEventListener('click', handleSearchClick));
 
   document.getElementById('htSubmit').addEventListener('click', submitTicketEnquiry);
 
