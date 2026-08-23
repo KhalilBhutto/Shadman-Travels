@@ -152,7 +152,11 @@ function openAirportPopup(which) {
   buildAirportList(popupEl, exclude, (airport) => {
     wState[which] = airport.name; wState[which + 'Code'] = airport.code;
     renderField(which);
-    if (which === 'to' && wState.from && wState.to) setTimeout(() => openGuestsPopup(), 150);
+    if (which === 'from' && !wState.to) {
+      setTimeout(() => { openAirportPopup('to'); setActiveStep('toField'); }, 150);
+    } else if (which === 'to' && wState.from && wState.to) {
+      setTimeout(() => openGuestsPopup(), 150);
+    }
   });
   popupEl.classList.add('open');
 }
@@ -242,17 +246,29 @@ function renderCalendar(popupEl, legIndex) {
       <button class="cal-jump-btn" id="calJumpBtn">${baseMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })} <span class="cal-jump-chevron">▾</span></button>
       <div class="cal-nav"><button class="cal-nav-btn" id="calPrev" ${atMin ? 'disabled' : ''}>‹</button><button class="cal-nav-btn" id="calNext" ${atMax ? 'disabled' : ''}>›</button></div></div>
     <div class="cal-months">${monthsHtml}</div>
-    <div class="cal-footer"><span class="cal-selection-txt">${selTxt}</span><button class="cal-done" id="calDoneBtn">Done</button></div>`;
+    <div class="cal-footer"><a href="#" class="cal-reset" id="calResetBtn">Reset</a><span class="cal-selection-txt">${selTxt}</span></div>`;
   popupEl.querySelectorAll('.cal-day:not(.disabled):not(.empty)').forEach(el => {
-    el.addEventListener('click', (e) => { e.stopPropagation(); handleDateClick(parseLocalISO(el.dataset.date), legIndex); renderCalendar(popupEl, legIndex); });
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      handleDateClick(parseLocalISO(el.dataset.date), legIndex);
+      const selectionComplete = legIndex !== undefined
+        ? !!wState.mcLegs[legIndex].date
+        : (wState.trip === 'ow' ? !!wState.depart : !!(wState.depart && wState.ret));
+      if (legIndex !== undefined) { renderAllMcLegs(); updateSearchBtn(); updateHeroTicket(); }
+      else { renderField('date'); }
+      if (selectionComplete) closeAllPopups();
+      else renderCalendar(popupEl, legIndex);
+    });
   });
   const prevBtn = popupEl.querySelector('#calPrev'), nextBtn = popupEl.querySelector('#calNext');
   if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); wState.calMonthOffset = Math.max(0, wState.calMonthOffset - 1); renderCalendar(popupEl, legIndex); });
   if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); wState.calMonthOffset = Math.min(10, wState.calMonthOffset + 1); renderCalendar(popupEl, legIndex); });
-  popupEl.querySelector('#calDoneBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (legIndex !== undefined) renderMcLeg(legIndex); else renderField('date');
-    closeAllPopups();
+  popupEl.querySelector('#calResetBtn').addEventListener('click', (e) => {
+    e.stopPropagation(); e.preventDefault();
+    if (legIndex !== undefined) { wState.mcLegs[legIndex].date = null; renderAllMcLegs(); }
+    else { wState.depart = null; wState.ret = null; renderField('date'); }
+    updateSearchBtn(); updateHeroTicket();
+    renderCalendar(popupEl, legIndex);
   });
   popupEl.querySelector('#calJumpBtn').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -376,7 +392,11 @@ function openMcAirport(i, part, rowEl) {
   buildAirportList(popupEl, exclude, (airport) => {
     wState.mcLegs[i][part] = airport.name; wState.mcLegs[i][part + 'Code'] = airport.code;
     renderMcLeg(i);
-    if (part === 'to') setTimeout(() => { const newRow = document.getElementById('mcLegs').children[i]; openMcCalendar(i, newRow); }, 150);
+    if (part === 'from' && !wState.mcLegs[i].to) {
+      setTimeout(() => { const newRow = document.getElementById('mcLegs').children[i]; openMcAirport(i, 'to', newRow); }, 150);
+    } else if (part === 'to') {
+      setTimeout(() => { const newRow = document.getElementById('mcLegs').children[i]; openMcCalendar(i, newRow); }, 150);
+    }
   });
   popupEl.classList.add('open');
 }
