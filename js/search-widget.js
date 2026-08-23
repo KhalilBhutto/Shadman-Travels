@@ -261,7 +261,7 @@ function renderCalendar(popupEl, legIndex) {
   if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); wState.calMonthOffset = Math.min(10, wState.calMonthOffset + 1); renderCalendar(popupEl, legIndex); });
   popupEl.querySelector('#calResetBtn').addEventListener('click', (e) => {
     e.stopPropagation(); e.preventDefault();
-    if (legIndex !== undefined) { wState.mcLegs[legIndex].date = null; renderAllMcLegs(); }
+    if (legIndex !== undefined) { wState.mcLegs[legIndex].date = null; updateMcLegDateLabel(legIndex); }
     else { wState.depart = null; wState.ret = null; renderField('date'); }
     updateSearchBtn(); updateHeroTicket();
     renderCalendar(popupEl, legIndex);
@@ -394,6 +394,19 @@ function buildMcLegEl(i) {
   if (removeEl) removeEl.addEventListener('click', (e) => { e.stopPropagation(); wState.mcLegs.splice(i, 1); renderAllMcLegs(); updateSearchBtn(); updateHeroTicket(); });
   return row;
 }
+function updateMcLegDateLabel(i) {
+  const row = document.getElementById('mcLegs').children[i];
+  if (!row) return;
+  const leg = wState.mcLegs[i];
+  const dateField = row.querySelector('[data-part="date"]');
+  if (!dateField) return;
+  const iconEl = dateField.querySelector('.wf-icon-circle');
+  const valEl = dateField.querySelector('.wf-val2');
+  valEl.textContent = leg.date ? fmtDate(leg.date) : 'Add date';
+  valEl.classList.toggle('placeholder', !leg.date);
+  iconEl.classList.toggle('filled', !!leg.date);
+}
+
 function renderMcLeg(i) {
   const wrap = document.getElementById('mcLegs');
   const newRow = buildMcLegEl(i);
