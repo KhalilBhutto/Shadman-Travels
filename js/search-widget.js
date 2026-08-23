@@ -47,7 +47,7 @@ const today = new Date(); today.setHours(0, 0, 0, 0);
 const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + MAX_DAYS_FWD);
 const RECENT_KEY = 'shadman_recent_search';
 
-function fmtDate(d) { return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }); }
+function fmtDate(d) { return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }); }
 function toLocalISO(d) { const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; }
 function parseLocalISO(iso) { const [y, m, day] = iso.split('-').map(Number); return new Date(y, m - 1, day); }
 
