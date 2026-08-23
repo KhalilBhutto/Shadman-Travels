@@ -298,16 +298,28 @@ function renderMonthJump(popupEl, legIndex) {
 function renderMonth(monthDate, legIndex) {
   const y = monthDate.getFullYear(), m = monthDate.getMonth();
   const monthName = monthDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-  const firstDow = (new Date(y, m, 1).getDay() + 6) % 7; // Monday = 0, matches Etihad's layout
+  const firstDow = (new Date(y, m, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(y, m + 1, 0).getDate();
   let cells = '';
   const dows = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   const dowRow = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
   for (let i = 0; i < firstDow; i++) cells += `<div class="cal-day empty"></div>`;
+
+  // Multi-city: each leg must be strictly after the previous leg's date
+  let minDate = today;
+  if (legIndex !== undefined && legIndex > 0) {
+    const prevDate = wState.mcLegs[legIndex - 1].date;
+    if (prevDate) {
+      const dayAfter = new Date(prevDate);
+      dayAfter.setDate(dayAfter.getDate() + 1);
+      if (dayAfter > minDate) minDate = dayAfter;
+    }
+  }
+
   for (let day = 1; day <= daysInMonth; day++) {
     const d = new Date(y, m, day);
     const iso = toLocalISO(d);
-    const disabled = d < today || d > maxDate;
+    const disabled = d < minDate || d > maxDate;
     const isToday = d.getTime() === today.getTime();
     let selClass = '';
     if (legIndex !== undefined) {
@@ -325,7 +337,14 @@ function renderMonth(monthDate, legIndex) {
   return `<div class="cal-month"><h4>${monthName}</h4><div class="cal-grid">${dowRow}${cells}</div></div>`;
 }
 function handleDateClick(d, legIndex) {
-  if (legIndex !== undefined) { wState.mcLegs[legIndex].date = d; return; }
+  if (legIndex !== undefined) {
+    wState.mcLegs[legIndex].date = d;
+    // Clear any later legs whose date is no longer valid (must be strictly after this one)
+    for (let j = legIndex + 1; j < wState.mcLegs.length; j++) {
+      if (wState.mcLegs[j].date && wState.mcLegs[j].date <= d) wState.mcLegs[j].date = null;
+    }
+    return;
+  }
   if (wState.trip === 'ow') { wState.depart = d; }
   else {
     if (!wState.depart || (wState.depart && wState.ret) || d < wState.depart) { wState.depart = d; wState.ret = null; }
