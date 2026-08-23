@@ -266,6 +266,8 @@
 .cal-day.selected { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); font-weight: 700; }
 .cal-day.in-range { background: rgba(201,160,40,.15); }
 .cal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0ede6; }
+.cal-reset { font-size: .78rem; color: var(--gold); font-weight: 700; text-decoration: none; cursor: pointer; }
+.cal-reset:hover { text-decoration: underline; }
 .cal-selection-txt { font-size: .78rem; color: var(--g700); font-weight: 600; }
 .cal-done { padding: 9px 22px; border: none; border-radius: 9px; background: linear-gradient(135deg, var(--g700), var(--g500)); color: var(--gold2); font-weight: 700; font-size: .78rem; cursor: pointer; transition: all .2s; }
 .cal-jump-btn { background: none; border: none; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; color: var(--g700); cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 8px; transition: background .15s; }
