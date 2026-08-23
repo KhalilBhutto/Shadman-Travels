@@ -1089,12 +1089,17 @@ if (typeof gtag === 'function') {
 function setupDateRestrictions() {
   const today = new Date();
 
-  const minDate = today.toISOString().split('T')[0];
+  function toLocalISO(d) {
+    const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  const minDate = toLocalISO(today);
 
   const maxDateObj = new Date(today);
   maxDateObj.setFullYear(maxDateObj.getFullYear() + 1);
 
-  const maxDate = maxDateObj.toISOString().split('T')[0];
+  const maxDate = toLocalISO(maxDateObj);
 
   // Apply min/max to all date inputs
   document.querySelectorAll('input[type="date"]').forEach(input => {
