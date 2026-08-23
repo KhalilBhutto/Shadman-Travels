@@ -282,10 +282,10 @@ function renderMonthJump(popupEl, legIndex) {
 function renderMonth(monthDate, legIndex) {
   const y = monthDate.getFullYear(), m = monthDate.getMonth();
   const monthName = monthDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-  const firstDow = new Date(y, m, 1).getDay();
+  const firstDow = (new Date(y, m, 1).getDay() + 6) % 7; // Monday = 0, matches Etihad's layout
   const daysInMonth = new Date(y, m + 1, 0).getDate();
   let cells = '';
-  const dows = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  const dows = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   const dowRow = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
   for (let i = 0; i < firstDow; i++) cells += `<div class="cal-day empty"></div>`;
   for (let day = 1; day <= daysInMonth; day++) {
