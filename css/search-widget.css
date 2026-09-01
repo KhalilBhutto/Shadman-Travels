@@ -82,7 +82,8 @@
 .ticket-meta-val { font-family: 'Cormorant Garamond', serif; font-size: .9rem; font-weight: 700; color: var(--gold3); margin-top: 3px; }
 
 .ticket-field-wrap { position: relative; z-index: 2; }
-.ticket-field-icon { position: absolute; left: 13px; top: 12px; font-size: .9rem; z-index: 3; opacity: .85; color: var(--gold2); }
+.ticket-field-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: .8rem; z-index: 3; opacity: .85; color: var(--gold2); }
+.ticket-field-icon-top { top: 15px; transform: none; }
 .ticket-main input, .ticket-main textarea {
   width: 100%; padding: 9px 13px 9px 36px; margin-bottom: 8px; border-radius: 10px;
   font-family: 'DM Sans', sans-serif; font-size: .8rem; outline: none; position: relative; z-index: 2;
@@ -91,7 +92,7 @@
 }
 .ticket-main input:focus, .ticket-main textarea:focus { border-color: var(--gold); background: rgba(255,255,255,.07); }
 .ticket-main input::placeholder, .ticket-main textarea::placeholder { color: rgba(255,255,255,.38); }
-.ticket-main textarea { resize: vertical; min-height: 38px; padding-left: 13px; }
+.ticket-main textarea { resize: vertical; min-height: 38px; }
 
 .ticket-submit-btn {
   width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;
