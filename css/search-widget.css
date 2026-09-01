@@ -142,7 +142,7 @@
 .widget-card { background: var(--white); border-radius: 32px; box-shadow: 0 20px 46px rgba(0,0,0,.16); padding: 30px 26px 24px; position: relative; z-index: 2; overflow: visible; }
 .wc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; flex-wrap: wrap; gap: 10px; }
 
-.pill-tabs { background: var(--white); padding: 4px; display: flex; gap: 6px; align-items: center; border-radius: 50px; box-shadow: 0 10px 26px rgba(0,0,0,.14); position: relative; top: -14px; margin-bottom: -14px; }
+.pill-tabs { background: transparent; padding: 0 0 18px; display: flex; gap: 6px; align-items: center; }
 .pill-tab { border: none; background: transparent; padding: 9px 18px; border-radius: 50px; font-size: .8rem; font-weight: 700; color: var(--g700); cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; }
 .pill-tab.active { background: var(--g700); color: white; }
 .pill-tab:not(.active):hover { background: #f4f3f1; }
