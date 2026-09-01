@@ -169,7 +169,7 @@
 .wf-searchbtn { display: flex; align-items: stretch; }
 .search-btn2 { background: var(--gold); color: var(--g900); border: none; border-radius: 50px; padding: 0 32px; font-weight: 700; font-size: .85rem; cursor: pointer; white-space: nowrap; transition: all .2s; }
 .search-btn2:hover { background: var(--gold2); }
-.search-btn2:disabled { opacity: .5; cursor: not-allowed; background: #e4d6a8; }
+.search-btn2:disabled { cursor: not-allowed; background: #e4d6a8; }
 
 /* Recent search chip */
 .recent-chip { display: inline-flex; align-items: center; gap: 12px; background: white; color: var(--ink); padding: 12px 20px 12px 12px; border-radius: 40px; margin: 14px 0 0 26px; position: relative; z-index: 1; cursor: pointer; border: 1px solid #ece8dc; transition: all .2s; box-shadow: 0 10px 26px rgba(0,0,0,.14); }
