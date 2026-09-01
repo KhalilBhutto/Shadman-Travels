@@ -186,7 +186,8 @@
 .mc-legs2 { display: none; flex-direction: column; gap: 10px; margin-top: 4px; }
 .mc-legs2.show { display: flex; }
 .mc-leg-row2 { display: grid; grid-template-columns: 1fr 40px 1fr 1fr auto; gap: 10px; position: relative; padding-top: 6px; }
-.mc-leg-badge { position: absolute; top: -4px; left: 16px; background: var(--g700); color: var(--gold2); font-size: .58rem; font-weight: 800; padding: 2px 10px; border-radius: 20px; letter-spacing: .05em; z-index: 2; }
+.mc-leg-wrap { margin-top: 14px; }
+.mc-leg-heading { font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 700; color: var(--g700); margin-bottom: 8px; }
 .mc-remove2 { display: flex; align-items: center; justify-content: center; padding: 0 14px; color: #b5b0a0; cursor: pointer; }
 .mc-remove2:hover { color: #c0392b; }
 .mc-add-row2 { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }

@@ -367,21 +367,24 @@ function renderAllMcLegs() {
 }
 function buildMcLegEl(i) {
   const leg = wState.mcLegs[i];
+  const wrap = document.createElement('div');
+  wrap.className = 'mc-leg-wrap';
   const row = document.createElement('div');
   row.className = 'mc-leg-row2';
   row.innerHTML = `
-    <div class="mc-leg-badge">Flight ${i + 1}</div>
     <div class="wf" data-part="from"><div class="wf-icon-circle ${leg.from ? 'filled' : ''}"><i class="fas fa-plane-departure"></i></div>
-      <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 ${leg.from ? '' : 'placeholder'}">${leg.from || 'City or airport'}</div></div><div class="popup ap-popup"></div></div>
+      <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 ${leg.from ? '' : 'placeholder'}">${leg.from || 'City or airport'}</div></div><div class="wf-clear ${leg.from ? 'show' : ''}" data-clear="from" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf-swap2" data-swap="1"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
     <div class="wf" data-part="to"><div class="wf-icon-circle ${leg.to ? 'filled' : ''}"><i class="fas fa-plane-arrival"></i></div>
-      <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="popup ap-popup"></div></div>
+      <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="wf-clear ${leg.to ? 'show' : ''}" data-clear="to" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf" data-part="date"><div class="wf-icon-circle ${leg.date ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
       <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div><div class="popup cal-popup"></div></div>
     ${i >= 2 ? `<div class="mc-remove2" data-remove="1">✕</div>` : `<div style="width:10px"></div>`}
   `;
-  row.querySelector('[data-part="from"]').addEventListener('click', (e) => { if (!e.target.closest('.popup')) openMcAirport(i, 'from', row); });
-  row.querySelector('[data-part="to"]').addEventListener('click', (e) => { if (!e.target.closest('.popup')) openMcAirport(i, 'to', row); });
+  wrap.innerHTML = `<div class="mc-leg-heading">Flight ${i + 1}</div>`;
+  wrap.appendChild(row);
+  row.querySelector('[data-part="from"]').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) openMcAirport(i, 'from', row); });
+  row.querySelector('[data-part="to"]').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) openMcAirport(i, 'to', row); });
   row.querySelector('[data-part="date"]').addEventListener('click', (e) => { if (!e.target.closest('.popup')) openMcCalendar(i, row); });
   const swapEl = row.querySelector('[data-swap]');
   if (swapEl) swapEl.addEventListener('click', (e) => {
@@ -392,7 +395,15 @@ function buildMcLegEl(i) {
   });
   const removeEl = row.querySelector('[data-remove]');
   if (removeEl) removeEl.addEventListener('click', (e) => { e.stopPropagation(); wState.mcLegs.splice(i, 1); renderAllMcLegs(); updateSearchBtn(); updateHeroTicket(); });
-  return row;
+  row.querySelectorAll('[data-clear]').forEach(clearBtn => {
+    clearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const part = clearBtn.dataset.clear;
+      wState.mcLegs[i][part] = ''; wState.mcLegs[i][part + 'Code'] = '';
+      renderMcLeg(i);
+    });
+  });
+  return wrap;
 }
 function updateMcLegDateLabel(i) {
   const row = document.getElementById('mcLegs').children[i];
