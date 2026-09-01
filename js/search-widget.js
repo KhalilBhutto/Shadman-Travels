@@ -620,7 +620,14 @@ function updateHeroCarouselHeading() {
 /* ─── FIELD VALIDATION HELPERS (same rules as the original site) ─── */
 function isValidPhone(phone) {
   const cleaned = phone.replace(/[\s\-()]/g, '');
-  return /^(\+92|0)?3\d{9}$/.test(cleaned);
+  return /^(0092|\+92|92|0)?3\d{9}$/.test(cleaned);
+  function isValidPhone(phone) {
+  const cleaned = phone.replace(/[\s\-()]/g, '');
+  return /^(0092|\+92|92|0)?3\d{9}$/.test(cleaned);
+}
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 }
 function showFieldError(el) { if (el) el.classList.add('input-error'); }
 function clearFieldError(el) { if (el) el.classList.remove('input-error'); }
@@ -658,6 +665,14 @@ function submitTicketEnquiry() {
   if (!isValidPhone(phone)) {
     errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.'; errEl.style.display = 'block';
     showFieldError(phoneInput); phoneInput.focus(); return;
+  }
+    if (!isValidPhone(phone)) {
+    errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.'; errEl.style.display = 'block';
+    showFieldError(phoneInput); phoneInput.focus(); return;
+  }
+  if (email && !isValidEmail(email)) {
+    errEl.textContent = '⚠ Please enter a valid email address, or leave it blank.'; errEl.style.display = 'block';
+    showFieldError(emailInput); emailInput.focus(); return;
   }
 
   if (wState.trip === 'mc') {
