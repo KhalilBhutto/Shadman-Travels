@@ -249,7 +249,7 @@
 .gp-done { padding: 10px 26px; border: none; border-radius: 9px; background: linear-gradient(135deg, var(--g700), var(--g500)); color: var(--gold2); font-weight: 700; font-size: .8rem; letter-spacing: .05em; cursor: pointer; transition: all .2s; }
 .gp-done:hover { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
 
-.cal-popup { width: 660px; padding: 18px; left: auto; right: 0; }
+.cal-popup { padding: 18px; }
 .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
 .cal-nav { display: flex; gap: 6px; }
 .cal-nav-btn { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid #eee; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--g700); transition: all .15s; }
