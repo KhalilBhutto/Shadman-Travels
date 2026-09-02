@@ -42,7 +42,7 @@ const wState = {
   calMonthOffset: 0,
 };
 
-const MC_MAX = 9, PAX_TOTAL_MAX = 9, MAX_DAYS_FWD = 361;
+const MC_MAX = 6, PAX_TOTAL_MAX = 9, MAX_DAYS_FWD = 361;
 const today = new Date(); today.setHours(0, 0, 0, 0);
 const maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + MAX_DAYS_FWD);
 const RECENT_KEY = 'shadman_recent_search';
@@ -379,10 +379,9 @@ function buildMcLegEl(i) {
       <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="wf-clear ${leg.to ? 'show' : ''}" data-clear="to" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf" data-part="date"><div class="wf-icon-circle ${leg.date ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
       <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div></div>
-    ${i >= 2 ? `<div class="mc-remove2" data-remove="1">✕</div>` : `<div style="width:10px"></div>`}
     <div class="popup cal-popup"></div>
   `;
-  wrap.innerHTML = `<div class="mc-leg-heading">Flight ${i + 1}</div>`;
+  wrap.innerHTML = `<div class="mc-leg-heading-row"><div class="mc-leg-heading">Flight ${i + 1}</div>${i >= 2 ? `<button class="mc-delete-link" data-remove="1">Delete</button>` : ''}</div>`;
   wrap.appendChild(row);
   row.querySelector('[data-part="from"]').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) openMcAirport(i, 'from', row); });
   row.querySelector('[data-part="to"]').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) openMcAirport(i, 'to', row); });
@@ -394,7 +393,7 @@ function buildMcLegEl(i) {
     [wState.mcLegs[i].fromCode, wState.mcLegs[i].toCode] = [wState.mcLegs[i].toCode, wState.mcLegs[i].fromCode];
     renderMcLeg(i);
   });
-  const removeEl = row.querySelector('[data-remove]');
+  const removeEl = wrap.querySelector('[data-remove]');
   if (removeEl) removeEl.addEventListener('click', (e) => { e.stopPropagation(); wState.mcLegs.splice(i, 1); renderAllMcLegs(); updateSearchBtn(); updateHeroTicket(); });
   row.querySelectorAll('[data-clear]').forEach(clearBtn => {
     clearBtn.addEventListener('click', (e) => {
