@@ -36,7 +36,7 @@
 
 .ticket-main {
   flex: 1;
-  padding: 26px 28px 28px;
+  padding: 18px 22px 20px;
   position: relative;
   overflow: hidden;
   color: white;
@@ -138,7 +138,7 @@
 }
 
 /* ══════════════════ HORIZONTAL SEARCH WIDGET ══════════════════ */
-.widget-wrap { max-width: 1040px; margin: -64px auto 0; padding: 0 32px; position: relative; z-index: 20; }
+.widget-wrap { max-width: 1040px; margin: -100px auto 0; padding: 0 32px; position: relative; z-index: 20; }
 .widget-card { background: var(--white); border-radius: 32px; box-shadow: 0 20px 46px rgba(0,0,0,.16); padding: 30px 26px 24px; position: relative; z-index: 2; overflow: visible; }
 .wc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; flex-wrap: wrap; gap: 10px; }
 
