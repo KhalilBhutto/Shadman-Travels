@@ -167,7 +167,7 @@
 .swap-circle svg { width: 12px; height: 12px; }
 .swap-circle i { font-size: .68rem; }
 .wf-searchbtn { display: flex; align-items: stretch; }
-.search-btn2 { background: var(--gold); color: #fff; border: none; border-radius: 50px; padding: 0 32px; font-weight: 700; font-size: .85rem; cursor: pointer; white-space: nowrap; transition: all .2s; }
+.search-btn2 { background: var(--gold); color: #fff; border: none; border-radius: 50px; padding: 15px 32px; font-weight: 700; font-size: .85rem; cursor: pointer; white-space: nowrap; transition: all .2s; }
 .search-btn2:hover { background: var(--gold2); }
 .search-btn2:disabled { cursor: not-allowed; background: #e4d6a8; }
 
