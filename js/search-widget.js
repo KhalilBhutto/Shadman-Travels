@@ -441,7 +441,14 @@ function openMcAirport(i, part, rowEl) {
   popupEl.classList.add('open');
 }
 function openMcCalendar(i, rowEl) {
-  closeAllPopups(); wState.calMonthOffset = 0;
+  closeAllPopups();
+  const refDate = wState.mcLegs[i].date || (i > 0 ? wState.mcLegs[i - 1].date : null);
+  if (refDate) {
+    const monthsAhead = (refDate.getFullYear() - today.getFullYear()) * 12 + (refDate.getMonth() - today.getMonth());
+    wState.calMonthOffset = Math.max(0, Math.min(10, monthsAhead));
+  } else {
+    wState.calMonthOffset = 0;
+  }
   const popupEl = rowEl.querySelector('.cal-popup');
   popupEl.classList.add('open');
   renderCalendar(popupEl, i);
