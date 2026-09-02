@@ -815,6 +815,11 @@ document.addEventListener('DOMContentLoaded', function () {
       wState.trip = tab.dataset.trip;
       if (wState.trip !== 'rt') { wState.ret = null; renderField('date'); }
       const mcMode = wState.trip === 'mc';
+      if (mcMode) {
+        wState.mcLegs[0].from = wState.from; wState.mcLegs[0].fromCode = wState.fromCode;
+        wState.mcLegs[0].to = wState.to; wState.mcLegs[0].toCode = wState.toCode;
+        wState.mcLegs[0].date = wState.depart;
+      }
       document.getElementById('mainRow').style.display = mcMode ? 'none' : 'grid';
       document.getElementById('mcLegs').classList.toggle('show', mcMode);
       document.getElementById('mcAddRow').style.display = mcMode ? 'flex' : 'none';
