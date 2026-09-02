@@ -241,17 +241,19 @@
 .gp-btn { width: 28px; height: 28px; border-radius: 6px; border: 1.5px solid #d8d3c4; background: white; color: var(--g700); font-size: 1.05rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; transition: all .15s; }
 .gp-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
 .gp-btn:disabled { opacity: .3; cursor: not-allowed; }
+.gp-btn[data-act$="+"] { background: var(--g700); border-color: var(--g700); color: #fff; }
+.gp-btn[data-act$="+"]:hover:not(:disabled) { background: var(--g500); border-color: var(--g500); color: #fff; }
 .gp-num { font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 700; color: var(--g700); min-width: 34px; height: 28px; border: 1.5px solid #eee; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
 .gp-cabin-row { display: flex; align-items: center; gap: 10px; padding: 11px 4px; cursor: pointer; border-radius: 8px; transition: background .15s; }
 .gp-cabin-row:hover { background: #f7f5ee; }
 .gp-radio { width: 17px; height: 17px; border-radius: 50%; border: 2px solid #d8d3c4; flex-shrink: 0; position: relative; }
-.gp-cabin-row.selected .gp-radio { border-color: var(--gold); }
-.gp-cabin-row.selected .gp-radio::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--gold); }
+.gp-cabin-row.selected .gp-radio { border-color: var(--g700); }
+.gp-cabin-row.selected .gp-radio::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--g700); }
 .gp-cabin-row span { font-size: .85rem; color: var(--ink); }
 .gp-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px solid #f0ede6; }
 .gp-cap-note { font-size: .65rem; color: var(--muted); }
-.gp-done { padding: 10px 26px; border: none; border-radius: 9px; background: linear-gradient(135deg, var(--g700), var(--g500)); color: var(--gold2); font-weight: 700; font-size: .8rem; letter-spacing: .05em; cursor: pointer; transition: all .2s; }
-.gp-done:hover { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+.gp-done { padding: 10px 26px; border: 1.5px solid var(--g700); border-radius: 50px; background: white; color: var(--g700); font-weight: 700; font-size: .8rem; letter-spacing: .05em; cursor: pointer; transition: all .2s; }
+.gp-done:hover { background: var(--g700); color: white; }
 
 .cal-popup { padding: 18px; }
 .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
