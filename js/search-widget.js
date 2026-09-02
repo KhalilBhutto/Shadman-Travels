@@ -378,8 +378,9 @@ function buildMcLegEl(i) {
     <div class="wf" data-part="to"><div class="wf-icon-circle ${leg.to ? 'filled' : ''}"><i class="fas fa-plane-arrival"></i></div>
       <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="wf-clear ${leg.to ? 'show' : ''}" data-clear="to" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf" data-part="date"><div class="wf-icon-circle ${leg.date ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-      <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div><div class="popup cal-popup"></div></div>
+      <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div></div>
     ${i >= 2 ? `<div class="mc-remove2" data-remove="1">✕</div>` : `<div style="width:10px"></div>`}
+    <div class="popup cal-popup"></div>
   `;
   wrap.innerHTML = `<div class="mc-leg-heading">Flight ${i + 1}</div>`;
   wrap.appendChild(row);
@@ -441,7 +442,7 @@ function openMcAirport(i, part, rowEl) {
 }
 function openMcCalendar(i, rowEl) {
   closeAllPopups(); wState.calMonthOffset = 0;
-  const popupEl = rowEl.querySelector('[data-part="date"] .popup');
+  const popupEl = rowEl.querySelector('.cal-popup');
   popupEl.classList.add('open');
   renderCalendar(popupEl, i);
 }
@@ -806,6 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.pill-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       wState.trip = tab.dataset.trip;
+      if (wState.trip !== 'rt') { wState.ret = null; renderField('date'); }
       const mcMode = wState.trip === 'mc';
       document.getElementById('mainRow').style.display = mcMode ? 'none' : 'grid';
       document.getElementById('mcLegs').classList.toggle('show', mcMode);
