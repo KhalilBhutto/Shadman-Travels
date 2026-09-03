@@ -63,7 +63,7 @@ function packageCardHTML(p) {
           <div class="pc-label">Duration</div>
           <div class="pc-val">🌙 ${p.nights} Nights</div>
         </div>
-        <div class="up-flight-cell up-codes" style="background:${info.colorTop};color:#fff;">
+        <div class="up-flight-cell up-codes" style="background:linear-gradient(135deg, ${info.colorTop}, ${info.colorBtn});color:#fff;">
           <div class="pc-label" style="color:rgba(255,255,255,0.75);">Package Code</div>
           <div class="pc-val" style="color:#fff;">${p.packageCode}</div>
           <div class="pc-label" style="color:rgba(255,255,255,0.75);margin-top:6px;">Group Code</div>

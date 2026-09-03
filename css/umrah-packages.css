@@ -111,8 +111,9 @@
 }
 
 .up-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 22px 48px rgba(15, 61, 46, 0.16);
+  transform: translateY(-8px);
+  box-shadow: 0 26px 52px rgba(15, 61, 46, 0.18);
+  border-color: rgba(200, 164, 77, 0.65);
 }
 
 .up-card.pia { border-color: #1d5230; }
@@ -152,7 +153,7 @@
 /* Flight info row */
 .up-flightrow {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: #ebe9e3;
 }
@@ -258,8 +259,8 @@
 }
 
 .up-card:hover .up-airline-logo {
-  transform: scale(1.08);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  transform: scale(1.04);
+  box-shadow: 0 12px 24px rgba(15, 61, 46, 0.16);
 }
 
 .up-airline-name {
