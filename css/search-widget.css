@@ -8,7 +8,7 @@
 ═══════════════════════════════════════════ */
 
 /* ── Boarding-Pass Ticket (hero right column) ── */
-.hero-ticket { position: relative; margin-top: 96px; }
+.hero-ticket { position: relative; margin-top: 0; }
 
 .ticket {
   width: 100%;
@@ -36,7 +36,7 @@
 
 .ticket-main {
   flex: 1;
-  padding: 18px 22px 20px;
+  padding: 30px 22px 20px;
   position: relative;
   overflow: hidden;
   color: white;
@@ -63,7 +63,7 @@
 }
 @keyframes ticketSweep { 0% { left: -150%; } 60%, 100% { left: 150%; } }
 
-.ticket-top-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; margin-bottom: 14px; }
+.ticket-top-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; margin-bottom: 8px; }
 .ticket-brand { display: flex; align-items: center; gap: 7px; }
 .ticket-brand-icon { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: .62rem; color: var(--gold2); }
 .ticket-eyebrow { font-family: 'Cinzel', serif; font-size: .54rem; letter-spacing: .18em; color: var(--gold2); text-transform: uppercase; }
