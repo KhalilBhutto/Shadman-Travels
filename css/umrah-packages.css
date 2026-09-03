@@ -107,11 +107,12 @@
   border-radius: 16px;
   border: 2px solid #ebe9e3;
   overflow: hidden;
-  transition: box-shadow 0.25s;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .up-card:hover {
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(15, 61, 46, 0.16);
 }
 
 .up-card.pia { border-color: #1d5230; }
@@ -201,6 +202,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 4px;
+  transition: background-color 0.25s ease;
 }
 
 .up-flight-cell.up-codes .pc-label {
@@ -244,9 +246,20 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 10px;
-  font-weight: 800;
-  font-size: 1rem;
-  color: var(--g700);
+  padding: 8px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.up-airline-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.up-card:hover .up-airline-logo {
+  transform: scale(1.08);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
 }
 
 .up-airline-name {
@@ -309,6 +322,12 @@
   border-radius: 12px;
   padding: 14px;
   border: 1px solid #f0ede6;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.up-hotel:hover {
+  background: #ffffff;
+  border-color: rgba(201, 160, 40, 0.5);
 }
 
 .up-hotel-label {
@@ -352,11 +371,35 @@
   justify-content: center;
   color: #b8ae98;
   font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.up-hotel-imgph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.up-hotel-imgph:hover img {
+  transform: scale(1.12);
+}
+
+.up-hotel-viewloc {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.up-hotel-viewloc:hover {
+  text-decoration: underline;
 }
 
 /* Price panel */
 .up-price-panel {
-  background: linear-gradient(160deg, var(--g700), var(--g900));
   border-radius: 12px;
   padding: 14px;
   color: white;
@@ -375,13 +418,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
+  padding: 5px 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.78rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
 .up-price-row:last-of-type {
   border-bottom: none;
+}
+
+.up-price-row:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .up-price-row .pr-label {
@@ -403,6 +452,31 @@
   font-size: 0.9rem;
 }
 
+.up-gifted-box {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.gb-title {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--gold2);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .up-enquire-btn {
   width: 100%;
   margin-top: 12px;
@@ -422,6 +496,28 @@
   box-shadow: 0 8px 20px rgba(201, 160, 40, 0.35);
 }
 
+/* Included Services row (full-width strip, inside the card border) */
+.up-included-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 0 20px 18px;
+}
+
+.ir-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  background: #fafaf8;
+  border: 1px solid #f0ede6;
+}
+
 /* No results */
 .up-no-results {
   text-align: center;
@@ -436,6 +532,9 @@
   }
   .up-flightrow {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .up-included-row {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -454,5 +553,8 @@
   }
   .up-filter-group select {
     min-width: 100%;
+  }
+  .up-included-row {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
