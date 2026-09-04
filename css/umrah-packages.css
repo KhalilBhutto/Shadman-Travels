@@ -644,3 +644,123 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.up-filters {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(200, 164, 77, 0.28);
+  border-radius: 24px;
+  box-shadow: 0 16px 34px rgba(15, 61, 46, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.up-filters-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed rgba(200, 164, 77, 0.3);
+}
+
+.up-search-wrap {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.up-search-wrap label,
+.up-sort-wrap label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1B1B1B;
+}
+
+.up-search-wrap input,
+.up-sort-wrap select {
+  padding: 9px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  background: #fff;
+  min-width: 200px;
+}
+
+.up-search-wrap input:focus,
+.up-sort-wrap select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.up-reset-btn {
+  padding: 9px 18px;
+  border: 1px solid #198754;
+  border-radius: 10px;
+  background: white;
+  color: #198754;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.up-reset-btn:hover {
+  background: #198754;
+  color: white;
+}
+
+.up-checkbox-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.up-checkbox-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1B1B1B;
+  margin-bottom: 6px;
+}
+
+.up-checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+  cursor: pointer;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.up-checkbox-row input {
+  cursor: pointer;
+}
+
+.up-checkbox-row input:checked ~ * ,
+.up-checkbox-row:has(input:checked) {
+  color: #198754;
+  font-weight: 600;
+}
+
+.up-results-count strong {
+  color: #198754;
+  font-size: 1.05em;
+}
+
+@media (max-width: 900px) {
+  .up-checkbox-groups {
+    grid-template-columns: 1fr;
+  }
+  .up-filters-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -197,22 +197,40 @@ function renderPackages(list) {
   if (count) count.innerHTML = `Showing <strong>${list.length}</strong> of <strong>${ALL_PACKAGES.length}</strong> packages`;
 }
 
+function getCheckedValues(className) {
+  const boxes = document.querySelectorAll('.' + className);
+  return Array.from(boxes).filter(b => b.checked && b.value !== 'all').map(b => b.value);
+}
+
 function applyFilters() {
-  const airline = document.getElementById('upFilterAirline')?.value || 'all';
-  const nights  = document.getElementById('upFilterNights')?.value || 'all';
-  const price   = document.getElementById('upFilterPrice')?.value || 'all';
+  const term = (document.getElementById('upSearch')?.value || '').toLowerCase().trim();
+  const airlines = getCheckedValues('up-cb-airline');
+  const routes   = getCheckedValues('up-cb-route');
+  const nightsList = getCheckedValues('up-cb-nights');
+  const sortValue = document.getElementById('upSort')?.value || 'dateAsc';
 
   let filtered = ALL_PACKAGES.filter(p => {
     const cls = airlineClass(p.airline);
-    if (airline !== 'all' && cls !== airline) return false;
-    if (nights !== 'all' && String(p.nights) !== nights) return false;
-    if (price !== 'all') {
-      const s = p.pricing.sharing;
-      if (price === 'under250' && s >= 250000) return false;
-      if (price === '250to300' && (s < 250000 || s > 300000)) return false;
-      if (price === 'over300' && s <= 300000) return false;
-    }
-    return true;
+
+    const textMatched = term === '' ||
+      p.code.toLowerCase().includes(term) ||
+      p.airline.toLowerCase().includes(term) ||
+      p.route.toLowerCase().includes(term) ||
+      p.makkahHotel.name.toLowerCase().includes(term) ||
+      p.madinahHotel.name.toLowerCase().includes(term);
+
+    const airlineMatched = airlines.length === 0 || airlines.includes(cls);
+    const routeMatched = routes.length === 0 || routes.includes(p.route);
+    const nightsMatched = nightsList.length === 0 || nightsList.includes(String(p.nights));
+
+    return textMatched && airlineMatched && routeMatched && nightsMatched;
+  });
+
+  filtered.sort((a, b) => {
+    if (sortValue === 'priceAsc')  return a.pricing.sharing - b.pricing.sharing;
+    if (sortValue === 'priceDesc') return b.pricing.sharing - a.pricing.sharing;
+    if (sortValue === 'dateDesc')  return new Date(b.outbound.date) - new Date(a.outbound.date);
+    return new Date(a.outbound.date) - new Date(b.outbound.date); // dateAsc (default)
   });
 
   renderPackages(filtered);
@@ -231,8 +249,51 @@ document.addEventListener('DOMContentLoaded', function () {
       if (grid) grid.innerHTML = '<div class="up-no-results">Unable to load packages right now — please call or WhatsApp us at +92 300 0041510.</div>';
     });
 
-  ['upFilterAirline', 'upFilterNights', 'upFilterPrice'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('change', applyFilters);
-  });
+  function wireCheckboxGroup(className) {
+    const boxes = document.querySelectorAll('.' + className);
+    boxes.forEach(box => {
+      box.addEventListener('change', function () {
+        if (this.value === 'all' && this.checked) {
+          boxes.forEach(b => { if (b !== this) b.checked = false; });
+        } else if (this.checked) {
+          const allBox = Array.from(boxes).find(b => b.value === 'all');
+          if (allBox) allBox.checked = false;
+        }
+        const anyChecked = Array.from(boxes).some(b => b.checked);
+        if (!anyChecked) {
+          const allBox = Array.from(boxes).find(b => b.value === 'all');
+          if (allBox) allBox.checked = true;
+        }
+        applyFilters();
+      });
+    });
+  }
+
+  wireCheckboxGroup('up-cb-airline');
+  wireCheckboxGroup('up-cb-route');
+  wireCheckboxGroup('up-cb-nights');
+
+  let searchTimer;
+  const searchInput = document.getElementById('upSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFilters, 150);
+    });
+  }
+
+  const sortSelect = document.getElementById('upSort');
+  if (sortSelect) sortSelect.addEventListener('change', applyFilters);
+
+  const resetBtn = document.getElementById('upReset');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      document.querySelectorAll('.up-cb-airline, .up-cb-route, .up-cb-nights').forEach(b => {
+        b.checked = (b.value === 'all');
+      });
+      if (searchInput) searchInput.value = '';
+      if (sortSelect) sortSelect.value = 'dateAsc';
+      applyFilters();
+    });
+  }
 });

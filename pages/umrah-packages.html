@@ -104,31 +104,48 @@
     </div>
 
     <div class="up-filters">
-      <div class="up-filter-group">
-        <label for="upFilterAirline">Airline</label>
-        <select id="upFilterAirline">
-          <option value="all">All Airlines</option>
-          <option value="pia">Pakistan International Airlines</option>
-          <option value="fj">Fly Jinnah</option>
-          <option value="ab">AirBlue</option>
-        </select>
+
+      <div class="up-filters-top">
+        <div class="up-search-wrap">
+          <label for="upSearch">Search Package / Hotel / Route</label>
+          <input type="text" id="upSearch" placeholder="e.g. VIP, Makkah, JED">
+        </div>
+        <div class="up-sort-wrap">
+          <label for="upSort">Sort By</label>
+          <select id="upSort">
+            <option value="dateAsc">Travel Date (Nearest)</option>
+            <option value="dateDesc">Travel Date (Latest)</option>
+            <option value="priceAsc">Price (Low to High)</option>
+            <option value="priceDesc">Price (High to Low)</option>
+          </select>
+        </div>
+        <button type="button" id="upReset" class="up-reset-btn">Reset Filters</button>
       </div>
-      <div class="up-filter-group">
-        <label for="upFilterNights">Duration</label>
-        <select id="upFilterNights">
-          <option value="all">Any Duration</option>
-          <option value="19">19 Nights</option>
-          <option value="20">20 Nights</option>
-        </select>
-      </div>
-      <div class="up-filter-group">
-        <label for="upFilterPrice">Price Range (Sharing)</label>
-        <select id="upFilterPrice">
-          <option value="all">Any Price</option>
-          <option value="under250">Under PKR 250,000</option>
-          <option value="250to300">PKR 250,000 – 300,000</option>
-          <option value="over300">Over PKR 300,000</option>
-        </select>
+
+      <div class="up-checkbox-groups">
+
+        <div class="up-checkbox-group">
+          <div class="up-checkbox-heading">✈ Filter by Airline</div>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-airline" value="all" checked> All Airlines</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-airline" value="ab"> AirBlue</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-airline" value="fj"> Fly Jinnah</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-airline" value="pia"> PIA</label>
+        </div>
+
+        <div class="up-checkbox-group">
+          <div class="up-checkbox-heading">🔀 Filter by Route</div>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-route" value="all" checked> All Routes</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-route" value="KHI-JED-KHI"> KHI-JED-KHI</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-route" value="KHI-JED / JED-KHI"> KHI-JED / JED-KHI</label>
+        </div>
+
+        <div class="up-checkbox-group">
+          <div class="up-checkbox-heading">🌙 Filter by Duration</div>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-nights" value="all" checked> All Durations</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-nights" value="19"> 19 Nights</label>
+          <label class="up-checkbox-row"><input type="checkbox" class="up-cb-nights" value="20"> 20 Nights</label>
+        </div>
+
       </div>
     </div>
 
