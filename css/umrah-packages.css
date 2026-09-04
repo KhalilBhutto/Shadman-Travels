@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════
    UMRAH-PACKAGES.CSS — Full Package Listing Page
    Project Shadman Platform
+   Rebuilt to match reference site's real CSS values
 ═══════════════════════════════════════════ */
 
 .up-page {
@@ -101,13 +102,17 @@
   gap: 20px;
 }
 
-/* ── Package Card ── */
+/* ── Package Card outer shell ── */
 .up-card {
-  background: white;
-  border-radius: 16px;
-  border: 2px solid #ebe9e3;
+  position: relative;
+  background: #FAF8F2;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(15, 61, 46, 0.08);
+  border: 1px solid rgba(200, 164, 77, 0.35);
+  border-top: 4px solid #C8A44D;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .up-card:hover {
@@ -116,52 +121,66 @@
   border-color: rgba(200, 164, 77, 0.65);
 }
 
-.up-card.pia { border-color: #1d5230; }
-.up-card.fj  { border-color: #c0293f; }
-.up-card.ab  { border-color: #16305c; }
+/* "Available" ribbon, top-right corner of the whole card */
+.up-avail-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(45deg, #C8A44D, #e5c36d);
+  color: #0F3D2E;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  z-index: 10;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(200, 164, 77, 0.35);
+}
 
-/* Top strip */
+/* Top strip: package code / route text */
 .up-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 20px;
-  background: linear-gradient(90deg, #f4f2ec, #faf9f5);
-  border-bottom: 1px solid #ebe9e3;
-  flex-wrap: wrap;
+  position: relative;
+  border-radius: 18px;
+  padding: 10px 14px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(140deg, #FAF8F2 0%, #F5F1E8 100%);
+  margin-bottom: 12px;
 }
 
 .up-topbar-code {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--g700);
-  letter-spacing: 0.03em;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0D3B2E;
+  letter-spacing: 0.2px;
 }
 
-.up-avail-badge {
-  background: #fdf0cf;
-  color: #8a6414;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 50px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* Flight info row */
+/* Flight quick-info row */
 .up-flightrow {
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(248, 245, 238, 0.92) 100%);
+  border: 1px solid rgba(200, 164, 77, 0.26);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: #ebe9e3;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(185px, 220px);
+  gap: 10px;
+  padding: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  margin-bottom: 12px;
 }
 
 .up-flight-cell {
   background: white;
   padding: 12px 16px;
   font-size: 0.72rem;
+  border-radius: 12px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.up-flight-cell:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(13, 59, 46, 0.15);
+  position: relative;
+  z-index: 5;
 }
 
 .up-flight-cell .fc-title {
@@ -198,45 +217,46 @@
   margin-top: 6px;
 }
 
-.up-flight-cell.up-codes {
+/* Package/Group Code box — colored per-airline, matches airline panel + price head */
+.up-codes {
+  background: linear-gradient(130deg, #0D3B2E 0%, #14513f 100%);
+  color: #FAF8F2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4px;
-  transition: background-color 0.25s ease;
+  gap: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
 }
 
-.up-flight-cell.up-codes .pc-label {
-  font-size: 0.6rem;
-  color: var(--muted);
+.up-codes .pc-label {
+  font-size: 0.62rem;
+  opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.up-flight-cell.up-codes .pc-val {
-  font-size: 0.78rem;
+.up-codes .pc-val {
+  font-size: 0.95rem;
   font-weight: 700;
-  color: var(--g700);
 }
 
 /* Body: airline panel | hotels | price */
 .up-body {
   display: grid;
-  grid-template-columns: 170px 1fr 1fr 240px;
-  gap: 16px;
-  padding: 16px 20px;
+  grid-template-columns: 170px 1fr 280px;
+  gap: 8px;
 }
 
+/* Airline panel */
 .up-airline-panel {
-  border-radius: 12px;
-  padding: 16px 12px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #0D3B2E 0%, #0f4b39 100%);
+  color: #FAF8F2;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 10px;
   text-align: center;
-  color: white;
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-.up-airline-panel.pia { background: linear-gradient(160deg, #1d5230, #163d22); }
-.up-airline-panel.fj  { background: linear-gradient(160deg, #c0293f, #8f1c2d); }
-.up-airline-panel.ab  { background: linear-gradient(160deg, #16305c, #0d1f3d); }
 
 .up-airline-logo {
   width: 60px;
@@ -246,7 +266,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 10px;
+  margin: 0 auto 8px;
   padding: 8px;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -264,29 +284,38 @@
 }
 
 .up-airline-name {
-  font-size: 0.78rem;
+  color: #FAF8F2;
+  font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 10px;
 }
 
-.up-airline-route {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 3px 10px;
-  border-radius: 50px;
-  font-size: 0.68rem;
-  margin-bottom: 10px;
-}
-
-.up-avail-pill {
+.up-route-mini {
+  margin: 10px auto;
   display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 3px 10px;
-  border-radius: 50px;
-  font-size: 0.66rem;
-  margin-bottom: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.up-route-mini span {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.up-route-mini .arrow {
+  color: #D4AF37;
+}
+
+.up-airline-status {
+  border: 1px solid rgba(212, 175, 55, 0.7);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 700;
+  margin: 10px 0;
+  display: inline-block;
+  background: rgba(250, 248, 242, 0.1);
+  font-size: 0.78rem;
 }
 
 .up-traveldate,
@@ -298,7 +327,7 @@
 }
 
 .up-traveldate .td-label,
-.up-seatsleft .sl-num {
+.up-seatsleft .sl-label {
   font-size: 0.58rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -312,67 +341,75 @@
 
 .up-seatsleft .sl-num {
   display: block;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.05;
+  font-weight: 800;
   font-family: 'Cormorant Garamond', serif;
 }
 
-/* Hotel panel */
-.up-hotel {
-  background: #fafaf8;
-  border-radius: 12px;
-  padding: 14px;
-  border: 1px solid #f0ede6;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+/* Hotels wrap (holds both hotel cards side by side) */
+.up-hotels-wrap {
+  border-radius: 20px;
+  border: 1px solid #EDEDED;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.up-hotel:hover {
-  background: #ffffff;
-  border-color: rgba(201, 160, 40, 0.5);
+.up-hotel {
+  border: 1px solid #ebe4d4;
+  border-radius: 16px;
+  padding: 9px;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff 100%);
+  box-shadow: 0 6px 16px rgba(13, 59, 46, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .up-hotel-label {
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.1em;
+  letter-spacing: 1.1px;
   text-transform: uppercase;
+  color: #9b7c2f;
   margin-bottom: 4px;
 }
 
 .up-hotel-name {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--g700);
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
-
-.up-hotel-nights {
-  font-size: 0.75rem;
-  color: var(--muted);
+  font-weight: 800;
+  color: #0D3B2E;
+  font-size: 1.1rem;
+  line-height: 1.15;
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
+.up-hotel-nights,
 .up-hotel-loc {
-  font-size: 0.72rem;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .up-hotel-imgph {
-  margin-top: 10px;
-  height: 90px;
-  border-radius: 8px;
+  width: 100%;
+  max-width: 435px;
+  height: 140px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 8px;
+  box-shadow: 0 10px 22px rgba(13, 59, 46, 0.18);
   background: linear-gradient(135deg, #e9e4d8, #f5f2ea);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #b8ae98;
   font-size: 1.4rem;
-  overflow: hidden;
 }
 
 .up-hotel-imgph img {
@@ -382,16 +419,16 @@
   transition: transform 0.35s ease;
 }
 
-.up-hotel-imgph:hover img {
-  transform: scale(1.12);
+.up-hotel:hover .up-hotel-imgph img {
+  transform: scale(1.06);
 }
 
 .up-hotel-viewloc {
   display: inline-block;
   margin-top: 8px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0d6efd;
   text-decoration: none;
 }
 
@@ -399,72 +436,102 @@
   text-decoration: underline;
 }
 
-/* Price panel */
+.up-hotel-pictures {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* Price card */
 .up-price-panel {
-  border-radius: 12px;
-  padding: 14px;
-  color: white;
+  border-radius: 22px;
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  background: linear-gradient(180deg, #ffffff 0%, #faf6ec 100%);
+  overflow: hidden;
+  box-shadow: 0 16px 34px rgba(13, 59, 46, 0.16);
 }
 
 .up-price-title {
-  font-size: 0.68rem;
+  background: linear-gradient(120deg, #0D3B2E 0%, #14513f 55%, #0f5b46 100%);
+  color: #FAF8F2;
+  text-align: center;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 1.02rem;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 10px;
+  padding: 14px 12px;
 }
 
 .up-price-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  padding: 5px 4px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.78rem;
-  border-radius: 6px;
+  padding: 11px 12px;
+  border-top: 1px dashed #dfdccf;
+  background: rgba(255, 255, 255, 0.72);
   transition: background-color 0.2s ease;
 }
 
-.up-price-row:last-of-type {
-  border-bottom: none;
-}
-
 .up-price-row:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: #fff;
 }
 
 .up-price-row .pr-label {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.up-price-row .pr-val {
   font-weight: 700;
-  color: white;
-}
-
-.up-price-row.best .pr-label {
-  color: var(--gold2);
-  font-weight: 700;
-}
-
-.up-price-row.best .pr-val {
-  color: var(--gold2);
+  color: #1B1B1B;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
   font-size: 0.9rem;
 }
 
+.up-price-row .pr-val {
+  font-weight: 800;
+  color: #0D3B2E;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.up-price-row .pr-val::before {
+  content: 'PKR ';
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #7f7252;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.up-price-row.best {
+  background: linear-gradient(90deg, #faedce 0%, #f5dfaa 100%);
+}
+
+.up-price-row.best .pr-label::before {
+  content: '★ Best Value';
+  display: inline-block;
+  font-size: 0.56rem;
+  font-weight: 700;
+  color: #7a5d14;
+  background: #f4dd9c;
+  border-radius: 999px;
+  padding: 2px 6px;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+
 .up-gifted-box {
-  margin-top: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px dashed rgba(255, 255, 255, 0.3);
+  margin: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px dashed rgba(212, 175, 55, 0.5);
   border-radius: 10px;
   padding: 10px;
 }
 
 .gb-title {
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: var(--gold2);
+  color: #7a5d14;
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -474,20 +541,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  color: #3a3a3a;
 }
 
 .up-enquire-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 10px;
+  width: calc(100% - 20px);
+  margin: 0 10px 10px;
+  padding: 12px;
   background: linear-gradient(135deg, var(--gold), var(--gold2));
   color: var(--g900);
   border: none;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -497,12 +564,20 @@
   box-shadow: 0 8px 20px rgba(201, 160, 40, 0.35);
 }
 
-/* Included Services row (full-width strip, inside the card border) */
+/* Included Services */
+.up-included-heading {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #7a5d14;
+  margin: 14px 4px 6px;
+}
+
 .up-included-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  padding: 0 20px 18px;
 }
 
 .ir-item {
@@ -510,13 +585,19 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: var(--muted);
   text-align: center;
-  padding: 8px;
+  padding: 10px 8px;
   border-radius: 10px;
   background: #fafaf8;
   border: 1px solid #f0ede6;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ir-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 18px rgba(13, 59, 46, 0.1);
 }
 
 /* No results */
@@ -529,10 +610,13 @@
 
 @media (max-width: 1100px) {
   .up-body {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   .up-flightrow {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .up-codes {
+    grid-column: 1 / -1;
   }
   .up-included-row {
     grid-template-columns: repeat(3, 1fr);
@@ -543,7 +627,7 @@
   .up-page {
     padding: 100px 16px 60px;
   }
-  .up-body {
+  .up-hotels-wrap {
     grid-template-columns: 1fr;
   }
   .up-flightrow {
