@@ -113,6 +113,7 @@
   overflow: hidden;
   padding: 14px;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  zoom: 0.92;
 }
 
 .up-card:hover {
