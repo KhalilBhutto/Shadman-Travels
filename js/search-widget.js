@@ -628,13 +628,9 @@ function updateHeroCarouselHeading() {
 function isValidPhone(phone) {
   const cleaned = phone.replace(/[\s\-()]/g, '');
   return /^(0092|\+92|92|0)?3\d{9}$/.test(cleaned);
-  function isValidPhone(phone) {
-  const cleaned = phone.replace(/[\s\-()]/g, '');
-  return /^(0092|\+92|92|0)?3\d{9}$/.test(cleaned);
 }
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 }
 function showFieldError(el) { if (el) el.classList.add('input-error'); }
 function clearFieldError(el) { if (el) el.classList.remove('input-error'); }
@@ -670,10 +666,6 @@ function submitTicketEnquiry() {
     showFieldError(phoneInput); phoneInput.focus(); return;
   }
   if (!isValidPhone(phone)) {
-    errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.'; errEl.style.display = 'block';
-    showFieldError(phoneInput); phoneInput.focus(); return;
-  }
-    if (!isValidPhone(phone)) {
     errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.'; errEl.style.display = 'block';
     showFieldError(phoneInput); phoneInput.focus(); return;
   }
