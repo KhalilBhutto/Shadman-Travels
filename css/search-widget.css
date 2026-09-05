@@ -339,3 +339,51 @@
   .hc-card[data-pos="near-right"] { transform: translateX(140px) scale(.8); }
   .hc-card[data-pos="far-left"], .hc-card[data-pos="far-right"] { display: none; }
 }
+
+/* ── Dark Ticket-Bar Redesign (Phase 1) ── */
+.pill-tabs { background: transparent; padding: 0 0 14px; display: flex; gap: 6px; align-items: center; }
+.pill-tab { border: none; background: transparent; padding: 9px 18px; border-radius: 10px; font-size: .78rem; font-weight: 700; color: rgba(255,255,255,.45); cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif; }
+.pill-tab.active { color: var(--g900); background: linear-gradient(135deg, var(--gold), var(--gold2)); }
+.pill-tab:not(.active):hover { background: rgba(255,255,255,.06); }
+
+.widget-card.dark-bar-mode {
+  background: linear-gradient(155deg, var(--g800) 0%, var(--g700) 55%, var(--g600) 100%);
+  border: 1px solid rgba(201,160,40,.3);
+  position: relative;
+  overflow: hidden;
+}
+.widget-card.dark-bar-mode::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 90px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), transparent);
+  background-size: 200%;
+  animation: barShimmer 4s ease-in-out infinite;
+}
+@keyframes barShimmer { from { background-position: 200%; } to { background-position: -200%; } }
+
+.dark-bar-mode .field-row { grid-template-columns: 1fr 36px 1fr 1fr 1fr auto; gap: 0; }
+.dark-bar-mode .wf { background: transparent; border-radius: 0; border-right: 1px solid rgba(201,160,40,.15); border-top: none; }
+.dark-bar-mode .wf:hover { background: rgba(255,255,255,.04); }
+.dark-bar-mode .wf-label2 { color: var(--gold2); font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+.dark-bar-mode .wf-val2 { color: #fff; }
+.dark-bar-mode .wf-val2.placeholder { color: rgba(255,255,255,.32); }
+.dark-bar-mode .swap-circle { background: rgba(255,255,255,.08); color: var(--gold2); }
+.dark-bar-mode .swap-circle:hover { background: var(--gold); color: var(--g900); }
+
+.dark-bar-mode .wf-searchbtn {
+  background: linear-gradient(165deg, var(--gold2), var(--gold) 55%, #b8901f);
+  width: 94px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px;
+  position: relative; padding: 12px 0;
+  border-left: 2px dashed rgba(6,15,9,.3);
+}
+.dark-bar-mode .wf-searchbtn::before {
+  content: ''; position: absolute; left: -7px; top: -7px;
+  width: 14px; height: 14px; background: var(--g900); border-radius: 50%;
+}
+.dark-bar-mode .wf-searchbtn::after {
+  content: ''; position: absolute; left: -7px; bottom: -7px;
+  width: 14px; height: 14px; background: var(--g900); border-radius: 50%;
+}
+.dark-bar-mode .search-btn2 { background: var(--g900); color: var(--gold2); border-radius: 8px; padding: 8px 16px; font-size: .68rem; }
+.dark-bar-mode .search-btn2:disabled { background: rgba(6,15,9,.5); color: rgba(228,188,90,.4); }
