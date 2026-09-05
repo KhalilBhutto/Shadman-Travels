@@ -350,7 +350,7 @@
   background: linear-gradient(155deg, var(--g800) 0%, var(--g700) 55%, var(--g600) 100%);
   border: 1px solid rgba(201,160,40,.3);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .widget-card.dark-bar-mode::before {
   content: '';
@@ -398,3 +398,55 @@
 .dark-bar-mode .mc-note2 { color: rgba(255,255,255,.4); }
 .dark-bar-mode .mc-guests-row { border-top: 1px solid rgba(201,160,40,.2); }
 .dark-bar-mode #mcSearchBtn { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); border-radius: 50px; padding: 0 28px; }
+
+/* ── Dark Ticket-Bar Redesign (Phase 3 — Popups) ── */
+.dark-bar-mode .popup-panel { background: linear-gradient(155deg, var(--g800), var(--g700) 55%, var(--g600)); border-color: rgba(201,160,40,.3); }
+.dark-bar-mode .popup { background: linear-gradient(155deg, var(--g800), var(--g700) 55%, var(--g600)); border-color: rgba(201,160,40,.3); }
+
+/* Guests and Cabin */
+.dark-bar-mode .gp-col-title { color: var(--gold2); }
+.dark-bar-mode .gp-row { border-bottom-color: rgba(201,160,40,.15); }
+.dark-bar-mode .gp-label b { color: #fff; }
+.dark-bar-mode .gp-label small { color: rgba(255,255,255,.4); }
+.dark-bar-mode .gp-btn { background: rgba(255,255,255,.04); border-color: rgba(201,160,40,.35); color: #fff; }
+.dark-bar-mode .gp-btn[data-act$="+"] { background: linear-gradient(135deg, var(--gold), var(--gold2)); border-color: transparent; color: var(--g900); }
+.dark-bar-mode .gp-num { border-color: rgba(201,160,40,.2); color: #fff; }
+.dark-bar-mode .gp-cabin-row:hover { background: rgba(255,255,255,.05); }
+.dark-bar-mode .gp-radio { border-color: rgba(201,160,40,.35); }
+.dark-bar-mode .gp-cabin-row.selected .gp-radio { border-color: var(--gold); }
+.dark-bar-mode .gp-cabin-row.selected .gp-radio::after { background: linear-gradient(135deg, var(--gold), var(--gold2)); }
+.dark-bar-mode .gp-cabin-row span { color: #fff; }
+.dark-bar-mode .gp-footer { border-top-color: rgba(201,160,40,.2); }
+.dark-bar-mode .gp-cap-note { color: rgba(255,255,255,.35); }
+.dark-bar-mode .gp-done { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); border: none; }
+
+/* Calendar */
+.dark-bar-mode .cal-header { color: #fff; }
+.dark-bar-mode .cal-jump-btn { color: var(--gold2); }
+.dark-bar-mode .cal-nav-btn { background: rgba(255,255,255,.04); border-color: rgba(201,160,40,.3); color: #fff; }
+.dark-bar-mode .cal-range-note { color: rgba(255,255,255,.4); }
+.dark-bar-mode .cal-month h4 { color: var(--gold2); }
+.dark-bar-mode .cal-dow { color: rgba(255,255,255,.35); }
+.dark-bar-mode .cal-day { color: #fff; }
+.dark-bar-mode .cal-day:hover:not(.disabled):not(.empty) { background: rgba(255,255,255,.06); }
+.dark-bar-mode .cal-day.disabled { color: rgba(255,255,255,.15); }
+.dark-bar-mode .cal-day.today { border-color: var(--gold); }
+.dark-bar-mode .cal-day.selected { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+.dark-bar-mode .cal-day.in-range { background: rgba(201,160,40,.15); }
+.dark-bar-mode .cal-footer { border-top-color: rgba(201,160,40,.2); }
+.dark-bar-mode .cal-selection-txt { color: #fff; }
+.dark-bar-mode .cal-jump-cell { border-color: rgba(201,160,40,.2); color: #fff; }
+.dark-bar-mode .cal-jump-cell:hover { border-color: var(--gold); background: rgba(201,160,40,.1); }
+.dark-bar-mode .cal-jump-cell.disabled { opacity: .25; }
+.dark-bar-mode .cal-jump-cell small { color: rgba(255,255,255,.4); }
+
+/* Airport list */
+.dark-bar-mode .ap-search-box { border-bottom-color: rgba(201,160,40,.15); }
+.dark-bar-mode .ap-search-box input { color: #fff; }
+.dark-bar-mode .ap-search-box input::placeholder { color: rgba(255,255,255,.35); }
+.dark-bar-mode .ap-group { color: var(--gold2); background: var(--g800); }
+.dark-bar-mode .ap-opt:hover { background: rgba(255,255,255,.05); }
+.dark-bar-mode .ap-opt-icon { background: rgba(255,255,255,.06); color: var(--gold2); }
+.dark-bar-mode .ap-opt-city { color: #fff; }
+.dark-bar-mode .ap-opt-sub { color: rgba(255,255,255,.4); }
+.dark-bar-mode .ap-opt .code { color: var(--gold2); background: rgba(201,160,40,.12); }
