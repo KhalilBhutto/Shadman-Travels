@@ -387,3 +387,14 @@
 }
 .dark-bar-mode .search-btn2 { background: var(--g900); color: var(--gold2); border-radius: 8px; padding: 8px 16px; font-size: .68rem; }
 .dark-bar-mode .search-btn2:disabled { background: rgba(6,15,9,.5); color: rgba(228,188,90,.4); }
+
+/* ── Dark Ticket-Bar Redesign (Phase 2 — Multi-City) ── */
+.dark-bar-mode .mc-leg-row2 .wf:last-child { border-right: none; }
+.dark-bar-mode .mc-leg-wrap { border-top: 1px solid rgba(201,160,40,.15); padding-top: 10px; }
+.dark-bar-mode .mc-leg-heading { color: var(--gold2); font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
+.dark-bar-mode .mc-delete-link { color: var(--gold2); }
+.dark-bar-mode .mc-add-btn2 { border-color: rgba(201,160,40,.4); color: var(--gold2); }
+.dark-bar-mode .mc-add-btn2:hover { background: rgba(201,160,40,.1); border-color: var(--gold); }
+.dark-bar-mode .mc-note2 { color: rgba(255,255,255,.4); }
+.dark-bar-mode .mc-guests-row { border-top: 1px solid rgba(201,160,40,.2); }
+.dark-bar-mode #mcSearchBtn { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); border-radius: 50px; padding: 0 28px; }
