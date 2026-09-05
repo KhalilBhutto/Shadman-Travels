@@ -807,6 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
       wState.trip = tab.dataset.trip;
       if (wState.trip !== 'rt') { wState.ret = null; renderField('date'); }
       const mcMode = wState.trip === 'mc';
+      document.getElementById('widgetCard').classList.toggle('rt-ow-layout', !mcMode);
       if (mcMode) {
         wState.mcLegs[0].from = wState.from; wState.mcLegs[0].fromCode = wState.fromCode;
         wState.mcLegs[0].to = wState.to; wState.mcLegs[0].toCode = wState.toCode;

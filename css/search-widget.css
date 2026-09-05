@@ -450,3 +450,19 @@
 .dark-bar-mode .ap-opt-city { color: #fff; }
 .dark-bar-mode .ap-opt-sub { color: rgba(255,255,255,.4); }
 .dark-bar-mode .ap-opt .code { color: var(--gold2); background: rgba(201,160,40,.12); }
+
+/* ── Dual tab layout: vertical for RT/OW, horizontal for Multi-City ── */
+.dark-bar-mode.rt-ow-layout { display: grid; grid-template-columns: auto 1fr; align-items: stretch; }
+.dark-bar-mode.rt-ow-layout .wc-top {
+  grid-column: 1; grid-row: 1; margin: 0; padding: 10px 10px;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  border-right: 1px solid rgba(201,160,40,.2); background: rgba(0,0,0,.15);
+}
+.dark-bar-mode.rt-ow-layout .pill-tabs { flex-direction: column; padding: 0; gap: 2px; }
+.dark-bar-mode.rt-ow-layout .pill-tab { font-size: .6rem; padding: 6px 10px; text-align: center; white-space: nowrap; }
+.dark-bar-mode.rt-ow-layout #mainRow { grid-column: 2; grid-row: 1; }
+.dark-bar-mode.rt-ow-layout .recent-chip { grid-column: 1 / -1; }
+
+.dark-bar-mode:not(.rt-ow-layout) { display: block; }
+.dark-bar-mode:not(.rt-ow-layout) .wc-top { display: block; padding: 8px 8px 4px; background: none; border-right: none; }
+.dark-bar-mode:not(.rt-ow-layout) .pill-tabs { flex-direction: row; }
