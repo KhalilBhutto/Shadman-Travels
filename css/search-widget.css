@@ -174,6 +174,13 @@
 /* Recent search chip */
 .recent-chip { display: inline-flex; align-items: center; gap: 12px; background: white; color: var(--ink); padding: 12px 20px 12px 12px; border-radius: 40px; margin: 14px 0 0 26px; position: relative; z-index: 1; cursor: pointer; border: 1px solid #ece8dc; transition: all .2s; box-shadow: 0 10px 26px rgba(0,0,0,.14); }
 .recent-chip:hover { border-color: var(--gold); box-shadow: 0 8px 22px rgba(201,160,40,.15); transform: translateY(-1px); }
+#recentChipWrap { text-align: center; margin-top: 16px; }
+#recentChipWrap .recent-chip { background: rgba(255,255,255,.06); border: 1px solid rgba(201,160,40,.25); color: #fff; box-shadow: none; margin: 0; }
+#recentChipWrap .recent-chip:hover { border-color: var(--gold); box-shadow: 0 8px 22px rgba(201,160,40,.15); }
+#recentChipWrap .rc-icon-circle { background: rgba(201,160,40,.15); color: #e4bc5a; }
+#recentChipWrap .rc-route { color: #fff; }
+#recentChipWrap .rc-meta-row { color: rgba(255,255,255,.55); }
+#recentChipWrap .rc-chevron { color: rgba(255,255,255,.4); }
 .rc-icon-circle { width: 34px; height: 34px; border-radius: 50%; background: #f3f1ea; display: flex; align-items: center; justify-content: center; color: var(--g700); flex-shrink: 0; }
 .rc-icon-circle svg { width: 15px; height: 15px; }
 .rc-body { display: flex; flex-direction: column; gap: 2px; }
