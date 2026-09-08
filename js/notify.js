@@ -66,14 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
 
-            await fetch(SHEETS_URL, {
+            const res = await fetch(SHEETS_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'text/plain;charset=utf-8'
                 },
                 body: JSON.stringify(payload)
             });
+
+            const data = await res.json();
+
+            if (!data.success) {
+                throw new Error(data.error || 'Submission failed on server');
+            }
 
             form.style.display = 'none';
             successBox.style.display = 'block';
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
 
             alert(
-                'Something went wrong. Please try again.'
+                'Something went wrong. Please try again, or call/WhatsApp us at +92 300 0041510.'
             );
 
             console.error(error);
