@@ -361,6 +361,9 @@
 }
 @keyframes barShimmer { from { background-position: 200%; } to { background-position: -200%; } }
 
+.dark-bar-mode .wf-icon-circle { display: none; }
+.dark-bar-mode .wf-swap2 { width: 24px; }
+.dark-bar-mode .swap-circle { width: 22px; height: 22px; background: rgba(255,255,255,.08); color: var(--gold2); }
 .wgt-eyebrow { text-align: center; margin-bottom: 26px; }
 .wgt-eyebrow span { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .22em; color: var(--gold); text-transform: uppercase; }
 .wgt-eyebrow h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; margin-top: 8px; font-weight: 700; }
