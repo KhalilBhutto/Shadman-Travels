@@ -49,6 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
 
+        // Honeypot check — if this hidden field has a value, silently
+        // drop the submission (bot filled every field it could find).
+        const honeypot = document.getElementById('notifyWebsite');
+        if (honeypot && honeypot.value.trim() !== '') {
+            form.reset();
+            return;
+        }
+
         // Fallback: if SHEETS_URL is not configured, alert and stop
         if (SHEETS_URL.includes('YOUR_SCRIPT_ID')) {
             alert('This service is temporarily unavailable. Please call us on +92 300 0041510.');

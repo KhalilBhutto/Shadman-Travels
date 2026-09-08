@@ -1690,6 +1690,16 @@
       <p id="notifyServiceText"></p>
 
       <form id="notifyForm">
+        <!-- Honeypot — real users never see or fill this; bots that
+             auto-fill every field will, and get silently rejected. -->
+        <input
+          type="text"
+          id="notifyWebsite"
+          name="website"
+          autocomplete="off"
+          tabindex="-1"
+          style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"
+        >
         <input
           type="text"
           id="notifyName"
