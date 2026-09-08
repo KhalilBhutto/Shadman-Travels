@@ -361,6 +361,8 @@
 }
 @keyframes barShimmer { from { background-position: 200%; } to { background-position: -200%; } }
 
+.dark-bar-mode .wf-searchbtn-bars { display: flex; gap: 2px; align-items: flex-end; height: 16px; margin-bottom: 6px; }
+.dark-bar-mode .wf-searchbtn-bars div { width: 2px; background: var(--g900); opacity: .7; }
 .dark-bar-mode .wf-icon-circle { display: none; }
 .dark-bar-mode .wf-swap2 { width: 24px; }
 .dark-bar-mode .swap-circle { width: 22px; height: 22px; background: rgba(255,255,255,.08); color: var(--gold2); }
@@ -383,14 +385,16 @@
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px;
   position: relative; padding: 12px 0;
   border-left: 2px dashed rgba(6,15,9,.3);
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
 }
 .dark-bar-mode .wf-searchbtn::before {
-  content: ''; position: absolute; left: -7px; top: -7px;
-  width: 14px; height: 14px; background: var(--g900); border-radius: 50%;
+  content: ''; position: absolute; left: -7px; top: 3px;
+  width: 14px; height: 14px; background: var(--cream); border-radius: 50%;
 }
 .dark-bar-mode .wf-searchbtn::after {
-  content: ''; position: absolute; left: -7px; bottom: -7px;
-  width: 14px; height: 14px; background: var(--g900); border-radius: 50%;
+  content: ''; position: absolute; left: -7px; bottom: 3px;
+  width: 14px; height: 14px; background: var(--cream); border-radius: 50%;
 }
 .dark-bar-mode .search-btn2 { background: var(--g900); color: var(--gold2); border-radius: 8px; padding: 8px 16px; font-size: .68rem; }
 .dark-bar-mode .search-btn2:disabled { background: rgba(6,15,9,.5); color: rgba(228,188,90,.4); }
