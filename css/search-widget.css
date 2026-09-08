@@ -359,7 +359,7 @@
 }
 .widget-card.dark-bar-mode::before {
   content: '';
-  position: absolute; top: 0; left: 0; right: 90px; height: 2px;
+  position: absolute; top: 0; left: 18px; right: 90px; height: 2px;
   background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), transparent);
   background-size: 200%;
   animation: barShimmer 4s ease-in-out infinite;
