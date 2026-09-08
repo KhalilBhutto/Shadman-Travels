@@ -60,7 +60,7 @@
 /* ── Hero Layout ── */
 .hero-inner {
   position: relative;
-  z-index: 2;
+  z-index: 50;
   max-width: 1400px;
   margin: 0 auto;
   padding: 48px 32px 40px;
