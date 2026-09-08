@@ -492,7 +492,7 @@ function renderRecentChip() {
     dateTxt = s.depart ? fmtDate(new Date(s.depart)) + (s.ret ? ' - ' + fmtDate(new Date(s.ret)) : '') : '';
   }
   wrap.innerHTML = `<div class="recent-chip" id="recentChipBtn">
-    <div class="rc-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+    <div class="rc-icon-circle"><i class="fas fa-clock-rotate-left"></i></div>
     <div class="rc-body">
       <div class="rc-route">${routeTxt}</div>
       <div class="rc-meta-row">
