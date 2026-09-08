@@ -351,6 +351,11 @@
   border: 1px solid rgba(201,160,40,.3);
   position: relative;
   overflow: visible;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 18px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.5);
+  padding: 0;
 }
 .widget-card.dark-bar-mode::before {
   content: '';
@@ -475,5 +480,6 @@
 .dark-bar-mode.rt-ow-layout .recent-chip { grid-column: 1 / -1; }
 
 .dark-bar-mode:not(.rt-ow-layout) { display: block; }
+.widget-card.dark-bar-mode:not(.rt-ow-layout) { max-width: 960px; width: 100%; }
 .dark-bar-mode:not(.rt-ow-layout) .wc-top { display: block; padding: 8px 8px 4px; background: none; border-right: none; }
 .dark-bar-mode:not(.rt-ow-layout) .pill-tabs { flex-direction: row; }
