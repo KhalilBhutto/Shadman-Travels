@@ -68,7 +68,7 @@ function packageCardHTML(p) {
   return `
     <div class="up-card" data-airline="${cls}" data-nights="${p.nights}" data-price="${p.pricing.sharing}">
 
-      <div class="up-avail-badge">${p.status}</div>
+      <div class="up-avail-badge">${escapeHtml(p.status)}</div>
 
       <div class="up-topbar">
         <div class="up-topbar-code">${escapeHtml(p.code)} &nbsp;|&nbsp; ${escapeHtml(p.airlineCode)} &nbsp;|&nbsp; ${escapeHtml(p.route)}</div>
@@ -94,7 +94,7 @@ function packageCardHTML(p) {
           <div class="fc-label">Flight</div>
         </div>
         <div class="up-flight-cell">
-          <div class="fc-title">🌙 ${p.nights} Nights</div>
+          <div class="fc-title">🌙 ${escapeHtml(p.nights)} Nights</div>
           <div class="fc-label">Duration</div>
         </div>
         <div class="up-flight-cell up-codes" style="background:${info.gradient};border-color:${info.border};">
