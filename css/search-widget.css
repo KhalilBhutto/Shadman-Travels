@@ -384,7 +384,7 @@
 .wgt-eyebrow span { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .22em; color: var(--gold); text-transform: uppercase; }
 .wgt-eyebrow h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; margin-top: 8px; font-weight: 700; }
 .wgt-eyebrow h3 em { color: var(--gold2); font-style: italic; }
-.dark-bar-mode .field-row { grid-template-columns: 1fr 36px 1fr 1fr 1fr auto; gap: 0; }
+.dark-bar-mode .field-row { grid-template-columns: minmax(0,1fr) 36px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) auto; gap: 0; }
 .dark-bar-mode .wf { background: transparent; border-radius: 0; border-right: none; border-top: none; position: relative; }
 .dark-bar-mode .wf::after { content: ''; position: absolute; top: 22%; bottom: 22%; right: 0; width: 1px; background: rgba(201,160,40,.3); }
 .dark-bar-mode .wf:hover { background: rgba(255,255,255,.04); }
