@@ -27,7 +27,7 @@
   ║   1. config.js         — Global configuration & Google Sheets endpoint   ║
   ║   2. airports.js       — Airport autocomplete data & search logic        ║
   ║   3. navbar.js         — Hamburger toggle, scroll behavior, active links ║
-  ║   4. forms.js          — Flight form logic, passenger picker, tab panels ║
+  ║   4. search-widget.js  — Boarding-pass ticket + horizontal search bar    ║
   ║   5. notify.js         — Notification modal open/close & form submit     ║
   ║   6. animations.js     — IntersectionObserver reveals, counter, carousel ║
   ║   7. main.js           — Entry point: preloader, progress bar, init      ║
@@ -142,7 +142,7 @@
        § 7 ·  Fonts are self-hosted — see css/variables.css @font-face declarations
        ═══════════════════════════════════════════════════════════ -->
        
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-xscEkekms/SQq5SFOOIcbfflRgUup5sdW1duER21mIKxWcHi9Xyv37aIOSrCepJf" crossorigin="anonymous"/>
 
   <!-- ═══════════════════════════════════════════════════════════
        § 8 · STYLESHEETS
@@ -194,7 +194,7 @@
        § 10 · JAVASCRIPT — deferred for performance
        defer: download in parallel with HTML parsing,
        execute only after DOM is fully ready. Order preserved:
-       config → airports → navbar → forms → notify → animations → main
+       config → airports → navbar → search-widget → notify → animations → main
        ═══════════════════════════════════════════════════════════ -->
   <script src="js/config.js" defer></script>
   <script src="js/airports.js" defer></script>
@@ -337,7 +337,7 @@
          (One Way · Round Trip · Multi City) with passenger
          picker, airline/purpose selects, contact fields, and
          form feedback toasts.
-         Controlled by: js/forms.js, js/airports.js
+         Controlled by: js/search-widget.js, js/airports.js
          ═══════════════════════════════════════════════════════════ -->
     <section class="hero" id="flights">
       <canvas id="starCanvas"></canvas>
