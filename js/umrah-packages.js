@@ -42,6 +42,16 @@ function fmtPrice(n) {
   return n.toLocaleString('en-PK');
 }
 
+// Safely escape content before inserting into innerHTML — prevents
+// a malicious value in the JSON data from running as code on the page.
+function escapeHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function mapsUrl(hotelName, city) {
   const q = encodeURIComponent(hotelName + ', ' + city + ', Saudi Arabia');
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
@@ -61,26 +71,26 @@ function packageCardHTML(p) {
       <div class="up-avail-badge">${p.status}</div>
 
       <div class="up-topbar">
-        <div class="up-topbar-code">${p.code} &nbsp;|&nbsp; ${p.airlineCode} &nbsp;|&nbsp; ${p.route}</div>
+        <div class="up-topbar-code">${escapeHtml(p.code)} &nbsp;|&nbsp; ${escapeHtml(p.airlineCode)} &nbsp;|&nbsp; ${escapeHtml(p.route)}</div>
       </div>
 
       <div class="up-flightrow">
         <div class="up-flight-cell">
-          <div class="fc-title">✈ ${p.outbound.flightNo}</div>
-          <div class="fc-route">${p.outbound.from} → ${p.outbound.to}</div>
-          <div class="fc-times">${p.outbound.depTime} → ${p.outbound.arrTime}</div>
-          <div class="fc-sub">Baggage: ${p.outbound.baggage}</div>
-          <div class="fc-label">Departure · ${p.outbound.date}</div>
+          <div class="fc-title">✈ ${escapeHtml(p.outbound.flightNo)}</div>
+          <div class="fc-route">${escapeHtml(p.outbound.from)} → ${escapeHtml(p.outbound.to)}</div>
+          <div class="fc-times">${escapeHtml(p.outbound.depTime)} → ${escapeHtml(p.outbound.arrTime)}</div>
+          <div class="fc-sub">Baggage: ${escapeHtml(p.outbound.baggage)}</div>
+          <div class="fc-label">Departure · ${escapeHtml(p.outbound.date)}</div>
         </div>
         <div class="up-flight-cell">
-          <div class="fc-title">✈ ${p.return.flightNo}</div>
-          <div class="fc-route">${p.return.from} → ${p.return.to}</div>
-          <div class="fc-times">${p.return.depTime} → ${p.return.arrTime}</div>
-          <div class="fc-sub">Baggage: ${p.return.baggage}</div>
-          <div class="fc-label">Arrival · ${p.return.date}</div>
+          <div class="fc-title">✈ ${escapeHtml(p.return.flightNo)}</div>
+          <div class="fc-route">${escapeHtml(p.return.from)} → ${escapeHtml(p.return.to)}</div>
+          <div class="fc-times">${escapeHtml(p.return.depTime)} → ${escapeHtml(p.return.arrTime)}</div>
+          <div class="fc-sub">Baggage: ${escapeHtml(p.return.baggage)}</div>
+          <div class="fc-label">Arrival · ${escapeHtml(p.return.date)}</div>
         </div>
         <div class="up-flight-cell">
-          <div class="fc-title">✈ ${p.outbound.from} - ${p.outbound.to}</div>
+          <div class="fc-title">✈ ${escapeHtml(p.outbound.from)} - ${escapeHtml(p.outbound.to)}</div>
           <div class="fc-label">Flight</div>
         </div>
         <div class="up-flight-cell">
@@ -90,11 +100,11 @@ function packageCardHTML(p) {
         <div class="up-flight-cell up-codes" style="background:${info.gradient};border-color:${info.border};">
           <div>
             <div class="pc-label">Package Code</div>
-            <div class="pc-val">${p.packageCode}</div>
+            <div class="pc-val">${escapeHtml(p.packageCode)}</div>
           </div>
           <div>
             <div class="pc-label">Group Code</div>
-            <div class="pc-val">${p.groupCode}</div>
+            <div class="pc-val">${escapeHtml(p.groupCode)}</div>
           </div>
         </div>
       </div>
@@ -102,18 +112,18 @@ function packageCardHTML(p) {
       <div class="up-body">
 
         <div class="up-airline-panel" style="background:${info.gradient};border-color:${info.border};">
-          <div class="up-airline-logo"><img src="${info.logo}" alt="${p.airline} logo"></div>
-          <div class="up-airline-name">${p.airline}</div>
+          <div class="up-airline-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>
+          <div class="up-airline-name">${escapeHtml(p.airline)}</div>
           <div class="up-route-mini">
-            <span>${p.outbound.from}</span><span class="arrow">✈</span><span>${p.outbound.to}</span>
+            <span>${escapeHtml(p.outbound.from)}</span><span class="arrow">✈</span><span>${escapeHtml(p.outbound.to)}</span>
           </div>
           <div class="up-airline-status">✓ Available</div>
           <div class="up-traveldate">
             <div class="td-label">📅 Travel Date</div>
-            <div class="td-val">${p.travelDate}</div>
+            <div class="td-val">${escapeHtml(p.travelDate)}</div>
           </div>
           <div class="up-seatsleft">
-            <span class="sl-num">${p.seatsLeft}</span>
+            <span class="sl-num">${escapeHtml(p.seatsLeft)}</span>
             <span class="sl-label">Seats Left</span>
           </div>
         </div>
@@ -122,9 +132,9 @@ function packageCardHTML(p) {
 
           <div class="up-hotel">
             <div class="up-hotel-label">Makkah Hotel</div>
-            <a href="${galleryUrl(p.makkahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${p.makkahHotel.name}</a>
-            <div class="up-hotel-nights">🌙 ${p.makkahHotel.nights} Night(s)</div>
-            <div class="up-hotel-loc">📍 ${p.makkahHotel.location}</div>
+            <a href="${galleryUrl(p.makkahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${escapeHtml(p.makkahHotel.name)}</a>
+            <div class="up-hotel-nights">🌙 ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
+            <div class="up-hotel-loc">📍 ${escapeHtml(p.makkahHotel.location)}</div>
             <div class="up-hotel-imgph">🕋</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener">📍 View Location</a>
             <br>
@@ -133,9 +143,9 @@ function packageCardHTML(p) {
 
           <div class="up-hotel">
             <div class="up-hotel-label">Madinah Hotel</div>
-            <a href="${galleryUrl(p.madinahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${p.madinahHotel.name}</a>
-            <div class="up-hotel-nights">🌙 ${p.madinahHotel.nights} Night(s)</div>
-            <div class="up-hotel-loc">📍 ${p.madinahHotel.location}</div>
+            <a href="${galleryUrl(p.madinahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${escapeHtml(p.madinahHotel.name)}</a>
+            <div class="up-hotel-nights">🌙 ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
+            <div class="up-hotel-loc">📍 ${escapeHtml(p.madinahHotel.location)}</div>
             <div class="up-hotel-imgph">🕌</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener">📍 View Location</a>
             <br>
@@ -162,7 +172,7 @@ function packageCardHTML(p) {
             </div>
           </div>
 
-          <button class="notify-btn up-enquire-btn" data-service="Umrah Package — ${p.code} (${p.travelDate})">
+          <button class="notify-btn up-enquire-btn" data-service="Umrah Package — ${escapeHtml(p.code)} (${escapeHtml(p.travelDate)})">
             Enquire Now
           </button>
         </div>
