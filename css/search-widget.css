@@ -196,7 +196,7 @@
 .mc-leg-row2 { display: grid; grid-template-columns: 1fr 40px 1fr 1fr; gap: 10px; position: relative; padding-top: 6px; }
 .mc-leg-row2 > .cal-popup { left: 0; right: 0; }
 .mc-leg-wrap { margin-top: 14px; }
-.mc-leg-heading-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.mc-leg-heading-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 6px; }
 .mc-leg-heading { font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 700; color: var(--g700); }
 .mc-delete-link { background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 600; color: var(--gold); text-decoration: underline; cursor: pointer; }
 .mc-add-wrap2 { align-items: center; gap: 10px; }
@@ -377,8 +377,9 @@
 .dark-bar-mode .wf-searchbtn-bars div { width: 2px; background: var(--g900); opacity: .7; }
 .dark-bar-mode .wf-icon-circle { display: none; }
 .dark-bar-mode #fromField::after { display: none; }
-.dark-bar-mode .wf-swap2 { width: 24px; justify-self: center; position: relative; }
+.dark-bar-mode .wf-swap2 { width: 24px; justify-self: start; position: relative; }
 .dark-bar-mode .wf-swap2::before { content: ''; position: absolute; top: 22%; bottom: 22%; left: 50%; width: 1px; background: rgba(201,160,40,.3); z-index: 0; }
+.dark-bar-mode .mc-leg-row2 .wf-swap2::before { content: none; }
 .dark-bar-mode .swap-circle { width: 22px; height: 22px; background: rgba(255,255,255,.08); color: var(--gold2); }
 .wgt-eyebrow { text-align: center; margin-bottom: 26px; }
 .wgt-eyebrow span { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .22em; color: var(--gold); text-transform: uppercase; }
@@ -391,7 +392,7 @@
 .dark-bar-mode .wf-label2 { color: var(--gold2); font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
 .dark-bar-mode .wf-val2 { color: #fff; }
 .dark-bar-mode .wf-val2.placeholder { color: rgba(255,255,255,.32); }
-.dark-bar-mode .swap-circle { background: transparent; border: 1px solid rgba(228,188,90,.5); color: var(--gold2); position: relative; z-index: 1; }
+.dark-bar-mode .swap-circle { background: var(--g700); border: 1px solid rgba(228,188,90,.5); color: var(--gold2); position: relative; z-index: 1; }
 .dark-bar-mode .swap-circle:hover { background: rgba(255,255,255,.08); border-color: var(--gold); color: var(--gold2); }
 
 .dark-bar-mode .wf-searchbtn {
@@ -419,11 +420,10 @@
 .dark-bar-mode .mc-leg-wrap { border-top: 1px solid rgba(201,160,40,.15); padding-top: 10px; }
 .dark-bar-mode .mc-leg-heading { color: var(--gold2); font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
 .dark-bar-mode .mc-delete-link { color: var(--gold2); }
-.dark-bar-mode .mc-add-btn2 { border-color: rgba(201,160,40,.4); color: var(--gold2); }
+.dark-bar-mode .mc-add-btn2 { border-color: rgba(201,160,40,.75); color: var(--gold2); }
 .dark-bar-mode .mc-add-btn2:hover { background: rgba(201,160,40,.1); border-color: var(--gold); }
 .dark-bar-mode .mc-note2 { color: rgba(255,255,255,.4); }
 .dark-bar-mode .mc-guests-row { border-top: 1px solid rgba(201,160,40,.2); }
-.dark-bar-mode #mcSearchBtn { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); border-radius: 50px; padding: 0 28px; }
 
 /* ── Dark Ticket-Bar Redesign (Phase 3 — Popups) ── */
 .dark-bar-mode .popup-panel { background: linear-gradient(155deg, var(--g800), var(--g700) 55%, var(--g600)); border-color: rgba(201,160,40,.3); }
@@ -493,3 +493,13 @@
 .widget-card.dark-bar-mode:not(.rt-ow-layout) { max-width: 960px; width: 100%; }
 .dark-bar-mode:not(.rt-ow-layout) .wc-top { display: block; padding: 8px 8px 4px; background: none; border-right: none; }
 .dark-bar-mode:not(.rt-ow-layout) .pill-tabs { flex-direction: row; }
+
+.dark-bar-mode #mcSearchBtn {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--g900);
+  border-radius: 50px;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
