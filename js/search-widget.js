@@ -141,6 +141,18 @@ function buildAirportList(popupEl, excludeCode, onSelect) {
   setTimeout(() => inputEl.focus(), 30);
 }
 
+function getFirstIncompleteStep() {
+  if (!wState.from) return 'from';
+  if (!wState.to) return 'to';
+  if (!wState.guestsConfirmed) return 'guests';
+  return null;
+}
+function openStep(step) {
+  if (step === 'from') { openAirportPopup('from'); setActiveStep('fromField'); }
+  else if (step === 'to') { openAirportPopup('to'); setActiveStep('toField'); }
+  else if (step === 'guests') { openGuestsPopup(); setActiveStep('guestsField'); }
+}
+
 function openAirportPopup(which) {
   closeAllPopups();
   const popupEl = document.getElementById(which + 'Popup');
@@ -782,10 +794,25 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('fromField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) { openAirportPopup('from'); setActiveStep('fromField'); } });
-  document.getElementById('toField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) { openAirportPopup('to'); setActiveStep('toField'); } });
-  document.getElementById('guestsField').addEventListener('click', (e) => { if (!e.target.closest('.popup')) { openGuestsPopup(); setActiveStep('guestsField'); } });
+  document.getElementById('toField').addEventListener('click', (e) => {
+    if (e.target.closest('.popup') || e.target.closest('.wf-clear')) return;
+    const step = getFirstIncompleteStep();
+    if (step && step !== 'to') { openStep(step); return; }
+    openAirportPopup('to'); setActiveStep('toField');
+  });
+  document.getElementById('guestsField').addEventListener('click', (e) => {
+    if (e.target.closest('.popup')) return;
+    const step = getFirstIncompleteStep();
+    if (step && step !== 'guests') { openStep(step); return; }
+    openGuestsPopup(); setActiveStep('guestsField');
+  });
   document.getElementById('mcGuestsField').addEventListener('click', (e) => { if (!e.target.closest('.popup')) { openGuestsPopup(); setActiveStep('mcGuestsField'); } });
-  document.getElementById('dateField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && wState.trip !== 'mc') { openCalendarPopup(); setActiveStep('dateField'); } });
+  document.getElementById('dateField').addEventListener('click', (e) => {
+    if (e.target.closest('.popup') || wState.trip === 'mc') return;
+    const step = getFirstIncompleteStep();
+    if (step) { openStep(step); return; }
+    openCalendarPopup(); setActiveStep('dateField');
+  });
   document.getElementById('swapBtn').addEventListener('click', (e) => {
     e.stopPropagation();
     [wState.from, wState.to] = [wState.to, wState.from];
