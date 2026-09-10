@@ -316,7 +316,8 @@ function renderMonth(monthDate, legIndex) {
     const d = new Date(y, m, day);
     const iso = toLocalISO(d);
     const disabled = d < minDate || d > maxDate;
-    const isToday = d.getTime() === today.getTime();
+    const hasSelection = legIndex !== undefined ? !!wState.mcLegs[legIndex].date : !!(wState.depart || wState.ret);
+const isToday = d.getTime() === today.getTime() && !hasSelection;
     let selClass = '';
     if (legIndex !== undefined) {
       const leg = wState.mcLegs[legIndex];
