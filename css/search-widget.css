@@ -377,7 +377,7 @@
 .dark-bar-mode .wf-searchbtn-bars div { width: 2px; background: var(--g900); opacity: .7; }
 .dark-bar-mode .wf-icon-circle { display: none; }
 .dark-bar-mode #fromField::after { display: none; }
-.dark-bar-mode .wf-swap2 { width: 24px; justify-self: start; position: relative; }
+.dark-bar-mode .wf-swap2 { width: 24px; justify-self: start; position: relative; margin-left: -22px; }
 .dark-bar-mode .wf-swap2::before { content: ''; position: absolute; top: 22%; bottom: 22%; left: 50%; width: 1px; background: rgba(201,160,40,.3); z-index: 0; }
 .dark-bar-mode .mc-leg-row2 .wf-swap2::before { content: none; }
 .dark-bar-mode .swap-circle { width: 22px; height: 22px; background: rgba(255,255,255,.08); color: var(--gold2); }
