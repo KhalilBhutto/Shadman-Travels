@@ -393,6 +393,7 @@ initAirlineFilter();
       let html = '';
 
       data.forEach(function(item, i) {
+        if (!item.q || !item.q.trim()) return; // skip blank/placeholder entries
         html += '<div class="faq-item reveal" id="faq-item-' + i + '">';
         html += '<button class="faq-question" onclick="toggleFAQ(' + i + ')" aria-expanded="false" aria-controls="faq-answer-' + i + '">';
         html += '<span>' + escapeHtml(item.q) + '</span>';
