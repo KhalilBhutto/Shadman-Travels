@@ -64,11 +64,25 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 48px 32px 40px;
+  width: 100%;
+}
+.hero-below-grid {
   display: grid;
   grid-template-columns: 1fr 480px;
   gap: 48px;
   align-items: flex-start;
-  width: 100%;
+  margin-top: 50px;
+}
+@media (max-width: 1000px) {
+  .hero-below-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+.hero-bottom-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
 }
 
 .hero-content {
@@ -450,10 +464,13 @@
   }
 
   .hero-inner {
+    padding: 60px 20px 40px;
+  }
+
+  .hero-below-grid {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    padding: 60px 20px 40px;
   }
 
 }

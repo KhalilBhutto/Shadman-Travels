@@ -163,6 +163,7 @@ function openAirportPopup(which) {
     if (which === 'from' && !wState.to) {
       setTimeout(() => { openAirportPopup('to'); setActiveStep('toField'); }, 150);
     } else if (which === 'to' && wState.from && wState.to) {
+      rtLockToSelection();
       setTimeout(() => openGuestsPopup(), 150);
     }
   });
@@ -359,6 +360,56 @@ function handleDateClick(d, legIndex) {
     if (!wState.depart || (wState.depart && wState.ret) || d < wState.depart) { wState.depart = d; wState.ret = null; }
     else { wState.ret = d; }
   }
+}
+
+/* ── Route Tracer: rotates through quick routes, locks to real selection ── */
+const RT_ROUTES = [
+  { from: 'KHI', to: 'DXB' }, { from: 'LHE', to: 'JED' }, { from: 'ISB', to: 'LHR' },
+  { from: 'KHI', to: 'DOH' }, { from: 'LHE', to: 'IST' }, { from: 'KHI', to: 'YYZ' },
+];
+let rtLocked = false, rtInterval = null, rtIdx = 0;
+function rtSetPair(fromCode, toCode) {
+  const originEl = document.getElementById('rtOriginLabel');
+  const destEl = document.getElementById('rtDestLabel');
+  if (!originEl || !destEl) return;
+  originEl.textContent = fromCode;
+  destEl.textContent = toCode;
+}
+function rtRotate() {
+  if (rtLocked) return;
+  rtSetPair(RT_ROUTES[rtIdx].from, RT_ROUTES[rtIdx].to);
+  rtIdx = (rtIdx + 1) % RT_ROUTES.length;
+}
+function rtLockToSelection() {
+  if (!wState.fromCode || !wState.toCode) return;
+  rtLocked = true;
+  if (rtInterval) clearInterval(rtInterval);
+  rtSetPair(wState.fromCode, wState.toCode);
+}
+function initRouteTracer() {
+  if (!document.getElementById('rtOriginLabel')) return;
+  rtRotate();
+  rtInterval = setInterval(rtRotate, 2800);
+}
+
+/* ── Quick-select route chips ── */
+function selectQuickRoute(fromCode, toCode) {
+  const from = AIRPORTS.find(a => a.code === fromCode);
+  const to = AIRPORTS.find(a => a.code === toCode);
+  if (!from || !to) return;
+  wState.from = from.name; wState.fromCode = from.code;
+  wState.to = to.name; wState.toCode = to.code;
+  renderField('from'); renderField('to');
+  rtLockToSelection();
+  closeAllPopups();
+  setTimeout(() => openGuestsPopup(), 150);
+}
+function initQuickRoutes() {
+  document.querySelectorAll('.quick-route-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      selectQuickRoute(chip.dataset.from, chip.dataset.to);
+    });
+  });
 }
 
 function closeAllPopups() {
@@ -818,6 +869,7 @@ document.addEventListener('DOMContentLoaded', function () {
     [wState.from, wState.to] = [wState.to, wState.from];
     [wState.fromCode, wState.toCode] = [wState.toCode, wState.fromCode];
     renderField('from'); renderField('to');
+    rtLockToSelection();
   });
 
   ['from', 'to'].forEach(which => {
@@ -876,4 +928,6 @@ document.addEventListener('DOMContentLoaded', function () {
   renderRecentChip();
   renderHeroDestinations();
   updateHeroTicket();
+  initRouteTracer();
+  initQuickRoutes();
 });

@@ -346,201 +346,219 @@
       
       <div class="hero-mesh"></div>
 
-      <div class="hero-inner">
+      <div class="hero-inner" style="display:block">
 
-        <!-- ── Hero Copy ───────────────────────────────────────── -->
-        <div class="hero-content">
+        <!-- Route Tracer -->
+        <div class="route-tracer-wrap">
+          <svg viewBox="0 0 620 130" width="100%" height="100%">
+            <circle cx="560" cy="95" r="5" fill="#c9a028"/>
+            <text id="rtOriginLabel" class="rt-code" x="560" y="118" text-anchor="middle">KHI</text>
+            <text class="rt-label" x="560" y="38" text-anchor="middle" opacity="0.6">FROM</text>
+            <path id="rtRoute" d="M 560,95 Q 310,15 60,55" stroke="#e4bc5a" stroke-width="1.5" fill="none" stroke-dasharray="6 6"/>
+            <path id="rtMotionPath" d="M 560,95 Q 310,15 60,55" fill="none" stroke="none"/>
+            <circle cx="60" cy="55" r="5" fill="#c9a028"/>
+            <text id="rtDestLabel" class="rt-code" x="60" y="78" text-anchor="middle">DXB</text>
+            <text class="rt-label" x="60" y="38" text-anchor="middle" opacity="0.6">TO</text>
+            <text font-size="16" fill="#e4bc5a">
+              <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#rtMotionPath"/>
+              </animateMotion>
+              ✈
+            </text>
+          </svg>
+        </div>
 
-          <!-- Eyebrow badges -->
-          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:24px">
-            
-            <div class="hero-eyebrow" style="margin-bottom:0;font-size:0.68rem;letter-spacing:0.22em">
-              <span class="hero-eyebrow-dot"></span>
-              Since 2005
-            </div>
-
-            <div class="hero-eyebrow" style="margin-bottom:0">
-              <span class="hero-eyebrow-dot"></span>
-              Pakistan's Premier Flight Agency
-            </div>
-
+        <!-- Search widget -->
+        <div class="widget-wrap">
+          <div style="display:flex;justify-content:center;margin-bottom:20px">
+           <div class="hero-eyebrow" style="margin-bottom:0;font-size:0.68rem;letter-spacing:0.22em">
+            <span class="hero-eyebrow-dot"></span>
+           Since 2005
           </div>
-
-          <!-- Headline -->
-          <h1>
-            Your Journey,<br/>
-            <em>Our</em> <span class="line2">Commitment.</span>
-          </h1>
-
-          <!-- Sub-heading -->
-          <p class="hero-sub">Exclusive guaranteed fares on 15+ airlines. Fly anywhere — Middle East, Europe, UK, North America, Asia-Pacific — with 24/7 expert support at your side.</p>
-
-          <!-- Primary CTAs -->
-          <div class="hero-actions">
-            <a href="tel:+923000041510" class="btn-gold"> <i class="fas fa-phone phone-icon"></i> Call to Book</a>
-            <a href="https://wa.me/923000041510" target="_blank" rel="noopener" class="btn-ghost"> <i class="fab fa-whatsapp whatsapp-icon"></i> WhatsApp Us</a>
-          </div>
-
-          <!-- Trust pills -->
-          <div class="hero-trust">
-            <div class="trust-pill">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
-              IATA Licensed
+        </div>
+          <div class="wgt-eyebrow"><span>✦ Exclusive Fares</span><h3>Find Your Next <em>Journey</em></h3></div>
+          <div class="widget-card dark-bar-mode rt-ow-layout" id="widgetCard">
+            <div class="wc-top">
+              <div class="pill-tabs">
+                <button class="pill-tab active" data-trip="rt">Round Trip</button>
+                <button class="pill-tab" data-trip="ow">One Way</button>
+                <button class="pill-tab" data-trip="mc">Multi-City</button>
+              </div>
             </div>
-            <div class="trust-pill">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 14l-4-4 1.414-1.414L11 13.172l5.586-5.586L18 9l-7 7z" fill="#c9a028"/></svg>
-              Secure Bookings
-            </div>
-            <div class="trust-pill">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#c9a028" stroke-width="2"/></svg>
-              19+ Years Trusted
-            </div>
-            <div class="trust-pill">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#c9a028" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
-              24/7 Support
-            </div>
-          </div>
 
-          <!-- Popular route badges -->
-          <div class="hero-routes" style="margin-top:28px">
-            <span class="route-badge">KHI <span class="arr">→</span> DXB</span>
-            <span class="route-badge">LHE <span class="arr">→</span> JED</span>
-            <span class="route-badge">ISB <span class="arr">→</span> LHR</span>
-            <span class="route-badge">KHI <span class="arr">→</span> DOH</span>
-            <span class="route-badge">LHE <span class="arr">→</span> IST</span>
-            <span class="route-badge">KHI <span class="arr">→</span> YYZ</span>
-          </div>
-
-        </div><!-- /hero-content -->
-
-        <div class="hero-ticket reveal-right">
-          <div class="ticket">
-            <div class="ticket-main">
-              <div class="ticket-sweep"></div>
-
-              <div class="ticket-top-row">
-                <div class="ticket-brand">
-                  <div class="ticket-brand-icon">✈</div>
-                  <div class="ticket-eyebrow">Shadman Travels</div>
+            <div class="field-row" id="mainRow">
+              <div class="wf" id="fromField">
+                <div class="wf-icon-circle" id="fromIconC"><i class="fas fa-plane-departure"></i></div>
+                <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 placeholder" id="fromValue">City or airport</div></div>
+                <div class="wf-clear" id="fromClear" title="Clear">×</div>
+              </div>
+              <div class="wf-swap2" id="swapBtn"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
+              <div class="wf" id="toField">
+                <div class="wf-icon-circle" id="toIconC"><i class="fas fa-plane-arrival"></i></div>
+                <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 placeholder" id="toValue">City or airport</div></div>
+                <div class="wf-clear" id="toClear" title="Clear">×</div>
+              </div>
+              <div class="wf" id="guestsField">
+                <div class="wf-icon-circle" id="guestsIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><circle cx="16.5" cy="8" r="2.4" opacity=".75"/><path d="M14.8 14.3c.5-.13 1.1-.2 1.7-.2 2.6 0 4.5 2.1 4.5 5.4" opacity=".75"/></svg></div>
+                <div class="wf-text"><div class="wf-label2">Guests and Cabin</div><div class="wf-val2 placeholder" id="guestsValue">Add</div></div>
+              </div>
+              <div class="wf" id="dateField">
+                <div class="wf-icon-circle" id="dateIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+                <div class="wf-text"><div class="wf-label2">Travelling when?</div><div class="wf-val2 placeholder" id="dateValue">Add dates</div></div>
+              </div>
+              <div class="wf-searchbtn">
+                <div class="wf-searchbtn-bars">
+                  <div style="height:16px"></div><div style="height:9px"></div><div style="height:14px"></div><div style="height:6px"></div><div style="height:13px"></div>
                 </div>
-                <div class="ticket-badge">Exclusive Fare</div>
-              </div>
-
-              <div class="ticket-route-row">
-                <div class="ticket-route" id="htFromCode">—</div>
-                <div class="ticket-path"></div>
-                <div class="ticket-route" id="htToCode">—</div>
-              </div>
-              <div class="ticket-cities"><span id="htFromCity">Select From</span><span id="htToCity">Select To</span></div>
-
-              <div class="ticket-meta">
-                <div><div class="ticket-meta-label">Class</div><div class="ticket-meta-val" id="htClass">Economy</div></div>
-                <div><div class="ticket-meta-label">Trip</div><div class="ticket-meta-val" id="htTrip">Round Trip</div></div>
-                <div><div class="ticket-meta-label">Guests</div><div class="ticket-meta-val" id="htGuests">1 Adult</div></div>
-              </div>
-
-              <!-- Success toast -->
-              <div id="htToast" class="ticket-toast">
-                ✅ <strong>Enquiry received!</strong><br/>
-                <span style="font-weight:400;font-size:0.7rem">We'll WhatsApp you an exclusive fare shortly.</span><br/>
-                <span id="htToastId" style="font-weight:600;font-size:0.68rem;display:block;margin-top:4px"></span>
-              </div>
-              <!-- Error toast -->
-              <div id="htError" class="ticket-error"></div>
-              <!-- Validation toast -->
-              <div id="htValidation" class="ticket-validation"></div>
-
-              <div class="ticket-field-wrap"><i class="fas fa-user ticket-field-icon"></i><input id="htName" placeholder="Passenger Full Name"></div>
-              <div class="ticket-field-wrap"><i class="fas fa-phone ticket-field-icon"></i><input id="htPhone" type="tel" placeholder="WhatsApp / Phone"></div>
-              <div class="ticket-field-wrap"><i class="fas fa-envelope ticket-field-icon"></i><input id="htEmail" type="email" placeholder="Email (optional)"></div>
-              <div class="ticket-field-wrap"><i class="fas fa-note-sticky ticket-field-icon ticket-field-icon-top"></i><textarea id="htNotes" placeholder="Special requests (optional) — e.g. aisle seat, infant equipment"></textarea></div>
-
-              <button class="ticket-submit-btn" id="htSubmit">✈ Confirm &amp; Get Exclusive Fare</button>
-
-              <div class="ticket-trust">
-                <span>🏅 IATA Licensed</span><span>🔒 Secure</span><span>⏱ 24/7 Support</span>
-              </div>
-              <div class="ticket-empty-note" id="htEmptyNote">Fill in the search widget below to complete your itinerary first</div>
-            </div>
-
-            <div class="ticket-stub">
-              <div class="ticket-perforation"></div>
-              <div class="ticket-stub-eyebrow">Boarding</div>
-              <div class="ticket-stub-seal">✈</div>
-              <div class="ticket-stub-divider"></div>
-              <div class="ticket-stub-barcode">
-                <div style="height:100%"></div><div style="height:55%"></div><div style="height:85%"></div><div style="height:35%"></div>
-                <div style="height:100%"></div><div style="height:65%"></div><div style="height:45%"></div><div style="height:90%"></div>
-                <div style="height:55%"></div><div style="height:100%"></div>
+                <button class="search-btn2" id="searchBtn" disabled>Search</button>
               </div>
             </div>
-          </div>
-        </div><!-- /hero-ticket -->
 
-            <div class="widget-wrap">
-      <div class="wgt-eyebrow"><span>✦ Exclusive Fares</span><h3>Find Your Next <em>Journey</em></h3></div>
-      <div class="widget-card dark-bar-mode rt-ow-layout" id="widgetCard">
-        <div class="wc-top">
-          <div class="pill-tabs">
-            <button class="pill-tab active" data-trip="rt">Round Trip</button>
-            <button class="pill-tab" data-trip="ow">One Way</button>
-            <button class="pill-tab" data-trip="mc">Multi-City</button>
-          </div>
-        </div>
+            <div class="popup-panel ap-popup" id="fromPopup"></div>
+            <div class="popup-panel ap-popup" id="toPopup"></div>
+            <div class="popup-panel guests-popup" id="guestsPopup"></div>
+            <div class="popup-panel cal-popup" id="calPopup"></div>
 
-        <div class="field-row" id="mainRow">
-          <div class="wf" id="fromField">
-            <div class="wf-icon-circle" id="fromIconC"><i class="fas fa-plane-departure"></i></div>
-            <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 placeholder" id="fromValue">City or airport</div></div>
-            <div class="wf-clear" id="fromClear" title="Clear">×</div>
-            
-          </div>
-          <div class="wf-swap2" id="swapBtn"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
-          <div class="wf" id="toField">
-            <div class="wf-icon-circle" id="toIconC"><i class="fas fa-plane-arrival"></i></div>
-            <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 placeholder" id="toValue">City or airport</div></div>
-            <div class="wf-clear" id="toClear" title="Clear">×</div>
-            
-          </div>
-          <div class="wf" id="guestsField">
-            <div class="wf-icon-circle" id="guestsIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><circle cx="16.5" cy="8" r="2.4" opacity=".75"/><path d="M14.8 14.3c.5-.13 1.1-.2 1.7-.2 2.6 0 4.5 2.1 4.5 5.4" opacity=".75"/></svg></div>
-            <div class="wf-text"><div class="wf-label2">Guests and Cabin</div><div class="wf-val2 placeholder" id="guestsValue">Add</div></div>
-            
-          </div>
-          <div class="wf" id="dateField">
-            <div class="wf-icon-circle" id="dateIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-            <div class="wf-text"><div class="wf-label2">Travelling when?</div><div class="wf-val2 placeholder" id="dateValue">Add dates</div></div>
-          </div>
-          <div class="wf-searchbtn">
-            <div class="wf-searchbtn-bars">
-              <div style="height:16px"></div><div style="height:9px"></div><div style="height:14px"></div><div style="height:6px"></div><div style="height:13px"></div>
+            <div class="mc-legs2" id="mcLegs"></div>
+            <div class="mc-guests-row" id="mcGuestsRow" style="display:none;">
+              <div class="wf" id="mcGuestsField">
+                <div class="wf-icon-circle" id="mcGuestsIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><circle cx="16.5" cy="8" r="2.4" opacity=".75"/><path d="M14.8 14.3c.5-.13 1.1-.2 1.7-.2 2.6 0 4.5 2.1 4.5 5.4" opacity=".75"/></svg></div>
+                <div class="wf-text"><div class="wf-label2">Guests and Cabin</div><div class="wf-val2 placeholder" id="mcGuestsValue">Add</div></div>
+              </div>
+              <div class="mc-add-wrap2" id="mcAddRow" style="display:none;">
+                <button class="mc-add-btn2" id="mcAddBtn">+ Add Another Flight</button>
+                <span class="mc-note2" id="mcCountNote">2 of 6 flights</span>
+              </div>
+              <button class="search-btn2" id="mcSearchBtn" disabled><i class="fas fa-magnifying-glass"></i> Search</button>
             </div>
-            <button class="search-btn2" id="searchBtn" disabled>Search</button>
           </div>
+          <div id="recentChipWrap"></div>
+        </div><!-- /widget-wrap -->
+
+        <!-- Quick-select route chips -->
+        <div class="quick-routes">
+          <div class="quick-route-chip" data-from="KHI" data-to="DXB">KHI <span class="arr">→</span> DXB</div>
+          <div class="quick-route-chip" data-from="LHE" data-to="JED">LHE <span class="arr">→</span> JED</div>
+          <div class="quick-route-chip" data-from="ISB" data-to="LHR">ISB <span class="arr">→</span> LHR</div>
+          <div class="quick-route-chip" data-from="KHI" data-to="DOH">KHI <span class="arr">→</span> DOH</div>
+          <div class="quick-route-chip" data-from="LHE" data-to="IST">LHE <span class="arr">→</span> IST</div>
+          <div class="quick-route-chip" data-from="KHI" data-to="YYZ">KHI <span class="arr">→</span> YYZ</div>
         </div>
 
-        <div class="popup-panel ap-popup" id="fromPopup"></div>
-        <div class="popup-panel ap-popup" id="toPopup"></div>
-        <div class="popup-panel guests-popup" id="guestsPopup"></div>
-        <div class="popup-panel cal-popup" id="calPopup"></div>
+        <!-- Two-column: text left, boarding pass right -->
+        <div class="hero-below-grid">
 
-        <div class="mc-legs2" id="mcLegs"></div>
-        <div class="mc-guests-row" id="mcGuestsRow" style="display:none;">
-          <div class="wf" id="mcGuestsField">
-            <div class="wf-icon-circle" id="mcGuestsIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><circle cx="16.5" cy="8" r="2.4" opacity=".75"/><path d="M14.8 14.3c.5-.13 1.1-.2 1.7-.2 2.6 0 4.5 2.1 4.5 5.4" opacity=".75"/></svg></div>
-            <div class="wf-text"><div class="wf-label2">Guests and Cabin</div><div class="wf-val2 placeholder" id="mcGuestsValue">Add</div></div>
-          </div>
-          <div class="mc-add-wrap2" id="mcAddRow" style="display:none;">
-            <button class="mc-add-btn2" id="mcAddBtn">+ Add Another Flight</button>
-            <span class="mc-note2" id="mcCountNote">2 of 6 flights</span>
-          </div>
-          <button class="search-btn2" id="mcSearchBtn" disabled><i class="fas fa-magnifying-glass"></i> Search</button>
+          <div class="hero-content">
+
+            <!-- Headline -->
+            <h1>
+              Your Journey,<br/>
+              <em>Our</em> <span class="line2">Commitment.</span>
+            </h1>
+
+            <!-- Sub-heading -->
+            <p class="hero-sub">Exclusive guaranteed fares on 15+ airlines. Fly anywhere — Middle East, Europe, UK, North America, Asia-Pacific — with 24/7 expert support at your side.</p>
+
+            <!-- Primary CTAs -->
+            <div class="hero-actions">
+              <a href="tel:+923000041510" class="btn-gold"> <i class="fas fa-phone phone-icon"></i> Call to Book</a>
+              <a href="https://wa.me/923000041510" target="_blank" rel="noopener" class="btn-ghost"> <i class="fab fa-whatsapp whatsapp-icon"></i> WhatsApp Us</a>
+            </div>
+
+            <!-- Trust pills -->
+            <div class="hero-trust">
+              <div class="trust-pill">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
+                IATA Licensed
+              </div>
+              <div class="trust-pill">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 14l-4-4 1.414-1.414L11 13.172l5.586-5.586L18 9l-7 7z" fill="#c9a028"/></svg>
+                Secure Bookings
+              </div>
+              <div class="trust-pill">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#c9a028" stroke-width="2"/></svg>
+                19+ Years Trusted
+              </div>
+              <div class="trust-pill">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#c9a028" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
+                24/7 Support
+              </div>
+            </div>
+
+          </div><!-- /hero-content -->
+
+          <div class="hero-ticket reveal-right">
+            <div class="ticket">
+              <div class="ticket-main">
+                <div class="ticket-sweep"></div>
+
+                <div class="ticket-top-row">
+                  <div class="ticket-brand">
+                    <div class="ticket-brand-icon">✈</div>
+                    <div class="ticket-eyebrow">Shadman Travels</div>
+                  </div>
+                  <div class="ticket-badge">Exclusive Fare</div>
+                </div>
+
+                <div class="ticket-route-row">
+                  <div class="ticket-route" id="htFromCode">—</div>
+                  <div class="ticket-path"></div>
+                  <div class="ticket-route" id="htToCode">—</div>
+                </div>
+                <div class="ticket-cities"><span id="htFromCity">Select From</span><span id="htToCity">Select To</span></div>
+
+                <div class="ticket-meta">
+                  <div><div class="ticket-meta-label">Class</div><div class="ticket-meta-val" id="htClass">Economy</div></div>
+                  <div><div class="ticket-meta-label">Trip</div><div class="ticket-meta-val" id="htTrip">Round Trip</div></div>
+                  <div><div class="ticket-meta-label">Guests</div><div class="ticket-meta-val" id="htGuests">1 Adult</div></div>
+                </div>
+
+                <div id="htToast" class="ticket-toast">
+                  ✅ <strong>Enquiry received!</strong><br/>
+                  <span style="font-weight:400;font-size:0.7rem">We'll WhatsApp you an exclusive fare shortly.</span><br/>
+                  <span id="htToastId" style="font-weight:600;font-size:0.68rem;display:block;margin-top:4px"></span>
+                </div>
+                <div id="htError" class="ticket-error"></div>
+                <div id="htValidation" class="ticket-validation"></div>
+
+                <div class="ticket-field-wrap"><i class="fas fa-user ticket-field-icon"></i><input id="htName" placeholder="Passenger Full Name"></div>
+                <div class="ticket-field-wrap"><i class="fas fa-phone ticket-field-icon"></i><input id="htPhone" type="tel" placeholder="WhatsApp / Phone"></div>
+                <div class="ticket-field-wrap"><i class="fas fa-envelope ticket-field-icon"></i><input id="htEmail" type="email" placeholder="Email (optional)"></div>
+                <div class="ticket-field-wrap"><i class="fas fa-note-sticky ticket-field-icon ticket-field-icon-top"></i><textarea id="htNotes" placeholder="Special requests (optional) — e.g. aisle seat, infant equipment"></textarea></div>
+
+                <button class="ticket-submit-btn" id="htSubmit">✈ Confirm &amp; Get Exclusive Fare</button>
+
+                <div class="ticket-trust">
+                  <span>🏅 IATA Licensed</span><span>🔒 Secure</span><span>⏱ 24/7 Support</span>
+                </div>
+                <div class="ticket-empty-note" id="htEmptyNote">Fill in the search widget above to complete your itinerary first</div>
+              </div>
+
+              <div class="ticket-stub">
+                <div class="ticket-perforation"></div>
+                <div class="ticket-stub-eyebrow">Boarding</div>
+                <div class="ticket-stub-seal">✈</div>
+                <div class="ticket-stub-divider"></div>
+                <div class="ticket-stub-barcode">
+                  <div style="height:100%"></div><div style="height:55%"></div><div style="height:85%"></div><div style="height:35%"></div>
+                  <div style="height:100%"></div><div style="height:65%"></div><div style="height:45%"></div><div style="height:90%"></div>
+                  <div style="height:55%"></div><div style="height:100%"></div>
+                </div>
+              </div>
+            </div>
+          </div><!-- /hero-ticket -->
+
+        </div><!-- /hero-below-grid -->
+
+        <!-- Bottom badges -->
+        <div class="hero-bottom-badges">
+          <div class="hero-eyebrow" style="margin-bottom:0"><span class="hero-eyebrow-dot"></span>Hassle-Free Booking</div>
+          <div class="hero-eyebrow" style="margin-bottom:0"><span class="hero-eyebrow-dot"></span>With You, Every Mile</div>
+          <div class="hero-eyebrow" style="margin-bottom:0"><span class="hero-eyebrow-dot"></span>Booking You Can Trust</div>
         </div>
-      </div>
-      <div id="recentChipWrap"></div>
-    </div><!-- /widget-wrap -->
-    
+
       </div><!-- /hero-inner -->
+
     </section><!-- /#flights -->
 
     <!-- ═══════════════════════════════════════════════════════════
