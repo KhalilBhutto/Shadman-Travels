@@ -338,6 +338,44 @@
   .gp-row { flex-wrap: wrap; }
   .widget-wrap { padding: 0 20px; margin-top: -40px; }
 }
+
+  .dark-bar-mode.rt-ow-layout {
+    display: block;
+  }
+  .dark-bar-mode.rt-ow-layout .wc-top {
+    display: flex;
+    border-right: none;
+    border-bottom: 1px solid rgba(201,160,40,.2);
+    background: rgba(0,0,0,.15);
+    padding: 8px;
+  }
+  .dark-bar-mode.rt-ow-layout .pill-tabs {
+    flex-direction: row;
+  }
+  .dark-bar-mode.rt-ow-layout .pill-tab {
+    font-size: .72rem;
+    padding: 8px 14px;
+  }
+  .dark-bar-mode.rt-ow-layout #mainRow {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .dark-bar-mode .wf-searchbtn {
+    width: 100%;
+    border-left: none;
+    border-top: 2px dashed rgba(6,15,9,.3);
+    border-radius: 0 0 18px 18px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 0;
+  }
+  .dark-bar-mode .wf-searchbtn::before,
+  .dark-bar-mode .wf-searchbtn::after {
+    display: none;
+  }
+
+  
 @media (max-width: 900px) {
   .hc-track { height: 280px; }
   .hc-card { width: 200px; height: 260px; }
