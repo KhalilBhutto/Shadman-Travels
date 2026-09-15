@@ -337,7 +337,6 @@
   .ap-popup { width: calc(100vw - 60px); max-width: 320px; }
   .gp-row { flex-wrap: wrap; }
   .widget-wrap { padding: 0 20px; margin-top: -40px; }
-}
 
   .dark-bar-mode.rt-ow-layout {
     display: block;
@@ -374,8 +373,8 @@
   .dark-bar-mode .wf-searchbtn::after {
     display: none;
   }
+}
 
-  
 @media (max-width: 900px) {
   .hc-track { height: 280px; }
   .hc-card { width: 200px; height: 260px; }
