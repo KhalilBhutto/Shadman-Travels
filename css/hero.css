@@ -191,7 +191,7 @@
 
 .hero h1 .line2 {
 
-  display: block;
+  display: inline;
 
   background:
     linear-gradient(
