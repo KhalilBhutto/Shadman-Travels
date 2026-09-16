@@ -621,7 +621,7 @@ function updateHeroTicket() {
 }
 
 /* ─── MINI DESTINATION CAROUSEL ─── */
-let heroDestIndex = 0;
+let heroDestIndex = Math.floor(HERO_DESTINATIONS.length / 2);
 function renderHeroDestinations() {
   const track = document.getElementById('hcTrack');
   if (!track) return;
