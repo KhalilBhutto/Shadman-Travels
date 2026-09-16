@@ -295,7 +295,8 @@
 .cal-jump-cell.disabled { opacity: .3; cursor: not-allowed; }
 
 /* ══════════════════ MINI DESTINATION CAROUSEL (below widget) ══════════════════ */
-.hc-section { max-width: 1280px; margin: 0 auto; padding: 60px 32px; position: relative; overflow: hidden; border-radius: 28px; }
+.hc-section { max-width: none; margin: 0; padding: 60px 32px; position: relative; overflow: hidden; }
+.hc-head, .hc-track-wrap { max-width: 1280px; margin-left: auto; margin-right: auto; }
 .hc-bg-layer { position: absolute; inset: 0; z-index: -1; background-size: cover; background-position: center; filter: blur(18px) brightness(.5); transform: scale(1.15); opacity: 0; transition: opacity 1s ease; }
 .hc-bg-layer.active { opacity: 1; }
 .hc-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 22px; flex-wrap: wrap; gap: 10px; }
