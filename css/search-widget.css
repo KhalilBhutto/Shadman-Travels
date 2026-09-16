@@ -138,7 +138,7 @@
 }
 
 /* ══════════════════ HORIZONTAL SEARCH WIDGET ══════════════════ */
-.widget-wrap { max-width: 1040px; margin: -50px auto 0; padding: 0 32px 60px; position: relative; z-index: 20; grid-column: 1 / -1; width: 100%; }
+.widget-wrap { max-width: 1040px; margin: -50px auto 0; padding: 0 32px 40px; position: relative; z-index: 20; grid-column: 1 / -1; width: 100%; }
 .widget-card { background: var(--white); border-radius: 32px; box-shadow: 0 20px 46px rgba(0,0,0,.16); padding: 30px 26px 24px; position: relative; z-index: 2; overflow: visible; }
 .wc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 13px; flex-wrap: wrap; gap: 10px; }
 
@@ -547,7 +547,7 @@
 .rt-code { font-family: 'Cormorant Garamond', serif; font-size: 15px; fill: var(--gold2); font-weight: 700; }
 
 /* ── Clickable quick-route chips ── */
-.quick-routes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; position: relative; z-index: 1; }
+.quick-routes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; position: relative; z-index: 1; }
 .quick-route-chip { background: var(--g800); border: 1px solid rgba(201,160,40,.3); color: rgba(255,255,255,.75); font-size: .74rem; font-weight: 600; padding: 8px 16px; border-radius: 50px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: all .2s; }
 .quick-route-chip:hover { border-color: var(--gold); background: rgba(201,160,40,.12); color: #fff; transform: translateY(-2px); }
 .quick-route-chip .arr { color: var(--gold); }
