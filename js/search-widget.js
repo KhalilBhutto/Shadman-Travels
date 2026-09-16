@@ -664,6 +664,24 @@ function renderHeroDestinations() {
   });
   updateHeroDestPositions();
 }
+
+let hcBgActive = 'A';
+function updateHeroBackground() {
+  const dest = HERO_DESTINATIONS[heroDestIndex];
+  if (!dest) return;
+  const showing = document.getElementById('hcBg' + hcBgActive);
+  const nextLayer = hcBgActive === 'A' ? 'B' : 'A';
+  const hidden = document.getElementById('hcBg' + nextLayer);
+  if (!showing || !hidden) return;
+  const img = new Image();
+  img.onload = () => { hidden.style.backgroundImage = `url('${dest.img}')`; };
+  img.onerror = () => { hidden.style.backgroundImage = 'linear-gradient(160deg, var(--g600), var(--g800))'; };
+  img.src = dest.img;
+  hidden.classList.add('active');
+  showing.classList.remove('active');
+  hcBgActive = nextLayer;
+}
+
 function updateHeroDestPositions() {
   const n = HERO_DESTINATIONS.length;
   document.querySelectorAll('.hc-card').forEach(card => {
@@ -682,6 +700,7 @@ function updateHeroDestPositions() {
   document.querySelectorAll('.hc-dot').forEach(dot => {
     dot.classList.toggle('active', parseInt(dot.dataset.idx, 10) === heroDestIndex);
   });
+  updateHeroBackground();
 }
 function updateHeroCarouselHeading() {
   const el = document.getElementById('hcCityName');
