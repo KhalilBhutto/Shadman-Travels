@@ -151,6 +151,19 @@
 
 }
 
+.hero-mini-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.hero-mini-badge {
+  margin-bottom: 0;
+  font-size: 0.62rem;   /* 👈 change this number to resize the text */
+  padding: 6px 14px;    /* 👈 change this to resize the pill's size/shape */
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.3; }
