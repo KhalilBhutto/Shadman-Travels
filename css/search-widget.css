@@ -419,7 +419,7 @@
 .dark-bar-mode .mc-leg-row2 .wf-swap2::before { content: none; }
 .dark-bar-mode .swap-circle { width: 22px; height: 22px; background: rgba(255,255,255,.08); color: var(--gold2); }
 .wgt-eyebrow { text-align: center; margin-bottom: 26px; }
-.wgt-eyebrow span { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .22em; color: var(--gold); text-transform: uppercase; }
+.wgt-eyebrow span { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .22em; color: var(--gold2); text-transform: uppercase; }
 .wgt-eyebrow h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #fff; margin-top: 8px; font-weight: 700; }
 .wgt-eyebrow h3 em { color: var(--gold2); font-style: italic; }
 .dark-bar-mode .field-row { grid-template-columns: minmax(0,1fr) 36px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) auto; gap: 0; }
