@@ -87,6 +87,7 @@
 
 .hero-content {
   color: var(--white);
+  margin-top: 00px;
 }
 
 /* ── Premium Eyebrow Badge ── */
@@ -160,8 +161,9 @@
 
 .hero-mini-badge {
   margin-bottom: 0;
-  font-size: 0.62rem;   /* 👈 change this number to resize the text */
-  padding: 6px 14px;    /* 👈 change this to resize the pill's size/shape */
+  font-size: .72rem;
+  padding: 8px 12px;
+  letter-spacing: 0.1em;
 }
 
 @keyframes blink {
@@ -331,7 +333,7 @@
 
   gap:14px;
 
-  margin-top:18px;
+  margin-top:182px;
 
   flex-wrap:wrap;
 
