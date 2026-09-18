@@ -4,21 +4,10 @@
 
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-054Q03RSLR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-054Q03RSLR');
-</script>
+<script src="/js/analytics-init.js"></script>
 
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "x3g0i8q93i");
-</script>
+<script src="/js/clarity-init.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -281,10 +270,7 @@
 <script src="/js/notify.js" defer></script>
 <script src="/js/umrah-packages.js" defer></script>
 
-<script>
-  const y = document.getElementById('footer-year');
-  if (y) y.textContent = new Date().getFullYear();
-</script>
+<script src="/js/footer-year.js"></script>
 
 </body>
 </html>
