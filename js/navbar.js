@@ -100,7 +100,12 @@ if (overlayEl) {
   overlayEl.addEventListener('click', closeMobileMenu);
 }
 
-// Expose for inline HTML onclick attributes (mobile-menu links)
+// Mobile menu links — close the menu when any link inside it is clicked
+document.querySelectorAll('.mob-link').forEach(function (link) {
+  link.addEventListener('click', closeMobileMenu);
+});
+
+// Expose for any other code that may still call these directly
 window.toggleMobileMenu = toggleMobileMenu;
 window.closeMobileMenu  = closeMobileMenu;
 
