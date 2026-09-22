@@ -107,7 +107,14 @@
 
 .ticket-trust { display: flex; gap: 12px; margin-top: 12px; position: relative; z-index: 2; flex-wrap: wrap; }
 .ticket-trust span { font-size: .58rem; color: rgba(255,255,255,.4); display: flex; align-items: center; gap: 4px; }
-.ticket-empty-note { font-size: .66rem; color: rgba(255,255,255,.4); text-align: center; margin-top: 10px; font-style: italic; position: relative; z-index: 2; }
+.ticket-empty-note {
+  font-size: .66rem; color: rgba(255,255,255,.4); text-align: center; font-style: italic; position: relative; z-index: 2;
+  margin-top: 10px; opacity: 1;
+  transition: opacity 1.2s ease;
+}
+.ticket-empty-note.hidden {
+  opacity: 0;
+}
 
 .ticket-toast, .ticket-error, .ticket-validation {
   position: relative; z-index: 2; margin-bottom: 10px; padding: 10px 14px; border-radius: 10px;

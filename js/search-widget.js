@@ -617,7 +617,7 @@ function updateHeroTicket() {
   };
   Object.keys(els).forEach(id => { const el = document.getElementById(id); if (el) el.textContent = els[id]; });
   const emptyNote = document.getElementById('htEmptyNote');
-  if (emptyNote) emptyNote.style.display = hasRoute ? 'none' : 'block';
+  if (emptyNote) emptyNote.classList.toggle('hidden', hasRoute);
 }
 
 /* ─── MINI DESTINATION CAROUSEL ─── */
