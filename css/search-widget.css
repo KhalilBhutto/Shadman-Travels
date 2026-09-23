@@ -340,6 +340,7 @@
 
 @media (max-width: 1000px) {
   .field-row { grid-template-columns: 1fr; }
+  .dark-bar-mode .field-row { grid-template-columns: 1fr; gap: 10px; }
   .wf-swap2 { display: none; }
   .mc-leg-row2 { grid-template-columns: 1fr; }
   .cal-months { grid-template-columns: 1fr; }
