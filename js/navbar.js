@@ -112,3 +112,16 @@ window.closeMobileMenu  = closeMobileMenu;
 document.addEventListener('DOMContentLoaded', initSmoothScroll);
 // Set menu links as un-tabbable on first load (menu starts closed)
 document.addEventListener('DOMContentLoaded', function() { setMobileMenuFocusability(false); });
+
+/* ─── UMRAH & HAJJ: open packages page + scroll current page to section ─── */
+document.querySelectorAll('.umrah-dual-link').forEach(function (link) {
+  link.addEventListener('click', function () {
+    // target="_blank" already opens the packages page in a new tab —
+    // this just additionally scrolls the CURRENT page down to the
+    // homepage's Umrah & Hajj section, so both happen at once.
+    const section = document.getElementById('umrah');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
