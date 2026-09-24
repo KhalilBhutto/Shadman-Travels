@@ -804,17 +804,30 @@
          8 most-booked routes from Pakistan with indicative
          starting fares in PKR.
          ═══════════════════════════════════════════════════════════ -->
-    <section class="routes-sec" id="destinations">
+        <section class="routes-sec" id="destinations">
+      <div class="dest-bg-layer" id="destBgA"></div>
+      <div class="dest-bg-layer" id="destBgB"></div>
       <div class="sec-inner">
 
         <div class="sec-head reveal">
           <div class="sec-eyebrow" style="color:var(--gold)">🗺 Where We Fly</div>
           <h2 class="sec-title light">Popular <em>Destinations</em></h2>
           <div class="sec-divider"></div>
-          <p class="sec-sub light">Most booked destinations from Pakistan — call us for today's exclusive fare</p>
+          <p class="sec-sub light">Exclusive fares across our airline partners — call us for today's rate</p>
         </div>
 
-        <div class="routes-grid" id="destinationsGrid"></div>
+        <div class="dest-track-wrap">
+          <div class="dest-track" id="destTrack"></div>
+          <div class="dest-nav-row">
+            <button class="dest-nav-btn" id="destPrev" aria-label="Previous offer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="dest-dots" id="destDots"></div>
+            <button class="dest-nav-btn" id="destNext" aria-label="Next offer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
 
         <div style="text-align:center;margin-top:36px" class="reveal">
           <a href="tel:+923000041510" class="btn-gold" style="display:inline-flex"> <i class="fas fa-phone top-dest-phone-icon"></i> Call for Today's Best Fare</a>

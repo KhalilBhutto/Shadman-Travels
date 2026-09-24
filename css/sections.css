@@ -276,6 +276,48 @@
   min-height: 600px;
 }
 
+.routes-sec { position: relative; overflow: hidden; }
+.dest-bg-layer { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center; filter: blur(20px) brightness(.45); transform: scale(1.15); opacity: 0; transition: opacity 1s ease; }
+.dest-bg-layer.active { opacity: 1; }
+.routes-sec .sec-inner { position: relative; z-index: 1; }
+
+/* ── Destination Offers Carousel (Instagram-post style, multi-card) ── */
+.dest-track-wrap { position: relative; padding: 20px 0 10px; }
+.dest-track { display: flex; align-items: center; justify-content: center; position: relative; height: 460px; }
+.dest-card {
+  position: absolute; border-radius: 18px; overflow: hidden; cursor: pointer;
+  width: 340px; height: 340px; background-size: cover; background-position: center; background-color: var(--g700);
+  transition: all .45s cubic-bezier(.22,.9,.32,1); box-shadow: 0 25px 60px rgba(0,0,0,.5);
+}
+.dest-card[data-pos="center"]     { width: 400px; height: 400px; z-index: 5; opacity: 1; filter: none; }
+.dest-card[data-pos="near-left"]  { transform: translateX(-250px) scale(.86); z-index: 4; opacity: .85; filter: brightness(.7); }
+.dest-card[data-pos="near-right"] { transform: translateX(250px) scale(.86); z-index: 4; opacity: .85; filter: brightness(.7); }
+.dest-card[data-pos="far-left"]   { transform: translateX(-450px) scale(.72); z-index: 3; opacity: .5; filter: brightness(.5); }
+.dest-card[data-pos="far-right"]  { transform: translateX(450px) scale(.72); z-index: 3; opacity: .5; filter: brightness(.5); }
+.dest-card[data-pos="hidden"]     { opacity: 0; pointer-events: none; transform: scale(.6); }
+
+.dest-nav-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 14px; }
+.dest-nav-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: var(--g700); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; box-shadow: 0 4px 14px rgba(15,41,22,.35);
+}
+.dest-nav-btn:hover { background: var(--g600); color: var(--gold2); transform: scale(1.08); }
+.dest-nav-btn svg { width: 17px; height: 17px; }
+.dest-dots { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 320px; }
+.dest-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.25); cursor: pointer; transition: all .25s; }
+.dest-dot.active { width: 22px; border-radius: 20px; background: var(--gold); }
+
+@media (max-width: 900px) {
+  .dest-track { height: 320px; }
+  .dest-card { width: 220px; height: 220px; }
+  .dest-card[data-pos="center"] { width: 260px; height: 260px; }
+  .dest-card[data-pos="near-left"]  { transform: translateX(-160px) scale(.8); }
+  .dest-card[data-pos="near-right"] { transform: translateX(160px) scale(.8); }
+  .dest-card[data-pos="far-left"], .dest-card[data-pos="far-right"] { display: none; }
+}
+
 /* ── Route Card ── */
 .route-card {
   background: rgba(255, 255, 255, 0.04);

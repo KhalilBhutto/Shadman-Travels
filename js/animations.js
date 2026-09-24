@@ -314,59 +314,113 @@ initAirlineFilter();
 
 })();
 
- /* ═══════════════════════════════════════════
-   DESTINATIONS — Load from data/destinations.json
-   (Renamed from "Routes" — same data, new name)
-   Renders into #destinationsGrid.
+/* ═══════════════════════════════════════════
+   DESTINATION OFFERS CAROUSEL (multi-card)
+   Static square offer graphics — one airline
+   promo per card, 5 visible at once like the
+   hero's "Flights from Karachi" carousel.
 ═══════════════════════════════════════════ */
-(function loadDestinations() {
+const DESTINATION_OFFERS = [
+  { img: '/images/offers/airblue.png',       alt: 'Airblue Special Offer' },
+  { img: '/images/offers/airsial.png',       alt: 'AirSial Special Offer' },
+  { img: '/images/offers/emirates.png',      alt: 'Emirates Special Offer' },
+  { img: '/images/offers/etihad.png',        alt: 'Etihad Airways Special Offer' },
+  { img: '/images/offers/flydubai.png',      alt: 'FlyDubai Special Offer' },
+  { img: '/images/offers/flynas.png',        alt: 'Flynas Special Offer' },
+  { img: '/images/offers/flyadeal.png',      alt: 'Flyadeal Special Offer' },
+  { img: '/images/offers/flyjinnah.png',     alt: 'Fly Jinnah Special Offer' },
+  { img: '/images/offers/gulfair.png',       alt: 'Gulf Air Special Offer' },
+  { img: '/images/offers/omanair.png',       alt: 'Oman Air Special Offer' },
+  { img: '/images/offers/pia.png',           alt: 'PIA Special Offer' },
+  { img: '/images/offers/qatarairways.png',  alt: 'Qatar Airways Special Offer' },
+  { img: '/images/offers/salamair.png',      alt: 'SalamAir Special Offer' },
+  { img: '/images/offers/saudia.png',        alt: 'Saudia Special Offer' },
+  { img: '/images/offers/turkish.png',       alt: 'Turkish Airlines Special Offer' },
+];
 
-  const container = document.getElementById('destinationsGrid');
-  if (!container) return;
+(function initDestinationCarousel() {
+  const track    = document.getElementById('destTrack');
+  const dotsWrap = document.getElementById('destDots');
+  if (!track || !dotsWrap) return;
 
-  container.innerHTML = '<div class="testi-loading">Loading destinations...</div>';
+  const items = DESTINATION_OFFERS;
+  const total = items.length;
+  let index   = 0;
+  let bgActive = 'A';
 
-  fetch('/data/destinations.json')
-    .then(function(res) {
-      if (!res.ok) throw new Error('Could not load destinations');
-      return res.json();
-    })
-    .then(function(data) {
-      let html = '';
+  track.innerHTML = items.map(function (d, i) {
+    return '<div class="dest-card" data-idx="' + i + '" title="' + d.alt + '" style="background-image:url(\'' + d.img + '\')"></div>';
+  }).join('');
 
-      data.forEach(function(r, i) {
-        const revealClass = ['reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 4];
+  dotsWrap.innerHTML = items.map(function (d, i) {
+    return '<div class="dest-dot" data-idx="' + i + '"></div>';
+  }).join('');
 
-        html += '<div class="route-card ' + revealClass + '">';
-        if (r.tag) html += '<div class="route-tag">' + escapeHtml(r.tag) + '</div>';
-        html += '<div class="route-from-to">';
-        html += '<div><div class="route-city">' + escapeHtml(r.fromCity) + '</div><div class="route-code">' + escapeHtml(r.fromCode) + '</div></div>';
-        html += '<div class="route-arrow">✈ →</div>';
-        html += '<div><div class="route-city">' + escapeHtml(r.toCity) + '</div><div class="route-code">' + escapeHtml(r.toCode) + '</div></div>';
-        html += '</div>';
-        html += '<div class="route-airline">✈ ' + escapeHtml(r.airlines) + '</div>';
-        html += '<div class="route-price-label">Starting From</div>';
-        html += '<div class="route-price"><span>PKR </span>' + escapeHtml(r.price) + '<span>+</span></div>';
-        html += '</div>';
-      });
+  const cards = track.querySelectorAll('.dest-card');
+  const dots  = dotsWrap.querySelectorAll('.dest-dot');
 
-      container.innerHTML = html;
-
-      if (typeof initScrollReveal === 'function') initScrollReveal();
-    })
-    .catch(function(err) {
-      console.warn('Destinations JSON failed to load:', err);
-      container.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.5)">Unable to load destinations right now — please call us at +92 300 0041510.</p>';
-    });
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  function updateBackground() {
+    const dest = items[index];
+    if (!dest) return;
+    const showing   = document.getElementById('destBg' + bgActive);
+    const nextLayer = bgActive === 'A' ? 'B' : 'A';
+    const hidden    = document.getElementById('destBg' + nextLayer);
+    if (!showing || !hidden) return;
+    hidden.style.backgroundImage = "url('" + dest.img + "')";
+    hidden.classList.add('active');
+    showing.classList.remove('active');
+    bgActive = nextLayer;
   }
 
+  function render() {
+    cards.forEach(function (card, i) {
+      const offset = (i - index + total) % total;
+      let pos;
+      if (offset === 0) pos = 'center';
+      else if (offset === 1) pos = 'near-right';
+      else if (offset === total - 1) pos = 'near-left';
+      else if (offset === 2) pos = 'far-right';
+      else if (offset === total - 2) pos = 'far-left';
+      else pos = 'hidden';
+      card.dataset.pos = pos;
+    });
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle('active', i === index);
+    });
+    updateBackground();
+  }
+
+  function goTo(n) {
+    index = (n + total) % total;
+    render();
+  }
+
+  let autoTimer = null;
+  function restartAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () { goTo(index + 1); }, 4000);
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      goTo(parseInt(card.dataset.idx, 10));
+      restartAuto();
+    });
+  });
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      goTo(parseInt(dot.dataset.idx, 10));
+      restartAuto();
+    });
+  });
+
+  const prevBtn = document.getElementById('destPrev');
+  const nextBtn = document.getElementById('destNext');
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); restartAuto(); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); restartAuto(); });
+
+  render();
+  restartAuto();
 })();
 
 
