@@ -283,7 +283,7 @@
 
 /* ── Destination Offers Carousel (Instagram-post style, multi-card) ── */
 .dest-track-wrap { position: relative; padding: 20px 0 10px; }
-.dest-track { display: flex; align-items: center; justify-content: center; position: relative; height: 460px; }
+.dest-track { display: flex; align-items: center; justify-content: center; position: relative; height: 350px; }
 .dest-card {
   position: absolute; border-radius: 18px; overflow: hidden; cursor: pointer;
   width: 340px; height: 340px; background-size: cover; background-position: center; background-color: var(--g700);
@@ -296,7 +296,7 @@
 .dest-card[data-pos="far-right"]  { transform: translateX(450px) scale(.72); z-index: 3; opacity: .5; filter: brightness(.5); }
 .dest-card[data-pos="hidden"]     { opacity: 0; pointer-events: none; transform: scale(.6); }
 
-.dest-nav-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 14px; }
+.dest-nav-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 50px; }
 .dest-nav-btn {
   width: 40px; height: 40px; border-radius: 50%; border: none;
   background: var(--g700); color: var(--gold);
