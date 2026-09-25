@@ -449,7 +449,7 @@ const DESTINATION_OFFERS = [
       data.forEach(function(item, i) {
         if (!item.q || !item.q.trim()) return; // skip blank/placeholder entries
         html += '<div class="faq-item reveal" id="faq-item-' + i + '">';
-        html += '<button class="faq-question" onclick="toggleFAQ(' + i + ')" aria-expanded="false" aria-controls="faq-answer-' + i + '">';
+        html += '<button class="faq-question" data-faq-index="' + i + '" aria-expanded="false" aria-controls="faq-answer-' + i + '">';
         html += '<span>' + escapeHtml(item.q) + '</span>';
         html += '<span class="faq-chevron">▼</span>';
         html += '</button>';
@@ -458,6 +458,12 @@ const DESTINATION_OFFERS = [
       });
 
       container.innerHTML = html;
+
+      container.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          toggleFAQ(parseInt(btn.dataset.faqIndex, 10));
+        });
+      });
 
       if (typeof initScrollReveal === 'function') initScrollReveal();
     })
@@ -534,11 +540,17 @@ window.toggleFAQ = toggleFAQ;
         const btnTextColor = a.textOnColor === 'dark' ? '#1a1a1a' : '#ffffff';
 
         html += '<div class="acard-footer"><div class="seats-badge">⚡ Limited Seats</div>';
-        html += '<button class="book-btn" style="background:' + escapeHtml(a.colorBtn) + ';color:' + btnTextColor + '" onclick="window.location.href=\'tel:+923000041510\'">Book Now →</button></div>';
+        html += '<button class="book-btn" data-call="tel:+923000041510" style="background:' + escapeHtml(a.colorBtn) + ';color:' + btnTextColor + '">Book Now →</button></div>';
         html += '</div></div>';
       });
 
       container.innerHTML = html;
+
+      container.querySelectorAll('.book-btn[data-call]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          window.location.href = btn.dataset.call;
+        });
+      });
 
       if (typeof initAirlineFilter === 'function') initAirlineFilter();
       if (typeof initScrollReveal === 'function') initScrollReveal();
