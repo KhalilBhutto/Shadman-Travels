@@ -57,8 +57,24 @@ function mapsUrl(hotelName, city) {
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
-function galleryUrl(hotelName) {
-  return `HotelGallery.aspx?hotel=${encodeURIComponent(hotelName)}`;
+const MONTHS = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+function parsePkgDate(str) {
+  const m = String(str || '').trim().match(/^(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{4})$/);
+  if (m && MONTHS[m[2].toLowerCase()] !== undefined) {
+    return new Date(Number(m[3]), MONTHS[m[2].toLowerCase()], Number(m[1]));
+  }
+  return new Date(str);
+}
+
+function isUpcoming(p) {
+  const d = parsePkgDate(p.outbound && p.outbound.date);
+  if (isNaN(d)) {
+    console.warn('Umrah package has an unreadable departure date:', p.code, p.outbound && p.outbound.date);
+    return true;
+  }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return d >= today;
 }
 
 function packageCardHTML(p) {
@@ -132,24 +148,20 @@ function packageCardHTML(p) {
 
           <div class="up-hotel">
             <div class="up-hotel-label">Makkah Hotel</div>
-            <a href="${galleryUrl(p.makkahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${escapeHtml(p.makkahHotel.name)}</a>
+            <div class="up-hotel-name">${escapeHtml(p.makkahHotel.name)}</div>
             <div class="up-hotel-nights">🌙 ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
             <div class="up-hotel-loc">📍 ${escapeHtml(p.makkahHotel.location)}</div>
             <div class="up-hotel-imgph">🕋</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener">📍 View Location</a>
-            <br>
-            <a class="up-hotel-pictures" href="${galleryUrl(p.makkahHotel.name)}" target="_blank" rel="noopener">Pictures</a>
           </div>
 
           <div class="up-hotel">
             <div class="up-hotel-label">Madinah Hotel</div>
-            <a href="${galleryUrl(p.madinahHotel.name)}" target="_blank" rel="noopener" class="up-hotel-name" style="text-decoration:none;display:block;">${escapeHtml(p.madinahHotel.name)}</a>
+            <div class="up-hotel-name">${escapeHtml(p.madinahHotel.name)}</div>
             <div class="up-hotel-nights">🌙 ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
             <div class="up-hotel-loc">📍 ${escapeHtml(p.madinahHotel.location)}</div>
             <div class="up-hotel-imgph">🕌</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener">📍 View Location</a>
-            <br>
-            <a class="up-hotel-pictures" href="${galleryUrl(p.madinahHotel.name)}" target="_blank" rel="noopener">Pictures</a>
           </div>
 
         </div>
@@ -198,7 +210,9 @@ function renderPackages(list) {
   if (!grid) return;
 
   if (!list.length) {
-    grid.innerHTML = '<div class="up-no-results">No packages match these filters — try widening your search, or WhatsApp us for the full list.</div>';
+    grid.innerHTML = ALL_PACKAGES.length
+  ? '<div class="up-no-results">No packages match these filters — try widening your search, or WhatsApp us for the full list.</div>'
+  : '<div class="up-no-results">New Umrah packages are being finalised. <a href="https://wa.me/923000041510" target="_blank" rel="noopener">WhatsApp us</a> or call +92 300 0041510 for current dates and rates.</div>';
     if (count) count.innerHTML = '';
     return;
   }
@@ -239,8 +253,8 @@ function applyFilters() {
   filtered.sort((a, b) => {
     if (sortValue === 'priceAsc')  return a.pricing.sharing - b.pricing.sharing;
     if (sortValue === 'priceDesc') return b.pricing.sharing - a.pricing.sharing;
-    if (sortValue === 'dateDesc')  return new Date(b.outbound.date) - new Date(a.outbound.date);
-    return new Date(a.outbound.date) - new Date(b.outbound.date); // dateAsc (default)
+    if (sortValue === 'dateDesc')  return parsePkgDate(b.outbound.date) - parsePkgDate(a.outbound.date);
+    return parsePkgDate(a.outbound.date) - parsePkgDate(b.outbound.date);
   });
 
   renderPackages(filtered);
@@ -250,8 +264,11 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/data/umrah-packages.json')
     .then(res => res.json())
     .then(data => {
-      ALL_PACKAGES = data;
-      renderPackages(ALL_PACKAGES);
+    ALL_PACKAGES = data.filter(isUpcoming);
+    if (ALL_PACKAGES.length < data.length) {
+      console.info((data.length - ALL_PACKAGES.length) + ' departed package(s) hidden — update data/umrah-packages.json.');
+    }
+    applyFilters();
     })
     .catch(err => {
       console.error('Failed to load Umrah packages:', err);

@@ -709,8 +709,8 @@ function updateHeroCarouselHeading() {
 
 /* ─── FIELD VALIDATION HELPERS (same rules as the original site) ─── */
 function isValidPhone(phone) {
-  const cleaned = phone.replace(/[\s\-()]/g, '');
-  return /^(0092|\+92|92|0)?3\d{9}$/.test(cleaned);
+  const cleaned = phone.replace(/[\s\-().]/g, '');
+  return /^(\+|00)?\d{8,15}$/.test(cleaned);
 }
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -749,7 +749,7 @@ function submitTicketEnquiry() {
     showFieldError(phoneInput); phoneInput.focus(); return;
   }
   if (!isValidPhone(phone)) {
-    errEl.textContent = '⚠ Please enter a valid Pakistani mobile number.'; errEl.style.display = 'block';
+    errEl.textContent = '⚠ Please enter a valid phone number (include the country code if outside Pakistan).'; errEl.style.display = 'block';
     showFieldError(phoneInput); phoneInput.focus(); return;
   }
   if (email && !isValidEmail(email)) {
