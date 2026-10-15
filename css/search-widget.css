@@ -562,3 +562,296 @@
 .quick-route-chip { background: var(--g800); border: 1px solid rgba(201,160,40,.3); color: rgba(255,255,255,.75); font-size: .74rem; font-weight: 600; padding: 8px 16px; border-radius: 50px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: all .2s; }
 .quick-route-chip:hover { border-color: var(--gold); background: rgba(201,160,40,.12); color: #fff; transform: translateY(-2px); }
 .quick-route-chip .arr { color: var(--gold); }
+
+/* ======================================================================
+   PHONE LAYOUT + MOBILE FIXES  (paste this whole block at the VERY END
+   of css/search-widget.css, after the last line of that file)
+   ====================================================================== */
+
+/* ── Structure helpers for the phone layout (no visual change on desktop) ── */
+.wf-val2 .wf-city::after { content: ', '; }
+.mc-leg-row2 .wf-code { display: none; }
+.mc-leg-row2 .wf-city::after { content: none; }
+.wf-dates-split { display: none; }
+.sheet-head { display: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE / TABLET OVERRIDES — KEEP AT THE END OF THIS FILE
+   Same specificity as the .dark-bar-mode rules above, so these
+   only win because they come LAST.
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .field-row { grid-template-columns: 1fr; }
+  .dark-bar-mode .field-row { grid-template-columns: 1fr; gap: 10px; }
+  .wf-swap2 { display: none; }
+  .mc-leg-row2 { grid-template-columns: 1fr; }
+  .cal-months { grid-template-columns: 1fr; }
+  .cal-popup { width: calc(100vw - 60px); max-width: 340px; }
+  .ap-popup { width: calc(100vw - 60px); max-width: 320px; }
+  .gp-row { flex-wrap: wrap; }
+  .widget-wrap { padding: 0 20px; margin-top: -40px; }
+
+  .dark-bar-mode.rt-ow-layout {
+    display: block;
+  }
+  .dark-bar-mode.rt-ow-layout .wc-top {
+    display: flex;
+    border-right: none;
+    border-bottom: 1px solid rgba(201,160,40,.2);
+    background: rgba(0,0,0,.15);
+    padding: 8px;
+  }
+  .dark-bar-mode.rt-ow-layout .pill-tabs {
+    flex-direction: row;
+  }
+  .dark-bar-mode.rt-ow-layout .pill-tab {
+    font-size: .72rem;
+    padding: 8px 14px;
+  }
+  .dark-bar-mode.rt-ow-layout #mainRow {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .dark-bar-mode .wf-searchbtn {
+    width: 100%;
+    border-left: none;
+    border-top: 2px dashed rgba(6,15,9,.3);
+    border-radius: 0 0 18px 18px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 0;
+  }
+  .dark-bar-mode .wf-searchbtn::before,
+  .dark-bar-mode .wf-searchbtn::after {
+    display: none;
+  }
+}
+
+
+/* ── Mobile polish (Oct 2026) ── */
+@media (max-width: 1000px) {
+  /* Vertical dividers belong to the horizontal bar; when fields stack they show as stray lines */
+  .dark-bar-mode .wf::after { display: none; }
+
+  /* Multi-City bottom bar: allow wrapping so the Search button is never cut off */
+  .dark-bar-mode .mc-guests-row { flex-wrap: wrap; }
+  .dark-bar-mode .mc-guests-row .wf { flex: 1 1 100%; }
+  .dark-bar-mode .mc-add-wrap2 { flex: 1 1 100%; align-items: center; justify-content: space-between; gap: 12px; }
+  .dark-bar-mode .mc-add-btn2 { white-space: nowrap; }
+  .dark-bar-mode #mcSearchBtn { flex: 1 1 100%; justify-content: center; }
+
+  /* Calendar: show one month at a time on phones (it renders 3 and stacks them) */
+  .cal-months .cal-month:nth-child(n+2) { display: none; }
+  .cal-month h4 { display: none; } /* month name is already in the header button */
+
+  /* Boarding-pass ticket: the gold stub is decorative; drop it instead of letting it wrap under the form */
+  .ticket-stub { display: none; }
+
+  /* The resize handle is easy to drag by accident on a touch screen */
+  .ticket-main textarea { resize: none; }
+
+  /* WhatsApp button must not cover popup content (airports, calendar dates) */
+  body:has(.popup-panel.open, .popup.open) .wa-fab { opacity: 0; pointer-events: none; }
+}
+
+/* ── Browser autofill: keep dark fields dark (all screen sizes) ── */
+.ticket-main input:-webkit-autofill,
+.ticket-main input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px var(--g700) inset;
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PHONE REDESIGN — cream card, green tabs, gold button,
+   full-screen sheets. Keep at the very END of this file.
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+
+  /* ── Card ── */
+  #widgetCard.widget-card.dark-bar-mode {
+    background: #fffdf8;
+    border: 1px solid rgba(201,160,40,.35);
+    border-radius: 22px;
+    max-width: 100%;
+    box-shadow: 0 18px 44px rgba(0,0,0,.35);
+    padding-bottom: 18px;
+  }
+  #widgetCard.widget-card.dark-bar-mode::before { display: none; }
+
+  /* ── Tabs (green pill) ── */
+  #widgetCard .wc-top,
+  #widgetCard.rt-ow-layout .wc-top,
+  #widgetCard:not(.rt-ow-layout) .wc-top { display: block; background: none; border: none; padding: 14px 16px 6px; margin: 0; }
+  #widgetCard .pill-tabs { display: flex; gap: 0; padding: 4px; border-radius: 999px; background: #f3efe4; border: 1px solid rgba(15,41,22,.1); }
+  #widgetCard .pill-tab { flex: 1; text-align: center; padding: 10px 4px; border-radius: 999px; font-size: .78rem; font-weight: 700; color: var(--muted); background: transparent; white-space: nowrap; }
+  #widgetCard .pill-tab.active { background: var(--g700); color: var(--gold2); box-shadow: 0 4px 12px rgba(15,41,22,.28); }
+
+  /* ── Main fields grid ── */
+  #widgetCard #mainRow {
+    display: grid;
+    grid-template-columns: 1fr 44px 1fr;
+    grid-template-areas: "from swap to" "date date date" "guests guests guests" "btn btn btn";
+    gap: 6px 0;
+    padding: 10px 18px 0;
+    align-items: end;
+  }
+  #widgetCard #fromField { grid-area: from; }
+  #widgetCard #swapBtn   { grid-area: swap; display: flex; width: auto; margin: 0 0 6px; justify-self: center; align-self: end; }
+  #widgetCard #toField   { grid-area: to; }
+  #widgetCard #dateField { grid-area: date; }
+  #widgetCard #guestsField { grid-area: guests; }
+  #widgetCard #mainRow .wf-searchbtn { grid-area: btn; }
+  #widgetCard #swapBtn::before { display: none; }
+  #widgetCard .swap-circle { width: 34px; height: 34px; background: #f3efe4; border: 1px solid rgba(201,160,40,.55); color: var(--gold); }
+  #widgetCard .swap-circle:hover { background: var(--gold); color: #fff; }
+
+  /* ── Field look (light) ── */
+  #widgetCard .wf { background: transparent; border: none; border-bottom: 1px solid rgba(15,41,22,.16); border-radius: 0; padding: 8px 2px 8px; box-shadow: none; }
+  #widgetCard .wf:hover, #widgetCard .wf.active-step { background: transparent; box-shadow: none; border-bottom-color: var(--gold); }
+  #widgetCard .wf::after { display: none; }
+  #widgetCard .wf-label2 { color: #8a7a45; font-size: .56rem; letter-spacing: .12em; margin-bottom: 1px; }
+  #widgetCard .wf-val2 { color: var(--ink); }
+  #widgetCard .wf-val2.placeholder { color: #a39f8f; font-size: 1.05rem; font-weight: 700; }
+  #widgetCard .wf-clear { display: none !important; }
+
+  /* From / To: big code, small city */
+  #widgetCard #fromValue:not(.placeholder), #widgetCard #toValue:not(.placeholder) { display: flex; flex-direction: column-reverse; white-space: normal; }
+  #widgetCard .wf-val2 .wf-code { font-size: 1.55rem; font-weight: 700; line-height: 1.1; color: var(--g700); letter-spacing: .01em; }
+  #widgetCard .wf-val2 .wf-city { font-size: .74rem; font-weight: 500; color: var(--muted); }
+  #widgetCard .wf-val2 .wf-city::after { content: none; }
+  #widgetCard #toField .wf-text { text-align: right; margin-left: auto; }
+  #widgetCard #toValue:not(.placeholder) { align-items: flex-end; }
+
+  /* Dates: Outbound | Return columns */
+  #widgetCard #dateField { display: block; border-bottom: none; padding: 4px 0 0; }
+  #widgetCard #dateField > .wf-text { display: none; }
+  #widgetCard .wf-dates-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; }
+  #widgetCard .wf-date-col { border-bottom: 1px solid rgba(15,41,22,.16); padding: 6px 2px 8px; }
+  #widgetCard .wf-date-col:nth-child(2) { text-align: right; }
+  #widgetCard #dateField:hover .wf-date-col { border-bottom-color: var(--gold); }
+  #widgetCard .wf-date-label { font-size: .95rem; font-weight: 700; color: var(--ink); }
+  #widgetCard .wf-date-val { font-size: .78rem; color: var(--g700); font-weight: 600; margin-top: 2px; }
+  #widgetCard .wf-date-val.placeholder { color: #a39f8f; font-weight: 500; }
+
+  /* Guests: centred link */
+  #widgetCard #guestsField, #widgetCard #mcGuestsField { justify-content: center; border-bottom: none; padding: 12px 0 4px; }
+  #widgetCard #guestsField .wf-label2, #widgetCard #mcGuestsField .wf-label2 { display: none; }
+  #widgetCard #guestsIconC, #widgetCard #mcGuestsIconC { display: flex; background: none; width: auto; height: auto; }
+  #widgetCard #guestsIconC svg, #widgetCard #mcGuestsIconC svg { width: 17px; height: 17px; color: var(--g500); }
+  #widgetCard #guestsField .wf-text, #widgetCard #mcGuestsField .wf-text { text-align: center; }
+  #widgetCard #guestsValue, #widgetCard #mcGuestsValue { color: var(--g500); font-size: .9rem; font-weight: 600; }
+  #widgetCard #guestsValue.placeholder, #widgetCard #mcGuestsValue.placeholder { color: var(--g500); font-size: .9rem; font-weight: 600; }
+
+  /* Gold CTA */
+  #widgetCard #mainRow .wf-searchbtn { background: none; border: none; border-radius: 0; width: 100%; padding: 6px 0 0; display: block; }
+  #widgetCard .wf-searchbtn-bars { display: none; }
+  #widgetCard .search-btn2 { width: 100%; padding: 15px; border-radius: 999px; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); font-size: .95rem; font-weight: 700; letter-spacing: .02em; box-shadow: 0 8px 20px rgba(201,160,40,.32); }
+  #widgetCard .search-btn2:disabled { background: #eadfb9; color: #8d7c43; box-shadow: none; }
+
+  /* ── Multi-City ── */
+  #widgetCard .mc-legs2 { padding: 4px 18px 0; gap: 0; }
+  #widgetCard .mc-leg-wrap { margin-top: 6px; border-top: none; padding-top: 0; }
+  #widgetCard .mc-leg-heading-row { padding: 0 2px; margin-bottom: 0; }
+  #widgetCard .mc-leg-heading { color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: .8rem; letter-spacing: 0; text-transform: none; }
+  #widgetCard .mc-delete-link { color: var(--g500); text-decoration: none; font-size: .8rem; }
+  #widgetCard .mc-leg-row2 { display: grid; grid-template-columns: 1fr 44px 1fr; grid-template-areas: "from swap to" "date date date"; gap: 4px 0; padding-top: 0; align-items: end; }
+  #widgetCard .mc-leg-row2 [data-part="from"] { grid-area: from; }
+  #widgetCard .mc-leg-row2 [data-part="to"] { grid-area: to; }
+  #widgetCard .mc-leg-row2 [data-part="date"] { grid-area: date; }
+  #widgetCard .mc-leg-row2 .wf-swap2 { grid-area: swap; display: flex; width: auto; margin: 0 0 6px; justify-self: center; }
+  #widgetCard .mc-leg-row2 [data-part="to"] .wf-text { text-align: right; margin-left: auto; }
+  #widgetCard .mc-leg-row2 .wf-code { display: block; }
+  #widgetCard .mc-leg-row2 .wf-val2:not(.placeholder) { display: flex; flex-direction: column-reverse; white-space: normal; }
+  #widgetCard .mc-leg-row2 [data-part="to"] .wf-val2:not(.placeholder) { align-items: flex-end; }
+  #widgetCard .mc-leg-row2 [data-part="date"] .wf-label2 { color: var(--ink); font-size: .85rem; letter-spacing: 0; text-transform: none; font-family: 'DM Sans', sans-serif; font-weight: 700; }
+  #widgetCard .mc-leg-row2 [data-part="date"] .wf-val2, #widgetCard .mc-leg-row2 [data-part="date"] .wf-val2.placeholder { font-size: .78rem; font-weight: 600; color: var(--g700); }
+  #widgetCard .mc-leg-row2 [data-part="date"] .wf-val2.placeholder { color: #a39f8f; font-weight: 500; }
+
+  #widgetCard .mc-guests-row { flex-direction: column; align-items: stretch; gap: 8px; padding: 12px 18px 0; margin-top: 8px; border-top: none; }
+  #widgetCard .mc-add-wrap2 { order: 1; padding: 0; justify-content: space-between; }
+  #widgetCard #mcGuestsField { order: 2; }
+  #widgetCard #mcSearchBtn { order: 3; margin: 0; width: 100%; flex: none; justify-content: center; padding: 15px; border-radius: 999px; font-size: .95rem; }
+  #widgetCard .mc-add-btn2 { border: none; border-bottom: 1px solid var(--g700); border-radius: 0; background: none; padding: 2px 0; color: var(--g700); font-size: .85rem; }
+  #widgetCard .mc-add-btn2:hover { background: none; }
+  #widgetCard .mc-note2 { color: var(--muted); }
+
+  /* ── Full-screen sheets ── */
+  #widgetCard .popup-panel.open, #widgetCard .popup.open {
+    position: fixed; inset: 0; z-index: 10001; width: 100%; max-width: none; height: auto;
+    display: flex; flex-direction: column; overflow-y: auto; border-radius: 0; border: none;
+    box-shadow: none; padding: 0; background: #fffdf8; animation: none; color: var(--ink);
+  }
+  body:has(#widgetCard .popup-panel.open, #widgetCard .popup.open) { overflow: hidden; }
+  body:has(#widgetCard .popup-panel.open, #widgetCard .popup.open) #navbar,
+  body:has(#widgetCard .popup-panel.open, #widgetCard .popup.open) .wa-fab { display: none; }
+
+  #widgetCard .sheet-head { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; padding: 10px 8px; position: sticky; top: 0; background: #fffdf8; z-index: 5; border-bottom: 1px solid #f0ede6; flex-shrink: 0; }
+  #widgetCard .sheet-title { text-align: center; font-weight: 700; font-size: 1rem; color: var(--g700); }
+  #widgetCard .sheet-back, #widgetCard .sheet-close { background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--g700); padding: 6px 10px; cursor: pointer; }
+  #widgetCard .sheet-close { font-size: 1.15rem; }
+
+  /* airport list (light) */
+  #widgetCard .ap-search-box { padding: 14px 18px; border-bottom: 1px solid #ece8dc; flex-shrink: 0; }
+  #widgetCard .ap-search-box input { color: var(--ink); font-size: 1.05rem; }
+  #widgetCard .ap-search-box input::placeholder { color: #a39f8f; }
+  #widgetCard .ap-list { padding: 0; overflow: visible; }
+  #widgetCard .ap-group { background: #fffdf8; color: #8a7a45; padding: 14px 18px 6px; font-size: .7rem; top: 57px; }
+  #widgetCard .ap-opt { padding: 12px 18px; border-bottom: 1px solid #f0ede6; }
+  #widgetCard .ap-opt:hover { background: #faf6ea; }
+  #widgetCard .ap-opt-icon { background: #f3efe4; color: var(--gold); }
+  #widgetCard .ap-opt-city { color: var(--ink); font-size: .95rem; }
+  #widgetCard .ap-opt-sub { color: var(--muted); }
+  #widgetCard .ap-opt .code { color: var(--g700); background: #eef3ee; }
+
+  /* guests + cabin (light) */
+  #widgetCard .gp-body { grid-template-columns: 1fr; gap: 6px; padding: 8px 18px 0; }
+  #widgetCard .gp-col-title { color: var(--g700); margin: 14px 0 8px; }
+  #widgetCard .gp-row { background: #f7f3e8; border-radius: 12px; padding: 12px 14px; border: none; margin-bottom: 8px; flex-wrap: nowrap; }
+  #widgetCard .gp-label b { color: var(--ink); }
+  #widgetCard .gp-label small { color: var(--muted); }
+  #widgetCard .gp-btn { background: #fff; border-color: #d8d3c4; color: var(--g700); }
+  #widgetCard .gp-btn[data-act$="+"] { background: var(--g700); border-color: var(--g700); color: #fff; }
+  #widgetCard .gp-num { color: var(--ink); border-color: #d8d3c4; background: #fff; }
+  #widgetCard .gp-cabin-row { background: #f7f3e8; border-radius: 12px; padding: 14px; margin-bottom: 8px; flex-direction: row-reverse; justify-content: space-between; }
+  #widgetCard .gp-cabin-row:hover { background: #f1ecda; }
+  #widgetCard .gp-cabin-row span { color: var(--ink); }
+  #widgetCard .gp-radio { border-color: #c9c2a8; }
+  #widgetCard .gp-cabin-row.selected .gp-radio { border-color: var(--g700); }
+  #widgetCard .gp-cabin-row.selected .gp-radio::after { background: var(--g700); }
+  #widgetCard .gp-footer { position: sticky; bottom: 0; margin-top: auto; background: #fffdf8; border-top: 1px solid #f0ede6; padding: 12px 18px 16px; flex-direction: column-reverse; gap: 8px; }
+  #widgetCard .gp-cap-note { color: var(--muted); text-align: center; }
+  #widgetCard .gp-done { width: 100%; padding: 14px; border: none; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+
+  /* calendar (light) */
+  #widgetCard .cal-header { color: var(--ink); padding: 14px 18px 8px; margin: 0; }
+  #widgetCard .cal-jump-btn { color: var(--g700); font-size: 1.15rem; }
+  #widgetCard .cal-nav-btn { background: #fff; border-color: #d8d3c4; color: var(--g700); }
+  #widgetCard .cal-range-note { color: var(--muted); }
+  #widgetCard .cal-months { padding: 0 14px; }
+  #widgetCard .cal-grid { gap: 4px; }
+  #widgetCard .cal-dow { color: var(--muted); }
+  #widgetCard .cal-day { color: var(--ink); font-size: .9rem; }
+  #widgetCard .cal-day:hover:not(.disabled):not(.empty) { background: #f3efe4; }
+  #widgetCard .cal-day.disabled { color: #cfcabb; }
+  #widgetCard .cal-day.today { border-color: var(--gold); }
+  #widgetCard .cal-day.selected { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+  #widgetCard .cal-day.in-range { background: rgba(201,160,40,.18); }
+  #widgetCard .cal-footer { position: sticky; bottom: 0; margin-top: auto; background: #fffdf8; border-top: 1px solid #f0ede6; padding: 12px 18px 16px; }
+  #widgetCard .cal-selection-txt { color: var(--g700); }
+  #widgetCard .cal-reset { color: var(--g500); }
+  #widgetCard .cal-jump-grid { padding: 8px 18px; }
+  #widgetCard .cal-jump-cell { color: var(--g700); border-color: #e4dfcf; background: #fff; }
+  #widgetCard .cal-jump-cell small { color: var(--muted); }
+  #widgetCard .cal-jump-cell:hover { border-color: var(--gold); background: #faf6ea; }
+}
+
+/* ── Destination carousel: readable header (Oct 2026) ── */
+.hc-section::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(6,15,9,.55); pointer-events: none; }
+.hc-title { color: #fff; font-weight: 500; line-height: 1.15; }
+.hc-title em { display: block; width: fit-content; color: var(--gold2); border-bottom: 1px solid var(--gold2); padding-bottom: 2px; }
+.hc-sub { color: rgba(255,255,255,.85); font-weight: 500; }
+.hc-card-tag { border-radius: 8px; }
+.hc-card-city { font-weight: 500; color: var(--gold3); }

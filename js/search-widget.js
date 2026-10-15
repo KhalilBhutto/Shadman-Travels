@@ -59,7 +59,10 @@ function renderField(which) {
     const iconEl = document.getElementById(which + 'IconC');
     const clearEl = document.getElementById(which + 'Clear');
     if (val) {
-      valEl.textContent = val + ', ' + code;
+      valEl.textContent = '';
+      const cityEl = document.createElement('span'); cityEl.className = 'wf-city'; cityEl.textContent = val;
+      const codeEl = document.createElement('span'); codeEl.className = 'wf-code'; codeEl.textContent = code;
+      valEl.append(cityEl, codeEl);
       valEl.classList.remove('placeholder');
       iconEl.classList.add('filled');
       clearEl.classList.add('show');
@@ -74,7 +77,7 @@ function renderField(which) {
   if (which === 'guests') {
     const { adults, children, infants } = wState.pax;
     const total = adults + children + infants;
-    const labelText = wState.guestsConfirmed ? (total + ' Guest' + (total !== 1 ? 's' : '') + ', ' + wState.cabin) : 'Add';
+    const labelText = wState.guestsConfirmed ? (total + ' Guest' + (total !== 1 ? 's' : '') + ', ' + wState.cabin) : 'Add guests & cabin';
     [['guestsValue', 'guestsIconC'], ['mcGuestsValue', 'mcGuestsIconC']].forEach(([valId, iconId]) => {
       const valEl = document.getElementById(valId);
       const iconEl = document.getElementById(iconId);
@@ -99,6 +102,15 @@ function renderField(which) {
       valEl.classList.toggle('placeholder', !filled);
       iconEl.classList.toggle('filled', filled);
     }
+    // Phone layout: separate Outbound / Return columns
+    const outEl = document.getElementById('outValue'), retEl = document.getElementById('retValue'), retCol = document.getElementById('retCol');
+    if (outEl && retEl) {
+      outEl.textContent = wState.depart ? fmtDate(wState.depart) : 'Select date';
+      outEl.classList.toggle('placeholder', !wState.depart);
+      retEl.textContent = wState.ret ? fmtDate(wState.ret) : 'Select date';
+      retEl.classList.toggle('placeholder', !wState.ret);
+      if (retCol) retCol.style.display = wState.trip === 'rt' ? '' : 'none';
+    }
   }
   updateSearchBtn();
   updateHeroTicket();
@@ -112,9 +124,18 @@ function updateSearchBtn() {
   document.querySelectorAll('.search-btn2').forEach(btn => { btn.disabled = !ready; });
 }
 
+/* ─── FULL-SCREEN SHEET HEADER (phones only; hidden by CSS on desktop) ─── */
+function sheetHeadHTML(title) {
+  return '<div class="sheet-head"><button type="button" class="sheet-back" aria-label="Back">‹</button><div class="sheet-title">' + title + '</div><button type="button" class="sheet-close" aria-label="Close">✕</button></div>';
+}
+function wireSheetHead(popupEl) {
+  popupEl.querySelectorAll('.sheet-back, .sheet-close').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); closeAllPopups(); }));
+}
+
 /* ─── AIRPORT PICKER (reuses global AIRPORTS from airports.js) ─── */
-function buildAirportList(popupEl, excludeCode, onSelect) {
-  popupEl.innerHTML = `<div class="ap-search-box"><span class="ap-search-icon">🔍</span><input placeholder="Type city or code..." autocomplete="off"></div><div class="ap-list"></div>`;
+function buildAirportList(popupEl, excludeCode, onSelect, title) {
+  popupEl.innerHTML = sheetHeadHTML(title || 'Select airport') + `<div class="ap-search-box"><span class="ap-search-icon">🔍</span><input placeholder="Type city or code..." autocomplete="off"></div><div class="ap-list"></div>`;
+  wireSheetHead(popupEl);
   const listEl = popupEl.querySelector('.ap-list'), inputEl = popupEl.querySelector('input');
   function render(q) {
     listEl.innerHTML = '';
@@ -166,7 +187,7 @@ function openAirportPopup(which) {
       rtLockToSelection();
       setTimeout(() => openGuestsPopup(), 150);
     }
-  });
+  }, which === 'from' ? 'Departure Airport' : 'Arrival Airport');
   popupEl.classList.add('open');
 }
 
@@ -182,7 +203,7 @@ function refreshGuestsPopup() {
   const { adults, children, infants } = wState.pax;
   const total = adults + children;
   const cabins = ['Economy', 'Premium Economy', 'Business', 'First'];
-  popupEl.innerHTML = `
+  popupEl.innerHTML = sheetHeadHTML('Guests') + `
     <div class="gp-body">
       <div>
         <div class="gp-col-title">Guests</div>
@@ -202,6 +223,8 @@ function refreshGuestsPopup() {
       <span class="gp-cap-note">Max 9 guests total · Infants limited to number of adults</span>
       <button class="gp-done">Continue</button>
     </div>`;
+  
+  wireSheetHead(popupEl);
   popupEl.querySelectorAll('.gp-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -250,12 +273,13 @@ function renderCalendar(popupEl, legIndex) {
   else if (wState.trip === 'rt') { selTxt = wState.depart ? (wState.ret ? fmtDate(wState.depart) + ' → ' + fmtDate(wState.ret) : fmtDate(wState.depart) + ' → select return') : 'Select departure date'; }
   else { selTxt = wState.depart ? fmtDate(wState.depart) : 'Select departure date'; }
   const atMin = wState.calMonthOffset <= 0, atMax = wState.calMonthOffset >= 10;
-  popupEl.innerHTML = `
+  popupEl.innerHTML = sheetHeadHTML('Travel dates') + `
     <div class="cal-header">
       <button class="cal-jump-btn" id="calJumpBtn">${baseMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })} <span class="cal-jump-chevron">▾</span></button>
       <div class="cal-nav"><button class="cal-nav-btn" id="calPrev" ${atMin ? 'disabled' : ''}>‹</button><button class="cal-nav-btn" id="calNext" ${atMax ? 'disabled' : ''}>›</button></div></div>
     <div class="cal-months">${monthsHtml}</div>
     <div class="cal-footer"><a href="#" class="cal-reset" id="calResetBtn">Reset</a><span class="cal-selection-txt">${selTxt}</span></div>`;
+  wireSheetHead(popupEl);
   popupEl.querySelectorAll('.cal-day:not(.disabled):not(.empty)').forEach(el => {
     el.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -291,10 +315,11 @@ function renderMonthJump(popupEl, legIndex) {
     const disabled = i > 9;
     return `<div class="cal-jump-cell ${disabled ? 'disabled' : ''}" data-offset="${i}">${d.toLocaleDateString('en-GB', { month: 'short' })}<br><small>${d.getFullYear()}</small></div>`;
   }).join('');
-  popupEl.innerHTML = `
+  popupEl.innerHTML = sheetHeadHTML('Choose month') + `
     <div class="cal-header"><span class="cal-range-note">Jump to a month — dates open up to 361 days ahead</span></div>
     <div class="cal-jump-grid">${gridHtml}</div>
     <div class="cal-footer"><button class="cal-done" id="calBackBtn">‹ Back to calendar</button></div>`;
+  wireSheetHead(popupEl);
   popupEl.querySelectorAll('.cal-jump-cell:not(.disabled)').forEach(cell => {
     cell.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -429,6 +454,11 @@ function renderAllMcLegs() {
   wState.mcLegs.forEach((leg, i) => wrap.appendChild(buildMcLegEl(i)));
   updateMcAddState();
 }
+
+function mcVal(name, code) {
+  return name ? '<span class="wf-city">' + name + '</span><span class="wf-code mc-code">' + code + '</span>' : 'City or airport';
+}
+
 function buildMcLegEl(i) {
   const leg = wState.mcLegs[i];
   const wrap = document.createElement('div');
@@ -437,10 +467,10 @@ function buildMcLegEl(i) {
   row.className = 'mc-leg-row2';
   row.innerHTML = `
     <div class="wf" data-part="from"><div class="wf-icon-circle ${leg.from ? 'filled' : ''}"><i class="fas fa-plane-departure"></i></div>
-      <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 ${leg.from ? '' : 'placeholder'}">${leg.from || 'City or airport'}</div></div><div class="wf-clear ${leg.from ? 'show' : ''}" data-clear="from" title="Clear">×</div><div class="popup ap-popup"></div></div>
+      <div class="wf-text"><div class="wf-label2">From</div><div class="wf-val2 ${leg.from ? '' : 'placeholder'}">${mcVal(leg.from, leg.fromCode)}</div></div><div class="wf-clear ${leg.from ? 'show' : ''}" data-clear="from" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf-swap2" data-swap="1"><div class="swap-circle"><i class="fas fa-right-left"></i></div></div>
     <div class="wf" data-part="to"><div class="wf-icon-circle ${leg.to ? 'filled' : ''}"><i class="fas fa-plane-arrival"></i></div>
-      <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${leg.to || 'City or airport'}</div></div><div class="wf-clear ${leg.to ? 'show' : ''}" data-clear="to" title="Clear">×</div><div class="popup ap-popup"></div></div>
+      <div class="wf-text"><div class="wf-label2">To</div><div class="wf-val2 ${leg.to ? '' : 'placeholder'}">${mcVal(leg.to, leg.toCode)}</div></div><div class="wf-clear ${leg.to ? 'show' : ''}" data-clear="to" title="Clear">×</div><div class="popup ap-popup"></div></div>
     <div class="wf" data-part="date"><div class="wf-icon-circle ${leg.date ? 'filled' : ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
       <div class="wf-text"><div class="wf-label2">Date</div><div class="wf-val2 ${leg.date ? '' : 'placeholder'}">${leg.date ? fmtDate(leg.date) : 'Add date'}</div></div></div>
     <div class="popup cal-popup"></div>
@@ -500,7 +530,7 @@ function openMcAirport(i, part, rowEl) {
     } else if (part === 'to') {
       setTimeout(() => { const newRow = document.getElementById('mcLegs').children[i]; openMcCalendar(i, newRow); }, 150);
     }
-  });
+  }, part === 'from' ? 'Departure Airport' : 'Arrival Airport');
   popupEl.classList.add('open');
 }
 function openMcCalendar(i, rowEl) {
@@ -904,7 +934,8 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.pill-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       wState.trip = tab.dataset.trip;
-      if (wState.trip !== 'rt') { wState.ret = null; renderField('date'); }
+      if (wState.trip !== 'rt') wState.ret = null;
+      renderField('date');
       const mcMode = wState.trip === 'mc';
       document.getElementById('widgetCard').classList.toggle('rt-ow-layout', !mcMode);
       if (mcMode) {

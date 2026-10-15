@@ -399,12 +399,16 @@
               <div class="wf" id="dateField">
                 <div class="wf-icon-circle" id="dateIconC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
                 <div class="wf-text"><div class="wf-label2">Travelling when?</div><div class="wf-val2 placeholder" id="dateValue">Add dates</div></div>
+                <div class="wf-dates-split">
+                  <div class="wf-date-col"><div class="wf-date-label">Outbound</div><div class="wf-date-val placeholder" id="outValue">Select date</div></div>
+                  <div class="wf-date-col" id="retCol"><div class="wf-date-label">Return</div><div class="wf-date-val placeholder" id="retValue">Select date</div></div>
+                </div>
               </div>
               <div class="wf-searchbtn">
                 <div class="wf-searchbtn-bars">
                   <div style="height:16px"></div><div style="height:9px"></div><div style="height:14px"></div><div style="height:6px"></div><div style="height:13px"></div>
                 </div>
-                <button class="search-btn2" id="searchBtn" disabled>Search</button>
+                <button class="search-btn2" id="searchBtn" disabled>Get Fares</button>
               </div>
             </div>
 
@@ -423,7 +427,7 @@
                 <button class="mc-add-btn2" id="mcAddBtn">+ Add Another Flight</button>
                 <span class="mc-note2" id="mcCountNote">2 of 6 flights</span>
               </div>
-              <button class="search-btn2" id="mcSearchBtn" disabled><i class="fas fa-magnifying-glass"></i> Search</button>
+              <button class="search-btn2" id="mcSearchBtn" disabled><i class="fas fa-magnifying-glass"></i> Get Fares</button>
             </div>
           </div>
         </div><!-- /widget-wrap -->
