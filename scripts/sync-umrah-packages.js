@@ -93,9 +93,10 @@ function clock(v) {
   h = h % 12; if (h === 0) h = 12;
   return h + ':' + String(m).padStart(2, '0') + ' ' + ap;
 }
+// Shown exactly as the supplier shows it: just the number (e.g. "20" or "30").
 function baggage(v) {
   const n = parseInt(v, 10);
-  return n > 0 ? '7KG+' + n + 'KG' : '7KG';
+  return n > 0 ? String(n) : '';
 }
 function flightNo(code, no) {
   const n = String(no || '').trim();

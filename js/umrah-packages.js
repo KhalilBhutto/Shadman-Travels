@@ -39,7 +39,14 @@ const AIRLINE_INFO = {
   },
 };
 
-// Short name shown in the airline filter list
+// Used for any airline that has no colours of its own yet (shows no logo)
+const OTHER_AIRLINE = {
+  logo: '',
+  gradient: 'linear-gradient(160deg, #1f2937 0%, #374151 60%, #6b7280 100%)',
+  border: '#6b7280'
+};
+
+// Short name shown in the airline filter list (unknown airlines use their own name from the data)
 const AIRLINE_LABEL = { pia: 'PIA', ab: 'AirBlue', fj: 'Fly Jinnah', sv: 'Saudia' };
 
 // Picks the colour theme from the airline CODE (PK, 9P, PA, SV), which the
@@ -55,8 +62,9 @@ function airlineClass(p) {
   if (name.includes('Fly Jinnah')) return 'fj';
   if (name.includes('AirBlue')) return 'ab';
   if (name.includes('Saudi')) return 'sv';
-  console.warn('Unknown airline in Umrah data:', p.airlineCode, p.airline);
-  return 'pia';
+  // Unknown airline: give it its own group (never mislabel it as PIA)
+  console.warn('Airline without its own colours in Umrah data:', p.airlineCode, p.airline);
+  return 'x-' + (code || 'other').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 function fmtPrice(n) {
@@ -105,7 +113,7 @@ function isUpcoming(p) {
 
 function packageCardHTML(p) {
   const cls = airlineClass(p);
-  const info = AIRLINE_INFO[cls];
+  const info = AIRLINE_INFO[cls] || OTHER_AIRLINE;
   const soldOut = !(p.seatsLeft > 0);
 
   return `
@@ -122,14 +130,14 @@ function packageCardHTML(p) {
           <div class="fc-title">✈ ${escapeHtml(p.outbound.flightNo)}</div>
           <div class="fc-route">${escapeHtml(p.outbound.from)} → ${escapeHtml(p.outbound.to)}</div>
           <div class="fc-times">${escapeHtml(p.outbound.depTime)} → ${escapeHtml(p.outbound.arrTime)}</div>
-          <div class="fc-sub">Baggage: ${escapeHtml(p.outbound.baggage)}</div>
+          ${p.outbound.baggage ? `<div class="fc-sub">Baggage: ${escapeHtml(p.outbound.baggage)}</div>` : ''}
           <div class="fc-label">Departure · ${escapeHtml(p.outbound.date)}</div>
         </div>
         <div class="up-flight-cell">
           <div class="fc-title">✈ ${escapeHtml(p.return.flightNo)}</div>
           <div class="fc-route">${escapeHtml(p.return.from)} → ${escapeHtml(p.return.to)}</div>
           <div class="fc-times">${escapeHtml(p.return.depTime)} → ${escapeHtml(p.return.arrTime)}</div>
-          <div class="fc-sub">Baggage: ${escapeHtml(p.return.baggage)}</div>
+          ${p.return.baggage ? `<div class="fc-sub">Baggage: ${escapeHtml(p.return.baggage)}</div>` : ''}
           <div class="fc-label">Arrival · ${escapeHtml(p.return.date)}</div>
         </div>
         <div class="up-flight-cell">
@@ -155,7 +163,7 @@ function packageCardHTML(p) {
       <div class="up-body">
 
         <div class="up-airline-panel" style="background:${info.gradient};border-color:${info.border};">
-          <div class="up-airline-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>
+          ${info.logo ? `<div class="up-airline-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>` : ''}
           <div class="up-airline-name">${escapeHtml(p.airline)}</div>
           <div class="up-route-mini">
             <span>${escapeHtml(p.outbound.from)}</span><span class="arrow">✈</span><span>${escapeHtml(p.outbound.to)}</span>
@@ -280,7 +288,12 @@ function buildFilterOptions() {
     });
   }
   const uniq = arr => Array.from(new Set(arr));
-  fill('up-cb-airline', uniq(ALL_PACKAGES.map(airlineClass)).map(c => [c, AIRLINE_LABEL[c] || c]));
+  const airlineLabels = {};
+  ALL_PACKAGES.forEach(p => {
+    const c = airlineClass(p);
+    if (!airlineLabels[c]) airlineLabels[c] = AIRLINE_LABEL[c] || p.airline || p.airlineCode || c;
+  });
+  fill('up-cb-airline', Object.entries(airlineLabels).sort((a, b) => a[1].localeCompare(b[1])));
   fill('up-cb-route',   uniq(ALL_PACKAGES.map(p => p.route)).sort().map(r => [r, r]));
   fill('up-cb-nights',  uniq(ALL_PACKAGES.map(p => Number(p.nights))).sort((a, b) => a - b).map(n => [String(n), n + ' Nights']));
 }

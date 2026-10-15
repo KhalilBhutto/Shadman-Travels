@@ -41,6 +41,16 @@
   line-height: 1.7;
 }
 
+.up-eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1a8a5c;
+  margin-bottom: 8px;
+}
+
 /* ── Filter Bar ── */
 .up-filters {
   display: flex;
