@@ -1,0 +1,60 @@
+# Keeps data/umrah-packages.json in step with the supplier's live package list.
+# Runs every hour, and on demand from the Actions tab ("Run workflow").
+# If nothing changed, nothing is committed. If something changed, it commits the
+# new JSON, waits for GitHub Pages to publish, then purges that one file from Cloudflare.
+name: Sync Umrah packages
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-umrah-packages
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch supplier packages and rebuild JSON
+        run: node scripts/sync-umrah-packages.js
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          if git diff --quiet -- data/umrah-packages.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No package changes."
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/umrah-packages.json
+            git commit -m "chore: sync Umrah packages from supplier"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Commits made by the workflow do not trigger the other purge workflow,
+      # so this job purges Cloudflare itself (only the JSON file).
+      - name: Purge Cloudflare cache for the JSON
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          sleep 90
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+            -H "Authorization: Bearer ${CF_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"files":["https://shadmantravels.com/data/umrah-packages.json","https://www.shadmantravels.com/data/umrah-packages.json"]}'

@@ -11,6 +11,9 @@
 'use strict';
 
 let ALL_PACKAGES = [];
+let CURRENT_LIST = [];      // packages matching the current filters
+let SHOWN = 0;              // how many cards are on screen
+const PAGE_SIZE = 24;       // cards added per click of "Show more"
 
 // Real per-airline colors (matched from reference site source)
 const AIRLINE_INFO = {
@@ -29,17 +32,35 @@ const AIRLINE_INFO = {
     gradient: 'linear-gradient(160deg, #6b0909 0%, #b91c1c 60%, #dc2626 100%)',
     border: 'rgba(248, 113, 113, 0.6)'
   },
+  sv: {
+    logo: '/images/airlines/saudia.png',
+    gradient: 'linear-gradient(160deg, #0b3d2e 0%, #00734a 55%, #3c8f6a 100%)',
+    border: '#3c8f6a'
+  },
 };
 
-function airlineClass(airline) {
-  if (airline.includes('Pakistan International')) return 'pia';
-  if (airline.includes('Fly Jinnah')) return 'fj';
-  if (airline.includes('AirBlue')) return 'ab';
+// Short name shown in the airline filter list
+const AIRLINE_LABEL = { pia: 'PIA', ab: 'AirBlue', fj: 'Fly Jinnah', sv: 'Saudia' };
+
+// Picks the colour theme from the airline CODE (PK, 9P, PA, SV), which the
+// supplier feed always provides. Falls back to the airline name, then to PIA.
+function airlineClass(p) {
+  const code = String(p.airlineCode || '').toUpperCase();
+  if (code === 'PK') return 'pia';
+  if (code === '9P') return 'fj';
+  if (code === 'PA') return 'ab';
+  if (code === 'SV') return 'sv';
+  const name = String(p.airline || '');
+  if (name.includes('Pakistan International')) return 'pia';
+  if (name.includes('Fly Jinnah')) return 'fj';
+  if (name.includes('AirBlue')) return 'ab';
+  if (name.includes('Saudi')) return 'sv';
+  console.warn('Unknown airline in Umrah data:', p.airlineCode, p.airline);
   return 'pia';
 }
 
 function fmtPrice(n) {
-  return n.toLocaleString('en-PK');
+  return (typeof n === 'number' && isFinite(n)) ? n.toLocaleString('en-PK') : 'Call us';
 }
 
 // Safely escape content before inserting into innerHTML — prevents
@@ -57,15 +78,20 @@ function mapsUrl(hotelName, city) {
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
+// Parses dates like "01 Sep 2026" explicitly (new Date("01 Sep 2026") is
+// non-standard and not guaranteed in every browser). Returns an invalid
+// Date if the text can't be understood.
 const MONTHS = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
 function parsePkgDate(str) {
   const m = String(str || '').trim().match(/^(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{4})$/);
   if (m && MONTHS[m[2].toLowerCase()] !== undefined) {
     return new Date(Number(m[3]), MONTHS[m[2].toLowerCase()], Number(m[1]));
   }
-  return new Date(str);
+  return new Date(str); // fallback: ISO strings etc.
 }
 
+// True while the outbound flight date is today or later. Packages whose
+// date can't be parsed are kept (and logged) rather than silently hidden.
 function isUpcoming(p) {
   const d = parsePkgDate(p.outbound && p.outbound.date);
   if (isNaN(d)) {
@@ -78,8 +104,9 @@ function isUpcoming(p) {
 }
 
 function packageCardHTML(p) {
-  const cls = airlineClass(p.airline);
+  const cls = airlineClass(p);
   const info = AIRLINE_INFO[cls];
+  const soldOut = !(p.seatsLeft > 0);
 
   return `
     <div class="up-card" data-airline="${cls}" data-nights="${p.nights}" data-price="${p.pricing.sharing}">
@@ -133,7 +160,7 @@ function packageCardHTML(p) {
           <div class="up-route-mini">
             <span>${escapeHtml(p.outbound.from)}</span><span class="arrow">✈</span><span>${escapeHtml(p.outbound.to)}</span>
           </div>
-          <div class="up-airline-status">✓ Available</div>
+          <div class="up-airline-status">${soldOut ? 'Sold Out' : '✓ Available'}</div>
           <div class="up-traveldate">
             <div class="td-label">📅 Travel Date</div>
             <div class="td-val">${escapeHtml(p.travelDate)}</div>
@@ -204,21 +231,58 @@ function packageCardHTML(p) {
   `;
 }
 
-function renderPackages(list) {
+function renderPackages(list, keepShown) {
+  CURRENT_LIST = list;
+  if (!keepShown) SHOWN = PAGE_SIZE;
   const grid = document.getElementById('upGrid');
   const count = document.getElementById('upResultsCount');
   if (!grid) return;
 
   if (!list.length) {
     grid.innerHTML = ALL_PACKAGES.length
-  ? '<div class="up-no-results">No packages match these filters — try widening your search, or WhatsApp us for the full list.</div>'
-  : '<div class="up-no-results">New Umrah packages are being finalised. <a href="https://wa.me/923000041510" target="_blank" rel="noopener">WhatsApp us</a> or call +92 300 0041510 for current dates and rates.</div>';
+      ? '<div class="up-no-results">No packages match these filters — try widening your search, or WhatsApp us for the full list.</div>'
+      : '<div class="up-no-results">New Umrah packages are being finalised. <a href="https://wa.me/923000041510" target="_blank" rel="noopener">WhatsApp us</a> or call +92 300 0041510 for current dates and rates.</div>';
     if (count) count.innerHTML = '';
     return;
   }
 
-  grid.innerHTML = list.map(packageCardHTML).join('');
-  if (count) count.innerHTML = `Showing <strong>${list.length}</strong> of <strong>${ALL_PACKAGES.length}</strong> packages`;
+  const visible = list.slice(0, SHOWN);
+  const more = list.length - visible.length;
+  grid.innerHTML = visible.map(packageCardHTML).join('') +
+    (more > 0
+      ? `<div class="up-showmore-wrap"><button type="button" id="upShowMore" class="up-reset-btn">Show ${Math.min(PAGE_SIZE, more)} more (${more} remaining)</button></div>`
+      : '');
+  if (count) count.innerHTML = `Showing <strong>${visible.length}</strong> of <strong>${list.length}</strong> matching packages` +
+    (list.length !== ALL_PACKAGES.length ? ` (${ALL_PACKAGES.length} in total)` : '');
+}
+
+// Builds the airline / route / nights checkbox lists from the packages that
+// are actually on sale, so new airlines or durations appear on their own.
+function buildFilterOptions() {
+  function fill(className, entries) {
+    const first = document.querySelector('.' + className);
+    if (!first) return;
+    const group = first.closest('.up-checkbox-group');
+    group.querySelectorAll('.up-checkbox-row').forEach(row => {
+      const input = row.querySelector('.' + className);
+      if (input && input.value !== 'all') row.remove();
+    });
+    entries.forEach(([value, label]) => {
+      const row = document.createElement('label');
+      row.className = 'up-checkbox-row';
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.className = className;
+      input.value = value;
+      row.appendChild(input);
+      row.appendChild(document.createTextNode(' ' + label));
+      group.appendChild(row);
+    });
+  }
+  const uniq = arr => Array.from(new Set(arr));
+  fill('up-cb-airline', uniq(ALL_PACKAGES.map(airlineClass)).map(c => [c, AIRLINE_LABEL[c] || c]));
+  fill('up-cb-route',   uniq(ALL_PACKAGES.map(p => p.route)).sort().map(r => [r, r]));
+  fill('up-cb-nights',  uniq(ALL_PACKAGES.map(p => Number(p.nights))).sort((a, b) => a - b).map(n => [String(n), n + ' Nights']));
 }
 
 function getCheckedValues(className) {
@@ -234,7 +298,7 @@ function applyFilters() {
   const sortValue = document.getElementById('upSort')?.value || 'dateAsc';
 
   let filtered = ALL_PACKAGES.filter(p => {
-    const cls = airlineClass(p.airline);
+    const cls = airlineClass(p);
 
     const textMatched = term === '' ||
       p.code.toLowerCase().includes(term) ||
@@ -254,7 +318,7 @@ function applyFilters() {
     if (sortValue === 'priceAsc')  return a.pricing.sharing - b.pricing.sharing;
     if (sortValue === 'priceDesc') return b.pricing.sharing - a.pricing.sharing;
     if (sortValue === 'dateDesc')  return parsePkgDate(b.outbound.date) - parsePkgDate(a.outbound.date);
-    return parsePkgDate(a.outbound.date) - parsePkgDate(b.outbound.date);
+    return parsePkgDate(a.outbound.date) - parsePkgDate(b.outbound.date); // dateAsc (default)
   });
 
   renderPackages(filtered);
@@ -264,11 +328,14 @@ document.addEventListener('DOMContentLoaded', function () {
   fetch('/data/umrah-packages.json')
     .then(res => res.json())
     .then(data => {
-    ALL_PACKAGES = data.filter(isUpcoming);
-    if (ALL_PACKAGES.length < data.length) {
-      console.info((data.length - ALL_PACKAGES.length) + ' departed package(s) hidden — update data/umrah-packages.json.');
-    }
-    applyFilters();
+      // Never show packages whose departure date has already passed.
+      ALL_PACKAGES = data.filter(isUpcoming);
+      if (ALL_PACKAGES.length < data.length) {
+        console.info((data.length - ALL_PACKAGES.length) + ' departed package(s) hidden — update data/umrah-packages.json.');
+      }
+      buildFilterOptions();
+      wireAllGroups();
+      applyFilters();
     })
     .catch(err => {
       console.error('Failed to load Umrah packages:', err);
@@ -296,9 +363,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  wireCheckboxGroup('up-cb-airline');
-  wireCheckboxGroup('up-cb-route');
-  wireCheckboxGroup('up-cb-nights');
+  function wireAllGroups() {
+    wireCheckboxGroup('up-cb-airline');
+    wireCheckboxGroup('up-cb-route');
+    wireCheckboxGroup('up-cb-nights');
+  }
 
   let searchTimer;
   const searchInput = document.getElementById('upSearch');
@@ -306,6 +375,17 @@ document.addEventListener('DOMContentLoaded', function () {
     searchInput.addEventListener('input', function () {
       clearTimeout(searchTimer);
       searchTimer = setTimeout(applyFilters, 150);
+    });
+  }
+
+  // "Show more" button (it is re-created on every render, so listen on the grid)
+  const gridEl = document.getElementById('upGrid');
+  if (gridEl) {
+    gridEl.addEventListener('click', function (e) {
+      if (e.target && e.target.id === 'upShowMore') {
+        SHOWN += PAGE_SIZE;
+        renderPackages(CURRENT_LIST, true);
+      }
     });
   }
 
