@@ -774,3 +774,169 @@
     align-items: stretch;
   }
 }
+
+/* ═══════════════════════════════════════════
+   TOP ANNOUNCEMENT BAR ("Featured Deals" ticker)
+   Values copied from the supplier's bar, with their Bootstrap
+   layout classes replaced by .ann-inner / .ann-actions.
+═══════════════════════════════════════════ */
+.top-announcement-bar {
+  background: linear-gradient(90deg, rgb(5, 29, 20) 0%, rgb(13, 70, 52) 50%, rgb(5, 29, 20) 100%);
+  border-bottom: 2px solid rgb(212, 175, 55);
+  color: rgb(255, 255, 255);
+  padding: 8px 0;
+  font-size: 0.88rem;
+  position: relative;
+  z-index: 1040;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 4px 15px;
+}
+
+.ann-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+
+.ann-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.announcement-badge {
+  background: linear-gradient(135deg, rgb(255, 8, 68) 0%, rgb(255, 78, 80) 100%);
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  box-shadow: rgba(255, 8, 68, 0.4) 0 2px 8px;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.announcement-badge .live-dot {
+  width: 7px;
+  height: 7px;
+  background: rgb(255, 230, 0);
+  border-radius: 50%;
+  display: inline-block;
+  animation: live-blink 1s ease infinite alternate;
+}
+
+/* These two animations were not in the copied code, so they are a close guess */
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); box-shadow: rgba(255, 8, 68, 0.4) 0 2px 8px; }
+  50%      { transform: scale(1.05); box-shadow: rgba(255, 8, 68, 0.7) 0 2px 14px; }
+}
+@keyframes live-blink {
+  from { opacity: 1; }
+  to   { opacity: 0.25; }
+}
+
+.announcement-ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  flex: 1 1 300px;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+}
+
+/* Supplier speed: 32s per loop, linear, moving half the track.
+   The script sets the real duration so the on-screen speed stays the same
+   whatever the text length. padding-right equals the gap so the loop has no jump. */
+.announcement-ticker-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: announcement-ticker-scroll 32s linear infinite;
+  gap: 15px;
+  padding-right: 15px;
+}
+
+.announcement-ticker-wrap:hover .announcement-ticker-track { animation-play-state: paused; }
+
+.announcement-slide-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: rgb(247, 243, 232);
+}
+
+.announcement-slide-item strong { color: rgb(255, 255, 255); font-weight: 700; }
+
+.announcement-separator {
+  color: rgb(212, 175, 55);
+  font-size: 1.1rem;
+  margin: 0 5px;
+}
+
+@keyframes announcement-ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.announcement-cta-btn {
+  background: linear-gradient(135deg, rgb(212, 175, 55) 0%, rgb(246, 211, 101) 100%);
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 4px 14px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: rgba(212, 175, 55, 0.3) 0 3px 10px;
+  white-space: nowrap;
+  color: rgb(13, 59, 46) !important;
+}
+
+.announcement-cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: rgba(212, 175, 55, 0.5) 0 5px 15px;
+  color: rgb(0, 0, 0) !important;
+}
+
+.btn-close-announcement {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.btn-close-announcement:hover { color: rgb(255, 78, 80); }
+
+@media (max-width: 600px) {
+  .ann-inner { padding: 0 12px; gap: 10px; }
+  .announcement-cta-btn { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-ticker-track, .announcement-badge, .announcement-badge .live-dot { animation: none; }
+}

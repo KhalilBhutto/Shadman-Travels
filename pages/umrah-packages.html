@@ -25,6 +25,20 @@
 </head>
 <body>
 
+<!-- Top "Featured Deals" announcement bar (filled in by js/umrah-packages.js) -->
+<div class="top-announcement-bar" id="announcementBar" hidden>
+  <div class="ann-inner">
+    <span class="announcement-badge"><span class="live-dot"></span><i class="fa-solid fa-bullhorn"></i> Featured Deals</span>
+    <div class="announcement-ticker-wrap">
+      <div class="announcement-ticker-track" id="announcementTrack"></div>
+    </div>
+    <div class="ann-actions">
+      <a href="#upGrid" class="announcement-cta-btn"><i class="fa-solid fa-fire"></i> View All Deals</a>
+      <button type="button" class="btn-close-announcement" id="announcementClose" aria-label="Dismiss announcement" title="Dismiss announcement">&times;</button>
+    </div>
+  </div>
+</div>
+
 <!-- INCLUDE:navbar -->
 <nav id="navbar">
     <div class="nav-inner">
