@@ -291,3 +291,15 @@ nav.scrolled {
   opacity: 1;
   visibility: visible;
 }
+
+/* ── Nine menu links: tighten a little on mid-size screens so they stay on one line,
+      and switch to the hamburger menu a bit earlier than before (1100px instead of 900px) ── */
+.nav-link { white-space: nowrap; }
+@media (max-width: 1280px) {
+  .nav-menu { gap: 16px; }
+  .nav-link { font-size: 0.76rem; letter-spacing: 0.04em; }
+}
+@media (max-width: 1100px) {
+  .nav-menu { display: none; }
+  .hamburger { display: flex; }
+}

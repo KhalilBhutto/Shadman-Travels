@@ -941,3 +941,28 @@
 @media (prefers-reduced-motion: reduce) {
   .announcement-ticker-track, .announcement-badge, .announcement-badge .live-dot { animation: none; }
 }
+
+/* ── Hotel photo: zoom cursor + "Pictures" link (js/hotel-pictures.js) ── */
+/* the photo box must be the positioning parent */
+.up-hotel-imgph { position: relative; }
+.up-hotel-zoom { position: absolute; inset: 0; display: block; cursor: zoom-in; }
+.up-hotel-zoom img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+.up-hotel:hover .up-hotel-zoom img { transform: scale(1.06); }
+.up-hotel-zoom-icon {
+  position: absolute; right: 10px; bottom: 10px;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 0.9rem;
+  opacity: 0; transform: scale(0.85); transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.up-hotel-zoom:hover .up-hotel-zoom-icon { opacity: 1; transform: scale(1); }
+.up-hotel-pictures { display: inline-block; margin-top: 4px; font-size: 0.9rem; font-weight: 600; color: #0d6efd; text-decoration: underline; }
+.up-hotel-pictures:hover { color: #0a58ca; }
+@media (hover: none) { .up-hotel-zoom-icon { opacity: 1; } }   /* phones have no hover: always show the icon */
+
+/* ── Taller hotel photo (same shape as the supplier's: wide 16:9 picture) ── */
+.up-hotel-imgph {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+}
