@@ -192,6 +192,7 @@
   <script src="js/notify.js" defer></script>
   <script src="js/animations.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/umrah-home.js" defer></script>
 
 </head>
 <body>
@@ -526,6 +527,9 @@
                 <div class="ticket-field-wrap"><i class="fas fa-envelope ticket-field-icon"></i><input id="htEmail" type="email" placeholder="Email (optional)"></div>
                 <div class="ticket-field-wrap"><i class="fas fa-note-sticky ticket-field-icon ticket-field-icon-top"></i><textarea id="htNotes" placeholder="Special requests (optional) — e.g. aisle seat, infant equipment"></textarea></div>
 
+                <input type="text" id="htWebsite" name="website" autocomplete="off" tabindex="-1" aria-hidden="true"
+                       style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+                <div id="htTurnstile" style="margin-bottom:8px"></div>
                 <button class="ticket-submit-btn" id="htSubmit">✈ Confirm &amp; Get Exclusive Fare</button>
 
                 <div class="ticket-empty-note" id="htEmptyNote">Fill in the search widget above to complete your itinerary first</div>
@@ -647,78 +651,13 @@
       <p class="sec-sub light">Guided, dependable Umrah packages — flights, hotels &amp; Ziyarat, arranged with the same care as every booking we make.</p>
       <div class="umrah-pills">
         <span class="umrah-pill">🕋 Guided Umrah Packages</span>
-        <span class="umrah-pill">✈ 3 Airline Partners</span>
+        <span class="umrah-pill" id="umrahPillAirlines">✈ Airline Partners</span>
         <span class="umrah-pill">⭐ 81k+ Happy Customers</span>
       </div>
     </div>
 
-    <div class="umrah-grid">
-
-      <!-- Economy -->
-      <div class="umrah-card reveal delay-1">
-        <div class="umrah-tier">Economy</div>
-        <div class="umrah-stars">★★★</div>
-        <h3 class="umrah-name">10 Nights</h3>
-        <div class="umrah-meta">5 Makkah + 5 Madinah</div>
-        <div class="umrah-divider"></div>
-        <div class="umrah-hotel">3-Star Hotel</div>
-        <ul class="umrah-features">
-          <li>Return airfare (Karachi/Lahore/Islamabad)</li>
-          <li>Umrah visa processing</li>
-          <li>Hotel stay in Makkah &amp; Madinah</li>
-          <li>Airport &amp; Ziyarat transfers</li>
-        </ul>
-        <div class="umrah-price-row">
-          <div class="umrah-price">PKR <span>165,000</span></div>
-          <div class="umrah-price-label">Starting From · Per Person</div>
-        </div>
-        <button class="notify-btn umrah-enquire" data-service="Umrah Package — Economy">Enquire Now</button>
-      </div>
-
-      <!-- Standard (featured) -->
-      <div class="umrah-card umrah-featured reveal delay-2">
-        <div class="umrah-tier">★ Standard — Most Popular</div>
-        <div class="umrah-stars">★★★★</div>
-        <h3 class="umrah-name">12 Nights</h3>
-        <div class="umrah-meta">6 Makkah + 6 Madinah</div>
-        <div class="umrah-divider"></div>
-        <div class="umrah-hotel">4-Star Hotel, Near Haram</div>
-        <ul class="umrah-features">
-          <li>Return airfare (Karachi/Lahore/Islamabad)</li>
-          <li>Umrah visa processing</li>
-          <li>Hotel stay in Makkah &amp; Madinah</li>
-          <li>Guided Ziyarat tours</li>
-          <li>Airport &amp; intercity transfers</li>
-        </ul>
-        <div class="umrah-price-row">
-          <div class="umrah-price">PKR <span>245,000</span></div>
-          <div class="umrah-price-label">Starting From · Per Person</div>
-        </div>
-        <button class="notify-btn umrah-enquire" data-service="Umrah Package — Standard">Enquire Now</button>
-      </div>
-
-      <!-- Premium -->
-      <div class="umrah-card reveal delay-3">
-        <div class="umrah-tier">Premium</div>
-        <div class="umrah-stars">★★★★★</div>
-        <h3 class="umrah-name">14 Nights</h3>
-        <div class="umrah-meta">7 Makkah + 7 Madinah</div>
-        <div class="umrah-divider"></div>
-        <div class="umrah-hotel">5-Star Hotel, Walking Distance to Haram</div>
-        <ul class="umrah-features">
-          <li>Return airfare (Karachi/Lahore/Islamabad)</li>
-          <li>Umrah visa processing</li>
-          <li>Premium hotel stay, Haram-view options</li>
-          <li>Private guided Ziyarat tours</li>
-          <li>VIP airport &amp; intercity transfers</li>
-        </ul>
-        <div class="umrah-price-row">
-          <div class="umrah-price">PKR <span>385,000</span></div>
-          <div class="umrah-price-label">Starting From · Per Person</div>
-        </div>
-        <button class="notify-btn umrah-enquire" data-service="Umrah Package — Premium">Enquire Now</button>
-      </div>
-
+    <div class="umrah-grid" id="umrahHomeGrid">
+      <p class="umrah-loading" style="grid-column:1/-1;text-align:center;color:#f5f2ea">Loading current packages…</p>
     </div><!-- /umrah-grid -->
 
     <div class="umrah-below reveal">

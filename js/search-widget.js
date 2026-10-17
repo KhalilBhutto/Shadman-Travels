@@ -749,8 +749,45 @@ function showFieldError(el) { if (el) el.classList.add('input-error'); }
 function clearFieldError(el) { if (el) el.classList.remove('input-error'); }
 
 /* ─── SUBMIT — same payload contract as the original submitToSheets() ─── */
+
+/* ─── CLOUDFLARE TURNSTILE ─── */
+let tsToken = '';
+let tsWidgetId = null;
+
+function turnstileEnabled() {
+  return typeof TURNSTILE_SITE_KEY !== 'undefined' && TURNSTILE_SITE_KEY.indexOf('PASTE_') !== 0;
+}
+
+function initTurnstile() {
+  const host = document.getElementById('htTurnstile');
+  if (!turnstileEnabled() || !host) return;
+  const s = document.createElement('script');
+  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  s.async = true;
+  s.defer = true;
+  s.onload = function () {
+    tsWidgetId = turnstile.render(host, {
+      sitekey: TURNSTILE_SITE_KEY,
+      appearance: 'interaction-only',
+      callback: function (t) { tsToken = t; },
+      'expired-callback': function () { tsToken = ''; },
+      'error-callback': function () { tsToken = ''; },
+    });
+  };
+  document.head.appendChild(s);
+}
+
+function resetTurnstile() {
+  tsToken = '';
+  if (tsWidgetId !== null && typeof turnstile !== 'undefined') turnstile.reset(tsWidgetId);
+}
+
 function submitTicketEnquiry() {
   document.activeElement.blur();
+
+  // Honeypot: a filled hidden field means a bot, so drop it silently.
+  const hp = document.getElementById('htWebsite');
+  if (hp && hp.value.trim() !== '') return;
 
   const btn = document.getElementById('htSubmit');
   const toastEl = document.getElementById('htToast');
@@ -846,6 +883,15 @@ function submitTicketEnquiry() {
     return;
   }
 
+  if (turnstileEnabled()) {
+    if (!tsToken) {
+      errEl.textContent = '⚠ Security check is still loading — please wait a moment and tap again.';
+      errEl.style.display = 'block';
+      return;
+    }
+    payload.turnstileToken = tsToken;
+  }
+
   btn.classList.add('loading');
   btn.innerHTML = '⏳ Sending Enquiry...';
 
@@ -868,6 +914,7 @@ function submitTicketEnquiry() {
 
       btn.classList.remove('loading');
       btn.innerHTML = '✈ Confirm &amp; Get Exclusive Fare';
+      resetTurnstile();
 
       saveRecentSearch();
       [nameInput, phoneInput, emailInput, notesInput].forEach(el => { el.value = ''; });
@@ -880,12 +927,15 @@ function submitTicketEnquiry() {
       errEl.style.display = 'block';
       btn.classList.remove('loading');
       btn.innerHTML = '✈ Confirm &amp; Get Exclusive Fare';
+      resetTurnstile();
     });
 }
 
 /* ─── INIT (runs once DOM is ready) ─── */
 document.addEventListener('DOMContentLoaded', function () {
   if (!document.getElementById('fromField')) return; // widget not on this page
+
+  initTurnstile();
 
   document.addEventListener('click', (e) => {
     const path = typeof e.composedPath === 'function' ? e.composedPath() : [e.target];

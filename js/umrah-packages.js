@@ -111,6 +111,13 @@ function isUpcoming(p) {
   return d >= today;
 }
 
+// Hotel photo: uses the saved photo when there is one, otherwise the placeholder icon
+function hotelPhoto(h, icon) {
+  if (!h || !h.image) return icon;
+  return '<img src="/' + escapeHtml(h.image) + '" alt="' + escapeHtml(h.name) + '" loading="lazy" decoding="async" ' +
+         'onerror="this.replaceWith(document.createTextNode(\'' + icon + '\'))">';
+}
+
 function packageCardHTML(p) {
   const cls = airlineClass(p);
   const info = AIRLINE_INFO[cls] || OTHER_AIRLINE;
@@ -186,7 +193,7 @@ function packageCardHTML(p) {
             <div class="up-hotel-name">${escapeHtml(p.makkahHotel.name)}</div>
             <div class="up-hotel-nights">🌙 ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
             <div class="up-hotel-loc">📍 ${escapeHtml(p.makkahHotel.location)}</div>
-            <div class="up-hotel-imgph">🕋</div>
+            <div class="up-hotel-imgph">${hotelPhoto(p.makkahHotel, '🕋')}</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener">📍 View Location</a>
           </div>
 
@@ -195,7 +202,7 @@ function packageCardHTML(p) {
             <div class="up-hotel-name">${escapeHtml(p.madinahHotel.name)}</div>
             <div class="up-hotel-nights">🌙 ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
             <div class="up-hotel-loc">📍 ${escapeHtml(p.madinahHotel.location)}</div>
-            <div class="up-hotel-imgph">🕌</div>
+            <div class="up-hotel-imgph">${hotelPhoto(p.madinahHotel, '🕌')}</div>
             <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener">📍 View Location</a>
           </div>
 
@@ -300,7 +307,7 @@ function buildFilterOptions() {
 
 // ── Top "Featured Deals" bar ─────────────────────────────────────────────
 // The text mentions only airlines that really have packages on sale right now.
-const ANN_PX_PER_SEC = 50;   // scroll speed, close to the supplier's 32s loop
+const ANN_PX_PER_SEC = 34;   // scroll speed, close to the supplier's 32s loop
 
 function airlineNamesText() {
   const labels = {};
