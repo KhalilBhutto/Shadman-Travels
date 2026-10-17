@@ -80,6 +80,7 @@
         var html = buildCards(list);
         if (!html) throw new Error('no packages');
         grid.innerHTML = html;
+grid.setAttribute('data-count', grid.children.length);
         var pill = document.getElementById('umrahPillCount');
         if (pill) pill.textContent = '🕋 ' + list.length + ' Live Packages';
         var ap = document.getElementById('umrahPillAirlines');
@@ -91,6 +92,7 @@
         if (all) all.textContent = 'all ' + list.length + ' packages';
       })
       .catch(function () {
+        grid.removeAttribute('data-count');
         grid.innerHTML = '<p class="umrah-loading" style="grid-column:1/-1;text-align:center;color:#f5f2ea">New Umrah packages are being finalised. ' +
           '<a href="https://wa.me/923000041510" target="_blank" rel="noopener">WhatsApp us</a> for current dates and rates.</p>';
       });
