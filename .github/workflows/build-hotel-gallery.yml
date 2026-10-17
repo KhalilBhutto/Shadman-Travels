@@ -1,0 +1,29 @@
+name: Build hotel gallery list
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/hotels/**'
+      - 'scripts/build-hotel-gallery.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/build-hotel-gallery.js
+      - name: Commit the list if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/hotel-gallery.json
+          git diff --cached --quiet || git commit -m "Update hotel gallery list"
+          git push

@@ -80,7 +80,7 @@
         var html = buildCards(list);
         if (!html) throw new Error('no packages');
         grid.innerHTML = html;
-grid.setAttribute('data-count', grid.children.length);
+        grid.setAttribute('data-count', grid.children.length);   // 1, 2 or 3 cards -> CSS centres them
         var pill = document.getElementById('umrahPillCount');
         if (pill) pill.textContent = '🕋 ' + list.length + ' Live Packages';
         var ap = document.getElementById('umrahPillAirlines');
