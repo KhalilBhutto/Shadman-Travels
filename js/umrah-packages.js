@@ -111,17 +111,38 @@ function isUpcoming(p) {
   return d >= today;
 }
 
-// Hotel photo: uses the saved photo when there is one, otherwise the placeholder icon
+// Hotel photo: the placeholder icon is always there; the photo is laid over it and hides itself if it fails to load
 function hotelPhoto(h, icon) {
   if (!h || !h.image) return icon;
-  return '<img src="/' + escapeHtml(h.image) + '" alt="' + escapeHtml(h.name) + '" loading="lazy" decoding="async" ' +
-         'onerror="this.replaceWith(document.createTextNode(\'' + icon + '\'))">';
+  return icon + '<img src="/' + escapeHtml(h.image) + '" alt="' + escapeHtml(h.name) + '" loading="lazy" decoding="async" ' +
+         'onerror="this.style.display=\'none\'">';
+}
+
+// "PA - 170" style (the supplier writes a space around the dash)
+function spacedFlightNo(n) { return String(n || '').replace(/\s*-\s*/, ' - '); }
+// 18 Oct 2026 -> 18OCT
+function compactDay(d) { const m = String(d || '').match(/^(\d{2}) (\w{3})/); return m ? m[1] + m[2].toUpperCase() : ''; }
+
+function flightCellHTML(leg, label) {
+  return `
+        <div class="up-flight-cell">
+          <div class="fc-value fc-small">
+            <strong><i class="fa-solid fa-plane"></i> ${escapeHtml(spacedFlightNo(leg.flightNo))}</strong>
+            <span class="fc-badge"><i class="fa-solid fa-plane-departure"></i>${escapeHtml(leg.from)} &rarr; ${escapeHtml(leg.to)}</span>
+            <i class="fa-solid fa-calendar-check"></i> ${escapeHtml(leg.date)}
+            <div class="fc-times"><span><i class="fa-solid fa-clock"></i> ${escapeHtml(leg.depTime)}</span> <span><i class="fa-solid fa-clock"></i> ${escapeHtml(leg.arrTime)}</span></div>
+            ${leg.baggage ? `<div class="fc-bag"><i class="fa-solid fa-suitcase"></i> Baggage: <strong>${escapeHtml(leg.baggage)}</strong></div>` : ''}
+          </div>
+          <div class="fc-label">${label}</div>
+        </div>`;
 }
 
 function packageCardHTML(p) {
   const cls = airlineClass(p);
   const info = AIRLINE_INFO[cls] || OTHER_AIRLINE;
   const soldOut = !(p.seatsLeft > 0);
+  const title = escapeHtml(p.airlineCode) + '|' + escapeHtml(p.nights) + 'N|' +
+                compactDay(p.outbound.date) + '-' + compactDay(p.return.date) + '|' + escapeHtml(p.route);
 
   return `
     <div class="up-card" data-airline="${cls}" data-nights="${p.nights}" data-price="${p.pricing.sharing}">
@@ -129,30 +150,18 @@ function packageCardHTML(p) {
       <div class="up-avail-badge">${escapeHtml(p.status)}</div>
 
       <div class="up-topbar">
-        <div class="up-topbar-code">${escapeHtml(p.code)} &nbsp;|&nbsp; ${escapeHtml(p.airlineCode)} &nbsp;|&nbsp; ${escapeHtml(p.route)}</div>
+        <div class="up-topbar-code">${title}</div>
       </div>
 
       <div class="up-flightrow">
+        ${flightCellHTML(p.outbound, 'Departure')}
+        ${flightCellHTML(p.return, 'Arrival')}
         <div class="up-flight-cell">
-          <div class="fc-title">✈ ${escapeHtml(p.outbound.flightNo)}</div>
-          <div class="fc-route">${escapeHtml(p.outbound.from)} → ${escapeHtml(p.outbound.to)}</div>
-          <div class="fc-times">${escapeHtml(p.outbound.depTime)} → ${escapeHtml(p.outbound.arrTime)}</div>
-          ${p.outbound.baggage ? `<div class="fc-sub">Baggage: ${escapeHtml(p.outbound.baggage)}</div>` : ''}
-          <div class="fc-label">Departure · ${escapeHtml(p.outbound.date)}</div>
-        </div>
-        <div class="up-flight-cell">
-          <div class="fc-title">✈ ${escapeHtml(p.return.flightNo)}</div>
-          <div class="fc-route">${escapeHtml(p.return.from)} → ${escapeHtml(p.return.to)}</div>
-          <div class="fc-times">${escapeHtml(p.return.depTime)} → ${escapeHtml(p.return.arrTime)}</div>
-          ${p.return.baggage ? `<div class="fc-sub">Baggage: ${escapeHtml(p.return.baggage)}</div>` : ''}
-          <div class="fc-label">Arrival · ${escapeHtml(p.return.date)}</div>
-        </div>
-        <div class="up-flight-cell">
-          <div class="fc-title">✈ ${escapeHtml(p.outbound.from)} - ${escapeHtml(p.outbound.to)}</div>
+          <div class="fc-value"><i class="fa-solid fa-plane"></i> ${escapeHtml(p.outbound.from)} - ${escapeHtml(p.outbound.to)}</div>
           <div class="fc-label">Flight</div>
         </div>
         <div class="up-flight-cell">
-          <div class="fc-title">🌙 ${escapeHtml(p.nights)} Nights</div>
+          <div class="fc-value"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.nights)} Nights</div>
           <div class="fc-label">Duration</div>
         </div>
         <div class="up-flight-cell up-codes" style="background:${info.gradient};border-color:${info.border};">
@@ -173,16 +182,17 @@ function packageCardHTML(p) {
           ${info.logo ? `<div class="up-airline-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>` : ''}
           <div class="up-airline-name">${escapeHtml(p.airline)}</div>
           <div class="up-route-mini">
-            <span>${escapeHtml(p.outbound.from)}</span><span class="arrow">✈</span><span>${escapeHtml(p.outbound.to)}</span>
+            <span>${escapeHtml(p.outbound.from)}</span><span class="arrow"><i class="fa-solid fa-plane"></i></span><span>${escapeHtml(p.outbound.to)}</span>
           </div>
-          <div class="up-airline-status">${soldOut ? 'Sold Out' : '✓ Available'}</div>
+          <div class="up-airline-status">${soldOut ? 'Sold Out' : '<i class="fa-solid fa-circle-check"></i> Available'}</div>
           <div class="up-traveldate">
-            <div class="td-label">📅 Travel Date</div>
+            <div class="td-label"><i class="fa-solid fa-calendar-days"></i> TRAVEL DATE</div>
             <div class="td-val">${escapeHtml(p.travelDate)}</div>
           </div>
           <div class="up-seatsleft">
             <span class="sl-num">${escapeHtml(p.seatsLeft)}</span>
-            <span class="sl-label">Seats Left</span>
+            <span class="sl-label">SEATS LEFT</span>
+            <span class="seat-live-dot"></span>
           </div>
         </div>
 
@@ -191,19 +201,19 @@ function packageCardHTML(p) {
           <div class="up-hotel">
             <div class="up-hotel-label">Makkah Hotel</div>
             <div class="up-hotel-name">${escapeHtml(p.makkahHotel.name)}</div>
-            <div class="up-hotel-nights">🌙 ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
-            <div class="up-hotel-loc">📍 ${escapeHtml(p.makkahHotel.location)}</div>
-            <div class="up-hotel-imgph">${hotelPhoto(p.makkahHotel, '🕋')}</div>
-            <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener">📍 View Location</a>
+            <div class="up-hotel-nights"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
+            <div class="up-hotel-loc"><i class="fa-solid fa-location-arrow"></i> ${escapeHtml(p.makkahHotel.location)}</div>
+            <div class="up-hotel-imgph">${hotelPhoto(p.makkahHotel, '<i class="fa-solid fa-kaaba"></i>')}</div>
+            <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View Location</a>
           </div>
 
           <div class="up-hotel">
             <div class="up-hotel-label">Madinah Hotel</div>
             <div class="up-hotel-name">${escapeHtml(p.madinahHotel.name)}</div>
-            <div class="up-hotel-nights">🌙 ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
-            <div class="up-hotel-loc">📍 ${escapeHtml(p.madinahHotel.location)}</div>
-            <div class="up-hotel-imgph">${hotelPhoto(p.madinahHotel, '🕌')}</div>
-            <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener">📍 View Location</a>
+            <div class="up-hotel-nights"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
+            <div class="up-hotel-loc"><i class="fa-solid fa-location-arrow"></i> ${escapeHtml(p.madinahHotel.location)}</div>
+            <div class="up-hotel-imgph">${hotelPhoto(p.madinahHotel, '<i class="fa-solid fa-mosque"></i>')}</div>
+            <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View Location</a>
           </div>
 
         </div>
@@ -217,12 +227,12 @@ function packageCardHTML(p) {
           <div class="up-price-row"><span class="pr-label">Infant</span><span class="pr-val">${fmtPrice(p.pricing.infant)}</span></div>
 
           <div class="up-gifted-box">
-            <div class="gb-title">🎁 Complimentary Gifted Services</div>
+            <div class="gb-title"><i class="fa-solid fa-gift"></i> Complimentary Gifted Services</div>
             <div class="gb-grid">
-              <span>⛰ Taif Ziyarat</span>
-              <span>🕋 Umrah from Taif</span>
-              <span>🕋 Makkah Ziyarat</span>
-              <span>🕋 Madina Ziyarat</span>
+              <span><i class="fa-solid fa-mountain"></i>Taif Ziyarat</span>
+              <span><i class="fa-solid fa-kaaba"></i>Umrah from Taif</span>
+              <span><i class="fa-solid fa-kaaba"></i>Makkah Ziyarat</span>
+              <span><i class="fa-solid fa-kaaba"></i>Madina Ziyarat</span>
             </div>
           </div>
 
@@ -235,11 +245,11 @@ function packageCardHTML(p) {
 
       <div class="up-included-heading">Included Services</div>
       <div class="up-included-row">
-        <div class="ir-item">🏨<span>Accommodation</span></div>
-        <div class="ir-item">🚌<span>Transport</span></div>
-        <div class="ir-item">📋<span>Visa</span></div>
-        <div class="ir-item">🎫<span>Return Ticket</span></div>
-        <div class="ir-item">🛎<span>Premium Support</span></div>
+        <div class="ir-item"><i class="fa-solid fa-hotel"></i><span>Accommodation</span></div>
+        <div class="ir-item"><i class="fa-solid fa-bus"></i><span>Transport</span></div>
+        <div class="ir-item"><i class="fa-solid fa-passport"></i><span>Visa</span></div>
+        <div class="ir-item"><i class="fa-solid fa-ticket"></i><span>Return Ticket</span></div>
+        <div class="ir-item"><i class="fa-solid fa-bell-concierge"></i><span>Premium Support</span></div>
       </div>
 
     </div>

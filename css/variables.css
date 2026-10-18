@@ -142,3 +142,33 @@
   --shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
   --r:      14px;
 }
+
+/* ── Open Sans (self-hosted, latin) — used by the package cards and the hotel gallery ── */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/open-sans/open-sans-v5-latin-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/open-sans/open-sans-v5-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/open-sans/open-sans-v5-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/open-sans/open-sans-v5-latin-800.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

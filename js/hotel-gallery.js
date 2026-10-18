@@ -126,7 +126,7 @@
     return new Promise(function (ok, fail) {
       if (window.JSZip) return ok();
       var s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      s.src = '/js/vendor/jszip.min.js';        // self-hosted (the site only allows files from this repo)
       s.onload = ok; s.onerror = fail; document.head.appendChild(s);
     });
   }
@@ -155,14 +155,26 @@
   document.addEventListener('DOMContentLoaded', function () {
     bindLb();
     var want = new URLSearchParams(location.search).get('hotel') || '';
-    fetch('/data/hotel-gallery.json')
-      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
-      .then(function (data) {
-        var all = (data.hotels || []).filter(function (h) { return h.images && h.images.length; });
+    // Hotels currently on sale (from the live packages file). Used only to decide which
+    // hotels appear in the "More hotels" lists - any hotel can still be opened by its direct link.
+    var onSale = fetch('/data/umrah-packages.json').then(function (r) { return r.json(); }).then(function (pk) {
+      var set = {};
+      pk.forEach(function (p) {
+        if (p.makkahHotel) set[keyOf(p.makkahHotel.name)] = 1;
+        if (p.madinahHotel) set[keyOf(p.madinahHotel.name)] = 1;
+      });
+      return set;
+    }).catch(function () { return null; });          // if it fails, show every hotel
+
+    Promise.all([fetch('/data/hotel-gallery.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }), onSale])
+      .then(function (res) {
+        var all = (res[0].hotels || []).filter(function (h) { return h.images && h.images.length; });
+        var set = res[1];
+        var listed = set ? all.filter(function (h) { return set[h.key]; }) : all;
         var k = keyOf(want);
         var hit = k && all.filter(function (h) { return h.key === k; })[0];
-        if (hit) { renderHotel(hit); renderOthers(all, hit.key); }
-        else renderIndex(all, want);
+        if (hit) { renderHotel(hit); renderOthers(listed, hit.key); }
+        else renderIndex(listed, want);
       })
       .catch(function () {
         $('hgTitle').textContent = 'Hotel Photo Gallery';

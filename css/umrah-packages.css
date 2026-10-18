@@ -966,3 +966,284 @@
   aspect-ratio: 16 / 9;
   max-width: 100%;
 }
+
+/* ============================================================
+   CARD RESTYLE — matches the supplier's Umrah package card
+   (added at the very end of css/umrah-packages.css so it wins)
+   ============================================================ */
+
+/* Font used inside the card (supplier uses Open Sans) */
+.up-card { font-family: 'Open Sans', 'DM Sans', sans-serif; }
+
+/* ── Outline: 5px in the airline colour, small corner radius ── */
+.up-card {
+  border: 5px solid #14513f;
+  border-radius: 10px;
+  zoom: 1;
+}
+.up-card[data-airline="pia"] { border-color: #005432; }
+.up-card[data-airline="ab"]  { border-color: #061d56; }
+.up-card[data-airline="sv"]  { border-color: #006631; }
+.up-card[data-airline="fj"]  { border-color: #dc2626; }
+
+/* ── Top strip: package title ── */
+.up-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.up-topbar::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 165px;
+  background: linear-gradient(90deg, rgba(13, 59, 46, .20) 0%, rgba(13, 59, 46, 0) 100%);
+  opacity: .65;
+}
+.up-topbar-code {
+  position: relative;
+  z-index: 1;
+  margin-left: 140px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0D3B2E;
+  letter-spacing: .2px;
+}
+
+/* ── Flight row ── */
+.up-flight-cell {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid rgba(200, 164, 77, .22);
+  background: rgba(255, 255, 255, .9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.up-flight-cell .fc-value {
+  color: #0D3B2E;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+.up-flight-cell .fc-value.fc-small { font-size: 1.05rem; font-weight: 600; }
+.up-flight-cell .fc-value i { margin-right: 4px; }
+.up-flight-cell .fc-badge {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 2px 8px;
+  font-size: .75rem;
+  font-weight: 600;
+  color: #212529;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+.up-flight-cell .fc-badge i { margin-right: 4px; color: #6c757d; }
+.up-flight-cell .fc-bag {
+  margin-top: 4px;
+  font-size: .85em;
+  font-weight: 400;
+  color: #6c757d;
+}
+.up-flight-cell .fc-label {
+  text-transform: uppercase;
+  font-size: .82rem;
+  letter-spacing: .8px;
+  color: #6a6a6a;
+  margin-top: 4px;
+}
+
+/* Package / Group code box */
+.up-codes { padding: 12px 14px; border-radius: 12px; gap: 6px; }
+.up-codes .pc-label { font-size: .82rem; opacity: .8; text-transform: none; letter-spacing: 0; }
+.up-codes .pc-val   { font-size: 1.05rem; font-weight: 700; }
+
+/* ── Airline panel ── */
+.up-airline-logo {
+  width: 118px;
+  height: 118px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f5ee 100%);
+  border: 1px solid rgba(200, 164, 77, .45);
+  box-shadow: 0 8px 18px rgba(15, 61, 46, .10);
+  padding: 10px;
+  margin: 0 auto 10px;
+}
+.up-airline-logo img { max-width: 86%; max-height: 86%; width: auto; height: auto; }
+.up-airline-name { font-size: .95rem; }
+.up-airline-status { font-size: 1rem; }
+.up-airline-status i { margin-right: 4px; }
+.up-route-mini span { font-size: 1rem; }
+.up-route-mini .arrow i { font-size: .8rem; }
+
+/* Travel date box */
+.up-traveldate, .up-seatsleft { box-sizing: border-box; }
+.up-traveldate {
+  margin: 6px auto 4px;
+  width: 100%;
+  max-width: 165px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(212, 175, 55, .4) 0%, rgba(0, 0, 0, .65) 100%);
+  border: 2px solid #D4AF37;
+  border-radius: 14px;
+  padding: 8px 6px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .4), inset 0 0 12px rgba(212, 175, 55, .25);
+}
+.up-traveldate .td-label {
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #FCE8B3;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 4px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.up-traveldate .td-val {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, .8), 0 0 10px rgba(212, 175, 55, .4);
+}
+
+/* Seats left box */
+.up-seatsleft {
+  position: relative;
+  margin: 4px auto 0;
+  width: 100%;
+  max-width: 165px;
+  text-align: center;
+  font-size: 3.1rem;
+  line-height: 1.05;
+  font-weight: 800;
+  color: #D4AF37;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .08) 0%, rgba(255, 255, 255, .02) 100%);
+  border: 1px solid rgba(212, 175, 55, .6);
+  border-radius: 16px;
+  padding: 8px 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .24);
+  text-shadow: 0 4px 12px rgba(212, 175, 55, .35);
+}
+.up-seatsleft .sl-num {
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 800;
+  background: linear-gradient(180deg, #fbe7a9 0%, #D4AF37 55%, #b88e24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2));
+}
+.up-seatsleft .sl-label {
+  display: block;
+  font-size: .9rem;
+  color: #f1e8cf;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 1;
+  text-shadow: none;
+}
+.seat-live-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #79ffad;
+  box-shadow: 0 0 0 0 rgba(121, 255, 173, .5);
+}
+
+/* ── Hotels ── */
+.up-hotels-wrap { border: 1px solid #EDEDED; background: rgba(255, 255, 255, .82); }
+.up-hotel-label { font-size: .88rem; letter-spacing: 1.1px; color: #9b7c2f; }
+.up-hotel-name {
+  font-weight: 800;
+  color: #0D3B2E;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.2em;
+}
+.up-hotel-nights, .up-hotel-loc { font-size: 1rem; font-weight: 600; color: #6c757d; margin-top: 4px; }
+.up-hotel i { margin-right: 4px; }
+.up-hotel-imgph { font-size: 3rem; }
+.up-hotel-imgph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.up-hotel-viewloc { font-size: 1rem; font-weight: 600; color: #0d6efd; text-decoration: none; margin-top: 10px; }
+.up-hotel-viewloc:hover { text-decoration: underline; }
+
+/* ── Price box: header takes the airline colour ── */
+.up-price-title { background: linear-gradient(120deg, #0D3B2E 0%, #14513f 55%, #0f5b46 100%); }
+.up-card[data-airline="pia"] .up-price-title { background: linear-gradient(160deg, #005432 0%, #005432 10%, #ba9d11 100%); }
+.up-card[data-airline="ab"]  .up-price-title { background: linear-gradient(160deg, #061d56 0%, #153375 60%, #828282 100%); }
+.up-card[data-airline="sv"]  .up-price-title { background: #006631; }
+.up-card[data-airline="fj"]  .up-price-title { background: linear-gradient(160deg, #6b0909 0%, #b91c1c 60%, #dc2626 100%); }
+
+/* Complimentary gifts */
+.up-gifted-box .gb-grid span { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.up-gifted-box .gb-grid i { color: #C8A44D; }
+.up-gifted-box .gb-title i { margin-right: 4px; }
+
+/* Included services */
+.ir-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.ir-item i { color: #D4AF37; font-size: .95rem; }
+
+@media (max-width: 700px) {
+  .up-topbar-code { margin-left: 0; font-size: 1rem; }
+  .up-topbar::before { display: none; }
+  .up-topbar { padding-right: 110px; }
+  .up-topbar-code { word-break: break-word; }
+}
+
+/* ── Card width: the supplier's cards are wider (about 1570px on a large screen) ── */
+.up-inner { max-width: 1570px; }
+
+/* ── Match the supplier's card scale (large screens): everything inside the card is drawn
+      at 75% size, and the fixed-width columns are widened so the layout keeps its shape ── */
+@media (min-width: 1101px) {
+  .up-card { zoom: 0.87; padding: 18px; }
+  .up-body { grid-template-columns: 179px 1fr 297px; }
+  .up-flightrow { grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(210px, 233px); }
+  .up-topbar-code { margin-left: 152px; }
+  .up-airline-logo { width: 124px; height: 124px; }
+  .up-hotel-imgph { max-width: 460px; }
+}
+
+/* Lighter weights, like the supplier */
+.up-topbar-code { font-weight: 400; }
+.up-flight-cell .fc-value,
+.up-flight-cell .fc-value.fc-small,
+.up-flight-cell .fc-value strong { font-weight: 400; }
+.up-hotel-name { font-weight: 400; }
+.up-codes .pc-val { font-weight: 600; }
+.up-traveldate .td-val { font-weight: 800; }
+.up-seatsleft, .up-seatsleft .sl-num { font-weight: 700; }
+
+.up-flight-cell .fc-times { margin-top: 4px; }
+.up-flight-cell .fc-times span { white-space: nowrap; margin-right: 10px; }
+
+.up-gifted-box .gb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.up-gifted-box .gb-grid span {
+  background: #fff; border: 1px solid #e6dcc0; border-radius: 10px;
+  padding: 10px 8px; font-size: .85rem; text-align: center; line-height: 1.25;
+  flex-direction: column; gap: 4px;
+}
+
+.ir-item { background: #fff; border: 1px solid #ece4cc; border-radius: 10px; min-height: 64px; color: #111; font-size: .9rem; }
