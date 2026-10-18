@@ -1144,3 +1144,40 @@ a.umrah-enquire {
   box-shadow: 0 18px 40px rgba(0,0,0,0.35);
 }
 .umrah-grid[data-count="2"] .umrah-card:hover { border-color: rgba(228,188,90,0.55); }
+
+/* ═══════════════════════════════════════════
+   GOOGLE REVIEWS in the testimonials section
+═══════════════════════════════════════════ */
+.testi-stars.rv-stars {
+  --on: var(--gold);
+  --off: #e3dfd2;
+  font-size: 0.9rem;
+}
+
+.testi-g { display: inline-flex; align-items: center; gap: 5px; }
+.testi-g svg { flex-shrink: 0; }
+
+.testi-rating {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: #4b5563;
+  transition: color 0.2s;
+}
+
+.testi-rating:hover { color: var(--g700); text-decoration: underline; }
+.testi-rating[hidden] { display: none; }
+.testi-rating .rv-stars { --on: var(--gold); --off: #e3dfd2; }
+
+/* Last slide may hold only 1–2 cards: keep them centred at normal card width */
+.testi-slide.testi-slide--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: calc(66.666% - 7px); margin: 0 auto; }
+.testi-slide.testi-slide--1 { grid-template-columns: minmax(0, 1fr); max-width: calc(33.333% - 15px); margin: 0 auto; }
+
+@media (max-width: 900px) {
+  .testi-slide.testi-slide--1,
+  .testi-slide.testi-slide--2 { grid-template-columns: 1fr; max-width: none; }
+}

@@ -70,7 +70,7 @@
   display: grid;
   grid-template-columns: 1fr 480px;
   gap: 48px;
-  align-items: flex-start;
+  align-items: stretch;
   margin-top: 50px;
 }
 @media (max-width: 1000px) {
@@ -88,6 +88,10 @@
 .hero-content {
   color: var(--white);
   margin-top: 00px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 /* ── Premium Eyebrow Badge ── */
@@ -178,7 +182,7 @@
   font-family: 'Cormorant Garamond', serif;
 
   font-size:
-    clamp(2.3rem, 4.2vw, 3.8rem);
+    clamp(2.3rem, 3.6vw, 3.25rem);
 
   font-weight: 600;
 
@@ -553,4 +557,232 @@
 .top-dest-phone-icon {
   color: #25D366;
   margin-right: 8px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO LEFT COLUMN — airlines · Google reviews · proof strip
+   (replaces the old paragraph + two pill rows)
+═══════════════════════════════════════════ */
+.hero-airlines {
+  border: 1px solid rgba(201, 160, 40, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 20px 4px;
+}
+
+.ha-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 4px;
+}
+
+.ha-more {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.ha-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.ha-grid li {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(201, 160, 40, 0.1);
+}
+
+/* ── Star row filled to the real rating (set --p in JS: 4.5 → 90%) ── */
+.rv-stars {
+  --p: 100%;
+  --on: var(--gold2);
+  --off: rgba(255, 255, 255, 0.22);
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  background: linear-gradient(90deg, var(--on) var(--p), var(--off) var(--p));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── Rotating Google review card ── */
+.hero-review {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 176px;               /* reserves space while the JSON loads */
+  padding: 14px 22px 16px;
+  border: 1px solid rgba(201, 160, 40, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.hero-review[hidden],
+.hr-head[hidden],
+.hr-dots[hidden] { display: none; }
+
+.hr-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(201, 160, 40, 0.16);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s;
+}
+
+.hr-head:hover { color: var(--gold2); }
+.hr-head b { font-size: 0.82rem; color: #fff; }
+.hr-asof { margin-left: auto; font-size: 0.66rem; opacity: 0.7; }
+
+/* All slides sit in the same grid cell, so the card is as tall as the
+   tallest review and never jumps when the review changes. */
+.hr-slides { display: grid; flex: 1; opacity: 0; transition: opacity 0.4s; }
+.hero-review.is-ready .hr-slides { opacity: 1; }
+
+.hr-slide {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+
+.hr-slide.active { opacity: 1; visibility: visible; }
+
+.hr-text {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: #f5efdc;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hr-who { display: flex; align-items: center; gap: 12px; padding-right: 90px; }
+
+.hr-avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--g900);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hr-name { font-size: 0.82rem; font-weight: 600; color: #fff; }
+.hr-meta { font-size: 0.7rem; color: rgba(255, 255, 255, 0.5); }
+.hr-meta .rv-stars { font-size: 0.7rem; letter-spacing: 1px; }
+
+.hr-dots { position: absolute; right: 22px; bottom: 26px; display: flex; gap: 6px; }
+
+.hr-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(201, 160, 40, 0.3);
+  cursor: pointer;
+}
+
+.hr-dot::after { content: ''; position: absolute; inset: -8px; }   /* bigger tap target */
+.hr-dot.active { background: var(--gold); }
+
+/* ── Proof strip + taglines ── */
+.hp-stats {
+  display: flex;
+  padding: 12px 0;
+  border-top: 1px solid rgba(201, 160, 40, 0.18);
+  border-bottom: 1px solid rgba(201, 160, 40, 0.18);
+}
+
+.hp-stats li {
+  flex: 1;
+  padding: 4px 0 4px 18px;
+  border-left: 1px solid rgba(201, 160, 40, 0.18);
+}
+
+.hp-stats li:first-child { padding-left: 0; border-left: 0; }
+
+.hp-stats b {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold2);
+}
+
+.hp-stats span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 14px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold2);
+}
+
+.hp-tags li { display: flex; align-items: center; gap: 14px; }
+
+.hp-tags li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .ha-grid { grid-template-columns: repeat(2, 1fr); }
+  .hr-who { padding-right: 0; }
+  .hr-dots { position: static; justify-content: center; }
+  .hp-stats { flex-wrap: wrap; }
+  .hp-stats li { flex: 1 1 50%; padding: 10px 0 10px 16px; }
+  .hp-stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hr-slide, .hr-slides { transition: none; }
 }

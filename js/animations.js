@@ -248,70 +248,58 @@ function initAirlineFilter() {
 initAirlineFilter();
 
 /* ═══════════════════════════════════════════
-   TESTIMONIALS — Load from data/testimonials.json
-   Groups 3 testimonials per slide automatically.
+   TESTIMONIALS — built from data/google-reviews.json
+   (real Google reviews; loaded once by js/google-reviews.js).
+   Only reviews that have text are shown. Stars come from the
+   data; the route/airline line was removed (Google reviews
+   have none). If the data cannot load, the section is hidden.
 ═══════════════════════════════════════════ */
 (function loadTestimonials() {
-
   const container = document.getElementById('testi-container');
   if (!container) return;
+  const section = container.closest('.testi-sec');
+  const RV = window.ShadmanReviews;
+  if (!RV) { if (section) section.hidden = true; return; }
 
-  // Show a loading placeholder while the JSON fetches
-  container.innerHTML = '<div class="testi-loading">Loading testimonials...</div>';
+  RV.ready.then(function (d) {
+    const list = d.reviews;
+    if (!list.length) throw new Error('no reviews with text');
 
-  fetch('/data/testimonials.json')
-    .then(function(res) {
-      if (!res.ok) throw new Error('Could not load testimonials');
-      return res.json();
-    })
-    .then(function(data) {
-      let html     = '';
-      let isFirst  = true;
+    // Link under the heading: "★★★★★ 4.5 · 15 Google reviews · as of Oct 2026"
+    const sum = document.getElementById('testiRating');
+    if (sum && isFinite(Number(d.rating)) && Number(d.total) > 0) {
+      const asOf = RV.monthLabel(d.asOf);
+      if (d.profileUrl) sum.href = d.profileUrl;
+      sum.innerHTML = RV.stars(d.rating) + '<b>' + Number(d.rating).toFixed(1) + '</b>' +
+        '<span>' + Number(d.total) + ' Google reviews' + (asOf ? ' · as of ' + RV.esc(asOf) : '') + '</span>';
+      sum.hidden = false;
+    }
 
-      // Group into slides of 3
-      for (let i = 0; i < data.length; i += 3) {
-        const group = data.slice(i, i + 3);
-        html += '<div class="testi-slide' + (isFirst ? ' active' : '') + '">';
+    // Groups of 3 per slide (same layout as before)
+    const groups = [];
+    for (let i = 0; i < list.length; i += 3) groups.push(list.slice(i, i + 3));
 
-        group.forEach(function(t) {
-          html += '<div class="testi-card-c">' +
-            '<div class="testi-quote">"</div>' +
-            '<div class="testi-stars">★★★★★</div>' +
-            '<p class="testi-text">' + escapeHtml(t.text) + '</p>' +
-            '<div class="testi-author">' +
-              '<div class="testi-avatar">' + escapeHtml(t.avatar) + '</div>' +
-              '<div>' +
-                '<div class="testi-name">' + escapeHtml(t.name) + '</div>' +
-                '<div class="testi-meta">' + escapeHtml(t.route) + ' • ' + escapeHtml(t.airline) + '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>';
-        });
+    container.innerHTML = groups.map(function (group, gi) {
+      const cards = group.map(function (r) {
+        return '<div class="testi-card-c">' +
+          '<div class="testi-quote">"</div>' +
+          '<div class="testi-stars rv-stars" style="--p:' + (r.rating / 5 * 100) + '%" role="img" aria-label="' + RV.esc(r.rating) + ' out of 5 stars">★★★★★</div>' +
+          '<p class="testi-text">' + RV.esc(r.text) + '</p>' +
+          '<div class="testi-author">' +
+            '<div class="testi-avatar" aria-hidden="true">' + RV.esc(RV.initial(r.name)) + '</div>' +
+            '<div><div class="testi-name">' + RV.esc(r.name) + '</div>' +
+            '<div class="testi-meta testi-g">' + RV.gIcon + 'Google review' + (r.when ? ' • ' + RV.esc(r.when) : '') + '</div></div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      return '<div class="testi-slide testi-slide--' + group.length + (gi === 0 ? ' active' : '') + '">' + cards + '</div>';
+    }).join('');
 
-        html += '</div>';
-        isFirst = false;
-      }
-
-      container.innerHTML = html;
-
-      // Restart the carousel now that slides exist
-      initTestiCarousel();
-    })
-    .catch(function(err) {
-      console.warn('Testimonials JSON failed to load:', err);
-      // On error, show nothing — the section heading is still visible
-      container.innerHTML = '';
-    });
-
-  // Safely escape user content to prevent XSS
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
+    initTestiCarousel();
+  }).catch(function (err) {
+    console.warn('Testimonials unavailable:', err);
+    if (section) section.hidden = true;
+  });
 })();
 
 /* ═══════════════════════════════════════════

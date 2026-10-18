@@ -1,0 +1,66 @@
+{
+  "source": "Google Business Profile",
+  "profileUrl": "https://maps.app.goo.gl/VC3xpDUezByyPFrX7",
+  "rating": 4.5,
+  "total": 15,
+  "asOf": "2026-10",
+  "reviews": [
+    {
+      "name": "muhammad ahsan",
+      "rating": 5,
+      "text": "After a long searching finally I have reached shadman travel. They carely listen and act my query and finally we have got our tickets. Thank you shadman travel.",
+      "when": "2026-10",
+      "hero": true
+    },
+    {
+      "name": "Irfanali Narejo110",
+      "rating": 5,
+      "text": "So good experience and shadman travel and tour best",
+      "when": "2026-09",
+      "hero": true
+    },
+    {
+      "name": "Noman Mughal",
+      "rating": 5,
+      "text": "Shandman Travel and tour.s heats up very well Specially Mr Khalil And I am very satisfied from their work",
+      "when": "2026-09",
+      "hero": true
+    },
+    {
+      "name": "Muhammad Fahad",
+      "rating": 5,
+      "text": "",
+      "note": "Excellent service from Shadman Travels and Tours. The whole experience was smooth, professional, and hassle-free. They were very helpful, responsive, and made everything easy from start to finish. Really appreciate their friendly customer service and attention to detail. Highly recommended to anyone looking for a reliable and trustworthy travel service. I’ll definitely use them again in the future!.",
+      "when": "2026-08",
+      "hero": true
+    },
+    {
+      "name": "Owais Honor",
+      "rating": 5,
+      "text": "It was to good experience with the work of shadman travel's agancy. They staff and owners to sincere and friendly behavior with our customers",
+      "when": "2026-08",
+      "hero": true
+    },
+    {
+      "name": "Rehan Shah",
+      "rating": 5,
+      "text": "The service was too good i would choose this travel agency everytime",
+      "when": "2026-08",
+      "hero": true
+    },
+    {
+      "name": "Chandio Asadullah",
+      "rating": 5,
+      "text": "Wonderful experience.great management . always in contact",
+      "when": "2026-08",
+      "hero": true
+    },
+    {
+      "name": "AliRaza Bhutto",
+      "rating": 5,
+      "text": "Excellent service",
+      "when": "2025-04",
+      "hero": false
+    }
+  ]
+}

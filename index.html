@@ -190,6 +190,7 @@
   <script src="js/navbar.js" defer></script>
   <script src="js/search-widget.js" defer></script>
   <script src="js/notify.js" defer></script>
+  <script src="js/google-reviews.js" defer></script>
   <script src="js/animations.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/umrah-home.js" defer></script>
@@ -458,34 +459,48 @@
               <em>Our</em> <span class="line2">Commitment.</span>
             </h1>
 
-            <!-- Sub-heading -->
-            <p class="hero-sub">Exclusive guaranteed fares on 15+ airlines. Fly anywhere — Middle East, Europe, UK, North America, Asia-Pacific — with 24/7 expert support at your side.</p>
-
-            <!-- Trust pills -->
-            <div class="hero-trust">
-              <div class="trust-pill">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
-                IATA Licensed
-              </div>
-              <div class="trust-pill">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 14l-4-4 1.414-1.414L11 13.172l5.586-5.586L18 9l-7 7z" fill="#c9a028"/></svg>
-                Secure Bookings
-              </div>
-              <div class="trust-pill">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#c9a028" stroke-width="2"/></svg>
-                19+ Years Trusted
-              </div>
-              <div class="trust-pill">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#c9a028" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#c9a028" stroke-width="2" stroke-linecap="round"/></svg>
-                24/7 Support
-              </div>
+            <!-- Airlines (static list; 15 partners in total — see data/airlines.json) -->
+            <div class="hero-airlines">
+              <div class="ha-head"><span>Exclusive fares on</span><span class="ha-more">+7 more airlines</span></div>
+              <ul class="ha-grid">
+                <li>Emirates</li>
+                <li>Qatar Airways</li>
+                <li>Saudia</li>
+                <li>PIA</li>
+                <li>Turkish Airlines</li>
+                <li>Etihad Airways</li>
+                <li>Fly Jinnah</li>
+                <li>Airblue</li>
+              </ul>
             </div>
 
-             <!-- Mini trust badges -->
-            <div class="hero-mini-badges">
-              <div class="hero-eyebrow hero-mini-badge"><span class="hero-eyebrow-dot"></span>Hassle-Free Booking</div>
-              <div class="hero-eyebrow hero-mini-badge"><span class="hero-eyebrow-dot"></span>With You, Every Mile</div>
-              <div class="hero-eyebrow hero-mini-badge"><span class="hero-eyebrow-dot"></span>Booking You Can Trust</div>
+            <!-- Google reviews — rotating card, filled by js/google-reviews.js from data/google-reviews.json.
+                 Stays hidden automatically if the data cannot be loaded. -->
+            <section class="hero-review" id="heroReview" aria-label="Customer reviews on Google">
+              <a class="hr-head" id="hrHead" href="https://maps.app.goo.gl/VC3xpDUezByyPFrX7" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 7.9-11.3 7.9-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.1-5.1C33.6 6.5 29.1 4.4 24 4.4 12.9 4.4 4 13.3 4 24.4s8.9 20 20 20c10 0 19.1-7.2 19.1-20 0-1.3-.1-2.2-.5-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l5.9 4.3c1.6-4 5.5-6.8 10.1-6.8 3.1 0 5.8 1.2 8 3l5.1-5.1C33.6 6.5 29.1 4.4 24 4.4c-7.5 0-13.9 4.3-17.1 10.6z"/><path fill="#4CAF50" d="M24 44.4c5 0 9.5-1.9 12.9-5l-6-5c-1.9 1.4-4.4 2.2-6.9 2.2-5.3 0-9.7-3.3-11.3-8l-6.1 4.7c3.2 6.3 9.6 11.1 17.4 11.1z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4.1 5.5l6 5C40.9 35 44 30.3 44 24.4c0-1.3-.1-2.2-.4-3.9z"/></svg>
+                <b id="hrRating"></b>
+                <span class="rv-stars" id="hrAvgStars" aria-hidden="true">★★★★★</span>
+                <span id="hrCount"></span>
+                <span class="hr-asof" id="hrAsOf"></span>
+              </a>
+              <div class="hr-slides" id="hrSlides"></div>
+              <div class="hr-dots" id="hrDots"></div>
+            </section>
+
+            <!-- Proof strip + taglines -->
+            <div class="hero-proof">
+              <ul class="hp-stats">
+                <li><b>IATA</b><span>Licensed</span></li>
+                <li><b>19+</b><span>Years Trusted</span></li>
+                <li><b>81k+</b><span>Happy Customers</span></li>
+                <li><b>24/7</b><span>Support</span></li>
+              </ul>
+              <ul class="hp-tags">
+                <li>Hassle-Free Booking</li>
+                <li>With You, Every Mile</li>
+                <li>Booking You Can Trust</li>
+              </ul>
             </div>
 
           </div><!-- /hero-content -->
@@ -865,6 +880,7 @@
           <div class="sec-eyebrow">💬 What Our Customers Say</div>
           <h2 class="sec-title">Trusted by <em>Thousands</em></h2>
           <div class="sec-divider"></div>
+          <a class="testi-rating" id="testiRating" href="https://maps.app.goo.gl/VC3xpDUezByyPFrX7" target="_blank" rel="noopener" hidden></a>
         </div>
 
         <div class="testi-carousel-wrap">
