@@ -5,7 +5,7 @@
  * and drives the filter bar (airline / nights / price range).
  * Structure and per-airline colors matched to the reference site's
  * real CSS values.
- * Depends on: js/notify.js (reuses .notify-btn modal for Enquire Now)
+ * "Enquire Now" opens WhatsApp (see enquireUrl); it no longer uses js/notify.js.
  */
 
 'use strict';
@@ -84,6 +84,14 @@ function escapeHtml(str) {
 function mapsUrl(hotelName, city) {
   const q = encodeURIComponent(hotelName + ', ' + city + ', Saudi Arabia');
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
+}
+
+// "Enquire Now" opens WhatsApp with the package already typed in, so the
+// message reaches your phone straight away (no form, no email, no sheet).
+function enquireUrl(p) {
+  const text = 'Assalam o Alaikum, I would like details of Umrah package ' + p.packageCode +
+    ' (' + p.airline + ', ' + p.nights + ' nights, departing ' + p.outbound.date + ').';
+  return 'https://wa.me/923000041510?text=' + encodeURIComponent(text);
 }
 
 // Parses dates like "01 Sep 2026" explicitly (new Date("01 Sep 2026") is
@@ -236,9 +244,7 @@ function packageCardHTML(p) {
             </div>
           </div>
 
-          <button class="notify-btn up-enquire-btn" data-service="Umrah Package — ${escapeHtml(p.code)} (${escapeHtml(p.travelDate)})">
-            Enquire Now
-          </button>
+          <a class="up-enquire-btn" href="${escapeHtml(enquireUrl(p))}" target="_blank" rel="noopener">Enquire Now</a>
         </div>
 
       </div>

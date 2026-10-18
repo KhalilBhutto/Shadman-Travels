@@ -1247,3 +1247,11 @@
 }
 
 .ir-item { background: #fff; border: 1px solid #ece4cc; border-radius: 10px; min-height: 64px; color: #111; font-size: .9rem; }
+
+/* "Enquire Now" is now a link (WhatsApp), so give it button looks */
+a.up-enquire-btn {
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+}
