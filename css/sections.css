@@ -1073,6 +1073,13 @@
 }
 .umrah-featured .umrah-enquire:hover { filter: brightness(1.1); }
 
+/* Homepage "Enquire Now" is now a link (WhatsApp), so give it button looks */
+a.umrah-enquire {
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+}
+
 /* Below the cards */
 .umrah-below { margin-top: 64px; text-align: center; }
 .umrah-cta-bar {

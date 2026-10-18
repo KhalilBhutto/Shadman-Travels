@@ -22,6 +22,12 @@
     return isNaN(d) || d >= t;
   }
   function money(n) { return Number(n).toLocaleString('en-US'); }
+  // WhatsApp click-to-chat link with the package already typed in
+  function enquireUrl(nights, price) {
+    var msg = 'Assalamu Alaikum, I would like to enquire about your ' + nights +
+              ' Nights Umrah package (from PKR ' + money(price) + ' per person, sharing). Please share details.';
+    return 'https://wa.me/923000041510?text=' + encodeURIComponent(msg);
+  }
   function joinNames(a) { return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' & ' + a[a.length - 1]; }
 
   // Pure function (easy to test): list of packages -> HTML for the cards
@@ -62,7 +68,7 @@
             '<div class="umrah-price">PKR <span>' + money(cheapest.pricing.sharing) + '</span></div>' +
             '<div class="umrah-price-label">Starting From · Per Person (Sharing)</div>' +
           '</div>' +
-          '<button class="notify-btn umrah-enquire" data-service="Umrah Package — ' + n + ' Nights (from PKR ' + money(cheapest.pricing.sharing) + ')">Enquire Now</button>' +
+          '<a class="umrah-enquire" href="' + esc(enquireUrl(n, cheapest.pricing.sharing)) + '" target="_blank" rel="noopener">Enquire Now</a>' +
         '</div>';
     }).join('');
   }
