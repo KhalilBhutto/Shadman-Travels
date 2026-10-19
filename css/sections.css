@@ -1181,3 +1181,7 @@ a.umrah-enquire {
   .testi-slide.testi-slide--1,
   .testi-slide.testi-slide--2 { grid-template-columns: 1fr; max-width: none; }
 }
+
+/* Equal-height review cards: author row sits at the bottom of each card */
+.testi-card-c { display: flex; flex-direction: column; }
+.testi-card-c .testi-author { margin-top: auto; }
