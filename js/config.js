@@ -17,7 +17,7 @@ const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwU10GNoOnSphx5Vsmr4
    visible in the browser, same as SHEETS_URL). */
 const FORM_SECRET = 'shdmn-b7f3-9k2x-travel-2026';
 
-const TURNSTILE_SITE_KEY = 'PASTE_TURNSTILE_SITE_KEY_HERE';
+const TURNSTILE_SITE_KEY = '0x4AAAAAAFbTD5WJxNM0nVVq';
 
 /* ─── BUSINESS INFO ─── */
 const BUSINESS = {
