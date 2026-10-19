@@ -197,6 +197,12 @@
 
 }
 
+/* One line on wide screens; two lines where space is tight */
+.hero h1 .h1-br { display: none; }
+@media (max-width: 1180px) {
+  .hero h1 .h1-br { display: inline; }
+}
+
 .hero h1 em {
 
   font-style: italic;
@@ -679,6 +685,7 @@
   color: #f5efdc;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

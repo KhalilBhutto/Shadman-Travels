@@ -8,10 +8,11 @@
 ═══════════════════════════════════════════ */
 
 /* ── Boarding-Pass Ticket (hero right column) ── */
-.hero-ticket { position: relative; margin-top: 0; }
+.hero-ticket { position: relative; margin-top: 0; display: flex; }
 
 .ticket {
   width: 100%;
+  flex: 1;
   display: flex;
   position: relative;
   border-radius: 20px;
@@ -36,6 +37,8 @@
 
 .ticket-main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 22px 18px 05px;
   position: relative;
   overflow: hidden;
@@ -82,6 +85,7 @@
 .ticket-meta-val { font-family: 'Cormorant Garamond', serif; font-size: .9rem; font-weight: 700; color: var(--gold3); margin-top: 3px; }
 
 .ticket-field-wrap { position: relative; z-index: 2; }
+.ticket-field-wrap:has(textarea) { flex: 1 1 auto; display: flex; flex-direction: column; }
 .ticket-field-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: .8rem; z-index: 3; opacity: .85; color: var(--gold2); }
 .ticket-field-icon-top { top: 15px; transform: none; }
 .ticket-main input, .ticket-main textarea {
@@ -92,7 +96,7 @@
 }
 .ticket-main input:focus, .ticket-main textarea:focus { border-color: var(--gold); background: rgba(255,255,255,.07); }
 .ticket-main input::placeholder, .ticket-main textarea::placeholder { color: rgba(255,255,255,.38); }
-.ticket-main textarea { resize: vertical; min-height: 38px; }
+.ticket-main textarea { resize: vertical; min-height: 38px; flex: 1; }
 
 .ticket-submit-btn {
   width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;
