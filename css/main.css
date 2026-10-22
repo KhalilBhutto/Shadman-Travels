@@ -176,88 +176,86 @@ ul {
   font-size: 1.2rem;
 }
 
-/* ── Stats Section ── */
+/* ── Stats Section (flight-path waypoints) ── */
 .stats-sec {
-  background: linear-gradient(135deg, var(--g900) 0%, var(--g800) 50%, var(--g900) 100%);
-  padding: 0;
-  border-bottom: 1px solid rgba(201, 160, 40, 0.15);
+  position: relative; overflow: hidden; color: #fff;
+  padding: 44px 32px 36px;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(201,160,40,.13), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(22,61,34,.95), transparent 65%),
+    #07120a;
+  border-top: 1px solid rgba(201,160,40,.4);
+  border-bottom: 1px solid rgba(201,160,40,.4);
 }
-
-.stats-grid {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.stx-stars {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 40px 60px, #e4bc5a, transparent),
+    radial-gradient(1.5px 1.5px at 130px 150px, rgba(228,188,90,.8), transparent),
+    radial-gradient(2px 2px at 220px 40px, #f5dfa0, transparent),
+    radial-gradient(1px 1px at 300px 210px, #e4bc5a, transparent),
+    radial-gradient(1.5px 1.5px at 90px 260px, rgba(228,188,90,.7), transparent);
+  background-size: 260px 300px, 330px 280px, 410px 340px, 370px 310px, 290px 350px;
+  animation: stxTwinkle 5s ease-in-out infinite;
 }
+.stx-wrap { position: relative; max-width: 1280px; margin: 0 auto; }
+.stx-head { text-align: center; }
+.stx-eyebrow { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); }
+.stx-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; margin: 10px 0 0; color: #fff; }
+.stx-title em { font-style: italic; color: var(--gold2); }
+.stx-hairline { width: 64px; height: 2px; background: var(--gold); margin: 14px auto 0; }
 
-.stat-cell {
-  padding: 36px 20px;
-  text-align: center;
-  border-right: 1px solid rgba(201, 160, 40, 0.12);
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
+.stx-stage { position: relative; width: 100%; max-width: 1216px; margin: 18px auto 0; aspect-ratio: 1216 / 205; }
+.stx-arc { position: absolute; left: 0; top: 0; width: 100%; height: auto; overflow: visible; pointer-events: none; }
+.stx-cell { position: absolute; width: 240px; margin-left: -120px; text-align: center; }
+.stx-c1 { left: 12.5%; top: 13.6%; }
+.stx-c2 { left: 37.5%; top: 1.5%; }
+.stx-c3 { left: 62.5%; top: 1.7%; }
+.stx-c4 { left: 87.5%; top: 14%; }
+
+.stx-icon { position: relative; width: 64px; height: 64px; margin: 0 auto; }
+.stx-orbit { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed rgba(228,188,90,.55); animation: stxSpin 26s linear infinite; }
+.stx-disc {
+  position: absolute; inset: 7px; border-radius: 50%; border: 1.5px solid var(--gold);
+  background: radial-gradient(circle, rgba(201,160,40,.28), rgba(15,41,22,.95));
+  box-shadow: 0 0 34px rgba(201,160,40,.35);
+  display: flex; align-items: center; justify-content: center; color: var(--gold2);
 }
-
-.stat-cell:last-child {
-  border-right: none;
+.stx-disc svg { width: 26px; height: 26px; }
+.stx-num {
+  display: block; margin-top: 10px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1;
+  font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+  background: linear-gradient(100deg, #c9a028, #f5dfa0, #c9a028, #f5dfa0);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: stxSheen 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(201,160,40,.4));
 }
+.stx-label { margin-top: 6px; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 500; }
 
-.stat-cell:hover {
-  background: rgba(201, 160, 40, 0.04);
+.stx-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
+.stx-pills li { border: 1px solid rgba(201,160,40,.4); border-radius: 50px; padding: 8px 18px; font-size: .8rem; color: rgba(255,255,255,.85); background: rgba(201,160,40,.06); }
+
+@keyframes stxTwinkle { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes stxSpin { to { transform: rotate(360deg); } }
+@keyframes stxSheen { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* Phones and tablets: drop the arc, use a 2x2 grid */
+@media (max-width: 1100px) {
+  .stats-sec { padding: 48px 20px 44px; }
+  .stx-stage { aspect-ratio: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 12px; margin-top: 24px; }
+  .stx-arc { display: none; }
+  .stx-cell { position: static; width: auto; margin: 0; }
 }
-
-.stat-cell::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background: var(--gold);
-  transition: width 0.4s;
+@media (max-width: 480px) {
+  .stx-icon { width: 56px; height: 56px; }
+  .stx-num { font-size: 3rem; }
+  .stx-label { font-size: .68rem; letter-spacing: .1em; }
 }
-
-.stat-cell:hover::after {
-  width: 60%;
-}
-
-.stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--gold), var(--gold2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-  display: block;
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-top: 6px;
-}
-
-.stat-icon {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
-  opacity: 0.7;
-}
-
-.stats-phone-icon {
-  color: #25D366;
-  opacity: 1;
-}
-
-.stats-plane-icon {
-  color: var(--gold);
-  opacity: 1;
+@media (prefers-reduced-motion: reduce) {
+  .stx-stars, .stx-orbit, .stx-num { animation: none; }
 }
 
 /* ── Section Utility ── */
