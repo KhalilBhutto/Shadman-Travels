@@ -859,3 +859,11 @@
 .hc-sub { color: rgba(255,255,255,.85); font-weight: 500; }
 .hc-card-tag { border-radius: 8px; }
 .hc-card-city { font-weight: 500; color: var(--gold3); }
+
+/* ── Small phones: let From/To columns shrink instead of overflowing the card ── */
+@media (max-width: 1000px) {
+  #widgetCard #mainRow { grid-template-columns: minmax(0,1fr) 44px minmax(0,1fr); }
+  #widgetCard .mc-leg-row2 { grid-template-columns: minmax(0,1fr) 44px minmax(0,1fr); }
+  #widgetCard #mainRow > .wf, #widgetCard .mc-leg-row2 > .wf { min-width: 0; }
+  #widgetCard .wf-val2.placeholder { font-size: clamp(.85rem, 3.9vw, 1.05rem); }
+}

@@ -230,11 +230,12 @@ nav.scrolled {
   flex-direction: column;
   gap: 8px;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
 .mobile-menu.open {
   right: 0;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
 }
 
 .mob-link {
