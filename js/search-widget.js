@@ -651,7 +651,7 @@ function updateHeroTicket() {
 }
 
 /* ─── DESTINATION CAROUSEL ("Where to next?") ─── */
-let heroDestIndex = Math.floor(HERO_DESTINATIONS.length / 2);
+let heroDestIndex = 0;
 let hcSuppressClick = false;
 
 function hcBarcode() {
@@ -668,9 +668,17 @@ function hcStep(dir) {
 // "Get a quote": pre-fill the search widget with this route and scroll up to it
 function hcGetQuote(d) {
   if (typeof gtag === 'function') gtag('event', 'carousel_get_quote', { route: d.from + '-' + d.code });
-  selectQuickRoute(d.from, d.code);
+  const from = AIRPORTS.find(a => a.code === d.from);
+  const to = AIRPORTS.find(a => a.code === d.code);
+  if (!from || !to) return;
+  wState.from = from.name; wState.fromCode = from.code;
+  wState.to = to.name; wState.toCode = to.code;
+  renderField('from'); renderField('to');
+  rtLockToSelection();
+  closeAllPopups();
   const hero = document.getElementById('flights');
   if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(openGuestsPopup, 700);   // wait for the scroll to finish before opening the sheet
 }
 
 function renderHeroDestinations() {
