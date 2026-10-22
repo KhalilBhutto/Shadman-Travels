@@ -547,6 +547,19 @@
 
 }
 
+/* ── Bottom fade: blends the hero into the next section (no visible seam) ── */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(7, 18, 10, 0), #07120a);
+}
+
 .phone-icon,
 .whatsapp-icon {
   margin-right: 8px;

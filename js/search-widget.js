@@ -17,14 +17,14 @@
    AIRPORTS in airports.js, so it's actually wired up rather than an
    orphaned config/*.json file per the blueprint's Part 10 lesson #2) ─── */
 const HERO_DESTINATIONS = [
-  { city: 'Dubai',    code: 'DXB', price: '45,000',  img: 'images/destinations/dubai.jpg' },
-  { city: 'Jeddah',   code: 'JED', price: '55,000',  img: 'images/destinations/jeddah.jpg' },
-  { city: 'London',   code: 'LHR', price: '250,000', img: 'images/destinations/london.jpg' },
-  { city: 'Doha',     code: 'DOH', price: '60,000',  img: 'images/destinations/doha.jpg' },
-  { city: 'Toronto',  code: 'YYZ', price: '350,000', img: 'images/destinations/toronto.jpg' },
-  { city: 'Istanbul', code: 'IST', price: '120,000', img: 'images/destinations/istanbul.jpg' },
-  { city: 'Riyadh',   code: 'RUH', price: '52,000',  img: 'images/destinations/riyadh.jpg' },
-  { city: 'Baku',     code: 'GYD', price: '95,000',  img: 'images/destinations/baku.jpg' },
+  { city: 'Dubai',    from: 'KHI', code: 'DXB', price: '45,000',  img: 'images/destinations/dubai.jpg' },
+  { city: 'Jeddah',   from: 'LHE', code: 'JED', price: '55,000',  img: 'images/destinations/jeddah.jpg' },
+  { city: 'London',   from: 'ISB', code: 'LHR', price: '250,000', img: 'images/destinations/london.jpg' },
+  { city: 'Doha',     from: 'KHI', code: 'DOH', price: '60,000',  img: 'images/destinations/doha.jpg' },
+  { city: 'Toronto',  from: 'KHI', code: 'YYZ', price: '350,000', img: 'images/destinations/toronto.jpg' },
+  { city: 'Istanbul', from: 'LHE', code: 'IST', price: '120,000', img: 'images/destinations/istanbul.jpg' },
+  { city: 'Riyadh',   from: 'MUX', code: 'RUH', price: '52,000',  img: 'images/destinations/riyadh.jpg' },
+  { city: 'Baku',     from: 'KHI', code: 'GYD', price: '95,000',  img: 'images/destinations/baku.jpg' },
 ];
 
 /* ─── WIDGET STATE ─── */
@@ -72,7 +72,7 @@ function renderField(which) {
       iconEl.classList.remove('filled');
       clearEl.classList.remove('show');
     }
-    if (which === 'from') updateHeroCarouselHeading();
+    
   }
   if (which === 'guests') {
     const { adults, children, infants } = wState.pax;
@@ -650,66 +650,105 @@ function updateHeroTicket() {
   if (emptyNote) emptyNote.classList.toggle('hidden', hasRoute);
 }
 
-/* ─── MINI DESTINATION CAROUSEL ─── */
+/* ─── DESTINATION CAROUSEL ("Where to next?") ─── */
 let heroDestIndex = Math.floor(HERO_DESTINATIONS.length / 2);
+let hcSuppressClick = false;
+
+function hcBarcode() {
+  return '<span class="hc-barcode" aria-hidden="true">' +
+    [14, 9, 16, 7, 13, 10, 15, 8].map(h => '<i style="height:' + h + 'px"></i>').join('') + '</span>';
+}
+
+function hcStep(dir) {
+  const n = HERO_DESTINATIONS.length;
+  heroDestIndex = (heroDestIndex + dir + n) % n;
+  updateHeroDestPositions();
+}
+
+// "Get a quote": pre-fill the search widget with this route and scroll up to it
+function hcGetQuote(d) {
+  if (typeof gtag === 'function') gtag('event', 'carousel_get_quote', { route: d.from + '-' + d.code });
+  selectQuickRoute(d.from, d.code);
+  const hero = document.getElementById('flights');
+  if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function renderHeroDestinations() {
   const track = document.getElementById('hcTrack');
   if (!track) return;
+
   track.innerHTML = HERO_DESTINATIONS.map((d, i) => `
-    <div class="hc-card" data-idx="${i}" style="background-image:url('${d.img}')">
-      <div class="hc-card-tag">Round trip · Economy</div>
-      <div class="hc-card-info">
-        <div class="hc-card-city">${d.city}</div>
-        <div class="hc-card-price">From <b>PKR ${d.price}*</b></div>
+    <div class="hc-card" data-idx="${i}">
+      <div class="hc-ticket">
+        <div class="hc-photo" style="background-image:url('${d.img}')"></div>
+        <span class="hc-badge">Round trip · Economy</span>
+        <div class="hc-perf"></div>
+        <div class="hc-body">
+          <div class="hc-route">${d.from} → ${d.code}</div>
+          <div class="hc-city">${d.city}</div>
+          <div class="hc-price">From <b>PKR ${d.price}*</b></div>
+          <button type="button" class="hc-cta">Get a quote →</button>
+          ${hcBarcode()}
+        </div>
       </div>
+      <i class="hc-ring hc-ring-l"></i><i class="hc-ring hc-ring-r"></i>
     </div>`).join('');
-  // Fallback gradient if a destination photo is missing/not yet uploaded
+
+  // Fallback gradient if a destination photo is missing
   HERO_DESTINATIONS.forEach((d, i) => {
-    const testImg = new Image();
-    testImg.onerror = () => {
-      const card = track.querySelector(`.hc-card[data-idx="${i}"]`);
-      if (card) card.style.backgroundImage = 'linear-gradient(160deg, var(--g600), var(--g800))';
+    const probe = new Image();
+    probe.onerror = () => {
+      const photo = track.querySelector('.hc-card[data-idx="' + i + '"] .hc-photo');
+      if (photo) photo.style.backgroundImage = 'linear-gradient(160deg, var(--g600), var(--g800))';
     };
-    testImg.src = d.img;
+    probe.src = d.img;
   });
-  track.querySelectorAll('.hc-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const idx = parseInt(card.dataset.idx, 10);
-      if (idx === heroDestIndex) return;
-      heroDestIndex = idx; updateHeroDestPositions();
-    });
+
+  // Clicks: side card -> bring to centre; button on centre card -> get a quote
+  track.addEventListener('click', (e) => {
+    if (hcSuppressClick) return;
+    const card = e.target.closest('.hc-card');
+    if (!card) return;
+    const idx = parseInt(card.dataset.idx, 10);
+    if (e.target.closest('.hc-cta')) {
+      if (idx === heroDestIndex) hcGetQuote(HERO_DESTINATIONS[idx]);
+      return;
+    }
+    if (idx !== heroDestIndex) { heroDestIndex = idx; updateHeroDestPositions(); }
   });
-  document.getElementById('hcPrev').addEventListener('click', () => {
-    heroDestIndex = (heroDestIndex - 1 + HERO_DESTINATIONS.length) % HERO_DESTINATIONS.length;
-    updateHeroDestPositions();
+
+  // Swipe (touch or mouse drag). touch-action: pan-y in the CSS keeps vertical scrolling working.
+  let startX = null, startY = null;
+  track.addEventListener('pointerdown', (e) => { startX = e.clientX; startY = e.clientY; });
+  track.addEventListener('pointerup', (e) => {
+    if (startX === null) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    startX = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+      hcStep(dx < 0 ? 1 : -1);
+      hcSuppressClick = true;
+      setTimeout(() => { hcSuppressClick = false; }, 350);
+    }
   });
-  document.getElementById('hcNext').addEventListener('click', () => {
-    heroDestIndex = (heroDestIndex + 1) % HERO_DESTINATIONS.length;
-    updateHeroDestPositions();
+  track.addEventListener('pointercancel', () => { startX = null; });
+
+  // Keyboard: left / right arrows when the carousel is focused
+  track.setAttribute('tabindex', '0');
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); hcStep(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); hcStep(1); }
   });
+
+  // Arrow buttons (desktop) and dots
+  document.getElementById('hcPrev').addEventListener('click', () => hcStep(-1));
+  document.getElementById('hcNext').addEventListener('click', () => hcStep(1));
   const dotsWrap = document.getElementById('hcDots');
   dotsWrap.innerHTML = HERO_DESTINATIONS.map((d, i) => `<div class="hc-dot" data-idx="${i}"></div>`).join('');
   dotsWrap.querySelectorAll('.hc-dot').forEach(dot => {
     dot.addEventListener('click', () => { heroDestIndex = parseInt(dot.dataset.idx, 10); updateHeroDestPositions(); });
   });
-  updateHeroDestPositions();
-}
 
-let hcBgActive = 'A';
-function updateHeroBackground() {
-  const dest = HERO_DESTINATIONS[heroDestIndex];
-  if (!dest) return;
-  const showing = document.getElementById('hcBg' + hcBgActive);
-  const nextLayer = hcBgActive === 'A' ? 'B' : 'A';
-  const hidden = document.getElementById('hcBg' + nextLayer);
-  if (!showing || !hidden) return;
-  const img = new Image();
-  img.onload = () => { hidden.style.backgroundImage = `url('${dest.img}')`; };
-  img.onerror = () => { hidden.style.backgroundImage = 'linear-gradient(160deg, var(--g600), var(--g800))'; };
-  img.src = dest.img;
-  hidden.classList.add('active');
-  showing.classList.remove('active');
-  hcBgActive = nextLayer;
+  updateHeroDestPositions();
 }
 
 function updateHeroDestPositions() {
@@ -726,15 +765,11 @@ function updateHeroDestPositions() {
     else if (diff === -2) pos = 'far-left';
     else if (diff === 2) pos = 'far-right';
     card.dataset.pos = pos;
+    card.setAttribute('aria-hidden', pos === 'center' ? 'false' : 'true');
   });
   document.querySelectorAll('.hc-dot').forEach(dot => {
     dot.classList.toggle('active', parseInt(dot.dataset.idx, 10) === heroDestIndex);
   });
-  updateHeroBackground();
-}
-function updateHeroCarouselHeading() {
-  const el = document.getElementById('hcCityName');
-  if (el) el.textContent = wState.from || 'Karachi';
 }
 
 /* ─── FIELD VALIDATION HELPERS (same rules as the original site) ─── */
