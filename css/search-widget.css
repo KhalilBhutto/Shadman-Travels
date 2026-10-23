@@ -822,7 +822,6 @@
 ═══════════════════════════════════════════ */
 .hc-section {
   position: relative; overflow: hidden; color: #fff;
-  margin-top: -1px;
   padding: 64px 32px 48px;
   background:
     linear-gradient(to bottom, rgba(7,18,10,0) calc(100% - 140px), #07120a),
