@@ -179,7 +179,7 @@ ul {
 /* ── Stats Section (flight-path waypoints) ── */
 .stats-sec {
   position: relative; overflow: hidden; color: #fff;
-  padding: 44px 32px 36px;
+  padding: 44px 32px 24px;
   background:
     radial-gradient(ellipse at 50% 35%, rgba(201,160,40,.13), transparent 55%),
     radial-gradient(ellipse at 50% 100%, rgba(22,61,34,.95), transparent 65%),
@@ -234,9 +234,6 @@ ul {
   filter: drop-shadow(0 0 16px rgba(201,160,40,.4));
 }
 .stx-label { margin-top: 6px; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 500; }
-
-.stx-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
-.stx-pills li { border: 1px solid rgba(201,160,40,.4); border-radius: 50px; padding: 8px 18px; font-size: .8rem; color: rgba(255,255,255,.85); background: rgba(201,160,40,.06); }
 
 @keyframes stxTwinkle { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
 @keyframes stxSpin { to { transform: rotate(360deg); } }
