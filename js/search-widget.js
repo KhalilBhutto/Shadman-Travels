@@ -665,20 +665,32 @@ function hcStep(dir) {
   updateHeroDestPositions();
 }
 
-// "Get a quote": pre-fill the search widget with this route and scroll up to it
+// Clicking a card: pre-fill the search widget with that route and take the visitor to it
 function hcGetQuote(d) {
   if (typeof gtag === 'function') gtag('event', 'carousel_get_quote', { route: d.from + '-' + d.code });
+
   const from = AIRPORTS.find(a => a.code === d.from);
   const to = AIRPORTS.find(a => a.code === d.code);
   if (!from || !to) return;
+
+  // The carousel prices are one-way, so switch the widget to the One Way tab
+  const owTab = document.querySelector('.pill-tab[data-trip="ow"]');
+  if (owTab && wState.trip !== 'ow') owTab.click();
+
   wState.from = from.name; wState.fromCode = from.code;
-  wState.to = to.name; wState.toCode = to.code;
+  wState.to = to.name;     wState.toCode = to.code;
   renderField('from'); renderField('to');
   rtLockToSelection();
   closeAllPopups();
-  const hero = document.getElementById('flights');
-  if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  setTimeout(openGuestsPopup, 700);   // wait for the scroll to finish before opening the sheet
+
+  // Bring the widget into the middle of the screen
+  const widget = document.getElementById('widgetCard');
+  if (widget) widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // After the scroll finishes, open the next missing step (guests, or dates if guests are already set)
+  setTimeout(() => {
+    if (wState.guestsConfirmed) openCalendarPopup(); else openGuestsPopup();
+  }, 700);
 }
 
 function renderHeroDestinations() {
@@ -689,7 +701,7 @@ function renderHeroDestinations() {
     <div class="hc-card" data-idx="${i}">
       <div class="hc-ticket">
         <div class="hc-photo" style="background-image:url('${d.img}')"></div>
-        <span class="hc-badge">Round trip · Economy</span>
+        <span class="hc-badge">One-way · Economy</span>
         <div class="hc-perf"></div>
         <div class="hc-body">
           <div class="hc-route">${d.from} → ${d.code}</div>
@@ -712,17 +724,15 @@ function renderHeroDestinations() {
     probe.src = d.img;
   });
 
-  // Clicks: side card -> bring to centre; button on centre card -> get a quote
+  // Clicking any card sends that route to the search widget
   track.addEventListener('click', (e) => {
     if (hcSuppressClick) return;
     const card = e.target.closest('.hc-card');
-    if (!card) return;
+    if (!card || card.dataset.pos === 'hidden') return;
     const idx = parseInt(card.dataset.idx, 10);
-    if (e.target.closest('.hc-cta')) {
-      if (idx === heroDestIndex) hcGetQuote(HERO_DESTINATIONS[idx]);
-      return;
-    }
-    if (idx !== heroDestIndex) { heroDestIndex = idx; updateHeroDestPositions(); }
+    heroDestIndex = idx;
+    updateHeroDestPositions();
+    hcGetQuote(HERO_DESTINATIONS[idx]);
   });
 
   // Swipe (touch or mouse drag). touch-action: pan-y in the CSS keeps vertical scrolling working.
