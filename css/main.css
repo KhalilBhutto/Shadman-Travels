@@ -179,7 +179,7 @@ ul {
 /* ── Stats Section (flight-path waypoints) ── */
 .stats-sec {
   position: relative; overflow: hidden; color: #fff;
-  padding: 44px 32px 24px;
+  padding: 32px 32px 18px;
   background:
     radial-gradient(ellipse at 50% 35%, rgba(201,160,40,.13), transparent 55%),
     radial-gradient(ellipse at 50% 100%, rgba(22,61,34,.95), transparent 65%),
@@ -201,11 +201,11 @@ ul {
 .stx-wrap { position: relative; max-width: 1280px; margin: 0 auto; }
 .stx-head { text-align: center; }
 .stx-eyebrow { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); }
-.stx-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; margin: 10px 0 0; color: #fff; }
+.stx-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 600; margin: 10px 0 0; color: #fff; }
 .stx-title em { font-style: italic; color: var(--gold2); }
-.stx-hairline { width: 64px; height: 2px; background: var(--gold); margin: 14px auto 0; }
+.stx-hairline { width: 64px; height: 2px; background: var(--gold); margin: 10px auto 0; }
 
-.stx-stage { position: relative; width: 100%; max-width: 1216px; margin: 18px auto 0; aspect-ratio: 1216 / 205; }
+.stx-stage { position: relative; width: 100%; max-width: 1080px; margin: 8px auto 0; aspect-ratio: 1216 / 205; }
 .stx-arc { position: absolute; left: 0; top: 0; width: 100%; height: auto; overflow: visible; pointer-events: none; }
 .stx-cell { position: absolute; width: 240px; margin-left: -120px; text-align: center; }
 .stx-c1 { left: 12.5%; top: 13.6%; }
@@ -225,7 +225,7 @@ ul {
 .stx-num {
   display: block; margin-top: 10px;
   font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1;
-  font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+  font-size: clamp(2.4rem, 3.8vw, 3.1rem);
   background: linear-gradient(100deg, #c9a028, #f5dfa0, #c9a028, #f5dfa0);
   background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text;

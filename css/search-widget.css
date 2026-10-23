@@ -822,7 +822,7 @@
 ═══════════════════════════════════════════ */
 .hc-section {
   position: relative; overflow: hidden; color: #fff;
-  padding: 64px 32px 48px;
+  padding: 44px 32px 32px;
   background:
     linear-gradient(to bottom, rgba(7,18,10,0) calc(100% - 140px), #07120a),
     radial-gradient(ellipse at 50% 100%, rgba(22,61,34,.85), transparent 60%),
@@ -842,14 +842,14 @@
 }
 @keyframes hcTwinkle { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
 
-.hc-head { position: relative; max-width: 1280px; margin: 0 auto 36px; text-align: center; }
+.hc-head { position: relative; max-width: 1280px; margin: 0 auto 20px; text-align: center; }
 .hc-eyebrow { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); }
-.hc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.25rem); font-weight: 600; line-height: 1.1; margin: 10px 0 0; color: #fff; }
+.hc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 3.2vw, 2.6rem); font-weight: 600; line-height: 1.1; margin: 10px 0 0; color: #fff; }
 .hc-title em { font-style: italic; color: var(--gold2); }
-.hc-hairline { width: 64px; height: 2px; background: var(--gold); margin: 14px auto 0; }
+.hc-hairline { width: 64px; height: 2px; background: var(--gold); margin: 10px auto 0; }
 
 .hc-track-wrap { position: relative; max-width: 1280px; margin: 0 auto; }
-.hc-track { --cw: 312px; --ch: 354px; position: relative; height: 410px; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; }
+.hc-track { --cw: 280px; --ch: 322px; position: relative; height: 350px; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; }
 .hc-track:focus-visible { outline: 2px solid var(--gold2); outline-offset: 4px; border-radius: 12px; }
 
 /* One card. Built at "centre" size; side cards are scaled down. */
@@ -902,8 +902,8 @@
 
 .hc-body { position: absolute; left: 20px; right: 16px; top: calc(66% + 12px); bottom: 12px; }
 .hc-route { font-family: 'Cinzel', serif; font-size: 10.5px; letter-spacing: .14em; color: var(--gold); line-height: 1.2; }
-.hc-city { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 600; line-height: 1.1; margin-top: 2px; color: #fff; }
-.hc-price { font-size: .88rem; margin-top: 2px; color: rgba(255,255,255,.88); }
+.hc-city { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; line-height: 1.1; margin-top: 2px; color: #fff; }
+.hc-price { font-size: .85rem; margin-top: 2px; color: rgba(255,255,255,.88); }
 .hc-price b { color: var(--gold2); }
 .hc-cta { display: none; margin-top: 6px; padding: 0; border: 0; background: none; color: var(--gold2); font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
 .hc-card[data-pos="center"] .hc-cta { display: inline-block; }
@@ -919,10 +919,10 @@
 .hc-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.3); cursor: pointer; transition: all .25s; }
 .hc-dot.active { width: 30px; border-radius: 8px; background: var(--gold); }
 
-.hc-foot { position: relative; text-align: center; margin-top: 30px; }
-.hc-viewall { display: inline-block; white-space: nowrap; border: 1px solid rgba(201,160,40,.6); border-radius: 50px; padding: 13px 30px; color: var(--gold2); font-weight: 700; font-size: .95rem; transition: background .2s; }
+.hc-foot { position: relative; text-align: center; margin-top: 16px; }
+.hc-viewall { display: inline-block; white-space: nowrap; border: 1px solid rgba(201,160,40,.6); border-radius: 50px; padding: 10px 26px; color: var(--gold2); font-weight: 700; font-size: .9rem; transition: background .2s; }
 .hc-viewall:hover { background: rgba(201,160,40,.12); }
-.hc-note { max-width: 760px; margin: 20px auto 0; font-size: .8rem; line-height: 1.6; color: rgba(255,255,255,.62); }
+.hc-note { max-width: 760px; margin: 12px auto 0; font-size: .76rem; line-height: 1.6; color: rgba(255,255,255,.62); }
 
 /* Medium screens: show 3 cards (hide the two outer ones) */
 @media (max-width: 1320px) {
