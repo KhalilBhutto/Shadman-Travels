@@ -1,0 +1,43 @@
+{
+  "regions": [
+    {
+      "name": "Middle East & Gulf",
+      "cities": [
+        { "city": "Abu Dhabi", "country": "United Arab Emirates", "hook": "", "image": "" },
+        { "city": "Muscat", "country": "Oman", "hook": "", "image": "" },
+        { "city": "Manama", "country": "Bahrain", "hook": "", "image": "" },
+        { "city": "Kuwait City", "country": "Kuwait", "hook": "", "image": "" },
+        { "city": "Madinah", "country": "Saudi Arabia", "hook": "", "image": "" }
+      ]
+    },
+    {
+      "name": "Europe & UK",
+      "cities": [
+        { "city": "Paris", "country": "France", "hook": "", "image": "" },
+        { "city": "Rome", "country": "Italy", "hook": "", "image": "" },
+        { "city": "Amsterdam", "country": "Netherlands", "hook": "", "image": "" },
+        { "city": "Zurich", "country": "Switzerland", "hook": "", "image": "" },
+        { "city": "Milan", "country": "Italy", "hook": "", "image": "" }
+      ]
+    },
+    {
+      "name": "Americas",
+      "cities": [
+        { "city": "New York", "country": "United States", "hook": "", "image": "" },
+        { "city": "Chicago", "country": "United States", "hook": "", "image": "" },
+        { "city": "Los Angeles", "country": "United States", "hook": "", "image": "" },
+        { "city": "Washington D.C.", "country": "United States", "hook": "", "image": "" }
+      ]
+    },
+    {
+      "name": "Asia-Pacific",
+      "cities": [
+        { "city": "Bangkok", "country": "Thailand", "hook": "", "image": "" },
+        { "city": "Kuala Lumpur", "country": "Malaysia", "hook": "", "image": "" },
+        { "city": "Singapore", "country": "Singapore", "hook": "", "image": "" },
+        { "city": "Sydney", "country": "Australia", "hook": "", "image": "" },
+        { "city": "Melbourne", "country": "Australia", "hook": "", "image": "" }
+      ]
+    }
+  ]
+}

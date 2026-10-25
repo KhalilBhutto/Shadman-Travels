@@ -1243,3 +1243,43 @@ a.umrah-enquire {
 /* Equal-height review cards: author row sits at the bottom of each card */
 .testi-card-c { display: flex; flex-direction: column; }
 .testi-card-c .testi-author { margin-top: auto; }
+
+/* ═══════════════════════════════════════════
+   WHERE WE FLY — cinematic feature
+═══════════════════════════════════════════ */
+.wwf-sec { position: relative; padding: 96px 32px; color: #fff; background: radial-gradient(ellipse at 50% 0%, rgba(201,160,40,.14), transparent 55%), #07120a; border-top: 1px solid rgba(201,160,40,.4); border-bottom: 1px solid rgba(201,160,40,.4); }
+.wwf-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+.wwf-tab { min-height: 44px; padding: 0 20px; border-radius: 50px; border: 1px solid rgba(228,188,90,.4); background: transparent; color: rgba(255,255,255,.85); font-size: .78rem; font-weight: 700; letter-spacing: .06em; cursor: pointer; transition: all .2s; }
+.wwf-tab:hover, .wwf-tab.on { background: var(--gold); border-color: var(--gold); color: var(--g900); }
+
+.wwf-banner { position: relative; height: 380px; border-radius: 24px; overflow: hidden; padding: 36px 44px; display: flex; flex-direction: column; justify-content: flex-end; margin-bottom: 16px; border: 1px solid rgba(228,188,90,.45); box-shadow: 0 30px 70px rgba(0,0,0,.5); background: linear-gradient(180deg, rgba(6,15,9,.05) 20%, rgba(6,15,9,.9)), linear-gradient(135deg, #3a8a5c, #0b1e10 70%); background-size: cover; background-position: center; }
+.wwf-pill { position: absolute; top: 28px; left: 44px; padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(228,188,90,.6); background: rgba(6,15,9,.55); color: var(--gold2); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; }
+.wwf-idx { position: absolute; top: 24px; right: 44px; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold3); }
+.wwf-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.wwf-big { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(3.2rem, 9vw, 8.25rem); line-height: .95; margin: 0; }
+.wwf-country { margin-top: 6px; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold2); font-weight: 700; }
+.wwf-hook { margin: 6px 0 0; font-size: .88rem; color: rgba(255,255,255,.85); max-width: 460px; }
+.wwf-cta { min-height: 48px; padding: 0 28px; border-radius: 50px; display: inline-flex; align-items: center; white-space: nowrap; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); font-weight: 700; font-size: .88rem; transition: transform .2s, filter .2s; }
+.wwf-cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+.wwf-rail { display: flex; flex-wrap: wrap; gap: 16px; }
+.wwf-tile { position: relative; flex: 1 1 200px; height: 200px; border-radius: 18px; overflow: hidden; padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; text-align: left; color: #fff; font-family: inherit; cursor: pointer; border: 1px solid rgba(228,188,90,.28); transition: transform .3s, border-color .3s; background: linear-gradient(180deg, rgba(6,15,9,.05) 30%, rgba(6,15,9,.9)), linear-gradient(150deg, #2a6b47, #0b1e10); background-size: cover; background-position: center; }
+.wwf-tile:nth-child(even) { background-image: linear-gradient(180deg, rgba(6,15,9,.05) 30%, rgba(6,15,9,.9)), linear-gradient(150deg, #1d5230, #060f09); }
+.wwf-tile:hover { transform: translateY(-4px); border-color: var(--gold2); }
+.wwf-tab:focus-visible, .wwf-tile:focus-visible, .wwf-cta:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
+.wwf-n { position: absolute; top: 14px; left: 18px; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold2); }
+.wwf-tname { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.wwf-tcountry { margin-top: 2px; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); font-weight: 700; }
+.wwf-error { text-align: center; color: rgba(255,255,255,.7); }
+
+@media (max-width: 700px) {
+  .wwf-sec { padding: 64px 20px; }
+  .wwf-banner { height: 290px; padding: 22px 20px; border-radius: 22px; }
+  .wwf-pill { top: 16px; left: 18px; }
+  .wwf-idx { top: 14px; right: 18px; font-size: 1.2rem; }
+  .wwf-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .wwf-rail { gap: 8px; }
+  .wwf-tile { flex: 0 0 auto; height: auto; min-height: 44px; padding: 0 18px; border-radius: 50px; flex-direction: row; align-items: center; background: none !important; }
+  .wwf-n, .wwf-tcountry { display: none; }
+  .wwf-tname { font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 700; color: var(--gold3); }
+}

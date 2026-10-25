@@ -303,112 +303,103 @@ initAirlineFilter();
 })();
 
 /* ═══════════════════════════════════════════
-   DESTINATION OFFERS CAROUSEL (multi-card)
-   Static square offer graphics — one airline
-   promo per card, 5 visible at once like the
-   hero's "Flights from Karachi" carousel.
+   WHERE WE FLY — region tabs + featured destination
+   Data: data/where-we-fly.json
 ═══════════════════════════════════════════ */
-const DESTINATION_OFFERS = [
-  { img: '/images/offers/airblue.png',       alt: 'Airblue Special Offer' },
-  { img: '/images/offers/airsial.png',       alt: 'AirSial Special Offer' },
-  { img: '/images/offers/emirates.png',      alt: 'Emirates Special Offer' },
-  { img: '/images/offers/etihad.png',        alt: 'Etihad Airways Special Offer' },
-  { img: '/images/offers/flydubai.png',      alt: 'FlyDubai Special Offer' },
-  { img: '/images/offers/flynas.png',        alt: 'Flynas Special Offer' },
-  { img: '/images/offers/flyadeal.png',      alt: 'Flyadeal Special Offer' },
-  { img: '/images/offers/flyjinnah.png',     alt: 'Fly Jinnah Special Offer' },
-  { img: '/images/offers/gulfair.png',       alt: 'Gulf Air Special Offer' },
-  { img: '/images/offers/omanair.png',       alt: 'Oman Air Special Offer' },
-  { img: '/images/offers/pia.png',           alt: 'PIA Special Offer' },
-  { img: '/images/offers/qatarairways.png',  alt: 'Qatar Airways Special Offer' },
-  { img: '/images/offers/salamair.png',      alt: 'SalamAir Special Offer' },
-  { img: '/images/offers/saudia.png',        alt: 'Saudia Special Offer' },
-  { img: '/images/offers/turkish.png',       alt: 'Turkish Airlines Special Offer' },
-];
+(function loadWhereWeFly() {
+  const mount  = document.getElementById('wwfMount');
+  const tabsEl = document.getElementById('wwfTabs');
+  if (!mount || !tabsEl) return;
 
-(function initDestinationCarousel() {
-  const track    = document.getElementById('destTrack');
-  const dotsWrap = document.getElementById('destDots');
-  if (!track || !dotsWrap) return;
+  let regions = [];
+  let regionIdx = 0;
+  let featIdx = 0;
 
-  const items = DESTINATION_OFFERS;
-  const total = items.length;
-  let index   = 0;
-  let bgActive = 'A';
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
 
-  track.innerHTML = items.map(function (d, i) {
-    return '<div class="dest-card" data-idx="' + i + '" title="' + d.alt + '" style="background-image:url(\'' + d.img + '\')"></div>';
-  }).join('');
+  // Photo (if the JSON has one) on top of a dark gradient; empty = CSS default gradient
+  function bg(c) {
+    return c.image
+      ? "background-image:linear-gradient(180deg,rgba(6,15,9,.05) 20%,rgba(6,15,9,.9)),url('" + esc(c.image) + "')"
+      : '';
+  }
 
-  dotsWrap.innerHTML = items.map(function (d, i) {
-    return '<div class="dest-dot" data-idx="' + i + '"></div>';
-  }).join('');
+  function quoteUrl(c) {
+    return 'https://wa.me/923000041510?text=' + encodeURIComponent(
+      'Hello Shadman Travels, I would like a fare quote for ' + c.city + ' (' + c.country + ').');
+  }
 
-  const cards = track.querySelectorAll('.dest-card');
-  const dots  = dotsWrap.querySelectorAll('.dest-dot');
-
-  function updateBackground() {
-    const dest = items[index];
-    if (!dest) return;
-    const showing   = document.getElementById('destBg' + bgActive);
-    const nextLayer = bgActive === 'A' ? 'B' : 'A';
-    const hidden    = document.getElementById('destBg' + nextLayer);
-    if (!showing || !hidden) return;
-    hidden.style.backgroundImage = "url('" + dest.img + "')";
-    hidden.classList.add('active');
-    showing.classList.remove('active');
-    bgActive = nextLayer;
+  function syncTabs() {
+    tabsEl.querySelectorAll('.wwf-tab').forEach(function (b, i) {
+      b.classList.toggle('on', i === regionIdx);
+      b.setAttribute('aria-pressed', String(i === regionIdx));
+    });
   }
 
   function render() {
-    cards.forEach(function (card, i) {
-      const offset = (i - index + total) % total;
-      let pos;
-      if (offset === 0) pos = 'center';
-      else if (offset === 1) pos = 'near-right';
-      else if (offset === total - 1) pos = 'near-left';
-      else if (offset === 2) pos = 'far-right';
-      else if (offset === total - 2) pos = 'far-left';
-      else pos = 'hidden';
-      card.dataset.pos = pos;
+    const list = regions[regionIdx].cities;
+    const f = list[featIdx];
+
+    let html = '<article class="wwf-banner" style="' + bg(f) + '">';
+    html += '<span class="wwf-pill">Featured destination</span>';
+    html += '<span class="wwf-idx">' + pad(featIdx + 1) + ' / ' + pad(list.length) + '</span>';
+    html += '<div class="wwf-row"><div><h3 class="wwf-big">' + esc(f.city) + '</h3>';
+    html += '<div class="wwf-country">' + esc(f.country) + '</div>';
+    if (f.hook) html += '<p class="wwf-hook">' + esc(f.hook) + '</p>';
+    html += '</div><a class="wwf-cta" href="' + quoteUrl(f) + '" target="_blank" rel="noopener">Get a quote →</a></div>';
+    html += '</article>';
+
+    html += '<div class="wwf-rail">';
+    list.forEach(function (c, i) {
+      if (i === featIdx) return;
+      html += '<button type="button" class="wwf-tile" data-c="' + i + '" style="' + bg(c) + '">';
+      html += '<span class="wwf-n">' + pad(i + 1) + '</span>';
+      html += '<span class="wwf-tname">' + esc(c.city) + '</span>';
+      html += '<span class="wwf-tcountry">' + esc(c.country) + '</span></button>';
     });
-    dots.forEach(function (dot, i) {
-      dot.classList.toggle('active', i === index);
-    });
-    updateBackground();
+    html += '</div>';
+
+    mount.innerHTML = html;
+    syncTabs();
   }
 
-  function goTo(n) {
-    index = (n + total) % total;
+  tabsEl.addEventListener('click', function (e) {
+    const b = e.target.closest('[data-r]');
+    if (!b) return;
+    regionIdx = parseInt(b.dataset.r, 10);
+    featIdx = 0;
     render();
-  }
-
-  let autoTimer = null;
-  function restartAuto() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(function () { goTo(index + 1); }, 4000);
-  }
-
-  cards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      goTo(parseInt(card.dataset.idx, 10));
-      restartAuto();
-    });
-  });
-  dots.forEach(function (dot) {
-    dot.addEventListener('click', function () {
-      goTo(parseInt(dot.dataset.idx, 10));
-      restartAuto();
-    });
   });
 
-  const prevBtn = document.getElementById('destPrev');
-  const nextBtn = document.getElementById('destNext');
-  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); restartAuto(); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); restartAuto(); });
+  mount.addEventListener('click', function (e) {
+    const t = e.target.closest('[data-c]');
+    if (!t) return;
+    featIdx = parseInt(t.dataset.c, 10);
+    render();
+  });
 
-  render();
-  restartAuto();
+  fetch('/data/where-we-fly.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('Could not load destinations');
+      return res.json();
+    })
+    .then(function (data) {
+      regions = (data.regions || []).filter(function (r) { return r.cities && r.cities.length; });
+      if (!regions.length) throw new Error('No destinations in JSON');
+      tabsEl.innerHTML = regions.map(function (r, i) {
+        return '<button type="button" class="wwf-tab" data-r="' + i + '" aria-pressed="false">' + esc(r.name) + '</button>';
+      }).join('');
+      render();
+    })
+    .catch(function (err) {
+      console.warn('Where We Fly failed to load:', err);
+      mount.innerHTML = '<p class="wwf-error">Unable to load destinations right now — please call us at +92 300 0041510.</p>';
+    });
 })();
 
 
