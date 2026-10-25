@@ -7,8 +7,20 @@
    AIRLINES SECTION
 ═══════════════════════════════════════════ */
 .airlines-sec {
-  background: var(--cream);
+  background-color: #07120a;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(201,160,40,.16), transparent 55%),
+    radial-gradient(1.5px 1.5px at 60px 80px, #e4bc5a, transparent),
+    radial-gradient(1px 1px at 190px 150px, rgba(228,188,90,.8), transparent),
+    radial-gradient(1.5px 1.5px at 130px 30px, #f5dfa0, transparent);
+  background-size: auto, 260px 240px, 310px 270px, 350px 300px;
+  border-top: 1px solid rgba(201,160,40,.4);
+  border-bottom: 1px solid rgba(201,160,40,.4);
 }
+.airlines-sec .sec-title em { color: var(--gold2); }
+.airlines-sec .filter-btn { min-height: 44px; padding: 0 20px; border: 1px solid rgba(228,188,90,.4); background: transparent; color: rgba(255,255,255,.85); }
+.airlines-sec .filter-btn.active,
+.airlines-sec .filter-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--g900); }
 
 /* ── Filter Bar ── */
 .filter-bar {
@@ -254,9 +266,55 @@
   transform: translateY(-1px);
 }
 
-.acard.hidden {
-  display: none;
+/* ── Airline Grid ── */
+.airlines-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+#airlinesGrid { min-height: 320px; }
+
+/* ── Airline boarding-pass ticket ── */
+.acard { --brand: var(--gold); position: relative; display: flex; min-height: 220px; border-radius: 20px; overflow: hidden; background: linear-gradient(160deg, #16422a, #0b1e10); border: 1px solid rgba(228,188,90,.35); box-shadow: 0 24px 50px rgba(0,0,0,.45); transition: transform .3s, border-color .3s; }
+.acard:hover { transform: translateY(-4px); border-color: var(--gold2); }
+.acard-main { flex: 1; min-width: 0; padding: 22px 26px; display: flex; flex-direction: column; }
+.acard-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.acard-logo-plate { flex: 0 0 92px; height: 50px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 6px 10px; }
+.acard-logo-plate img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.acard-name { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; line-height: 1.05; color: #fff; margin: 0; }
+.acard-hub { margin-top: 4px; font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold2); }
+.acard-desc { margin: 0 0 10px; font-size: .82rem; line-height: 1.6; color: rgba(255,255,255,.78); display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.acard-regions { margin-top: auto; font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.acard-stub { position: relative; flex: 0 0 168px; padding: 20px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px; border-left: 2px dashed rgba(255,255,255,.5); background: linear-gradient(160deg, rgba(0,0,0,.25), rgba(0,0,0,.6)), var(--brand); }
+.acard-stub small { font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; text-align: center; color: #fff; }
+.notch { position: absolute; left: -12px; width: 22px; height: 22px; border-radius: 50%; background: #07120a; }
+.notch-t { top: -11px; }
+.notch-b { bottom: -11px; }
+.acard .book-btn, .acard .offer-btn { min-height: 44px; border-radius: 50px; font-size: .75rem; font-weight: 700; letter-spacing: .04em; cursor: pointer; transition: filter .2s, transform .2s; }
+.acard .book-btn { border: 0; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+.acard .offer-btn { border: 1.5px solid rgba(255,255,255,.9); background: transparent; color: #fff; }
+.acard .book-btn:hover, .acard .offer-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.acard button:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
+.acard.hidden { display: none; }
+
+@media (max-width: 1000px) { .airlines-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .acard { flex-direction: column; }
+  .acard-stub { flex: none; flex-direction: row; border-left: 0; border-top: 2px dashed rgba(255,255,255,.5); }
+  .acard-stub small { display: none; }
+  .acard-stub .book-btn, .acard-stub .offer-btn { flex: 1; }
+  .notch-t { top: -11px; left: -11px; bottom: auto; }
+  .notch-b { top: -11px; left: auto; right: -11px; bottom: auto; }
 }
+
+/* ── Offer pop-up (flyer) ── */
+.offer-dialog { margin: auto; border: none; padding: 0; background: transparent; width: 100%; max-width: min(92vw, 560px); max-height: 92vh; overflow: visible; }
+.offer-dialog::backdrop { background: rgba(6,15,9,.85); backdrop-filter: blur(4px); }
+.offer-box { position: relative; text-align: center; background: var(--g800); border: 1px solid rgba(201,160,40,.4); border-radius: 18px; padding: 20px 20px 18px; max-height: 92vh; overflow: auto; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+.offer-title { margin: 0 48px 14px; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: #fff; }
+.offer-img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.offer-close { position: absolute; top: 8px; right: 10px; width: 44px; height: 44px; border-radius: 50%; background: transparent; color: var(--gold2); border: 1px solid rgba(201,160,40,.4); font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.offer-close:hover { background: var(--gold); color: var(--g900); }
+.offer-actions { display: flex; gap: 10px; margin-top: 16px; }
+.offer-actions a { flex: 1; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 50px; font-size: .8rem; font-weight: 700; }
+.offer-call { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900); }
+.offer-wa { background: #25d366; color: #04210f; }
 
 /* ═══════════════════════════════════════════
    POPULAR ROUTES SECTION

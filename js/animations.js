@@ -504,32 +504,23 @@ window.toggleFAQ = toggleFAQ;
       let html = '';
 
       data.forEach(function(a, i) {
-        const revealClass = ['reveal', 'reveal delay-1', 'reveal delay-2', 'reveal delay-3', 'reveal delay-4'][i % 5];
+        const revealClass = ['reveal', 'reveal delay-1'][i % 2];
+        const regions = (a.destinations || []).map(function(s) { return s.label; }).join(' · ');
+        // Flyer file has the same name as the logo file, but lives in /images/offers/
+        const offerImg = '/images/offers/' + String(a.logo || '').split('/').pop();
 
-        const hubTextClass = a.textOnColor === 'dark' ? 'acard-hub-dark' : 'acard-hub-light';
-
-        html += '<div class="acard ' + revealClass + '" data-cat="' + escapeHtml(a.categories.join(' ')) + '">';
-        html += '<div class="acard-top" style="background:' + escapeHtml(a.colorTop) + '">';
-        html += '<div class="acard-logo-plate"><img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.name) + ' logo" loading="lazy"></div>';
-        html += '<div class="acard-hub ' + hubTextClass + '">✈ Hub: ' + escapeHtml(a.hub) + '</div>';
+        html += '<article class="acard ' + revealClass + '" data-cat="' + escapeHtml(a.categories.join(' ')) + '" style="--brand:' + escapeHtml(a.colorTop) + '">';
+        html += '<div class="acard-main">';
+        html += '<div class="acard-head"><div class="acard-logo-plate"><img src="' + escapeHtml(a.logo) + '" alt="' + escapeHtml(a.name) + ' logo" loading="lazy"></div>';
+        html += '<div><h3 class="acard-name">' + escapeHtml(a.name) + '</h3><div class="acard-hub">Hub: ' + escapeHtml(a.hub) + '</div></div></div>';
+        html += '<p class="acard-desc">' + escapeHtml(a.desc) + '</p>';
+        if (regions) html += '<div class="acard-regions">' + escapeHtml(regions) + '</div>';
         html += '</div>';
-        html += '<div class="acard-body"><p class="acard-desc">' + escapeHtml(a.desc) + '</p>';
-
-        a.destinations.forEach(function(section) {
-          html += '<div class="dest-section"><div class="dest-section-label">' + escapeHtml(section.label) + '</div><div class="dest-chips">';
-          section.chips.forEach(function(chip) {
-            const newClass = chip.new ? ' new' : '';
-            const codeStr = chip.code ? ' (' + escapeHtml(chip.code) + ')' : '';
-            html += '<span class="dest-chip' + newClass + '">' + escapeHtml(chip.name) + codeStr + (chip.new ? ' 🆕' : '') + '</span>';
-          });
-          html += '</div></div>';
-        });
-
-        const btnTextColor = a.textOnColor === 'dark' ? '#1a1a1a' : '#ffffff';
-
-        html += '<div class="acard-footer"><div class="seats-badge">⚡ Limited Seats</div>';
-        html += '<button class="book-btn" data-call="tel:+923000041510" style="background:' + escapeHtml(a.colorBtn) + ';color:' + btnTextColor + '">Book Now →</button></div>';
-        html += '</div></div>';
+        html += '<div class="acard-stub"><span class="notch notch-t"></span><span class="notch notch-b"></span>';
+        html += '<small>Exclusive fare</small>';
+        html += '<button type="button" class="book-btn" data-call="tel:+923000041510">Book Now →</button>';
+        html += '<button type="button" class="offer-btn" data-offer="' + escapeHtml(offerImg) + '" data-name="' + escapeHtml(a.name) + '">View offer</button>';
+        html += '</div></article>';
       });
 
       container.innerHTML = html;
@@ -537,6 +528,12 @@ window.toggleFAQ = toggleFAQ;
       container.querySelectorAll('.book-btn[data-call]').forEach(function(btn) {
         btn.addEventListener('click', function() {
           window.location.href = btn.dataset.call;
+        });
+      });
+
+      container.querySelectorAll('.offer-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          openOfferDialog(btn.dataset.offer, btn.dataset.name);
         });
       });
 
@@ -554,6 +551,37 @@ window.toggleFAQ = toggleFAQ;
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  /* Opens one airline's flyer full-size in a native <dialog> pop-up. */
+  function openOfferDialog(src, name) {
+    let dlg = document.getElementById('offerDialog');
+    if (!dlg) {
+      dlg = document.createElement('dialog');
+      dlg.id = 'offerDialog';
+      dlg.className = 'offer-dialog';
+      dlg.setAttribute('aria-labelledby', 'offerDialogTitle');
+      dlg.innerHTML =
+        '<div class="offer-box">' +
+          '<button type="button" class="offer-close" aria-label="Close offer">&times;</button>' +
+          '<h3 class="offer-title" id="offerDialogTitle"></h3>' +
+          '<img class="offer-img" alt="">' +
+          '<div class="offer-actions">' +
+            '<a class="offer-call" href="tel:+923000041510"><i class="fas fa-phone"></i> Call to book</a>' +
+            '<a class="offer-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(dlg);
+      dlg.querySelector('.offer-close').addEventListener('click', function() { dlg.close(); });
+      dlg.addEventListener('click', function(e) { if (e.target === dlg) dlg.close(); });
+    }
+    dlg.querySelector('.offer-title').textContent = name + ' — Special Offer';
+    const img = dlg.querySelector('.offer-img');
+    img.src = src;
+    img.alt = name + ' special offer flyer';
+    dlg.querySelector('.offer-wa').href = 'https://wa.me/923000041510?text=' +
+      encodeURIComponent('Hello Shadman Travels, I saw the ' + name + ' offer and would like today\'s fare.');
+    if (typeof dlg.showModal === 'function') dlg.showModal();
   }
 
 })();
