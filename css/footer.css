@@ -440,3 +440,39 @@ footer {
 
   .f2 .foot-bottom { flex-direction: column; text-align: center; }
 }
+
+/* ═══════════════════════════════════════════
+   FOOTER — flying plane animation
+   The plane stays still; the dashed lines slide LEFT,
+   so the plane looks like it is flying RIGHT.
+═══════════════════════════════════════════ */
+.f2-path::before,
+.f2-path::after {
+  border-top: 0;
+  height: 2px;
+  opacity: 0.85;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 16px);
+  background-size: 16px 2px;
+  animation: f2-dash-flow 0.9s linear infinite;
+}
+
+/* Lines fade out at their outer ends so they look like they come from nowhere */
+.f2-path::before {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%);
+          mask-image: linear-gradient(90deg, transparent, #000 60%);
+}
+.f2-path::after {
+  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent);
+          mask-image: linear-gradient(90deg, #000 40%, transparent);
+}
+
+@keyframes f2-dash-flow {
+  from { background-position: 0 0; }
+  to   { background-position: -16px 0; }
+}
+
+/* Respect people who turn animations off in their device settings */
+@media (prefers-reduced-motion: reduce) {
+  .f2-path::before,
+  .f2-path::after { animation: none; }
+}
