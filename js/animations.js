@@ -248,11 +248,9 @@ function initAirlineFilter() {
 initAirlineFilter();
 
 /* ═══════════════════════════════════════════
-   TESTIMONIALS — built from data/google-reviews.json
-   (real Google reviews; loaded once by js/google-reviews.js).
-   Only reviews that have text are shown. Stars come from the
-   data; the route/airline line was removed (Google reviews
-   have none). If the data cannot load, the section is hidden.
+   REVIEWS — dark bento wall, built from data/google-reviews.json
+   Rating tile + one featured review + up to 4 smaller reviews.
+   Clicking a smaller review makes it the featured one.
 ═══════════════════════════════════════════ */
 (function loadTestimonials() {
   const container = document.getElementById('testi-container');
@@ -262,40 +260,66 @@ initAirlineFilter();
   if (!RV) { if (section) section.hidden = true; return; }
 
   RV.ready.then(function (d) {
-    const list = d.reviews;
+    const list = d.reviews.slice(0, 5);
     if (!list.length) throw new Error('no reviews with text');
 
-    // Link under the heading: "★★★★★ 4.5 · 15 Google reviews · as of Oct 2026"
-    const sum = document.getElementById('testiRating');
-    if (sum && isFinite(Number(d.rating)) && Number(d.total) > 0) {
-      const asOf = RV.monthLabel(d.asOf);
-      if (d.profileUrl) sum.href = d.profileUrl;
-      sum.innerHTML = RV.stars(d.rating) + '<b>' + Number(d.rating).toFixed(1) + '</b>' +
-        '<span>' + Number(d.total) + ' Google reviews' + (asOf ? ' · as of ' + RV.esc(asOf) : '') + '</span>';
-      sum.hidden = false;
+    let featIdx = 0;
+    const asOf = RV.monthLabel(d.asOf);
+    const hasRating = isFinite(Number(d.rating)) && Number(d.total) > 0;
+
+    const link = document.getElementById('rv2Link');
+    if (link && d.profileUrl) link.href = d.profileUrl;
+
+    function stars(rating, cls) {
+      return '<div class="' + cls + ' rv-stars" style="--p:' + (rating / 5 * 100) + '%" role="img" aria-label="' + RV.esc(rating) + ' out of 5 stars">★★★★★</div>';
     }
 
-    // Groups of 3 per slide (same layout as before)
-    const groups = [];
-    for (let i = 0; i < list.length; i += 3) groups.push(list.slice(i, i + 3));
+    function author(r) {
+      return '<div class="rv2-au"><div class="rv2-av" aria-hidden="true">' + RV.esc(RV.initial(r.name)) + '</div>' +
+        '<div><div class="rv2-nm">' + RV.esc(r.name) + '</div>' +
+        '<div class="rv2-meta">' + RV.gIcon + '<span>Google review' + (r.when ? ' · ' + RV.esc(r.when) : '') + '</span></div></div></div>';
+    }
 
-    container.innerHTML = groups.map(function (group, gi) {
-      const cards = group.map(function (r) {
-        return '<div class="testi-card-c">' +
-          '<div class="testi-quote">"</div>' +
-          '<div class="testi-stars rv-stars" style="--p:' + (r.rating / 5 * 100) + '%" role="img" aria-label="' + RV.esc(r.rating) + ' out of 5 stars">★★★★★</div>' +
-          '<p class="testi-text">' + RV.esc(r.text) + '</p>' +
-          '<div class="testi-author">' +
-            '<div class="testi-avatar" aria-hidden="true">' + RV.esc(RV.initial(r.name)) + '</div>' +
-            '<div><div class="testi-name">' + RV.esc(r.name) + '</div>' +
-            '<div class="testi-meta testi-g">' + RV.gIcon + 'Google review' + (r.when ? ' • ' + RV.esc(r.when) : '') + '</div></div>' +
-          '</div>' +
-        '</div>';
-      }).join('');
-      return '<div class="testi-slide testi-slide--' + group.length + (gi === 0 ? ' active' : '') + '">' + cards + '</div>';
-    }).join('');
+    function render() {
+      let html = '';
 
-    initTestiCarousel();
+      if (hasRating) {
+        html += '<div class="rv2-rate"><span class="rv2-gpill">' + RV.gIcon + 'Google reviews</span>' +
+          '<div class="rv2-big">' + Number(d.rating).toFixed(1) + '</div>' +
+          stars(Number(d.rating), 'rv2-stars') +
+          '<div class="rv2-total">' + Number(d.total) + ' Google reviews</div>' +
+          (asOf ? '<small>as of ' + RV.esc(asOf) + '</small>' : '') + '</div>';
+      }
+
+      const f = list[featIdx];
+      html += '<article class="rv2-feat"><span class="rv2-qm" aria-hidden="true">“</span>' +
+        stars(f.rating, 'rv2-fstars') +
+        '<p class="rv2-qt' + (String(f.text).length > 110 ? ' rv2-long' : '') + '">' + RV.esc(f.text) + '</p>' +
+        author(f) + '</article>';
+
+      list.forEach(function (r, i) {
+        if (i === featIdx) return;
+        html += '<article class="rv2-card" data-i="' + i + '" tabindex="0" role="button" aria-label="Show the review by ' + RV.esc(r.name) + '">' +
+          stars(r.rating, 'rv2-cstars') +
+          '<p class="rv2-ct">' + RV.esc(r.text) + '</p>' +
+          author(r) + '</article>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    function pick(e) {
+      const c = e.target.closest('[data-i]');
+      if (!c) return;
+      featIdx = parseInt(c.dataset.i, 10);
+      render();
+    }
+    container.addEventListener('click', pick);
+    container.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e); }
+    });
+
+    render();
   }).catch(function (err) {
     console.warn('Testimonials unavailable:', err);
     if (section) section.hidden = true;

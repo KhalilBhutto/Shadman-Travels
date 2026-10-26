@@ -856,25 +856,23 @@
          The .active class on the first slide is the initial
          visible state. Rotation controlled by: js/animations.js
          ═══════════════════════════════════════════════════════════ -->
-    <section class="sec testi-sec">
+    <section class="rv2-sec testi-sec" aria-labelledby="rv2Title">
       <div class="sec-inner">
 
         <div class="sec-head reveal">
-          <div class="sec-eyebrow">💬 What Our Customers Say</div>
-          <h2 class="sec-title">Trusted by <em>Thousands</em></h2>
+          <div class="sec-eyebrow" style="color:var(--gold2)">What Our Customers Say</div>
+          <h2 class="sec-title light" id="rv2Title">Trusted by <em>Thousands</em></h2>
           <div class="sec-divider"></div>
-          <a class="testi-rating" id="testiRating" href="https://maps.app.goo.gl/VC3xpDUezByyPFrX7" target="_blank" rel="noopener" hidden></a>
         </div>
 
-        <div class="testi-carousel-wrap">
-          <div class="testi-carousel" id="testiCarousel">
+        <div class="rv2-bento" id="testi-container">
+          <!-- Reviews are loaded from /data/google-reviews.json -->
+        </div>
 
-            <div id="testi-container">
-              <!-- Testimonials loaded from /data/google-reviews.json -->
-            </div>
-
-          </div><!-- /testi-carousel -->
-        </div><!-- /testi-carousel-wrap -->
+        <div class="rv2-cta">
+          <span>See what customers say in full — <b>every review is on Google</b>.</span>
+          <a class="rv2-gb" id="rv2Link" href="https://maps.app.goo.gl/VC3xpDUezByyPFrX7" target="_blank" rel="noopener">Read all on Google</a>
+        </div>
 
       </div>
     </section><!-- /testi-sec -->
