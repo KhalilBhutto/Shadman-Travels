@@ -243,3 +243,200 @@ footer {
 .foot-legal-links span {
   color: rgba(255, 255, 255, 0.2);
 }
+
+/* ═══════════════════════════════════════════
+   FOOTER v2 — Centered, compact (single block)
+═══════════════════════════════════════════ */
+footer {
+  background: radial-gradient(ellipse at 50% 0%, #1c4a2e 0%, var(--g900) 70%);
+  padding: 36px 32px 18px;
+}
+
+.f2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.f2-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--gold2);
+  line-height: 1;
+}
+
+.f2-tag {
+  display: block;
+  margin-top: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.f2-path {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--gold2);
+}
+.f2-path::before,
+.f2-path::after {
+  content: "";
+  width: 80px;
+  border-top: 2px dashed var(--gold);
+  opacity: 0.7;
+}
+
+.f2-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Trust panel */
+.f2-trust {
+  display: flex;
+  width: 100%;
+  max-width: 620px;
+  padding: 12px 0;
+  border: 1px solid rgba(201, 160, 40, 0.3);
+  border-radius: 14px;
+  background: rgba(6, 15, 9, 0.55);
+}
+.f2-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.f2-stat + .f2-stat {
+  border-left: 1px solid rgba(201, 160, 40, 0.3);
+}
+.f2-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold3);
+  line-height: 1;
+}
+.f2-lbl {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0 6px;
+}
+
+/* Airlines line */
+.f2-airlines { max-width: 1000px; }
+.f2-airlines h4 {
+  margin: 0 0 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.f2-airlines ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 0;
+}
+.f2-airlines li {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.f2-airlines li:not(:last-child)::after {
+  content: "•";
+  margin: 0 10px;
+  color: var(--gold);
+}
+
+/* Contact buttons */
+.f2-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  scroll-margin-top: 90px;
+}
+.f2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+.f2-btn:hover { transform: translateY(-2px); }
+.f2-btn-call  { background: var(--gold); color: var(--g900); }
+.f2-btn-wa    { background: #167a3e; color: #fff; }
+.f2-btn-ghost { border: 1.5px solid var(--gold); color: var(--gold3); }
+.f2-btn-ghost:hover { background: var(--gold); color: var(--g900); }
+
+/* Your old "#contact .fa-phone / .fa-whatsapp" rules colour these icons
+   gold/green on gold/green buttons, so they vanish. This makes them follow the button text colour. */
+#contact .f2-btn i { color: inherit; }
+
+/* Social */
+.f2-social { display: flex; align-items: center; gap: 10px; }
+.f2-soc {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 160, 40, 0.35);
+  border-radius: 50%;
+  color: var(--gold2);
+  transition: background 0.2s, color 0.2s;
+}
+.f2-soc:hover { background: var(--gold); color: var(--g900); }
+.f2-site {
+  margin-left: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--gold2);
+  text-decoration: none;
+}
+
+/* Copyright bar */
+.f2 .foot-bottom { width: 100%; margin-top: 0; padding-top: 14px; gap: 8px; }
+.f2 .foot-bottom p { margin: 0; }
+
+/* Phone */
+@media (max-width: 600px) {
+  body footer { padding: 28px 20px 18px; }  /* "body" makes this beat responsive.css */
+  .f2 { gap: 12px; }
+  .f2-name { font-size: 1.9rem; }
+  .f2-path::before,
+  .f2-path::after { width: 44px; }
+  .f2-desc { font-size: 0.88rem; }
+  .f2-num { font-size: 1.5rem; }
+  .f2-lbl { font-size: 0.5rem; letter-spacing: 0.06em; }
+  .f2-airlines li { font-size: 0.8rem; }
+  .f2-airlines li:not(:last-child)::after { margin: 0 7px; }
+
+  .f2-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+  .f2-btn-call, .f2-btn-wa { grid-column: 1 / -1; }
+  .f2-btn-ghost { padding: 10px 12px; }
+
+  .f2 .foot-bottom { flex-direction: column; text-align: center; }
+}
