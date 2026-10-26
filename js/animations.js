@@ -428,73 +428,83 @@ initAirlineFilter();
 
 
 /* ═══════════════════════════════════════════
-   FAQ — Load from data/faq.json
-   Renders an accordion into #faqList. Each
-   question toggles its own answer open/closed
-   independently — no limit on how many can be
-   open at once.
+   FAQ — chat hub, built from data/faq.json
+   Questions split left/right of the phone. Tapping one shows it
+   as a chat message with its answer. On phones/tablets the page
+   scrolls up to the chat after a tap.
 ═══════════════════════════════════════════ */
 (function loadFAQ() {
+  const left  = document.getElementById('faqLeft');
+  const right = document.getElementById('faqRight');
+  const qEl   = document.getElementById('faqQ');
+  const aEl   = document.getElementById('faqA');
+  const phone = document.getElementById('faqPhone');
+  if (!left || !right || !qEl || !aEl) return;
 
-  const container = document.getElementById('faqList');
-  if (!container) return;
+  left.innerHTML = '<p class="faq2-msg">Loading questions…</p>';
 
-  container.innerHTML = '<div class="testi-loading">Loading FAQs...</div>';
-
-  fetch('/data/faq.json')
-    .then(function(res) {
-      if (!res.ok) throw new Error('Could not load FAQ');
-      return res.json();
-    })
-    .then(function(data) {
-      let html = '';
-
-      data.forEach(function(item, i) {
-        if (!item.q || !item.q.trim()) return; // skip blank/placeholder entries
-        html += '<div class="faq-item reveal" id="faq-item-' + i + '">';
-        html += '<button class="faq-question" data-faq-index="' + i + '" aria-expanded="false" aria-controls="faq-answer-' + i + '">';
-        html += '<span>' + escapeHtml(item.q) + '</span>';
-        html += '<span class="faq-chevron">▼</span>';
-        html += '</button>';
-        html += '<div class="faq-answer" id="faq-answer-' + i + '"><p>' + escapeHtml(item.a) + '</p></div>';
-        html += '</div>';
-      });
-
-      container.innerHTML = html;
-
-      container.querySelectorAll('.faq-question').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          toggleFAQ(parseInt(btn.dataset.faqIndex, 10));
-        });
-      });
-
-      if (typeof initScrollReveal === 'function') initScrollReveal();
-    })
-    .catch(function(err) {
-      console.warn('FAQ JSON failed to load:', err);
-      container.innerHTML = '<p style="text-align:center;color:var(--muted)">Unable to load FAQs right now — please call us at +92 300 0041510.</p>';
-    });
-
-  function escapeHtml(str) {
+  function esc(str) {
     return String(str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
   }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
 
+  fetch('/data/faq.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('Could not load FAQ');
+      return res.json();
+    })
+    .then(function (data) {
+      const items = data.filter(function (it) { return it.q && it.q.trim(); });
+      if (!items.length) throw new Error('No FAQ items');
+
+      const half = Math.ceil(items.length / 2);
+
+      function btn(it, i) {
+        return '<button type="button" class="faq2-q" data-i="' + i + '" aria-pressed="false"><span>' + pad(i + 1) + '</span>' + esc(it.q) + '</button>';
+      }
+      left.innerHTML  = items.slice(0, half).map(function (it, i) { return btn(it, i); }).join('');
+      right.innerHTML = items.slice(half).map(function (it, i) { return btn(it, i + half); }).join('');
+
+      function select(i, scroll) {
+        const it = items[i];
+        qEl.textContent = it.q;
+        aEl.textContent = it.a || '';
+
+        // restart the small fade-in on the answer bubble
+        aEl.classList.remove('faq2-pop');
+        void aEl.offsetWidth;
+        aEl.classList.add('faq2-pop');
+
+        document.querySelectorAll('.faq2-q').forEach(function (b) {
+          const on = parseInt(b.dataset.i, 10) === i;
+          b.classList.toggle('on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+
+        if (scroll && phone && window.innerWidth <= 1000) {
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          phone.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+        }
+      }
+
+      [left, right].forEach(function (col) {
+        col.addEventListener('click', function (e) {
+          const b = e.target.closest('.faq2-q');
+          if (b) select(parseInt(b.dataset.i, 10), true);
+        });
+      });
+
+      select(0, false);
+    })
+    .catch(function (err) {
+      console.warn('FAQ JSON failed to load:', err);
+      left.innerHTML = '<p class="faq2-msg">Unable to load FAQs right now — please call us at +92 300 0041510.</p>';
+    });
 })();
-
-/** Toggles a single FAQ item open/closed. Exposed globally for the inline onclick. */
-function toggleFAQ(index) {
-  const item = document.getElementById('faq-item-' + index);
-  const question = item.querySelector('.faq-question');
-  const isOpen = item.classList.contains('open');
-
-  item.classList.toggle('open', !isOpen);
-  question.setAttribute('aria-expanded', String(!isOpen));
-}
-window.toggleFAQ = toggleFAQ;
 
 /* ═══════════════════════════════════════════
    AIRLINES — Load from data/airlines.json

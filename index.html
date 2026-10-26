@@ -882,16 +882,49 @@
          Accordion-style frequently asked questions.
          Loaded from data/faq.json. Controlled by: js/animations.js
          ═══════════════════════════════════════════════════════════ -->
-    <section class="faq-sec" id="faq">
+    <section class="faq2-sec" id="faq" aria-labelledby="faqTitle">
       <div class="sec-inner">
 
         <div class="sec-head reveal">
-          <div class="sec-eyebrow">❓ Got Questions?</div>
-          <h2 class="sec-title">Frequently <em>Asked</em> Questions</h2>
+          <div class="sec-eyebrow">Got Questions?</div>
+          <h2 class="sec-title" id="faqTitle">Frequently <em>Asked</em> Questions</h2>
           <div class="sec-divider"></div>
         </div>
 
-        <div class="faq-list" id="faqList"></div>
+        <div class="faq2-wrap">
+          <div class="faq2-col faq2-left" id="faqLeft"></div>
+
+          <div class="faq2-phonewrap" id="faqPhone">
+            <span class="faq2-chip faq2-chip1">No bots · no wait times</span>
+            <span class="faq2-chip faq2-chip2">24/7 support</span>
+            <div class="faq2-phone"><div class="faq2-screen">
+              <span class="faq2-notch"></span>
+              <div class="faq2-head">
+                <div class="faq2-av">S</div>
+                <div class="faq2-who"><div class="faq2-nm">Shadman Travels</div><div class="faq2-sb">Real travel experts</div></div>
+                <a class="faq2-call" href="tel:+923000041510" aria-label="Call Shadman Travels"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+              </div>
+              <div class="faq2-body" aria-live="polite">
+                <div class="faq2-g">Hi! Tap any question and we'll answer it here.</div>
+                <div class="faq2-u" id="faqQ"></div>
+                <div class="faq2-tk" aria-hidden="true">✓✓</div>
+                <div class="faq2-a" id="faqA"></div>
+              </div>
+              <div class="faq2-foot">
+                <a class="faq2-input" href="https://wa.me/923000041510" target="_blank" rel="noopener">Ask us anything…</a>
+                <a class="faq2-send" href="https://wa.me/923000041510" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></svg></a>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="faq2-col faq2-right" id="faqRight"></div>
+        </div>
+
+        <div class="faq2-help reveal">
+          <div><strong>Still need help?</strong><p>A real person answers your call day or night.</p></div>
+          <a class="faq2-b1" href="tel:+923000041510">Call +92 300 0041510</a>
+          <a class="faq2-b2" href="https://wa.me/923000041510" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
 
       </div>
     </section><!-- /#faq -->
