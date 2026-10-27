@@ -572,36 +572,12 @@
          Trip type tabs: Round Trip / One Way / Multi-City (max 9 legs).
          ═══════════════════════════════════════════════════════════ -->
 
-
-
     <!-- ═══════════════════════════════════════════════════════════
-         MINI DESTINATION CAROUSEL
-         Inspiration carousel below the search widget. City list
-         lives in js/search-widget.js (HERO_DESTINATIONS).
+         TOP BAND — stats band + "Where to next?" carousel
+         One shared background (.top-band in css/sections.css).
+         Stats band first, then the carousel.
          ═══════════════════════════════════════════════════════════ -->
-    <section class="hc-section" aria-labelledby="hcTitle">
-      <div class="hc-stars" aria-hidden="true"></div>
-
-      <div class="hc-head">
-        <div class="hc-eyebrow">✦ Let us inspire your next trip</div>
-        <h2 class="hc-title" id="hcTitle">Where to <em>next?</em></h2>
-        <div class="hc-hairline"></div>
-      </div>
-
-      <div class="hc-track-wrap">
-        <div class="hc-track" id="hcTrack" role="region" aria-roledescription="carousel" aria-label="Popular fares"></div>
-        <div class="hc-nav-row">
-          <button class="hc-nav-btn" id="hcPrev" aria-label="Previous destination"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <div class="hc-dots" id="hcDots"></div>
-          <button class="hc-nav-btn" id="hcNext" aria-label="Next destination"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></button>
-        </div>
-      </div>
-
-      <div class="hc-foot">
-        <a class="hc-viewall" href="#destinations">View all destinations →</a>
-        <p class="hc-note">*Indicative fares for planning only, not an offer. Actual fares depend on date, airline and availability — call or WhatsApp us for today's confirmed price.</p>
-      </div>
-    </section><!-- /hc-section -->
+    <div class="top-band">
 
     <!-- ═══════════════════════════════════════════════════════════
          [08] STATS BAR
@@ -651,6 +627,37 @@
         </div>
       </div>
     </section><!-- /stats-sec -->
+
+    <!-- ═══════════════════════════════════════════════════════════
+         MINI DESTINATION CAROUSEL
+         Inspiration carousel below the stats band. City list
+         lives in js/search-widget.js (HERO_DESTINATIONS).
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="hc-section" aria-labelledby="hcTitle">
+      <div class="hc-stars" aria-hidden="true"></div>
+
+      <div class="hc-head">
+        <div class="hc-eyebrow">✦ Let us inspire your next trip</div>
+        <h2 class="hc-title" id="hcTitle">Where to <em>next?</em></h2>
+        <div class="hc-hairline"></div>
+      </div>
+
+      <div class="hc-track-wrap">
+        <div class="hc-track" id="hcTrack" role="region" aria-roledescription="carousel" aria-label="Popular fares"></div>
+        <div class="hc-nav-row">
+          <button class="hc-nav-btn" id="hcPrev" aria-label="Previous destination"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="hc-dots" id="hcDots"></div>
+          <button class="hc-nav-btn" id="hcNext" aria-label="Next destination"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+
+      <div class="hc-foot">
+        <a class="hc-viewall" href="#destinations">View all destinations →</a>
+        <p class="hc-note">*Indicative fares for planning only, not an offer. Actual fares depend on date, airline and availability — call or WhatsApp us for today's confirmed price.</p>
+      </div>
+    </section><!-- /hc-section -->
+
+    </div><!-- /top-band -->
 
 
     <!-- ═══════════════════════════════════════════════════════════
