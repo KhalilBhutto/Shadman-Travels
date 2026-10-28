@@ -140,7 +140,7 @@
 
   <link rel="stylesheet" href="css/notify-modal.css">
   <link rel="stylesheet" href="css/variables.css"/>
-  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/main.css?v=20261028"/>
   <link rel="stylesheet" href="css/navbar.css"/>
   <link rel="stylesheet" href="css/hero.css"/>
   <link rel="stylesheet" href="css/forms.css"/>
@@ -655,47 +655,53 @@
 
     </div><!-- /top-band -->
 
-
     <!-- ═══════════════════════════════════════════════════════════
          [07] TRUST STRIP
-         Infinite scrolling marquee of trust credentials.
-         Duplicate items are required for the seamless CSS loop.
-         Controlled by: css/sections.css
+         Ivory ticker with the IATA licence pinned on the left.
+         The second .ts-set is an intentional aria-hidden duplicate
+         for the seamless CSS loop. If you add or remove an item,
+         edit BOTH sets (and keep the trailing ◆ after every item).
+         Styled by: css/main.css  ·  No JavaScript involved.
          ═══════════════════════════════════════════════════════════ -->
-    <div class="trust-strip">
-      <div class="trust-marquee" id="marquee">
-        <div class="tm-item"><span class="ico">🏅</span> IATA Licensed Agency</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🎫</span> Exclusive Guaranteed Fares</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">✈</span> 15+ Airline Partners</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🔒</span> Secure Bookings</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico"><i class="fas fa-phone trust-phone-icon"></i></span> 24/7 Customer Support</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">⭐</span> Trusted Since 2005</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🌍</span> 81k+ Happy Customers</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico"><i class="fas fa-shield-halved trust-shield-icon"></i></span> Govt. License: 3322</div>
-        <div class="tm-sep">·</div>
-        <!-- Duplicate set for seamless infinite loop -->
-        <div class="tm-item"><span class="ico">🏅</span> IATA Licensed Agency</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🎫</span> Exclusive Guaranteed Fares</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">✈</span> 15+ Airline Partners</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🔒</span> Secure Bookings</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico"><i class="fas fa-phone trust-phone-icon"></i></span> 24/7 Customer Support</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">⭐</span> Trusted Since 2005</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico">🌍</span> 81k+ Happy Customers</div>
-        <div class="tm-sep">·</div>
-        <div class="tm-item"><span class="ico"><i class="fas fa-shield-halved trust-shield-icon"></i></span> Govt. License: 3322</div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/></symbol>
+      <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2ZM7 7h.01"/></symbol>
+      <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><path d="M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2ZM7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M13 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    </svg>
+
+    <div class="ts" role="region" aria-label="Why travel with Shadman Travels &amp; Tours">
+      <div class="ts-badge">
+        <span class="ts-seal"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+        <span class="ts-badge-text">
+          <span class="ts-label">IATA LICENSED<span class="ts-wide"> AGENCY</span></span>
+          <span class="ts-lic-row"><span class="ts-lic">Govt. License</span><span class="ts-num">3322</span></span>
+        </span>
+      </div>
+
+      <div class="ts-ticker">
+        <div class="ts-track">
+          <div class="ts-set">
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-tag"/></svg>Exclusive Guaranteed Fares</span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-plane"/></svg><span><b>15+</b> Airline Partners</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-lock"/></svg>Secure Bookings</span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-headset"/></svg><span><b>24/7</b> Customer Support</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Trusted Since <b>2005</b></span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-users"/></svg><span><b>81k+</b> Happy Customers</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+          </div>
+          <!-- Duplicate set for seamless infinite loop -->
+          <div class="ts-set" aria-hidden="true">
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-tag"/></svg>Exclusive Guaranteed Fares</span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-plane"/></svg><span><b>15+</b> Airline Partners</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-lock"/></svg>Secure Bookings</span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-headset"/></svg><span><b>24/7</b> Customer Support</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Trusted Since <b>2005</b></span></span><span class="ts-sep" aria-hidden="true">◆</span>
+            <span class="ts-item"><svg aria-hidden="true"><use href="#i-users"/></svg><span><b>81k+</b> Happy Customers</span></span><span class="ts-sep" aria-hidden="true">◆</span>
+          </div>
+        </div>
       </div>
     </div><!-- /trust-strip -->
 

@@ -124,56 +124,81 @@ ul {
   box-shadow: 0 0 10px rgba(201, 160, 40, 0.6);
 }
 
-/* ── Trust Strip ── */
-.trust-strip {
-  background: var(--g900);
-  border-top: 1px solid rgba(201, 160, 40, 0.15);
-  border-bottom: 1px solid rgba(201, 160, 40, 0.15);
-  overflow: hidden;
-  padding: 14px 0;
+/* ── Trust Strip (ivory ticker + pinned IATA licence badge) — ultra compact ── */
+.ts{
+  --ink:#0d1a14; --gold:#d6a936; --gold-hi:#e8c35a; --bronze:#8a6410; --ivory:#f6f1e4;
+  --h:40px; --cut:12px; --lip:2px; --fs:12px; --ico:14px; --sep-pad:10px; --dur:34s;
+  position:relative; display:flex; align-items:stretch; height:var(--h);
+  background:var(--ivory); color:var(--ink);
+  border-block:1px solid rgba(138,100,16,.5);
+  font-family:'DM Sans',system-ui,sans-serif; overflow:hidden;
 }
 
-.trust-marquee {
-  display: flex;
-  gap: 48px;
-  align-items: center;
-  animation: marquee 30s linear infinite;
-  white-space: nowrap;
-  width: max-content;
+/* Pinned badge: gold lip (::before) under dark face (::after) */
+.ts-badge{position:relative; z-index:2; flex:none; display:flex; align-items:center; gap:7px;
+  padding:0 calc(var(--cut) + 4px) 0 10px; color:#f2efe6; white-space:nowrap}
+.ts-badge::before,.ts-badge::after{content:""; position:absolute; top:0; bottom:0; left:0; z-index:-1;
+  clip-path:polygon(0 0,100% 0,calc(100% - var(--cut)) 100%,0 100%)}
+.ts-badge::before{right:0; background:var(--gold)}
+.ts-badge::after{right:var(--lip); background:var(--ink)}
+.ts-seal{flex:none; width:22px; height:22px; border-radius:50%; border:1.25px solid var(--gold); display:grid; place-items:center}
+.ts-seal svg{width:12px; height:12px; fill:none; stroke:var(--gold-hi); stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.ts-badge-text{display:flex; flex-direction:column; justify-content:center}
+.ts-label{font-size:8px; font-weight:600; letter-spacing:.12em; color:var(--gold-hi); line-height:1.1}
+.ts-lic-row{display:flex; align-items:baseline; gap:7px; line-height:1}
+.ts-lic{display:none; font-size:11px; font-weight:500; color:#cfd6d0}
+.ts-wide{display:none}
+.ts-num{font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:20px; line-height:1; color:var(--gold-hi)}
+
+/* Ticker */
+.ts-ticker{position:relative; flex:1; min-width:0; overflow:hidden; display:flex; align-items:center}
+.ts-ticker::before,.ts-ticker::after{content:""; position:absolute; top:0; bottom:0; z-index:1; pointer-events:none}
+.ts-ticker::before{left:0; width:12px; background:linear-gradient(90deg,var(--ivory),transparent)}
+.ts-ticker::after{right:0; width:24px; background:linear-gradient(270deg,var(--ivory),transparent)}
+.ts-track{display:flex; flex:none; width:max-content; animation:ts-run var(--dur) linear infinite; will-change:transform}
+.ts-set{display:flex; align-items:center; flex:none; white-space:nowrap; font-size:var(--fs); font-weight:600}
+.ts-item{display:flex; align-items:center; gap:6px}
+.ts-item svg{flex:none; width:var(--ico); height:var(--ico); fill:none; stroke:var(--bronze); stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+.ts-item b{color:var(--bronze); font-weight:600}
+.ts-sep{padding:0 var(--sep-pad); color:var(--bronze); font-size:6px}
+
+/* Same direction as the old strip (content travels leftward) */
+@keyframes ts-run{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+.ts:hover .ts-track{animation-play-state:paused}
+@media (hover:none){.ts:hover .ts-track{animation-play-state:running}}
+
+/* Tablet */
+@media (min-width:768px){
+  .ts{--h:46px; --cut:16px; --lip:3px; --fs:13px; --ico:16px; --sep-pad:14px; --dur:32s}
+  .ts-badge{gap:10px; padding:0 28px 0 20px}
+  .ts-seal{width:28px; height:28px}
+  .ts-seal svg{width:15px; height:15px}
+  .ts-label{font-size:9px; letter-spacing:.16em}
+  .ts-wide,.ts-lic{display:inline}
+  .ts-num{font-size:24px}
+  .ts-ticker::before{width:20px}
+  .ts-ticker::after{width:36px}
 }
 
-.trust-marquee:hover {
-  animation-play-state: paused;
+/* Desktop */
+@media (min-width:1100px){
+  .ts{--h:44px; --cut:18px; --lip:3px; --fs:13.5px; --ico:17px; --sep-pad:16px; --dur:30s}
+  .ts-badge{gap:12px; padding:0 34px 0 max(48px, calc((100vw - 1280px)/2))}
+  .ts-seal{width:30px; height:30px}
+  .ts-seal svg{width:16px; height:16px}
+  .ts-label{font-size:9.5px; letter-spacing:.18em}
+  .ts-lic{font-size:11.5px}
+  .ts-num{font-size:26px}
+  .ts-item{gap:7px}
+  .ts-ticker::before{width:32px}
+  .ts-ticker::after{width:64px}
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.tm-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.78rem;
-  font-weight: 500;
-  flex-shrink: 0;
-}
-
-.tm-item .ico {
-  color: var(--gold);
-  font-size: 1rem;
-}
-
-.trust-phone-icon,
-.trust-shield-icon {
-  color: #25D366;
-}
-
-.tm-sep {
-  color: rgba(201, 160, 40, 0.3);
-  font-size: 1.2rem;
+/* Reduced motion: no auto-scroll, swipe manually, single set */
+@media (prefers-reduced-motion:reduce){
+  .ts-track{animation:none}
+  .ts-ticker{overflow-x:auto}
+  .ts-set[aria-hidden]{display:none}
 }
 
 /* ── Stats Section (flight-path waypoints) ── */

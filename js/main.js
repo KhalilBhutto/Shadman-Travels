@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
   ─────────────────────────────────────────── */
   initAllComboboxes();
 
-  /* ─── TRUST-STRIP MARQUEE DUPLICATE CHECK ──
-     The marquee already contains a duplicate
-     set of items for seamless looping — nothing
-     extra needed. Keeping this comment as a
-     reminder for future maintainers.
+  /* ─── TRUST STRIP (.ts) ────────────────────
+     Pure CSS marquee — no JS needed. The second
+     .ts-set in index.html is an intentional
+     aria-hidden duplicate for the seamless loop.
+     Edit BOTH sets when changing items.
   ─────────────────────────────────────────── */
 
   /* ─── BOOK-NOW BUTTONS ─────────────────────
