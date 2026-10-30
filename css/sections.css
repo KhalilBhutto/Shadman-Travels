@@ -1515,3 +1515,39 @@ a.umrah-enquire {
     opacity: .85; pointer-events: none;
   }
 }
+
+/* ═══════════════════════════════════════════
+   FAQ — fits one screen on desktop (phone height follows the window)
+═══════════════════════════════════════════ */
+
+/* Desktop and large tablets */
+@media (min-width: 1001px) {
+  .faq2-sec { padding: 28px 32px 24px; }
+
+  .faq2-sec .sec-head { margin-bottom: 20px; }
+  .faq2-sec .sec-title { font-size: 2.2rem; }
+
+  .faq2-wrap { gap: 36px; }
+
+  .faq2-q { min-height: 54px; padding: 9px 18px; margin-bottom: 10px; }
+
+  /* 330px = navbar + heading + help bar + paddings. Smaller number = taller phone. */
+  .faq2-phone { height: clamp(500px, calc(100vh - 330px), 660px); }
+  .faq2-head { padding: 30px 16px 12px; }
+  .faq2-body { padding: 14px; gap: 10px; }
+  .faq2-foot { padding: 10px 14px 14px; }
+
+  .faq2-help { margin-top: 20px; padding: 12px 24px; }
+  .faq2-help strong { font-size: 1.4rem; }
+  .faq2-help p { font-size: 0.78rem; }
+  .faq2-b1, .faq2-b2 { min-height: 44px; }
+}
+
+/* Tablet and phone (one column, so it cannot fit one screen) */
+@media (max-width: 1000px) {
+  .faq2-sec { padding: 48px 20px; }
+  .faq2-sec .sec-head { margin-bottom: 28px; }
+  .faq2-phone { height: 600px; }
+  .faq2-q { min-height: 56px; margin-bottom: 10px; }
+  .faq2-help { margin-top: 28px; }
+}
