@@ -1483,3 +1483,35 @@ a.umrah-enquire {
   .top-band .stats-sec { padding-bottom: 16px; }
   .top-band .hc-section { padding-top: 16px; }
 }
+
+/* ── Umrah cards on phones: swipe carousel (≤600px) ── */
+@media (max-width: 600px) {
+  .umrah-grid,
+  .umrah-grid[data-count] {
+    display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
+    max-width: none; margin: 0 -20px; padding: 8px 20px 18px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .umrah-grid::-webkit-scrollbar { display: none; }
+  .umrah-grid .umrah-card,
+  .umrah-grid[data-count] .umrah-card {
+    flex: 0 0 82%; max-width: 320px; scroll-snap-align: center;
+  }
+}
+
+/* ── Umrah cards (phones): "01/03" counter, top right ── */
+@media (max-width: 600px) {
+  .umrah-grid { counter-reset: umrah; --umrah-total: "03"; }
+  .umrah-grid[data-count="2"] { --umrah-total: "02"; }
+  .umrah-grid[data-count="1"] { --umrah-total: "01"; }
+
+  .umrah-card { counter-increment: umrah; }
+  .umrah-card::after {
+    content: counter(umrah, decimal-leading-zero) "/" var(--umrah-total);
+    position: absolute; top: 12px; right: 14px; z-index: 3;
+    font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700;
+    letter-spacing: .06em; line-height: 1; color: var(--gold2);
+    opacity: .85; pointer-events: none;
+  }
+}
