@@ -73,6 +73,18 @@
     }).join('');
   }
 
+  // Phones (≤600px): the cards are a swipe carousel, so open on the middle one (card 2 of 3)
+  function centreMiddleCardOnPhones(grid) {
+    if (!window.matchMedia || !window.matchMedia('(max-width: 600px)').matches) return;
+    var cards = grid.querySelectorAll('.umrah-card');
+    if (cards.length < 3) return;
+    requestAnimationFrame(function () {
+      var mid = cards[1];
+      var offset = mid.getBoundingClientRect().left - grid.getBoundingClientRect().left;
+      grid.scrollLeft += offset - (grid.clientWidth - mid.offsetWidth) / 2;
+    });
+  }
+
   if (typeof module !== 'undefined') module.exports = { buildCards: buildCards };   // for testing only
   if (typeof document === 'undefined') return;
 
@@ -87,6 +99,7 @@
         if (!html) throw new Error('no packages');
         grid.innerHTML = html;
         grid.setAttribute('data-count', grid.children.length);   // 1, 2 or 3 cards -> CSS centres them
+        centreMiddleCardOnPhones(grid);
         var pill = document.getElementById('umrahPillCount');
         if (pill) pill.textContent = '🕋 ' + list.length + ' Live Packages';
         var ap = document.getElementById('umrahPillAirlines');
