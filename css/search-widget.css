@@ -523,10 +523,7 @@
 .quick-route-chip:hover { border-color: var(--gold); background: rgba(201,160,40,.12); color: #fff; transform: translateY(-2px); }
 .quick-route-chip .arr { color: var(--gold); }
 
-/* ======================================================================
-   PHONE LAYOUT + MOBILE FIXES  (paste this whole block at the VERY END
-   of css/search-widget.css, after the last line of that file)
-   ====================================================================== */
+/* ── Phone layout helpers + mobile fixes ── */
 
 /* ── Structure helpers for the phone layout (no visual change on desktop) ── */
 .wf-val2 .wf-city::after { content: ', '; }
@@ -942,4 +939,50 @@
 @media (prefers-reduced-motion: reduce) {
   .hc-stars { animation: none; }
   .hc-card, .hc-ticket::after { transition: none; }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE: boarding pass opens as a centred popup (≤768px)
+   Desktop/tablet keep the inline ticket.
+═══════════════════════════════════════════ */
+.tk-close { display: none; }
+
+@media (max-width: 768px) {
+  /* Closed state: kept in layout but invisible, so Turnstile can still load */
+  .hero-ticket,
+  .hero-ticket.reveal-right,
+  .hero-ticket.reveal-right.in {
+    position: fixed; inset: 0; z-index: 10050; margin: 0; padding: 16px;
+    display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    background: rgba(3, 9, 5, .78);
+    opacity: 0; visibility: hidden; pointer-events: none; transform: none;
+    transition: opacity .22s ease, visibility 0s linear .22s;
+  }
+  /* Open state */
+  .hero-ticket.tk-open,
+  .hero-ticket.reveal-right.tk-open {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transition: opacity .22s ease, visibility 0s;
+  }
+
+  .hero-ticket .ticket {
+    flex: none; width: 100%; max-width: 380px; margin: auto;   /* margin:auto = safe vertical centring, scrolls if tall */
+    transform: translateY(10px) scale(.97); transition: transform .22s ease;
+  }
+  .hero-ticket.tk-open .ticket { transform: none; }
+
+  .tk-close {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 10px; right: 10px; z-index: 6;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(228, 188, 90, .45);
+    background: rgba(6, 15, 9, .55); color: var(--gold2);
+    font-size: 1rem; line-height: 1; cursor: pointer;
+  }
+  .ticket-top-row { padding-right: 44px; }          /* keep the badge clear of the ✕ */
+  .ticket-empty-note { display: none; }             /* Search is disabled until the itinerary is complete */
+
+  body.tk-open { overflow: hidden; }                /* lock page scroll behind the popup */
+  body.tk-open .hero-inner { z-index: auto; }       /* let the popup rise above navbar / WhatsApp button */
+  body.tk-open .wa-fab { opacity: 0; pointer-events: none; }
 }

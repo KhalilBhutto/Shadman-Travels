@@ -801,6 +801,38 @@ function isValidEmail(email) {
 function showFieldError(el) { if (el) el.classList.add('input-error'); }
 function clearFieldError(el) { if (el) el.classList.remove('input-error'); }
 
+/* ─── MOBILE BOARDING-PASS POPUP (≤768px) ─── */
+const TK_MQ = window.matchMedia('(max-width: 768px)');
+let tkReturnFocus = null;
+
+function tkIsOpen() {
+  const el = document.querySelector('.hero-ticket');
+  return !!el && el.classList.contains('tk-open');
+}
+function openTicketPopup() {
+  const el = document.querySelector('.hero-ticket');
+  if (!el) return;
+  tkReturnFocus = document.activeElement;
+  el.classList.add('tk-open');
+  document.body.classList.add('tk-open');
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-modal', 'true');
+  el.setAttribute('aria-label', 'Complete your flight enquiry');
+  el.scrollTop = 0;
+  const card = el.querySelector('.ticket');
+  if (card) { card.setAttribute('tabindex', '-1'); card.focus({ preventScroll: true }); } // no auto-focus on inputs: avoids the keyboard popping up instantly
+}
+function closeTicketPopup() {
+  const el = document.querySelector('.hero-ticket');
+  if (!el || !el.classList.contains('tk-open')) return;
+  el.classList.remove('tk-open');
+  document.body.classList.remove('tk-open');
+  el.removeAttribute('role'); el.removeAttribute('aria-modal'); el.removeAttribute('aria-label');
+  const toast = document.getElementById('htToast');
+  if (toast) toast.style.display = 'none';
+  if (tkReturnFocus && tkReturnFocus.focus) tkReturnFocus.focus({ preventScroll: true });
+}
+
 /* ─── SUBMIT — same payload contract as the original submitToSheets() ─── */
 
 /* ─── CLOUDFLARE TURNSTILE ─── */
@@ -972,7 +1004,13 @@ function submitTicketEnquiry() {
       saveRecentSearch();
       [nameInput, phoneInput, emailInput, notesInput].forEach(el => { el.value = ''; });
 
-      setTimeout(() => { toastEl.style.display = 'none'; }, 6000);
+      if (tkIsOpen()) {
+        // Popup: keep the confirmation visible until the visitor closes it
+        const hostEl = document.querySelector('.hero-ticket');
+        if (hostEl) hostEl.scrollTop = 0;
+      } else {
+        setTimeout(() => { toastEl.style.display = 'none'; }, 6000);
+      }
     })
     .catch(error => {
       console.error(error);
@@ -1064,9 +1102,25 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleSearchClick() {
     saveRecentSearch();
     updateHeroTicket();
+    if (TK_MQ.matches && document.querySelector('.hero-ticket')) {
+      closeAllPopups();
+      openTicketPopup();
+      return;
+    }
     document.getElementById('htName').scrollIntoView({ behavior: 'smooth', block: 'center' });
     document.getElementById('htName').focus();
   }
+  document.querySelectorAll('.search-btn2').forEach(btn => btn.addEventListener('click', handleSearchClick));
+
+  document.getElementById('htSubmit').addEventListener('click', submitTicketEnquiry);
+
+  // Popup close: ✕ button, backdrop tap, Escape, or resizing past the mobile breakpoint
+  const tkHost = document.querySelector('.hero-ticket');
+  const tkCloseBtn = document.getElementById('tkClose');
+  if (tkCloseBtn) tkCloseBtn.addEventListener('click', closeTicketPopup);
+  if (tkHost) tkHost.addEventListener('click', (e) => { if (e.target === tkHost) closeTicketPopup(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTicketPopup(); });
+  TK_MQ.addEventListener('change', (e) => { if (!e.matches) closeTicketPopup(); });
   document.querySelectorAll('.search-btn2').forEach(btn => btn.addEventListener('click', handleSearchClick));
 
   document.getElementById('htSubmit').addEventListener('click', submitTicketEnquiry);
