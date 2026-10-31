@@ -190,7 +190,7 @@ ul {
 /* Desktop */
 @media (min-width:1100px){
   .ts{--h:44px; --cut:18px; --lip:3px; --fs:13.5px; --ico:17px; --sep-pad:16px; --dur:30s}
-  .ts-badge{gap:12px; padding:0 34px 0 max(48px, calc((100vw - 1280px)/2))}
+  .ts-badge{gap:12px; padding:0 34px 0 24px}
   .ts-seal{width:30px; height:30px}
   .ts-seal svg{width:16px; height:16px}
   .ts-label{font-size:9.5px; letter-spacing:.18em}
