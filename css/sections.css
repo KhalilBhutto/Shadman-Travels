@@ -293,6 +293,13 @@
 .acard button:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
 .acard.hidden { display: none; }
 
+/* "Show more airlines" button */
+.airlines-more { display: flex; justify-content: center; margin-top: 28px; }
+.airlines-more[hidden] { display: none; }
+.airlines-more-btn { min-height: 44px; padding: 0 28px; border-radius: 50px; border: 1px solid rgba(228,188,90,.4); background: transparent; color: rgba(255,255,255,.85); font-family: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .06em; cursor: pointer; transition: all .2s; }
+.airlines-more-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--g900); }
+.airlines-more-btn:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
+
 @media (max-width: 1000px) { .airlines-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) {
   .acard { flex-direction: column; }

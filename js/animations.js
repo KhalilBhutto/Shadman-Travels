@@ -225,25 +225,92 @@ initTestiCarousel();
 
 /* ═══════════════════════════════════════════
    AIRLINE CARD FILTER
+   - Opens on the "Premium Airlines" tab (AIRLINE_DEFAULT_FILTER)
+   - Premium tab uses the order in AIRLINE_PREMIUM_ORDER; every other tab is A-Z
+   - Tabs with more than AIRLINE_VISIBLE airlines get a "Show more" button
 ═══════════════════════════════════════════ */
-function initAirlineFilter() {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-      // Update active state
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+const AIRLINE_DEFAULT_FILTER = 'premium';
+const AIRLINE_VISIBLE = 4;
+const AIRLINE_PREMIUM_ORDER = ['Emirates', 'Qatar Airways', 'Etihad Airways', 'Turkish Airlines'];
 
-      const filter = this.dataset.filter;
-      document.querySelectorAll('.acard').forEach(card => {
-        if (filter === 'all') {
-          card.style.display = '';
-          return;
-        }
-        const cats = (card.dataset.cat || '').split(' ');
-        card.style.display = cats.includes(filter) ? '' : 'none';
-      });
+let airlineFilter = AIRLINE_DEFAULT_FILTER;
+let airlineExpanded = false;
+
+function airlineName(card) {
+  const el = card.querySelector('.acard-name');
+  return el ? el.textContent.trim() : '';
+}
+
+function showAirlines() {
+  const grid = document.getElementById('airlinesGrid');
+  const cards = Array.from(grid ? grid.querySelectorAll('.acard') : []);
+  if (!cards.length) return;
+
+  const matches = cards.filter(function (c) {
+    return (c.dataset.cat || '').split(' ').includes(airlineFilter);
+  });
+  const others = cards.filter(function (c) { return matches.indexOf(c) === -1; });
+
+  matches.sort(function (a, b) {
+    if (airlineFilter === 'premium') {
+      return AIRLINE_PREMIUM_ORDER.indexOf(airlineName(a)) - AIRLINE_PREMIUM_ORDER.indexOf(airlineName(b));
+    }
+    return airlineName(a).localeCompare(airlineName(b), 'en', { sensitivity: 'base' });
+  });
+
+  // Put the cards in their new order (keyboard order matches what you see)
+  matches.concat(others).forEach(function (c) { grid.appendChild(c); });
+
+  matches.forEach(function (c, i) {
+    c.style.display = (airlineExpanded || i < AIRLINE_VISIBLE) ? '' : 'none';
+  });
+  others.forEach(function (c) { c.style.display = 'none'; });
+
+  // Highlight the active pill
+  document.querySelectorAll('.filter-btn').forEach(function (b) {
+    const on = b.dataset.filter === airlineFilter;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+
+  // "Show more" button
+  const wrap = document.getElementById('airlinesMore');
+  const btn  = document.getElementById('airlinesMoreBtn');
+  if (!wrap || !btn) return;
+  const extra = matches.length - AIRLINE_VISIBLE;
+  wrap.hidden = extra <= 0;
+  btn.setAttribute('aria-expanded', String(airlineExpanded));
+  btn.textContent = airlineExpanded
+    ? 'Show fewer airlines'
+    : 'Show ' + extra + ' more airline' + (extra === 1 ? '' : 's');
+}
+
+function initAirlineFilter() {
+  document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    if (btn.dataset.bound) return;           // never attach the same click twice
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', function () {
+      airlineFilter = this.dataset.filter;
+      airlineExpanded = false;
+      showAirlines();
     });
   });
+
+  const more = document.getElementById('airlinesMoreBtn');
+  if (more && !more.dataset.bound) {
+    more.dataset.bound = '1';
+    more.addEventListener('click', function () {
+      airlineExpanded = !airlineExpanded;
+      showAirlines();
+      if (!airlineExpanded) {                // after "Show fewer", go back up to the pills
+        const bar = document.querySelector('.airlines-sec .filter-bar');
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (bar) bar.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      }
+    });
+  }
+
+  showAirlines();
 }
 initAirlineFilter();
 

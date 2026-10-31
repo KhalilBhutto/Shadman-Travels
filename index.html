@@ -767,15 +767,18 @@
 
         <!-- Filter bar -->
         <div class="filter-bar reveal">
-          <button class="filter-btn active" data-filter="all">All Airlines</button>
           <button class="filter-btn" data-filter="pak">🇵🇰 Pakistan-Based</button>
           <button class="filter-btn" data-filter="gulf">🌙 Gulf &amp; Middle East</button>
+          <button class="filter-btn active" data-filter="premium">⭐ Premium Airlines</button>
           <button class="filter-btn" data-filter="europe">🌍 Europe &amp; UK</button>
-          <button class="filter-btn" data-filter="ksa">🇸🇦 Saudi Arabia</button>
         </div>
 
         <!-- Airlines grid -->
         <div class="airlines-grid" id="airlinesGrid"></div><!-- /airlines-grid -->
+
+        <div class="airlines-more" id="airlinesMore" hidden>
+          <button type="button" class="airlines-more-btn" id="airlinesMoreBtn" aria-expanded="false"></button>
+        </div>
 
       </div>
     </section><!-- /#airlines -->

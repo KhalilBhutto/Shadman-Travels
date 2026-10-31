@@ -6,11 +6,7 @@
     "colorBtn": "#2F3E75",
     "textOnColor": "light",
     "hub": "Karachi & Lahore",
-    "categories": [
-      "pak",
-      "gulf",
-      "ksa"
-    ],
+    "categories": ["pak"],
     "desc": "Flying Redefined — high-frequency routes to UAE, Saudi Arabia & the brand-new Baku direct flight!",
     "destinations": [
       {
@@ -65,11 +61,7 @@
     "colorBtn": "#C9A028",
     "textOnColor": "light",
     "hub": "Karachi & Lahore",
-    "categories": [
-      "pak",
-      "ksa",
-      "gulf"
-    ],
+    "categories": ["pak"],
     "desc": "Pakistan-based airline operating high-frequency routes to Middle East & Saudi Arabia with competitive fares.",
     "destinations": [
       {
@@ -127,10 +119,7 @@
     "colorBtn": "#7A1527",
     "textOnColor": "light",
     "hub": "Dubai (DXB)",
-    "categories": [
-      "gulf",
-      "europe"
-    ],
+    "categories": ["gulf", "premium"],
     "desc": "Fly Better — connect to 140+ destinations in 80+ countries seamlessly via Dubai with world-class service.",
     "destinations": [
       {
@@ -208,10 +197,7 @@
     "colorBtn": "#8C6508",
     "textOnColor": "light",
     "hub": "Abu Dhabi (AUH)",
-    "categories": [
-      "gulf",
-      "europe"
-    ],
+    "categories": ["gulf", "premium"],
     "desc": "90+ destinations in 70+ countries via Abu Dhabi. Award-winning premium hospitality at every altitude.",
     "destinations": [
       {
@@ -289,11 +275,7 @@
     "colorBtn": "#B4152F",
     "textOnColor": "light",
     "hub": "Dubai (DXB)",
-    "categories": [
-      "pak",
-      "gulf",
-      "ksa"
-    ],
+    "categories": ["pak"],
     "desc": "Affordable direct flights to Dubai, Sharjah & Saudi Arabia — strong on-time performance record.",
     "destinations": [
       {
@@ -363,9 +345,7 @@
     "colorBtn": "#A8C300",
     "textOnColor": "dark",
     "hub": "Saudi Arabia",
-    "categories": [
-      "ksa"
-    ],
+    "categories": ["gulf"],
     "desc": "Low-cost fares to all Saudi cities. Direct, reliable and affordable — zero compromise on safety.",
     "destinations": [
       {
@@ -419,10 +399,7 @@
     "colorBtn": "#F7941D",
     "textOnColor": "dark",
     "hub": "Dubai (DXB)",
-    "categories": [
-      "gulf",
-      "europe"
-    ],
+    "categories": ["gulf"],
     "desc": "120+ destinations in 60+ countries. Best coverage in Central Asia, Africa & Europe via Dubai.",
     "destinations": [
       {
@@ -496,10 +473,7 @@
     "colorBtn": "#00807A",
     "textOnColor": "light",
     "hub": "Riyadh & Jeddah",
-    "categories": [
-      "ksa",
-      "gulf"
-    ],
+    "categories": ["gulf"],
     "desc": "Affordable fares on 70+ routes across Middle East, Europe, Asia & Africa from Saudi Arabia.",
     "destinations": [
       {
@@ -549,10 +523,7 @@
     "colorBtn": "#0B2545",
     "textOnColor": "light",
     "hub": "Bahrain (BAH)",
-    "categories": [
-      "gulf",
-      "ksa"
-    ],
+    "categories": ["gulf"],
     "desc": "Warm Gulf hospitality on 60+ routes across Middle East, Europe, Africa & Asia via Bahrain.",
     "destinations": [
       {
@@ -630,11 +601,7 @@
     "colorBtn": "#54595E",
     "textOnColor": "light",
     "hub": "Muscat (MCT)",
-    "categories": [
-      "gulf",
-      "europe",
-      "ksa"
-    ],
+    "categories": ["gulf"],
     "desc": "Seamless connections to 60+ destinations — Middle East, Europe, Asia, Australia & North America via Muscat.",
     "destinations": [
       {
@@ -712,12 +679,7 @@
     "colorBtn": "#B98F33",
     "textOnColor": "light",
     "hub": "Karachi",
-    "categories": [
-      "pak",
-      "gulf",
-      "europe",
-      "ksa"
-    ],
+    "categories": ["pak"],
     "desc": "Pakistan International Airlines — connecting Pakistan to 60+ global destinations. Great People to Fly With.",
     "destinations": [
       {
@@ -795,10 +757,7 @@
     "colorBtn": "#862142",
     "textOnColor": "light",
     "hub": "Doha (DOH)",
-    "categories": [
-      "gulf",
-      "europe"
-    ],
+    "categories": ["gulf", "premium"],
     "desc": "World's Best Airline — 170+ destinations globally. Award-winning service through Doha.",
     "destinations": [
       {
@@ -876,10 +835,7 @@
     "colorBtn": "#1E7D9E",
     "textOnColor": "light",
     "hub": "Muscat (MCT)",
-    "categories": [
-      "gulf",
-      "ksa"
-    ],
+    "categories": ["gulf"],
     "desc": "Budget-friendly fares — zero hidden charges. 40+ destinations across Middle East, Asia & beyond.",
     "destinations": [
       {
@@ -957,10 +913,7 @@
     "colorBtn": "#00522A",
     "textOnColor": "light",
     "hub": "Jeddah & Riyadh",
-    "categories": [
-      "ksa",
-      "europe"
-    ],
+    "categories": ["gulf"],
     "desc": "Direct flights to all Saudi cities from Karachi, Lahore, Islamabad & Multan. Ideal for Umrah & business.",
     "destinations": [
       {
@@ -1030,9 +983,7 @@
     "colorBtn": "#C9302C",
     "textOnColor": "light",
     "hub": "Istanbul (IST)",
-    "categories": [
-      "europe"
-    ],
+    "categories": ["europe", "premium"],
     "desc": "Connecting 300+ destinations in 120+ countries via Istanbul. Best airline for Europe & Americas.",
     "destinations": [
       {
