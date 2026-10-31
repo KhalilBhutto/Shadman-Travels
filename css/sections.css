@@ -1495,3 +1495,115 @@ a.umrah-enquire {
   .top-band .hc-viewall { display: inline-flex; align-items: center; min-height: 44px; padding: 0 24px; font-size: .88rem; }
   .top-band .hc-note { max-width: 340px; margin-top: 8px; font-size: .69rem; line-height: 1.5; }
 }
+
+/* ═══════════════════════════════════════════
+   MOBILE-ONLY SECTION COMPACTING
+   hero left column · airlines · destinations · why us · reviews
+═══════════════════════════════════════════ */
+
+/* ── Hero left column (<=768px) ── */
+@media (max-width: 768px) {
+  .hero-airlines { padding: 14px 0 0 20px; }
+  .ha-head { padding-right: 20px; margin-bottom: 10px; }
+  .ha-grid {
+    display: flex; flex-wrap: nowrap; gap: 8px;
+    overflow-x: auto; scrollbar-width: none;
+    padding: 0 20px 14px 0;
+    -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+            mask-image: linear-gradient(90deg, #000 88%, transparent);
+  }
+  .ha-grid::-webkit-scrollbar { display: none; }
+  .ha-grid li {
+    flex: 0 0 auto; padding: 9px 15px; border-radius: 50px;
+    border: 1px solid rgba(201,160,40,.3); background: rgba(255,255,255,.05);
+    color: rgba(255,255,255,.9); font-size: .82rem; white-space: nowrap;
+  }
+  .hero-review { min-height: 0; padding: 14px 16px; gap: 8px; }
+  .hr-text { font-size: 1.15rem; line-height: 1.3; -webkit-line-clamp: 3; line-clamp: 3; }
+}
+
+/* ── Airlines (<=560px) ── */
+@media (max-width: 560px) {
+  .filter-bar {
+    flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+    margin: 0 -20px 18px; padding: 0 20px 6px; scrollbar-width: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn { flex: 0 0 auto; white-space: nowrap; }
+  .airlines-grid { gap: 10px; }
+  #airlinesGrid { min-height: 0; }
+  .acard { min-height: 0; border-radius: 16px; }
+  .acard-main { padding: 14px 16px 4px; }
+  .acard-head { margin-bottom: 0; gap: 12px; }
+  .acard-logo-plate { flex: 0 0 76px; height: 42px; }
+  .acard-name { font-size: 1.4rem; }
+  .acard-desc, .acard-regions, .notch { display: none; }
+  .acard-stub { padding: 10px 16px 14px; gap: 10px; border-top: 1px dashed rgba(255,255,255,.3); }
+}
+
+/* ── Destinations (<=600px) ── */
+@media (max-width: 600px) {
+  .wwf-sec { padding: 48px 20px; }
+  .wwf-tabs {
+    flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+    margin: 0 -20px 18px; padding: 0 20px; scrollbar-width: none;
+  }
+  .wwf-tabs::-webkit-scrollbar { display: none; }
+  .wwf-tab { flex: 0 0 auto; white-space: nowrap; }
+  .wwf-banner { height: 200px; padding: 16px; margin-bottom: 12px; }
+  .wwf-big { font-size: 2.6rem; }
+  .wwf-hook { display: none; }
+  .wwf-cta { min-height: 44px; padding: 0 20px; }
+  .wwf-rail {
+    flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px;
+    padding: 0 20px 6px; scrollbar-width: none;
+  }
+  .wwf-rail::-webkit-scrollbar { display: none; }
+}
+
+/* ── Why Us: accordion rows + slim stats (<=600px) ── */
+@media (max-width: 600px) {
+  .wy-sec { padding: 48px 20px; }
+  .wy-seal { width: 64px; height: 64px; top: -22px; right: -4px; border-width: 2px; }
+  .wy-seal small { font-size: .45rem; }
+  .wy-seal strong { font-size: 1.2rem; }
+  .wy-row {
+    grid-template-columns: 44px 1fr 20px; gap: 4px 12px;
+    padding: 14px 16px; align-items: center; cursor: pointer;
+  }
+  .wy-ic { width: 44px; height: 44px; }
+  .wy-ic b { inset: 5px; }
+  .wy-ic svg { width: 16px; height: 16px; }
+  .wy-row h3 { font-size: .95rem; margin: 0; }
+  .wy-row p { display: none; }
+  .wy-row.wy-open p { display: block; margin-top: 6px; }
+  .wy-st { grid-column: 2; grid-row: 2; justify-self: start; }
+  .wy-fl-s i { width: 13px; height: 22px; line-height: 22px; font-size: 10px; margin-right: 2px; }
+  .wy-row::after {
+    content: ""; grid-column: 3; grid-row: 1; justify-self: center;
+    width: 8px; height: 8px; transform: rotate(45deg); transition: transform .2s;
+    border-right: 2px solid var(--gold2); border-bottom: 2px solid var(--gold2);
+  }
+  .wy-row.wy-open::after { transform: rotate(-135deg); }
+  .wy-row:focus-visible { outline: 2px solid var(--gold2); outline-offset: -2px; }
+  .wy-stats { grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 28px; }
+  .wy-fl-b i { width: 17px; height: 34px; line-height: 34px; font-size: 20px; margin-right: 2px; }
+  .wy-label { margin-top: 8px; font-size: .58rem; letter-spacing: .06em; }
+}
+
+/* ── Reviews: swipe carousel (<=620px) ── */
+@media (max-width: 620px) {
+  .rv2-bento {
+    display: flex; flex-wrap: nowrap; gap: 12px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+    margin: 0 -20px; padding: 4px 20px 14px; scrollbar-width: none;
+  }
+  .rv2-bento::-webkit-scrollbar { display: none; }
+  .rv2-bento > * { flex: 0 0 82%; max-width: 320px; scroll-snap-align: center; }
+  .rv2-rate { padding: 16px; }
+  .rv2-big { font-size: 3.2rem; }
+  .rv2-ct { -webkit-line-clamp: 5; line-clamp: 5; }
+  .rv2-cta { padding: 0; border: 0; background: none; }
+  .rv2-cta span { display: none; }
+  .rv2-gb { width: 100%; min-height: 48px; justify-content: center; background: transparent; border: 1px solid rgba(228,188,90,.5); color: var(--gold2); }
+}
