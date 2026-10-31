@@ -1558,3 +1558,48 @@ a.umrah-enquire {
   .faq2-q { min-height: 56px; margin-bottom: 10px; }
   .faq2-help { margin-top: 28px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PHONES (700px and below) — four mini stat tiles above the carousel
+   The stats band is already first in index.html, so no reordering.
+   Tablets and desktop are not affected.
+═══════════════════════════════════════════════════════════════ */
+
+/* the one-word labels (Years / Customers / ...) are hidden everywhere except phones */
+.top-band .lb-short { display: none; }
+
+@media (max-width: 700px) {
+
+  /* stats band: heading + four mini tiles in a single row */
+  .top-band .stats-sec { padding: 20px 16px 8px; }
+  .top-band .stx-eyebrow { font-size: .62rem; letter-spacing: .16em; }
+  .top-band .stx-title { font-size: 1.3rem; margin-top: 6px; }
+  .top-band .stx-hairline { width: 48px; margin-top: 6px; }
+  .top-band .stx-stage { grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+  .top-band .stx-cell {
+    text-align: center;
+    padding: 12px 2px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(201,160,40,.35);
+    background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+  }
+  .top-band .stx-icon { width: 32px; height: 32px; margin: 0 auto 6px; }
+  .top-band .stx-disc { inset: 4px; }
+  .top-band .stx-disc svg { width: 16px; height: 16px; }
+  .top-band .stx-num { font-size: 1.4rem; margin-top: 0; line-height: 1; }
+  .top-band .stx-label { font-size: .56rem; letter-spacing: .05em; line-height: 1.2; margin-top: 4px; }
+  .top-band .lb-full { display: none; }
+  .top-band .lb-short { display: inline; }
+
+  /* carousel underneath, tightened */
+  .top-band .hc-section { padding: 14px 16px 16px; }
+  .top-band .hc-eyebrow { font-size: .62rem; letter-spacing: .16em; }
+  .top-band .hc-title { font-size: 1.6rem; margin-top: 6px; }
+  .top-band .hc-hairline { margin-top: 6px; }
+  .top-band .hc-head { margin-bottom: 12px; }
+  .top-band .hc-track { --cw: 250px; --ch: 320px; height: 344px; }
+  .top-band .hc-nav-row { margin-top: 8px; }
+  .top-band .hc-foot { margin-top: 10px; }
+  .top-band .hc-viewall { display: inline-flex; align-items: center; min-height: 44px; padding: 0 24px; font-size: .88rem; }
+  .top-band .hc-note { max-width: 340px; margin-top: 8px; font-size: .69rem; line-height: 1.5; }
+}
