@@ -986,3 +986,30 @@
   body.tk-open .hero-inner { z-index: auto; }       /* let the popup rise above navbar / WhatsApp button */
   body.tk-open .wa-fab { opacity: 0; pointer-events: none; }
 }
+
+/* ── "Use my current location" row in the From airport list ── */
+.ap-locate {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(201, 160, 40, 0.2);
+  color: var(--gold2);
+  font: 700 0.82rem 'DM Sans', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.ap-locate:hover { background: rgba(201, 160, 40, 0.1); }
+.ap-locate.busy { opacity: 0.7; pointer-events: none; }
+.ap-locate-note { flex-shrink: 0; padding: 8px 14px; font-size: 0.72rem; color: rgba(255, 255, 255, 0.65); }
+.ap-locate-note[hidden] { display: none; }
+
+@media (max-width: 1000px) {            /* phone sheets are light, so use darker text */
+  #widgetCard .ap-locate { padding: 14px 18px; font-size: 0.9rem; color: #8a6410; border-bottom-color: #ece8dc; }
+  #widgetCard .ap-locate:hover { background: #faf6ea; }
+  #widgetCard .ap-locate-note { padding: 8px 18px; color: var(--muted); }
+}

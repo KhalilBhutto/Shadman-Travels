@@ -162,33 +162,106 @@ function buildAirportList(popupEl, excludeCode, onSelect, title) {
   setTimeout(() => inputEl.focus(), 30);
 }
 
-function getFirstIncompleteStep() {
-  if (!wState.from) return 'from';
-  if (!wState.to) return 'to';
-  if (!wState.guestsConfirmed) return 'guests';
-  return null;
+/* ─── GUIDED FLOW — every step stays freely clickable ───
+   After an airport, quick route or guests choice, open the next step that is still empty.
+   Nothing is forced: any field can be opened and changed at any time. */
+function datesComplete() {
+  if (wState.trip === 'rt') return !!(wState.depart && wState.ret);
+  if (wState.trip === 'ow') return !!wState.depart;
+  return wState.mcLegs.every(l => l.date);
 }
-function openStep(step) {
-  if (step === 'from') { openAirportPopup('from'); setActiveStep('fromField'); }
-  else if (step === 'to') { openAirportPopup('to'); setActiveStep('toField'); }
-  else if (step === 'guests') { openGuestsPopup(); setActiveStep('guestsField'); }
+function openNextIncompleteStep() {
+  if (wState.trip === 'mc') return;
+  if (!wState.guestsConfirmed) { openGuestsPopup(); setActiveStep('guestsField'); }
+  else if (!datesComplete()) { openCalendarPopup(); setActiveStep('dateField'); }
+}
+
+/* ─── DEPARTURE AIRPORT FROM THE VISITOR'S LOCATION ───
+   Karachi is the default. If the visitor has already allowed location for this site, we switch
+   to their nearest airport. The "Use my current location" row in the From list asks on demand. */
+const AUTO_LOCATE_PROMPT = false;   // false = only if permission was already granted. true = ask as soon as the page loads.
+let autoFromCode = '';              // the From airport we filled in ourselves (the default, or the detected one)
+
+function applyDetectedOrigin(airport) {
+  if (!airport) return;
+  if (wState.fromCode !== autoFromCode) return;     // the visitor already chose their own airport
+  if (airport.code === wState.toCode) return;
+  wState.from = airport.name; wState.fromCode = airport.code;
+  autoFromCode = airport.code;
+  renderField('from');
+}
+
+function autoDetectOrigin() {
+  if (!window.ShadmanGeo || !navigator.geolocation) return;
+  const run = function () { ShadmanGeo.nearestAirport().then(applyDetectedOrigin).catch(function () {}); };
+  if (navigator.permissions && navigator.permissions.query) {
+    navigator.permissions.query({ name: 'geolocation' }).then(function (p) {
+      if (p.state === 'granted' || (p.state === 'prompt' && AUTO_LOCATE_PROMPT)) run();
+    }).catch(function () { if (AUTO_LOCATE_PROMPT) run(); });
+  } else if (AUTO_LOCATE_PROMPT) {
+    run();
+  }
+}
+
+// "Use my current location" row at the top of the From list
+function addLocateRow(popupEl, choose) {
+  if (!window.ShadmanGeo || !navigator.geolocation) return;
+  const box = popupEl.querySelector('.ap-search-box');
+  if (!box) return;
+
+  const row = document.createElement('button');
+  row.type = 'button';
+  row.className = 'ap-locate';
+  row.innerHTML = '<i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i><span>Use my current location</span>';
+  const label = row.querySelector('span');
+  const note = document.createElement('div');
+  note.className = 'ap-locate-note';
+  note.hidden = true;
+  box.after(row, note);
+
+  row.addEventListener('click', function (e) {
+    e.stopPropagation();
+    row.classList.add('busy');
+    label.textContent = 'Finding your nearest airport…';
+    note.hidden = true;
+    ShadmanGeo.nearestAirport().then(function (airport) {
+      if (!airport) throw new Error('far');
+      if (airport.code === wState.toCode) throw new Error('same');
+      choose(airport);
+      closeAllPopups();
+    }).catch(function (err) {
+      row.classList.remove('busy');
+      label.textContent = 'Use my current location';
+      const msg = err && err.message;
+      note.textContent = msg === 'far'  ? 'No airport found near you. Please choose your airport below.'
+                       : msg === 'same' ? 'Your nearest airport is also your destination. Please choose another departure airport.'
+                       : 'Could not get your location. Please allow location access, or choose your airport below.';
+      note.hidden = false;
+    });
+  });
 }
 
 function openAirportPopup(which) {
   closeAllPopups();
   const popupEl = document.getElementById(which + 'Popup');
   const exclude = which === 'from' ? wState.toCode : wState.fromCode;
-  buildAirportList(popupEl, exclude, (airport) => {
+
+  // Runs when the visitor picks an airport (or taps "Use my current location")
+  const choose = (airport) => {
     wState[which] = airport.name; wState[which + 'Code'] = airport.code;
     renderField(which);
     if (which === 'from' && !wState.to) {
+      // From chosen and To still empty: open To
       setTimeout(() => { openAirportPopup('to'); setActiveStep('toField'); }, 150);
-    } else if (which === 'to' && wState.from && wState.to) {
+    } else if (which === 'to' && wState.from) {
       rtLockToSelection();
-      setTimeout(() => openGuestsPopup(), 150);
+      setTimeout(openNextIncompleteStep, 150);   // guests, then dates, but only the ones still empty
     }
-  }, which === 'from' ? 'Departure Airport' : 'Arrival Airport');
+  };
+
+  buildAirportList(popupEl, exclude, choose, which === 'from' ? 'Departure Airport' : 'Arrival Airport');
   popupEl.classList.add('open');
+  if (which === 'from') addLocateRow(popupEl, choose);
 }
 
 /* ─── GUESTS + CABIN POPUP ─── */
@@ -251,7 +324,7 @@ function refreshGuestsPopup() {
   });
   popupEl.querySelector('.gp-done').addEventListener('click', (e) => {
     e.stopPropagation();
-    wState.guestsConfirmed = true; renderField('guests'); closeAllPopups(); setTimeout(() => openCalendarPopup(), 150);
+    wState.guestsConfirmed = true; renderField('guests'); closeAllPopups(); setTimeout(openNextIncompleteStep, 150);
   });
 }
 
@@ -427,7 +500,7 @@ function selectQuickRoute(fromCode, toCode) {
   renderField('from'); renderField('to');
   rtLockToSelection();
   closeAllPopups();
-  setTimeout(() => openGuestsPopup(), 150);
+  setTimeout(openNextIncompleteStep, 150);
 }
 function initQuickRoutes() {
   document.querySelectorAll('.quick-route-chip').forEach(chip => {
@@ -688,9 +761,7 @@ function hcGetQuote(d) {
   if (widget) widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   // After the scroll finishes, open the next missing step (guests, or dates if guests are already set)
-  setTimeout(() => {
-    if (wState.guestsConfirmed) openCalendarPopup(); else openGuestsPopup();
-  }, 700);
+  setTimeout(openNextIncompleteStep, 700);
 }
 
 function renderHeroDestinations() {
@@ -1037,21 +1108,15 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('fromField').addEventListener('click', (e) => { if (!e.target.closest('.popup') && !e.target.closest('.wf-clear')) { openAirportPopup('from'); setActiveStep('fromField'); } });
   document.getElementById('toField').addEventListener('click', (e) => {
     if (e.target.closest('.popup') || e.target.closest('.wf-clear')) return;
-    const step = getFirstIncompleteStep();
-    if (step && step !== 'to') { openStep(step); return; }
     openAirportPopup('to'); setActiveStep('toField');
   });
   document.getElementById('guestsField').addEventListener('click', (e) => {
     if (e.target.closest('.popup')) return;
-    const step = getFirstIncompleteStep();
-    if (step && step !== 'guests') { openStep(step); return; }
     openGuestsPopup(); setActiveStep('guestsField');
   });
   document.getElementById('mcGuestsField').addEventListener('click', (e) => { if (!e.target.closest('.popup')) { openGuestsPopup(); setActiveStep('mcGuestsField'); } });
   document.getElementById('dateField').addEventListener('click', (e) => {
     if (e.target.closest('.popup') || wState.trip === 'mc') return;
-    const step = getFirstIncompleteStep();
-    if (step) { openStep(step); return; }
     openCalendarPopup(); setActiveStep('dateField');
   });
   document.getElementById('swapBtn').addEventListener('click', (e) => {
@@ -1121,13 +1186,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (tkHost) tkHost.addEventListener('click', (e) => { if (e.target === tkHost) closeTicketPopup(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTicketPopup(); });
   TK_MQ.addEventListener('change', (e) => { if (!e.matches) closeTicketPopup(); });
-  document.querySelectorAll('.search-btn2').forEach(btn => btn.addEventListener('click', handleSearchClick));
 
-  document.getElementById('htSubmit').addEventListener('click', submitTicketEnquiry);
-
-  // Default From = Karachi, matches original site's default
+  // Default From = Karachi. autoDetectOrigin() below may replace it with the visitor's nearest airport.
   const defaultFrom = AIRPORTS.find(a => a.code === 'KHI');
-  if (defaultFrom) { wState.from = defaultFrom.name; wState.fromCode = defaultFrom.code; }
+  if (defaultFrom) { wState.from = defaultFrom.name; wState.fromCode = defaultFrom.code; autoFromCode = defaultFrom.code; }
 
   renderField('from');
   renderField('guests');
@@ -1137,4 +1199,5 @@ document.addEventListener('DOMContentLoaded', function () {
   updateHeroTicket();
   initRouteTracer();
   initQuickRoutes();
+  autoDetectOrigin();
 });

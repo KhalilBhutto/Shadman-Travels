@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════
+   GLASS.CSS — frosted "liquid glass" look
+   Applies to: trip tabs, Search button, 6 route pills, recent-search chip,
+   the airlines box and the Google review box (desktop and phone).
+   Loaded after search-widget.css, so it overrides it.
+   To make everything more or less glassy, change the numbers in :root.
+═══════════════════════════════════════════ */
+
+:root {
+  --glass-fill:      linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05) 50%, rgba(255,255,255,.10));
+  --glass-fill-soft: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 50%, rgba(255,255,255,.07));
+  --glass-edge:      rgba(255,255,255,.26);
+  --glass-blur:      blur(14px) saturate(180%);
+  --glass-shadow:      inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.08), inset 0 0 18px rgba(255,255,255,.05), 0 10px 28px rgba(0,0,0,.35);
+  --glass-shadow-soft: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(255,255,255,.06), 0 12px 32px rgba(0,0,0,.3);
+}
+
+/* ── 1. The six route pills and the recent-search chip ── */
+.quick-route-chip,
+#recentChipWrap .recent-chip {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: #fff;
+}
+.quick-route-chip { font-weight: 700; }
+.quick-route-chip:hover {
+  background: linear-gradient(135deg, rgba(228,188,90,.42), rgba(228,188,90,.12) 55%, rgba(228,188,90,.22));
+  border-color: rgba(245,223,160,.75);
+  color: #fff;
+}
+.quick-route-chip .arr { color: var(--gold2); }
+#recentChipWrap .recent-chip:hover {
+  border-color: rgba(245,223,160,.75);
+  box-shadow: var(--glass-shadow), 0 8px 22px rgba(201,160,40,.18);
+}
+
+/* ── 2. The airlines box and the Google review box ── */
+.hero-airlines,
+.hero-review {
+  background: var(--glass-fill-soft);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow-soft);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.ha-grid li { color: rgba(255,255,255,.82); border-bottom-color: rgba(255,255,255,.1); }
+.hr-head { border-bottom-color: rgba(255,255,255,.14); }
+
+/* ── 3. Trip tabs and Search button: desktop (dark ticket bar) ── */
+@media (min-width: 1001px) {
+  #widgetCard .pill-tab {
+    color: rgba(255,255,255,.75);
+    background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+    border: 1px solid rgba(255,255,255,.18);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 2px 8px rgba(0,0,0,.25);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(180%);
+  }
+  #widgetCard .pill-tab:not(.active):hover { background: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.06)); color: #fff; }
+  #widgetCard .pill-tab.active {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,.4);
+    background: linear-gradient(135deg, rgba(228,188,90,.45), rgba(201,160,40,.25));
+    border-color: rgba(245,223,160,.7);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(255,255,255,.1), 0 4px 14px rgba(201,160,40,.35);
+  }
+
+  /* Search button on the gold stub: frosted white glass */
+  #widgetCard #mainRow .wf-searchbtn .search-btn2 {
+    color: var(--g900);
+    font-weight: 700;
+    background: linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.14));
+    border: 1px solid rgba(255,255,255,.6);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(255,255,255,.2), 0 4px 12px rgba(6,15,9,.25);
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+    backdrop-filter: blur(8px) saturate(160%);
+  }
+  #widgetCard #mainRow .wf-searchbtn .search-btn2:hover:not(:disabled) { background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.22)); }
+  #widgetCard #mainRow .wf-searchbtn .search-btn2:disabled {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.3);
+    color: rgba(6,15,9,.5);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+  }
+}
+
+/* ── 4. Trip tabs and Search button: phones and tablets (cream card) ── */
+@media (max-width: 1000px) {
+  #widgetCard .pill-tabs {
+    background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(236,230,212,.6));
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 6px 16px rgba(15,41,22,.14);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(12px) saturate(180%);
+  }
+  #widgetCard .pill-tab.active {
+    color: var(--gold3);
+    background: linear-gradient(180deg, rgba(40,100,62,.95), rgba(15,41,22,.92));
+    border: 1px solid rgba(255,255,255,.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 6px rgba(0,0,0,.25), 0 6px 14px rgba(15,41,22,.35);
+  }
+
+  /* Search button: glossy gold glass */
+  #widgetCard #mainRow .search-btn2 {
+    color: var(--g900);
+    border: 1px solid rgba(255,255,255,.55);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
+      linear-gradient(135deg, rgba(228,188,90,.95), rgba(201,160,40,.9));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(201,160,40,.3);
+  }
+  #widgetCard #mainRow .search-btn2:disabled {
+    color: #8d7c43;
+    border-color: rgba(255,255,255,.6);
+    background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 55%), rgba(234,223,185,.85);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+  }
+}
+
+/* ── 5. Multi-City search button (same gold glass at every width) ── */
+#widgetCard #mcSearchBtn {
+  color: var(--g900);
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.95), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(201,160,40,.3);
+}
+#widgetCard #mcSearchBtn:disabled {
+  color: #8d7c43;
+  background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 55%), rgba(234,223,185,.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+/* ── Fallbacks: browsers without backdrop blur, or people who turned transparency off ── */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review { background-color: rgba(18,48,30,.88); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review {
+    background-color: rgba(18,48,30,.95);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
