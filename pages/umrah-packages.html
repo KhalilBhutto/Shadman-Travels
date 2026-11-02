@@ -40,64 +40,95 @@
 </div>
 
 <!-- INCLUDE:navbar -->
-<nav id="navbar">
-    <div class="nav-inner">
+<!-- Announcement bar: running ticker. Messages come from data/announcements.json (see js/navbar.js).
+     Stays hidden if the data cannot be loaded. -->
+<div class="ab" id="announceBar" role="region" aria-label="Announcements" hidden>
+  <div class="ab-inner">
+    <span class="ab-label">Announcements</span>
+    <div class="ab-ticker"><div class="ab-track" id="abTrack"></div></div>
+  </div>
+</div>
 
-      <!-- Brand -->
-      <a href="/" class="nav-brand">
-        <picture>
-          <source srcset="/images/logos/logo.webp" type="image/webp">
-          <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
-        </picture>
-        <div class="brand-text">
-          <div class="name">Shadman Travels</div>
-          <div class="tag">New Horizon Everyday</div>
-        </div>
-      </a>
+<nav id="navbar" aria-label="Main">
+  <div class="nav-inner">
 
-      <!-- Desktop navigation links -->
-      <div class="nav-menu">
-        <a href="/#flights"      class="nav-link">Flights</a>
-        <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
-        <a href="/#airlines"     class="nav-link">Airlines</a>
-        <a href="/#destinations" class="nav-link">Destinations</a>
-        <a href="/#why-us"       class="nav-link">About</a>
-        <a href="/#faq" class="nav-link">FAQ</a>
-        <a href="/#contact"      class="nav-link">Contact</a>
+    <!-- Brand -->
+    <a href="/" class="nav-brand">
+      <picture>
+        <source srcset="/images/logos/logo.webp" type="image/webp">
+        <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
+      </picture>
+      <div class="brand-text">
+        <div class="name">Shadman Travels</div>
+        <div class="tag">New Horizon Everyday</div>
       </div>
+    </a>
 
-      <!-- Hamburger toggle (mobile only) -->
-      <button
-        class="hamburger"
-        id="ham"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobileMenu">
-        <div class="ham-line"></div>
-        <div class="ham-line"></div>
-        <div class="ham-line"></div>
-      </button>
-
+    <!-- Desktop navigation links -->
+    <div class="nav-menu">
+      <a href="/#flights"      class="nav-link">Flights</a>
+      <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
+      <a href="/#airlines"     class="nav-link">Airlines</a>
+      <a href="/#destinations" class="nav-link">Destinations</a>
+      <a href="/#why-us"       class="nav-link">About</a>
+      <a href="/#faq"          class="nav-link">FAQ</a>
+      <a href="/#contact"      class="nav-link">Contact</a>
     </div>
-  </nav>
+
+    <!-- Phones and tablets only: licence pill (the menu lives in the bottom dock) -->
+    <span class="nav-lic">Lic. 3322</span>
+
+  </div>
+</nav>
 <!-- /INCLUDE:navbar -->
 
 <!-- INCLUDE:mobile-menu -->
-<div class="overlay" id="overlay"></div>
+<!-- Full-screen route menu (phones and tablets). Opened by the dock's Menu button, see js/navbar.js -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Site menu" aria-hidden="true">
+  <div class="mm-label">Choose your route</div>
 
-  <div
-    class="mobile-menu"
-    id="mobileMenu"
-    aria-hidden="true">
-    <a href="/#flights"     class="mob-link">✈ Flights</a>
-    <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="mob-link umrah-dual-link">🕋 Umrah & Hajj</a>
-    <a href="/#airlines"    class="mob-link">🌍 Airlines</a>
-    <a href="/#destinations"      class="mob-link">🗺 Popular Destinations</a>
-    <a href="/#why-us"      class="mob-link">⭐ Why Us</a>
-    <a href="/#faq" class="mob-link">❓ FAQ</a>
-    <a href="/#contact" class="mob-link"> <i class="fas fa-phone mobile-phone-icon"></i> Contact</a>
-    <a href="tel:+923000041510" class="mob-cta"> <i class="fas fa-phone mobile-phone-icon"></i> Book a Flight Now</a>
+  <div class="mm-route">
+    <a href="/#flights" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Flights</span><span class="mm-cap">Search and get a fare quote</span>
+    </a>
+    <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="mm-stop umrah-dual-link">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Umrah &amp; Hajj</span><span class="mm-cap">Packages and hotels</span>
+    </a>
+    <a href="/#airlines" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Airlines</span><span class="mm-cap">15+ airline partners</span>
+    </a>
+    <a href="/#destinations" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Destinations</span><span class="mm-cap">Where we fly</span>
+    </a>
+    <a href="/#why-us" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Why Us</span><span class="mm-cap">IATA licensed since 2005</span>
+    </a>
+    <a href="/#faq" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">FAQ</span><span class="mm-cap">Quick answers</span>
+    </a>
+    <a href="/#contact" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Contact</span><span class="mm-cap">Call or WhatsApp us</span>
+    </a>
   </div>
+
+  <a href="tel:+923000041510" class="mm-book"><i class="fa-solid fa-phone" aria-hidden="true"></i> Book a flight now</a>
+</div>
+
+<!-- Permanent bottom dock (phones and tablets) -->
+<div class="dock" id="dock" role="navigation" aria-label="Quick actions">
+  <a href="/#flights" class="dock-item"><i class="fa-solid fa-plane" aria-hidden="true"></i><span>Flights</span></a>
+  <a href="/#umrah" class="dock-item"><i class="fa-solid fa-moon" aria-hidden="true"></i><span>Umrah</span></a>
+  <a href="tel:+923000041510" class="dock-call" aria-label="Call now"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
+  <a href="https://wa.me/923000041510" class="dock-item dock-chat" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>Chat</span></a>
+  <button type="button" class="dock-item" id="dockMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
+</div>
 <!-- /INCLUDE:mobile-menu -->
 
 <main class="up-page">

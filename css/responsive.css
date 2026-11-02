@@ -29,14 +29,6 @@
 
 /* ── 900px Breakpoint ── */
 @media (max-width: 900px) {
-  .nav-menu {
-    display: none;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
   .testi-grid {
     grid-template-columns: 1fr;
   }

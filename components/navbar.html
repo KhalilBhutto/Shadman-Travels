@@ -1,40 +1,40 @@
-<nav id="navbar">
-    <div class="nav-inner">
+<!-- Announcement bar: running ticker. Messages come from data/announcements.json (see js/navbar.js).
+     Stays hidden if the data cannot be loaded. -->
+<div class="ab" id="announceBar" role="region" aria-label="Announcements" hidden>
+  <div class="ab-inner">
+    <span class="ab-label">Announcements</span>
+    <div class="ab-ticker"><div class="ab-track" id="abTrack"></div></div>
+  </div>
+</div>
 
-      <!-- Brand -->
-      <a href="/" class="nav-brand">
-        <picture>
-          <source srcset="/images/logos/logo.webp" type="image/webp">
-          <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
-        </picture>
-        <div class="brand-text">
-          <div class="name">Shadman Travels</div>
-          <div class="tag">New Horizon Everyday</div>
-        </div>
-      </a>
+<nav id="navbar" aria-label="Main">
+  <div class="nav-inner">
 
-      <!-- Desktop navigation links -->
-      <div class="nav-menu">
-        <a href="/#flights"      class="nav-link">Flights</a>
-        <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
-        <a href="/#airlines"     class="nav-link">Airlines</a>
-        <a href="/#destinations" class="nav-link">Destinations</a>
-        <a href="/#why-us"       class="nav-link">About</a>
-        <a href="/#faq" class="nav-link">FAQ</a>
-        <a href="/#contact"      class="nav-link">Contact</a>
+    <!-- Brand -->
+    <a href="/" class="nav-brand">
+      <picture>
+        <source srcset="/images/logos/logo.webp" type="image/webp">
+        <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
+      </picture>
+      <div class="brand-text">
+        <div class="name">Shadman Travels</div>
+        <div class="tag">New Horizon Everyday</div>
       </div>
+    </a>
 
-      <!-- Hamburger toggle (mobile only) -->
-      <button
-        class="hamburger"
-        id="ham"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobileMenu">
-        <div class="ham-line"></div>
-        <div class="ham-line"></div>
-        <div class="ham-line"></div>
-      </button>
-
+    <!-- Desktop navigation links -->
+    <div class="nav-menu">
+      <a href="/#flights"      class="nav-link">Flights</a>
+      <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
+      <a href="/#airlines"     class="nav-link">Airlines</a>
+      <a href="/#destinations" class="nav-link">Destinations</a>
+      <a href="/#why-us"       class="nav-link">About</a>
+      <a href="/#faq"          class="nav-link">FAQ</a>
+      <a href="/#contact"      class="nav-link">Contact</a>
     </div>
-  </nav>
+
+    <!-- Phones and tablets only: licence pill (the menu lives in the bottom dock) -->
+    <span class="nav-lic">Lic. 3322</span>
+
+  </div>
+</nav>

@@ -1,127 +1,217 @@
 /**
  * navbar.js
  * Shadman Travels & Tours — Project Shadman Platform
- * Mobile drawer, hamburger toggle, sticky nav scroll class,
- * and smooth-scroll for in-page anchor links.
- * Depends on: nothing (self-contained DOM manipulation)
+ *
+ *  - Announcement bar: running ticker filled from data/announcements.json, with a pause button
+ *  - Mobile route menu: opened by the dock's Menu button (phones and tablets)
+ *  - Navbar scroll class, scroll progress bar, smooth in-page anchors
+ *  - Active link highlight (navbar, route menu, dock)
+ *  - Umrah & Hajj double link
+ * Styles: css/navbar.css      Markup: components/navbar.html, components/mobile-menu.html
  */
 
 'use strict';
 
-/* ─── ELEMENTS ─── */
-const navbarEl     = document.getElementById('navbar');
-const mobileMenuEl = document.getElementById('mobileMenu');
-const hamBtn       = document.getElementById('ham');
-const overlayEl    = document.getElementById('overlay');
+(function () {
 
-/* ─── MOBILE MENU FOCUSABILITY ─── */
-// When menu is closed, make all links inside un-tabbable so keyboard
-// users cannot accidentally reach invisible hidden links.
-function setMobileMenuFocusability(isOpen) {
-  const links = mobileMenuEl.querySelectorAll('a, button');
-  links.forEach(function(el) {
-    if (isOpen) {
-      el.removeAttribute('tabindex');
-    } else {
-      el.setAttribute('tabindex', '-1');
+  const DOCK_BREAKPOINT = 1100;   // must match the breakpoint in css/navbar.css
+
+  const navbarEl = document.getElementById('navbar');
+  const menuEl   = document.getElementById('mobileMenu');
+  const menuBtn  = document.getElementById('dockMenu');
+
+  /* ═══ ANNOUNCEMENT BAR ═══ */
+  function initAnnouncementBar() {
+    const bar     = document.getElementById('announceBar');
+    const track   = document.getElementById('abTrack');
+    if (!bar || !track) return;
+    const ticker = bar.querySelector('.ab-ticker');
+
+    fetch('/data/announcements.json')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Could not load announcements');
+        return res.json();
+      })
+      .then(function (list) {
+        const items = (Array.isArray(list) ? list : []).filter(function (it) { return it && it.text; });
+        if (!items.length) throw new Error('No announcements');
+
+        function addItems(set) {
+          items.forEach(function (it) {
+            const item = document.createElement('span');
+            item.className = 'ab-item';
+            if (it.icon) {
+              const icon = document.createElement('i');
+              icon.className = 'fa-solid fa-' + it.icon;
+              icon.setAttribute('aria-hidden', 'true');
+              item.appendChild(icon);
+            }
+            item.appendChild(document.createTextNode(it.text));
+            const sep = document.createElement('span');
+            sep.className = 'ab-sep';
+            sep.setAttribute('aria-hidden', 'true');
+            sep.textContent = '\u25C6';
+            set.appendChild(item);
+            set.appendChild(sep);
+          });
+        }
+
+        const first = document.createElement('div');
+        first.className = 'ab-set';
+        addItems(first);
+        track.textContent = '';
+        track.appendChild(first);
+        bar.hidden = false;
+
+        // make one set at least as wide as the bar, so the loop never shows a gap
+        let guard = 0;
+        while (first.offsetWidth < ticker.offsetWidth && guard < 4) { addItems(first); guard++; }
+
+        // second copy makes the loop seamless (hidden from screen readers)
+        const copy = first.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        track.appendChild(copy);
+
+        // about 45 pixels per second
+        track.style.setProperty('--ab-dur', Math.max(20, Math.round(first.offsetWidth / 45)) + 's');
+      })
+      .catch(function (err) {
+        console.warn('Announcement bar unavailable:', err);
+        bar.hidden = true;
+      });
+  }
+
+  /* ═══ MOBILE ROUTE MENU ═══ */
+  function setMenu(open) {
+    if (!menuEl || !menuBtn) return;
+
+    // the menu starts right below the navbar, wherever the navbar is on screen
+    if (open && navbarEl) {
+      menuEl.style.setProperty('--mm-top', Math.max(0, Math.round(navbarEl.getBoundingClientRect().bottom)) + 'px');
+    }
+
+    menuEl.classList.toggle('open', open);
+    menuEl.setAttribute('aria-hidden', String(!open));
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.classList.toggle('menu-open', open);
+
+    const icon  = menuBtn.querySelector('i');
+    const label = menuBtn.querySelector('span');
+    if (icon) {
+      icon.classList.toggle('fa-bars', !open);
+      icon.classList.toggle('fa-xmark', open);
+    }
+    if (label) label.textContent = open ? 'Close' : 'Menu';
+  }
+
+  function toggleMobileMenu() { setMenu(!(menuEl && menuEl.classList.contains('open'))); }
+  function closeMobileMenu()  { setMenu(false); }
+
+  if (menuBtn) menuBtn.addEventListener('click', toggleMobileMenu);
+
+  // any link in the menu or dock closes the menu
+  document.querySelectorAll('.mm-stop, .mm-book, .dock a').forEach(function (a) {
+    a.addEventListener('click', closeMobileMenu);
+  });
+
+  // Escape closes the menu and returns focus to the Menu button
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuEl && menuEl.classList.contains('open')) {
+      closeMobileMenu();
+      if (menuBtn) menuBtn.focus();
     }
   });
-}
 
-/* ─── MOBILE MENU ─── */
-function toggleMobileMenu() {
-  const isOpen = mobileMenuEl.classList.toggle('open');
+  // growing the window past the dock breakpoint closes the menu
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > DOCK_BREAKPOINT) closeMobileMenu();
+  });
 
-  hamBtn.classList.toggle('open', isOpen);
-  overlayEl.classList.toggle('show', isOpen);
+  // kept so any other script that still calls these keeps working
+  window.toggleMobileMenu = toggleMobileMenu;
+  window.closeMobileMenu  = closeMobileMenu;
 
-  mobileMenuEl.setAttribute('aria-hidden', String(!isOpen));
-  hamBtn.setAttribute('aria-expanded', String(isOpen));
-  setMobileMenuFocusability(isOpen);
-
-  if (!isOpen) {
-    hamBtn.focus();
+  /* ═══ NAVBAR: scrolled class + progress bar ═══ */
+  function handleNavScroll() {
+    if (navbarEl) navbarEl.classList.toggle('scrolled', window.scrollY > 80);
   }
-}
 
-function closeMobileMenu() {
-  hamBtn.focus();
+  function handleScrollProgress() {
+    const s   = document.documentElement;
+    const pct = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
+    const bar = document.getElementById('progress');
+    if (bar) bar.style.width = pct + '%';
+  }
 
-  mobileMenuEl.classList.remove('open');
-  hamBtn.classList.remove('open');
-  overlayEl.classList.remove('show');
+  /* ═══ ACTIVE LINK (navbar, route menu, dock) ═══
+     The link whose section is nearest the top of the screen gets the .active class. */
+  function initActiveLinks() {
+    const links = Array.from(document.querySelectorAll('.nav-link, .mm-stop, .dock-item[href]'));
+    const hashOf = function (a) {
+      const h = a.getAttribute('href') || '';
+      const i = h.indexOf('#');
+      return i > -1 ? h.slice(i + 1) : '';
+    };
+    const ids = Array.from(new Set(links.map(hashOf).filter(Boolean)));
+    const sections = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (!sections.length) return;
 
-  mobileMenuEl.setAttribute('aria-hidden', 'true');
-  hamBtn.setAttribute('aria-expanded', 'false');
-  setMobileMenuFocusability(false);
-}
+    let queued = false;
+    function update() {
+      queued = false;
+      const line = window.innerHeight * 0.35;
+      let current = '';
+      let bestTop = -Infinity;
+      sections.forEach(function (s) {
+        const top = s.getBoundingClientRect().top;
+        if (top <= line && top > bestTop) { bestTop = top; current = s.id; }
+      });
+      links.forEach(function (a) {
+        a.classList.toggle('active', !!current && hashOf(a) === current);
+      });
+    }
+    function onScroll() {
+      if (!queued) { queued = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
 
-/* ─── STICKY NAV — add .scrolled class after 80 px ─── */
-function handleNavScroll() {
-  if (!navbarEl) return;
-  navbarEl.classList.toggle('scrolled', window.scrollY > 80);
-}
+  /* ═══ SMOOTH SCROLL for in-page anchors ═══ */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
 
-/* ─── SCROLL PROGRESS BAR ─── */
-function handleScrollProgress() {
-  const s   = document.documentElement;
-  const pct = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
-  const bar = document.getElementById('progress');
-  if (bar) bar.style.width = pct + '%';
-}
-
-/* ─── SMOOTH SCROLL for in-page anchors ─── */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+  /* ═══ UMRAH & HAJJ: open packages page + scroll this page to the section ═══ */
+  document.querySelectorAll('.umrah-dual-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      // target="_blank" already opens the packages page in a new tab —
+      // this additionally scrolls the CURRENT page to the Umrah & Hajj section.
+      const section = document.getElementById('umrah');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-}
 
-/* ─── WIRE UP ─── */
-window.addEventListener('scroll', () => {
-  handleNavScroll();
-  handleScrollProgress();
-});
-
-// Hamburger button — onclick is also set inline in HTML as fallback;
-// attaching here keeps JS in one place.
-if (hamBtn) {
-  hamBtn.addEventListener('click', toggleMobileMenu);
-}
-
-// Overlay click closes menu
-if (overlayEl) {
-  overlayEl.addEventListener('click', closeMobileMenu);
-}
-
-// Mobile menu links — close the menu when any link inside it is clicked
-document.querySelectorAll('.mob-link').forEach(function (link) {
-  link.addEventListener('click', closeMobileMenu);
-});
-
-// Expose for any other code that may still call these directly
-window.toggleMobileMenu = toggleMobileMenu;
-window.closeMobileMenu  = closeMobileMenu;
-
-document.addEventListener('DOMContentLoaded', initSmoothScroll);
-// Set menu links as un-tabbable on first load (menu starts closed)
-document.addEventListener('DOMContentLoaded', function() { setMobileMenuFocusability(false); });
-
-/* ─── UMRAH & HAJJ: open packages page + scroll current page to section ─── */
-document.querySelectorAll('.umrah-dual-link').forEach(function (link) {
-  link.addEventListener('click', function () {
-    // target="_blank" already opens the packages page in a new tab —
-    // this just additionally scrolls the CURRENT page down to the
-    // homepage's Umrah & Hajj section, so both happen at once.
-    const section = document.getElementById('umrah');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  /* ═══ WIRE UP ═══ */
+  window.addEventListener('scroll', function () {
+    handleNavScroll();
+    handleScrollProgress();
   });
-});
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initSmoothScroll();
+    initActiveLinks();
+    initAnnouncementBar();
+  });
+
+})();
