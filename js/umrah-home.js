@@ -1,5 +1,5 @@
 /* js/umrah-home.js
- * Fills the homepage "Umrah & Hajj Packages" cards from data/umrah-packages.json,
+ * Fills the homepage "Umrah Packages" cards from data/umrah-packages.json,
  * so the nights, prices and airlines always match the real packages.
  * One card per duration (e.g. 19 Nights, 20 Nights), showing the cheapest sharing price.
  */
@@ -101,15 +101,6 @@
         grid.innerHTML = html;
         grid.setAttribute('data-count', grid.children.length);   // 1, 2 or 3 cards -> CSS centres them
         centreMiddleCardOnPhones(grid);
-        var pill = document.getElementById('umrahPillCount');
-        if (pill) pill.textContent = '🕋 ' + list.length + ' Live Packages';
-        var ap = document.getElementById('umrahPillAirlines');
-        if (ap) {
-          var n = new Set(list.map(function (p) { return p.airline; })).size;
-          ap.textContent = '✈ ' + n + ' Airline Partner' + (n === 1 ? '' : 's');
-        }
-        var all = document.getElementById('umrahAllCount');
-        if (all) all.textContent = 'all ' + list.length + ' packages';
       })
       .catch(function () {
         grid.removeAttribute('data-count');

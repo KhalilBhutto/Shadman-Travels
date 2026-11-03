@@ -37,10 +37,6 @@
     grid-template-columns: 1fr;
   }
 
-  .coming-grid {
-    grid-template-columns: 1fr;
-  }
-
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -62,8 +58,7 @@
 
   .contact-sec,
   .why-sec,
-  .testi-sec,
-  .coming-sec {
+  .testi-sec {
     padding: 64px 20px;
   }
 
