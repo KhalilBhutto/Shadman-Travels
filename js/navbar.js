@@ -16,9 +16,10 @@
 
   const DOCK_BREAKPOINT = 1100;   // must match the breakpoint in css/navbar.css
 
-  const navbarEl = document.getElementById('navbar');
-  const menuEl   = document.getElementById('mobileMenu');
-  const menuBtn  = document.getElementById('dockMenu');
+  const navbarEl  = document.getElementById('navbar');
+  const menuEl    = document.getElementById('mobileMenu');
+  const menuBtn   = document.getElementById('dockMenu');
+  const menuClose = document.getElementById('mmClose');
 
   /* ═══ ANNOUNCEMENT BAR ═══ */
   function initAnnouncementBar() {
@@ -86,9 +87,6 @@
     if (!menuEl || !menuBtn) return;
 
     // the menu starts right below the navbar, wherever the navbar is on screen
-    if (open && navbarEl) {
-      menuEl.style.setProperty('--mm-top', Math.max(0, Math.round(navbarEl.getBoundingClientRect().bottom)) + 'px');
-    }
 
     menuEl.classList.toggle('open', open);
     menuEl.setAttribute('aria-hidden', String(!open));
@@ -103,6 +101,9 @@
       icon.classList.toggle('fa-xmark', open);
     }
     if (label) label.textContent = open ? 'Close' : 'Menu';
+
+    // the dock is hidden while the menu is open, so keyboard focus moves to the menu's own ✕ button
+    if (open && menuClose) menuClose.focus({ preventScroll: true });
   }
 
   function toggleMobileMenu() { setMenu(!(menuEl && menuEl.classList.contains('open'))); }
@@ -110,8 +111,14 @@
 
   if (menuBtn) menuBtn.addEventListener('click', toggleMobileMenu);
 
+  // the ✕ at the top-right of the menu closes it and gives focus back to the dock's Menu button
+  if (menuClose) menuClose.addEventListener('click', function () {
+    closeMobileMenu();
+    if (menuBtn) menuBtn.focus({ preventScroll: true });
+  });
+
   // any link in the menu or dock closes the menu
-  document.querySelectorAll('.mm-stop, .mm-book, .dock a').forEach(function (a) {
+  document.querySelectorAll('.mm-stop, .dock a').forEach(function (a) {
     a.addEventListener('click', closeMobileMenu);
   });
 

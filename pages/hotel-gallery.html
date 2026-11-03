@@ -70,7 +70,10 @@
 <!-- INCLUDE:mobile-menu -->
 <!-- Full-screen route menu (phones and tablets). Opened by the dock's Menu button, see js/navbar.js -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Site menu" aria-hidden="true">
-  <div class="mm-label">Choose your route</div>
+  <div class="mm-head">
+    <div class="mm-label">Choose your route</div>
+    <button type="button" class="mm-close" id="mmClose" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  </div>
 
   <div class="mm-route">
     <a href="/#flights" class="mm-stop">
@@ -102,8 +105,6 @@
       <span class="mm-name">Contact</span><span class="mm-cap">Call or WhatsApp us</span>
     </a>
   </div>
-
-  <a href="tel:+923000041510" class="mm-book"><i class="fa-solid fa-phone" aria-hidden="true"></i> Book a flight now</a>
 </div>
 
 <!-- Permanent bottom dock (phones and tablets) -->

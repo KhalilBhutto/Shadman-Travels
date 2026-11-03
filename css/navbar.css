@@ -5,10 +5,24 @@
    Behaviour:  js/navbar.js        Messages: data/announcements.json
 ═══════════════════════════════════════════ */
 
+/* ── 0. Fixed header: announcement bar + navbar stay pinned at the top ──
+   --ab-h  = height of the announcement bar (0 while it is hidden)
+   --nav-h = height of the navbar (smaller on phones and tablets)
+   The page gets matching space at the top, so nothing hides behind the header. */
+:root { --ab-h: 0px; --nav-h: 86px; }
+:root:has(.ab:not([hidden])) { --ab-h: 45px; }
+@media (max-width: 1100px) { :root { --nav-h: 62px; } }
+
+html { scroll-padding-top: calc(var(--ab-h) + var(--nav-h) + 8px); }   /* in-page links stop below the header */
+body:has(#navbar) { padding-top: calc(var(--ab-h) + var(--nav-h)); }
+
 /* ── 1. Announcement bar (running ticker) ── */
 .ab {
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 905;
   background: var(--g900);
   border-bottom: 1px solid rgba(228, 188, 90, 0.3);
 }
@@ -74,8 +88,10 @@
 
 /* ── 2. Navbar (green pattern bar) ── */
 #navbar {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--ab-h);
+  left: 0;
+  right: 0;
   z-index: 900;
   background:
     url('../images/patterns/star-pattern.svg'),
@@ -187,13 +203,11 @@
 
 .mobile-menu {
   position: fixed;
-  left: 0;
-  right: 0;
-  top: var(--mm-top, 60px);      /* set by js/navbar.js to the navbar's bottom edge */
-  bottom: 0;
-  z-index: 850;
+  inset: 0;                      /* covers the whole screen, from the very top */
+  z-index: 960;                  /* above the navbar (900), ticker (905) and dock (950) */
   overflow-y: auto;
-  padding: 22px 20px calc(112px + env(safe-area-inset-bottom, 0px));
+  overscroll-behavior: contain;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 20px calc(28px + env(safe-area-inset-bottom, 0px));
   background:
     url('../images/patterns/star-pattern.svg'),
     radial-gradient(ellipse at 88% 0%, rgba(176, 154, 52, 0.55), transparent 55%),
@@ -215,14 +229,38 @@
 html.menu-open,
 html.menu-open body { overflow: hidden; }
 
+.mm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  margin-bottom: 14px;
+}
+
 .mm-label {
   font-family: 'Cinzel', serif;
   font-size: 0.66rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold2);
-  margin-bottom: 14px;
 }
+
+.mm-close {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold2);
+  background: rgba(6, 15, 9, 0.45);
+  color: var(--gold2);
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.mm-close:hover { background: var(--gold); color: var(--g900); }
+.mm-close:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
 
 .mm-route { position: relative; display: flex; flex-direction: column; gap: 6px; }
 
@@ -409,3 +447,8 @@ html.menu-open body { overflow: hidden; }
   body:has(#widgetCard .popup-panel.open, #widgetCard .popup.open) .dock,
   body.tk-open .dock { display: none; }
 }
+
+
+/* ── Menu open: the dock and the progress line step aside; the menu has its own ✕ ── */
+html.menu-open .dock,
+html.menu-open #progress { display: none; }
