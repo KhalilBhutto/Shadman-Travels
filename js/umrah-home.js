@@ -22,6 +22,7 @@
     return isNaN(d) || d >= t;
   }
   function money(n) { return Number(n).toLocaleString('en-US'); }
+  function two(n) { return (n < 10 ? '0' : '') + n; }
   // WhatsApp click-to-chat link with the package already typed in
   function enquireUrl(nights, price) {
     var msg = 'Assalamu Alaikum, I would like to enquire about your ' + nights +
@@ -52,6 +53,7 @@
       var mk = cheapest.makkahHotel.nights, md = cheapest.madinahHotel.nights;
       return '' +
         '<div class="umrah-card' + (i === middle ? ' umrah-featured' : '') + '">' +
+          '<span class="umrah-no" aria-hidden="true">' + two(i + 1) + '/' + two(keys.length) + '</span>' +
           '<div class="umrah-tier">' + (from ? 'Departures from ' + esc(from) : 'Group Package') + '</div>' +
           '<h3 class="umrah-name">' + n + ' Nights</h3>' +
           '<div class="umrah-meta">' + (mk && md ? esc(mk) + ' Makkah + ' + esc(md) + ' Madinah' : 'Makkah + Madinah') + '</div>' +
@@ -62,7 +64,6 @@
             '<li>Umrah visa processing</li>' +
             '<li>Hotel stay in Makkah &amp; Madinah</li>' +
             '<li>Complimentary Ziyarat (Taif, Makkah, Madinah)</li>' +
-            '<li>' + g.length + ' departure' + (g.length === 1 ? '' : 's') + ' available</li>' +
           '</ul>' +
           '<div class="umrah-price-row">' +
             '<div class="umrah-price">PKR <span>' + money(cheapest.pricing.sharing) + '</span></div>' +
