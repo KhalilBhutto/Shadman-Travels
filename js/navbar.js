@@ -26,6 +26,10 @@
     const bar     = document.getElementById('announceBar');
     const track   = document.getElementById('abTrack');
     if (!bar || !track) return;
+
+    // a page can opt out of the announcement bar with <body data-no-announce>
+    if (document.body.hasAttribute('data-no-announce')) { bar.hidden = true; return; }
+
     const ticker = bar.querySelector('.ab-ticker');
 
     fetch('/data/announcements.json')

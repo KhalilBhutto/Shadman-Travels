@@ -5,24 +5,10 @@
    Behaviour:  js/navbar.js        Messages: data/announcements.json
 ═══════════════════════════════════════════ */
 
-/* ── 0. Fixed header: announcement bar + navbar stay pinned at the top ──
-   --ab-h  = height of the announcement bar (0 while it is hidden)
-   --nav-h = height of the navbar (smaller on phones and tablets)
-   The page gets matching space at the top, so nothing hides behind the header. */
-:root { --ab-h: 0px; --nav-h: 86px; }
-:root:has(.ab:not([hidden])) { --ab-h: 45px; }
-@media (max-width: 1100px) { :root { --nav-h: 62px; } }
-
-html { scroll-padding-top: calc(var(--ab-h) + var(--nav-h) + 8px); }   /* in-page links stop below the header */
-body:has(#navbar) { padding-top: calc(var(--ab-h) + var(--nav-h)); }
-
 /* ── 1. Announcement bar (running ticker) ── */
 .ab {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 905;
+  position: relative;
+  z-index: 10;
   background: var(--g900);
   border-bottom: 1px solid rgba(228, 188, 90, 0.3);
 }
@@ -88,10 +74,7 @@ body:has(#navbar) { padding-top: calc(var(--ab-h) + var(--nav-h)); }
 
 /* ── 2. Navbar (green pattern bar) ── */
 #navbar {
-  position: fixed;
-  top: var(--ab-h);
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 900;
   background:
     url('../images/patterns/star-pattern.svg'),
@@ -452,3 +435,31 @@ html.menu-open body { overflow: hidden; }
 /* ── Menu open: the dock and the progress line step aside; the menu has its own ✕ ── */
 html.menu-open .dock,
 html.menu-open #progress { display: none; }
+
+/* ── Menu open: the dock and the progress line step aside; the menu has its own ✕ ── */
+html.menu-open .dock,
+html.menu-open #progress { display: none; }
+
+/* ── Compact bottom dock (phones and tablets) ──
+   Smaller height, icons and labels, and a smaller centre call button. */
+@media (max-width: 1100px) {
+  .dock {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    width: min(calc(100% - 40px), 420px);
+    height: 58px;
+    padding: 0 6px;
+    border-radius: 20px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+  }
+  .dock-item { gap: 3px; font-size: 0.5rem; letter-spacing: 0.1em; }
+  .dock-item i { font-size: 1.05rem; }
+  .dock-call {
+    flex: 0 0 52px;
+    height: 52px;
+    margin-top: -24px;
+    border-width: 3px;
+    font-size: 1.25rem;
+  }
+  /* keep the footer clear of the smaller dock */
+  html body footer { padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+}
