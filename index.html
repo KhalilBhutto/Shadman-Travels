@@ -13,7 +13,7 @@
   ║   services (Umrah, international tours, domestic tours).                 ║
   ║                                                                          ║
   ║   STYLESHEET LOAD ORDER                                                  ║
-  ║   1. notify-modal.css  — Notification modal (third-party component)      ║
+  ║                                                                          ║
   ║   2. variables.css     — Design tokens & custom properties               ║
   ║   3. main.css          — Base resets, typography, global utilities       ║
   ║   4. navbar.css        — Navigation & mobile menu                        ║
@@ -28,7 +28,7 @@
   ║   2. airports.js       — Airport autocomplete data & search logic        ║
   ║   3. navbar.js         — Hamburger toggle, scroll behavior, active links ║
   ║   4. search-widget.js  — Boarding-pass ticket + horizontal search bar    ║
-  ║   5. notify.js         — Notification modal open/close & form submit     ║
+  ║   5                                                                      ║
   ║   6. animations.js     — IntersectionObserver reveals, counter, carousel ║
   ║   7. main.js           — Entry point: preloader, progress bar, init      ║
   ║                                                                          ║
@@ -46,11 +46,11 @@
   ║   [10] Popular Routes        (#routes)                                   ║
   ║   [11] Why Choose Us         (#why-us)                                   ║
   ║   [12] Testimonials                                                      ║
-  ║   [13] Coming Soon           (#coming-soon)                              ║
+  ║   [13]                                                                   ║
   ║   ── </main> ───────────────────────────────────────────────────────     ║
   ║   [14] Footer                                                            ║
   ║   [15] WhatsApp FAB                                                      ║
-  ║   [16] Notify Modal                                                      ║
+  ║   [16]                                                                   ║
   ║   [17] JavaScript References                                             ║
   ║                                                                          ║
   ╚══════════════════════════════════════════════════════════════════════════╝
@@ -138,7 +138,6 @@
        Load order: modal override → tokens → base → components
        ═══════════════════════════════════════════════════════════ -->
 
-  <link rel="stylesheet" href="css/notify-modal.css">
   <link rel="stylesheet" href="css/variables.css"/>
   <link rel="stylesheet" href="css/main.css?v=20261030"/>
   <link rel="stylesheet" href="css/navbar.css"/>
@@ -146,7 +145,7 @@
   <link rel="stylesheet" href="css/forms.css"/>
   <link rel="stylesheet" href="css/search-widget.css?v=20261030"/>
   <link rel="stylesheet" href="css/glass.css?v=20261102"/>
-  <link rel="stylesheet" href="css/sections.css?v=20261031"/>
+  <link rel="stylesheet" href="css/sections.css?v=20261104"/>
   <link rel="stylesheet" href="css/faq.css"/>
   <link rel="stylesheet" href="css/footer.css"/>
   <link rel="stylesheet" href="css/responsive.css"/>
@@ -192,12 +191,11 @@
   <script src="js/navbar.js" defer></script>
   <script src="js/nearest-airport.js?v=20261102" defer></script>
   <script src="js/search-widget.js?v=20261102" defer></script>
-  <script src="js/notify.js" defer></script>
   <script src="js/google-reviews.js" defer></script>
-  <script src="js/animations.js" defer></script>
+  <script src="js/animations.js?v=20261104" defer></script>
   <script src="js/faq.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/umrah-home.js?v=20261030c" defer></script>
+  <script src="js/umrah-home.js?v=20261104" defer></script>
   <script src="js/mobile-sections.js?v=20261101" defer></script>
 
 </head>
@@ -218,10 +216,10 @@
   ║  [10] Popular Routes       — Route price cards           #routes         ║
   ║  [11] Why Choose Us        — Trust signals + cert badges #why-us         ║
   ║  [12] Testimonials         — Auto-fade carousel                          ║
-  ║  [13] Coming Soon          — Upcoming services           #coming-soon    ║
+  ║  [13]                                                                    ║
   ║  [14] Footer               — Brand, links, contact                       ║
   ║  [15] WhatsApp FAB         — Floating action button                      ║
-  ║  [16] Notify Modal         — Service notification form                   ║
+  ║  [16]                                                                    ║
   ║  [17] JavaScript           — Deferred script references                  ║
   ╚══════════════════════════════════════════════════════════════════════════╝
   -->
@@ -1052,63 +1050,6 @@
     <i class="fa-brands fa-whatsapp"></i>
     <span class="wa-label">Chat on WhatsApp</span>
   </a>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       [16] NOTIFY MODAL
-       Service notification signup modal. Opened by .notify-btn
-       clicks (Coming Soon section). Passes service name via
-       data-service to #notifyServiceText.
-       Controlled by: js/notify.js
-       Styled by:     css/notify-modal.css
-       ═══════════════════════════════════════════════════════════ -->
-  <div id="notifyModal" class="notify-modal">
-    <div class="notify-modal-content">
-
-      <button class="notify-close" id="notifyClose">&times;</button>
-
-      <h2>Get Notified</h2>
-
-      <p id="notifyServiceText"></p>
-
-      <form id="notifyForm">
-        <!-- Honeypot — real users never see or fill this; bots that
-             auto-fill every field will, and get silently rejected. -->
-        <input
-          type="text"
-          id="notifyWebsite"
-          name="website"
-          autocomplete="off"
-          tabindex="-1"
-          style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"
-        >
-        <input
-          type="text"
-          id="notifyName"
-          placeholder="Full Name"
-          required
-        >
-        <input
-          type="tel"
-          id="notifyPhone"
-          placeholder="Phone Number"
-          required
-        >
-        <input
-          type="email"
-          id="notifyEmail"
-          placeholder="Email Address"
-          required
-        >
-        <button type="submit" class="submit-btn">Notify Me</button>
-      </form>
-
-      <div id="notifySuccess" style="display:none;">
-        Thank you! We'll notify you when this service becomes available.
-      </div>
-
-    </div>
-  </div><!-- /#notifyModal -->
 
 </body>
 </html>
