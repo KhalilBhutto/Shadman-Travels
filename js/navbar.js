@@ -155,6 +155,40 @@
     if (bar) bar.style.width = pct + '%';
   }
 
+    /* ═══ NAVBAR HIGHLIGHT: one glass capsule slides under the active link ═══ */
+  let navPill = null;
+
+  function movePill() {
+    const menu = document.querySelector('.nav-menu');
+    if (!menu) return;
+
+    const fresh = !navPill;
+    if (fresh) {
+      navPill = document.createElement('span');
+      navPill.className = 'nav-pill is-off';
+      navPill.setAttribute('aria-hidden', 'true');
+      menu.prepend(navPill);
+    }
+
+    const active = menu.querySelector('.nav-link.active');
+    if (!active || !active.offsetWidth) {          // nothing active, or the menu is hidden (phones)
+      navPill.classList.add('is-off');
+      return;
+    }
+
+    if (fresh) navPill.classList.add('is-placing');
+    navPill.style.width  = active.offsetWidth + 'px';
+    navPill.style.height = active.offsetHeight + 'px';
+    navPill.style.transform = 'translate(' + active.offsetLeft + 'px,' + active.offsetTop + 'px)';
+    navPill.classList.remove('is-off');
+    if (fresh) {
+      void navPill.offsetWidth;                    // apply the position before animation is switched back on
+      navPill.classList.remove('is-placing');
+    }
+  }
+
+  /* ═══ ACTIVE LINK (navbar, route menu, dock) ═══
+  
   /* ═══ ACTIVE LINK (navbar, route menu, dock) ═══
      The link whose section is nearest the top of the screen gets the .active class. */
   function initActiveLinks() {
@@ -181,6 +215,7 @@
       links.forEach(function (a) {
         a.classList.toggle('active', !!current && hashOf(a) === current);
       });
+      movePill();
     }
     function onScroll() {
       if (!queued) { queued = true; requestAnimationFrame(update); }
@@ -223,6 +258,11 @@
     initSmoothScroll();
     initActiveLinks();
     initAnnouncementBar();
+
+    // link widths change when the window resizes and when the web fonts finish loading
+    window.addEventListener('resize', movePill);
+    window.addEventListener('load', movePill);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(movePill);
   });
 
 })();

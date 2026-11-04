@@ -146,3 +146,134 @@
     backdrop-filter: none;
   }
 }
+
+@media (prefers-reduced-transparency: reduce) {
+  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review {
+    background-color: rgba(18,48,30,.95);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   GLASS FOUNDATION — shared by every block below
+   Reuse these variables instead of repeating numbers.
+═══════════════════════════════════════════ */
+:root {
+  /* gold-tinted glass: active items, call-to-action pills */
+  --glass-gold-fill:   linear-gradient(135deg, rgba(228,188,90,.5), rgba(201,160,40,.2) 55%, rgba(245,223,160,.32));
+  --glass-gold-edge:   rgba(245,223,160,.62);
+  --glass-gold-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(255,255,255,.12), 0 4px 14px rgba(0,0,0,.35);
+  /* dark glass: panels with text that must stay readable over busy pictures */
+  --glass-dark-fill:   linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 50%, rgba(255,255,255,.08)), rgba(6,15,9,.48);
+}
+
+/* Phones: a lighter blur keeps scrolling smooth on cheaper devices */
+@media (max-width: 700px) {
+  :root { --glass-blur: blur(9px) saturate(160%); }
+}
+
+/* People who asked their device for less transparency get near-solid panels */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-blur: none;
+    --glass-dark-fill: rgba(14,38,24,.96);
+    --glass-gold-fill: rgba(150,118,30,.95);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   1. HEADER — announcements pill, navbar links, mobile dock
+═══════════════════════════════════════════ */
+
+/* "Announcements" pill */
+.ab-label {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Navbar links: plain text on the pattern bar (the original design).
+   One liquid-glass capsule slides under the link for the section you are on (see js/navbar.js). */
+.nav-menu { position: relative; }          /* the capsule is positioned inside this */
+.nav-link {
+  position: relative;
+  z-index: 1;                              /* text stays above the capsule */
+  color: #e6eee8;
+  background: none;
+  border: 1px solid transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.nav-link:hover {                          /* original hover look */
+  color: var(--gold3);
+  border-color: rgba(228, 188, 90, 0.6);
+  background: rgba(6, 15, 9, 0.35);
+}
+.nav-link.active,
+.nav-link.active:hover {                   /* the capsule shows the active link, so the link itself stays plain */
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+
+/* The moving liquid-glass capsule */
+.nav-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border-radius: 50px;
+  pointer-events: none;
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  transition:
+    transform .5s cubic-bezier(.34, 1.35, .4, 1),
+    width .5s cubic-bezier(.34, 1.35, .4, 1),
+    height .3s ease,
+    opacity .3s ease;
+}
+.nav-pill::after {                         /* soft gloss on the upper half */
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 2px;
+  height: 42%;
+  border-radius: 50px;
+  background: linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0));
+}
+.nav-pill.is-off { opacity: 0; }           /* no active link: hidden */
+.nav-pill.is-placing { transition: none; } /* the very first placement does not slide in from the corner */
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-pill { transition: opacity .2s; }
+}
+
+/* Mobile bottom dock (phones and tablets) */
+.dock {
+  background: var(--glass-dark-fill);
+  border: 1.5px solid rgba(245,223,160,.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(255,255,255,.08), 0 16px 36px rgba(0,0,0,.5);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.dock-call {                            /* the raised gold Call button: glossy gold glass */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 10px 22px rgba(0,0,0,.45);
+}
