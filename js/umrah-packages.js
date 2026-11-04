@@ -131,26 +131,110 @@ function spacedFlightNo(n) { return String(n || '').replace(/\s*-\s*/, ' - '); }
 // 18 Oct 2026 -> 18OCT
 function compactDay(d) { const m = String(d || '').match(/^(\d{2}) (\w{3})/); return m ? m[1] + m[2].toUpperCase() : ''; }
 
-function flightCellHTML(leg, label) {
+// ─────────────────────────────────────────────────────────────────────
+// COMPACT PACKAGE CARD
+// The card shows the important facts. Hotels, photos, all prices, gifts
+// and included services sit in a "details" area: it opens below the card
+// on desktop, and as a pop-up (bottom sheet) on phones.
+// ─────────────────────────────────────────────────────────────────────
+
+// The supplier sends "12:00 AM" when it has no real time (all Saudia packages),
+// so we treat it as "no time" and hide it instead of showing a wrong time.
+function realTime(t) { return t && t !== '12:00 AM' ? t : ''; }
+
+function legTimes(leg) {
+  const d = realTime(leg.depTime), a = realTime(leg.arrTime);
+  if (d && a) return d + ' → ' + a;
+  if (d) return 'Departs ' + d;
+  if (a) return 'Arrives ' + a;
+  return '';
+}
+
+// One flight leg: label, flight number, route, date, times and baggage.
+// A line that has no data is simply left out.
+function legHTML(leg, label) {
+  const sub = [legTimes(leg), leg.baggage ? 'Baggage ' + leg.baggage : ''].filter(Boolean).join(' · ');
   return `
-        <div class="up-flight-cell">
-          <div class="fc-value fc-small">
-            <strong><i class="fa-solid fa-plane"></i> ${escapeHtml(spacedFlightNo(leg.flightNo))}</strong>
-            <span class="fc-badge"><i class="fa-solid fa-plane-departure"></i>${escapeHtml(leg.from)} &rarr; ${escapeHtml(leg.to)}</span>
-            <i class="fa-solid fa-calendar-check"></i> ${escapeHtml(leg.date)}
-            <div class="fc-times"><span><i class="fa-solid fa-clock"></i> ${escapeHtml(leg.depTime)}</span> <span><i class="fa-solid fa-clock"></i> ${escapeHtml(leg.arrTime)}</span></div>
-            ${leg.baggage ? `<div class="fc-bag"><i class="fa-solid fa-suitcase"></i> Baggage: <strong>${escapeHtml(leg.baggage)}</strong></div>` : ''}
-          </div>
-          <div class="fc-label">${label}</div>
+        <div class="up2-leg">
+          <div class="up2-leg-label">${label} · ${escapeHtml(spacedFlightNo(leg.flightNo))}</div>
+          <div class="up2-leg-main">${escapeHtml(leg.from)} → ${escapeHtml(leg.to)} · ${escapeHtml(leg.date)}</div>
+          ${sub ? `<div class="up2-leg-sub">${escapeHtml(sub)}</div>` : ''}
         </div>`;
+}
+
+// "850 METRE IBRAHIM KHALIL ROAD (INSIDE QUBRI)" -> "850 m"
+// "350 METER - 400 METER SHAHRAH SALAM SIDE"     -> "350–400 m"
+// "1100 METER HIJRA ROAD"                        -> "1.1 km"
+// "SHUTTLE SERVICE IBRAHIM KHALIL ROAD"          -> "Shuttle"
+// The full supplier text is still shown in the details area.
+function fmtMeters(n) {
+  return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + ' km' : n + ' m';
+}
+function distanceShort(loc) {
+  const s = String(loc || '').toUpperCase();
+  let m = s.match(/(\d+)\s*(?:METERS?|METRES?)\s*(?:-|TO)\s*(\d+)\s*(?:METERS?|METRES?)/);
+  if (m) return Number(m[1]) + '–' + fmtMeters(Number(m[2]));
+  m = s.match(/(\d+)\s*-?\s*(?:METERS?|METRES?)/);
+  if (m) return fmtMeters(Number(m[1]));
+  return /SHUTTLE/.test(s) ? 'Shuttle' : '';
+}
+
+// Bar showing how the nights are split, with the supplier's distance on each side.
+function stayBarHTML(p) {
+  const mk = Number(p.makkahHotel.nights) || 0;
+  const md = Number(p.madinahHotel.nights) || 0;
+  const dMk = distanceShort(p.makkahHotel.location);
+  const dMd = distanceShort(p.madinahHotel.location);
+  return `
+          <div class="up2-stay">
+            <div class="up2-stay-mk" style="flex:${mk || 1} 1 0"><span>Makkah${mk ? ' · ' + mk + 'N' : ''}</span>${dMk ? `<span class="up2-stay-d">${escapeHtml(dMk)}</span>` : ''}</div>
+            <div class="up2-stay-md" style="flex:${md || 1} 1 0"><span>Madinah${md ? ' · ' + md + 'N' : ''}</span>${dMd ? `<span class="up2-stay-d">${escapeHtml(dMd)}</span>` : ''}</div>
+          </div>`;
+}
+
+function seatsInfo(p) {
+  const n = Number(p.seatsLeft) || 0;
+  if (n <= 0) return { text: 'Sold out', cls: 'low' };
+  return { text: n + (n === 1 ? ' seat left' : ' seats left'), cls: n <= 5 ? 'low' : 'ok' };
+}
+
+function priceText(n) {
+  return (typeof n === 'number' && isFinite(n)) ? 'PKR ' + n.toLocaleString('en-PK') : 'Call us';
+}
+
+// The five price rows (used in the desktop price box and in the phone pop-up)
+function priceRowsHTML(p) {
+  return `
+          <div class="up-price-row best"><span class="pr-label">Sharing</span><span class="pr-val">${fmtPrice(p.pricing.sharing)}</span></div>
+          <div class="up-price-row"><span class="pr-label">Quad</span><span class="pr-val">${fmtPrice(p.pricing.quad)}</span></div>
+          <div class="up-price-row"><span class="pr-label">Triple</span><span class="pr-val">${fmtPrice(p.pricing.triple)}</span></div>
+          <div class="up-price-row"><span class="pr-label">Double</span><span class="pr-val">${fmtPrice(p.pricing.double)}</span></div>
+          <div class="up-price-row"><span class="pr-label">Infant</span><span class="pr-val">${fmtPrice(p.pricing.infant)}</span></div>`;
+}
+
+// One hotel box. Same markup as before, so js/hotel-pictures.js keeps working.
+function hotelHTML(h, label, city, icon) {
+  return `
+            <div class="up-hotel">
+              <div class="up-hotel-label">${label}</div>
+              <div class="up-hotel-name">${escapeHtml(h.name)}</div>
+              <div class="up-hotel-nights"><i class="fa-solid fa-moon"></i> ${escapeHtml(h.nights)} Night(s)</div>
+              <div class="up-hotel-loc"><i class="fa-solid fa-location-arrow"></i> ${escapeHtml(h.location)}</div>
+              <div class="up-hotel-imgph">${hotelPhoto(h, icon)}</div>
+              <a class="up-hotel-viewloc" href="${mapsUrl(h.name, city)}" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View Location</a>
+            </div>`;
 }
 
 function packageCardHTML(p) {
   const cls = airlineClass(p);
   const info = AIRLINE_INFO[cls] || OTHER_AIRLINE;
-  const soldOut = !(p.seatsLeft > 0);
+  const seats = seatsInfo(p);
+  const id = 'upd-' + String(p.code).replace(/[^A-Za-z0-9]/g, '');
   const title = escapeHtml(p.airlineCode) + '|' + escapeHtml(p.nights) + 'N|' +
                 compactDay(p.outbound.date) + '-' + compactDay(p.return.date) + '|' + escapeHtml(p.route);
+  const route = escapeHtml(String(p.route || '').replace(/-/g, ' → '));
+  const enquire = escapeHtml(enquireUrl(p));
+  const colours = `background:${info.gradient};border-color:${info.border};`;
 
   return `
     <div class="up-card" data-airline="${cls}" data-nights="${p.nights}" data-price="${p.pricing.sharing}">
@@ -161,110 +245,152 @@ function packageCardHTML(p) {
         <div class="up-topbar-code">${title}</div>
       </div>
 
-      <div class="up-flightrow">
-        ${flightCellHTML(p.outbound, 'Departure')}
-        ${flightCellHTML(p.return, 'Arrival')}
-        <div class="up-flight-cell">
-          <div class="fc-value"><i class="fa-solid fa-plane"></i> ${escapeHtml(p.outbound.from)} - ${escapeHtml(p.outbound.to)}</div>
-          <div class="fc-label">Flight</div>
+      <div class="up2-main">
+
+        <div class="up2-side" style="${colours}">
+          ${info.logo ? `<div class="up2-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>` : ''}
+          <div class="up2-air">${escapeHtml(p.airline)}</div>
+          <div class="up2-rt"><span>${escapeHtml(p.outbound.from)}</span><i class="fa-solid fa-plane"></i><span>${escapeHtml(p.outbound.to)}</span></div>
+          <div class="up2-date"><small>Travel date</small><b>${escapeHtml(p.travelDate)}</b></div>
+          <div class="up2-seats"><b>${escapeHtml(p.seatsLeft)}</b><small>Seats left</small></div>
         </div>
-        <div class="up-flight-cell">
-          <div class="fc-value"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.nights)} Nights</div>
-          <div class="fc-label">Duration</div>
-        </div>
-        <div class="up-flight-cell up-codes" style="background:${info.gradient};border-color:${info.border};">
-          <div>
-            <div class="pc-label">Package Code</div>
-            <div class="pc-val">${escapeHtml(p.packageCode)}</div>
+
+        <div class="up2-mid">
+          <div class="up2-m-top">
+            <i class="up2-dot"></i>
+            <span class="up2-m-air">${escapeHtml(p.airline)}</span>
+            <span class="up2-m-date">${escapeHtml(p.travelDate)}</span>
+            <span class="up2-m-seats ${seats.cls}">${seats.text}</span>
           </div>
-          <div>
-            <div class="pc-label">Group Code</div>
-            <div class="pc-val">${escapeHtml(p.groupCode)}</div>
+          <div class="up2-legs">
+            ${legHTML(p.outbound, 'Departure')}
+            ${legHTML(p.return, 'Return')}
           </div>
+          <div class="up2-nightsrow">
+            <div><span class="up2-nights">${escapeHtml(p.nights)} nights</span><span class="up2-route">${route}</span></div>
+            <div class="up2-m-from"><span>Sharing · per person</span><strong>${priceText(p.pricing.sharing)}</strong></div>
+          </div>
+          ${stayBarHTML(p)}
         </div>
+
+        <div class="up-price-panel up2-price">
+          <div class="up-price-title">Price Per Person (PKR)</div>
+          ${priceRowsHTML(p)}
+          <a class="up-enquire-btn" href="${enquire}" target="_blank" rel="noopener">Enquire Now</a>
+        </div>
+
       </div>
 
-      <div class="up-body">
+      <div class="up2-actions">
+        <button type="button" class="up2-toggle" data-up-toggle aria-expanded="false" aria-controls="${id}">
+          <span class="up2-t-desk">Hotels, photos &amp; included services</span><span class="up2-t-mob">Details</span>
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <a class="up2-enq-m" href="${enquire}" target="_blank" rel="noopener">Enquire Now</a>
+      </div>
 
-        <div class="up-airline-panel" style="background:${info.gradient};border-color:${info.border};">
-          ${info.logo ? `<div class="up-airline-logo"><img src="${escapeHtml(info.logo)}" alt="${escapeHtml(p.airline)} logo"></div>` : ''}
-          <div class="up-airline-name">${escapeHtml(p.airline)}</div>
-          <div class="up-route-mini">
-            <span>${escapeHtml(p.outbound.from)}</span><span class="arrow"><i class="fa-solid fa-plane"></i></span><span>${escapeHtml(p.outbound.to)}</span>
+      <div class="up2-details" id="${id}" role="region" aria-label="Package details">
+
+        <div class="up2-sheet-head" style="${colours}">
+          <div>
+            <div class="up2-sheet-title">${escapeHtml(p.airline)} · ${escapeHtml(p.nights)} nights</div>
+            <div class="up2-sheet-sub">${title}</div>
           </div>
-          <div class="up-airline-status">${soldOut ? 'Sold Out' : '<i class="fa-solid fa-circle-check"></i> Available'}</div>
-          <div class="up-traveldate">
-            <div class="td-label"><i class="fa-solid fa-calendar-days"></i> TRAVEL DATE</div>
-            <div class="td-val">${escapeHtml(p.travelDate)}</div>
-          </div>
-          <div class="up-seatsleft">
-            <span class="sl-num">${escapeHtml(p.seatsLeft)}</span>
-            <span class="sl-label">SEATS LEFT</span>
-            <span class="seat-live-dot"></span>
-          </div>
+          <button type="button" class="up2-sheet-close" data-up-close aria-label="Close details"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
 
-        <div class="up-hotels-wrap">
+        <div class="up2-d-scroll">
 
-          <div class="up-hotel">
-            <div class="up-hotel-label">Makkah Hotel</div>
-            <div class="up-hotel-name">${escapeHtml(p.makkahHotel.name)}</div>
-            <div class="up-hotel-nights"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.makkahHotel.nights)} Night(s)</div>
-            <div class="up-hotel-loc"><i class="fa-solid fa-location-arrow"></i> ${escapeHtml(p.makkahHotel.location)}</div>
-            <div class="up-hotel-imgph">${hotelPhoto(p.makkahHotel, '<i class="fa-solid fa-kaaba"></i>')}</div>
-            <a class="up-hotel-viewloc" href="${mapsUrl(p.makkahHotel.name, 'Makkah')}" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View Location</a>
+          <div class="up2-sheet-only up2-d-flights">
+            <div class="up2-d-title">Flights</div>
+            ${legHTML(p.outbound, 'Departure')}
+            ${legHTML(p.return, 'Return')}
           </div>
 
-          <div class="up-hotel">
-            <div class="up-hotel-label">Madinah Hotel</div>
-            <div class="up-hotel-name">${escapeHtml(p.madinahHotel.name)}</div>
-            <div class="up-hotel-nights"><i class="fa-solid fa-moon"></i> ${escapeHtml(p.madinahHotel.nights)} Night(s)</div>
-            <div class="up-hotel-loc"><i class="fa-solid fa-location-arrow"></i> ${escapeHtml(p.madinahHotel.location)}</div>
-            <div class="up-hotel-imgph">${hotelPhoto(p.madinahHotel, '<i class="fa-solid fa-mosque"></i>')}</div>
-            <a class="up-hotel-viewloc" href="${mapsUrl(p.madinahHotel.name, 'Madinah')}" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View Location</a>
+          <div class="up-hotels-wrap">
+            ${hotelHTML(p.makkahHotel, 'Makkah Hotel', 'Makkah', '<i class="fa-solid fa-kaaba"></i>')}
+            ${hotelHTML(p.madinahHotel, 'Madinah Hotel', 'Madinah', '<i class="fa-solid fa-mosque"></i>')}
           </div>
 
-        </div>
+          <div class="up2-sheet-only up2-d-prices">
+            <div class="up2-d-title">Price per person (PKR)</div>
+            <div class="up2-d-pricebox">${priceRowsHTML(p)}</div>
+          </div>
 
-        <div class="up-price-panel">
-          <div class="up-price-title">Price Per Person (PKR)</div>
-          <div class="up-price-row best"><span class="pr-label">Sharing</span><span class="pr-val">${fmtPrice(p.pricing.sharing)}</span></div>
-          <div class="up-price-row"><span class="pr-label">Quad</span><span class="pr-val">${fmtPrice(p.pricing.quad)}</span></div>
-          <div class="up-price-row"><span class="pr-label">Triple</span><span class="pr-val">${fmtPrice(p.pricing.triple)}</span></div>
-          <div class="up-price-row"><span class="pr-label">Double</span><span class="pr-val">${fmtPrice(p.pricing.double)}</span></div>
-          <div class="up-price-row"><span class="pr-label">Infant</span><span class="pr-val">${fmtPrice(p.pricing.infant)}</span></div>
-
-          <div class="up-gifted-box">
-            <div class="gb-title"><i class="fa-solid fa-gift"></i> Complimentary Gifted Services</div>
-            <div class="gb-grid">
-              <span><i class="fa-solid fa-mountain"></i>Taif Ziyarat</span>
-              <span><i class="fa-solid fa-kaaba"></i>Umrah from Taif</span>
-              <span><i class="fa-solid fa-kaaba"></i>Makkah Ziyarat</span>
-              <span><i class="fa-solid fa-kaaba"></i>Madina Ziyarat</span>
+          <div class="up2-d-side">
+            <div class="up2-codes" style="${colours}">
+              <div><div class="pc-label">Package Code</div><div class="pc-val">${escapeHtml(p.packageCode)}</div></div>
+              <div><div class="pc-label">Group Code</div><div class="pc-val">${escapeHtml(p.groupCode)}</div></div>
+            </div>
+            <div class="up-gifted-box">
+              <div class="gb-title"><i class="fa-solid fa-gift"></i> Complimentary Gifted Services</div>
+              <div class="gb-grid">
+                <span><i class="fa-solid fa-mountain"></i>Taif Ziyarat</span>
+                <span><i class="fa-solid fa-kaaba"></i>Umrah from Taif</span>
+                <span><i class="fa-solid fa-kaaba"></i>Makkah Ziyarat</span>
+                <span><i class="fa-solid fa-kaaba"></i>Madina Ziyarat</span>
+              </div>
             </div>
           </div>
 
-          <a class="up-enquire-btn" href="${escapeHtml(enquireUrl(p))}" target="_blank" rel="noopener">Enquire Now</a>
+          <div class="up2-d-inc">
+            <div class="up-included-heading">Included Services</div>
+            <div class="up-included-row">
+              <div class="ir-item"><i class="fa-solid fa-hotel"></i><span>Accommodation</span></div>
+              <div class="ir-item"><i class="fa-solid fa-bus"></i><span>Transport</span></div>
+              <div class="ir-item"><i class="fa-solid fa-passport"></i><span>Visa</span></div>
+              <div class="ir-item"><i class="fa-solid fa-ticket"></i><span>Return Ticket</span></div>
+              <div class="ir-item"><i class="fa-solid fa-bell-concierge"></i><span>Premium Support</span></div>
+            </div>
+          </div>
+
         </div>
 
-      </div>
+        <div class="up2-sheet-foot">
+          <div class="up2-foot-price"><span>Sharing · per person</span><strong>${priceText(p.pricing.sharing)}</strong></div>
+          <a class="up2-foot-enq" href="${enquire}" target="_blank" rel="noopener">Enquire Now</a>
+        </div>
 
-      <div class="up-included-heading">Included Services</div>
-      <div class="up-included-row">
-        <div class="ir-item"><i class="fa-solid fa-hotel"></i><span>Accommodation</span></div>
-        <div class="ir-item"><i class="fa-solid fa-bus"></i><span>Transport</span></div>
-        <div class="ir-item"><i class="fa-solid fa-passport"></i><span>Visa</span></div>
-        <div class="ir-item"><i class="fa-solid fa-ticket"></i><span>Return Ticket</span></div>
-        <div class="ir-item"><i class="fa-solid fa-bell-concierge"></i><span>Premium Support</span></div>
       </div>
 
     </div>
   `;
 }
 
+// ── Open / close the details area ───────────────────────────────────────
+// Desktop: the area opens under the card. Phone: it is a pop-up sheet, so the
+// page behind it is locked and only one card can be open at a time.
+function isPhone() {
+  return !!(window.matchMedia && window.matchMedia('(max-width: 700px)').matches);
+}
+
+function setDetails(card, open) {
+  if (!card) return;
+  card.classList.toggle('is-open', open);
+  const btn = card.querySelector('[data-up-toggle]');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (isPhone()) {
+    document.body.classList.toggle('up-sheet-open', open);
+    const close = card.querySelector('[data-up-close]');
+    if (open && close) close.focus({ preventScroll: true });
+  }
+}
+
+function closeAllDetails() {
+  document.querySelectorAll('.up-card.is-open').forEach(c => setDetails(c, false));
+  document.body.classList.remove('up-sheet-open');
+}
+
+function toggleDetails(card) {
+  const willOpen = !card.classList.contains('is-open');
+  if (isPhone()) closeAllDetails();
+  setDetails(card, willOpen);
+}
+
 function renderPackages(list, keepShown) {
   CURRENT_LIST = list;
   if (!keepShown) SHOWN = PAGE_SIZE;
+  closeAllDetails();
   const grid = document.getElementById('upGrid');
   const count = document.getElementById('upResultsCount');
   if (!grid) return;
@@ -469,9 +595,19 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.target && e.target.id === 'upShowMore') {
         SHOWN += PAGE_SIZE;
         renderPackages(CURRENT_LIST, true);
+        return;
       }
+      const toggle = e.target.closest('[data-up-toggle]');
+      if (toggle) { toggleDetails(toggle.closest('.up-card')); return; }
+      if (e.target.closest('[data-up-close]')) closeAllDetails();
     });
   }
+
+  // Phone pop-up: tapping the dark background, pressing Esc, or rotating to a wide screen closes it
+  const scrimEl = document.getElementById('upScrim');
+  if (scrimEl) scrimEl.addEventListener('click', closeAllDetails);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAllDetails(); });
+  if (window.matchMedia) window.matchMedia('(max-width: 700px)').addEventListener('change', closeAllDetails);
 
   const annClose = document.getElementById('announcementClose');
   if (annClose) {

@@ -15,15 +15,15 @@
 <meta name="description" content="Browse all available Umrah packages from Shadman Travels & Tours — flight details, Makkah & Madinah hotel options, and per-person pricing, updated regularly.">
 <link rel="canonical" href="https://shadmantravels.com/pages/umrah-packages.html">
 <link rel="stylesheet" href="/css/fontawesome/all.min.css"/>
+<link rel="stylesheet" href="/css/notify-modal.css">
 <link rel="stylesheet" href="/css/variables.css">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/navbar.css">
 <link rel="stylesheet" href="/css/footer.css">
-<link rel="stylesheet" href="/css/umrah-packages.css">
+<link rel="stylesheet" href="/css/umrah-packages.css?v=20261105">
 <link rel="stylesheet" href="/css/responsive.css">
-<link rel="stylesheet" href="/css/glass.css?v=20261103">
 </head>
-<body data-no-announce>
+<body>
 
 <!-- Top "Featured Deals" announcement bar (filled in by js/umrah-packages.js) -->
 <div class="top-announcement-bar" id="announcementBar" hidden>
@@ -85,10 +85,7 @@
 <!-- INCLUDE:mobile-menu -->
 <!-- Full-screen route menu (phones and tablets). Opened by the dock's Menu button, see js/navbar.js -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Site menu" aria-hidden="true">
-  <div class="mm-head">
-    <div class="mm-label">Choose your route</div>
-    <button type="button" class="mm-close" id="mmClose" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
-  </div>
+  <div class="mm-label">Choose your route</div>
 
   <div class="mm-route">
     <a href="/#flights" class="mm-stop">
@@ -120,6 +117,8 @@
       <span class="mm-name">Contact</span><span class="mm-cap">Call or WhatsApp us</span>
     </a>
   </div>
+
+  <a href="tel:+923000041510" class="mm-book"><i class="fa-solid fa-phone" aria-hidden="true"></i> Book a flight now</a>
 </div>
 
 <!-- Permanent bottom dock (phones and tablets) -->
@@ -286,9 +285,31 @@
   <span class="wa-label">Chat on WhatsApp</span>
 </a>
 
+<!-- Dark background behind the phone pop-up (opened by js/umrah-packages.js) -->
+<div class="up2-scrim" id="upScrim"></div>
+
+<!-- Notify Modal (reused for Enquire Now on each package) -->
+<div id="notifyModal" class="notify-modal">
+  <div class="notify-modal-content">
+    <button class="notify-close" id="notifyClose">&times;</button>
+    <h2>Get Notified</h2>
+    <p id="notifyServiceText"></p>
+    <form id="notifyForm">
+      <input type="text" id="notifyName" placeholder="Full Name" required>
+      <input type="tel" id="notifyPhone" placeholder="Phone Number" required>
+      <input type="email" id="notifyEmail" placeholder="Email Address" required>
+      <button type="submit" class="submit-btn">Notify Me</button>
+    </form>
+    <div id="notifySuccess" style="display:none;">
+      Thank you! Our team will contact you shortly with confirmed availability.
+    </div>
+  </div>
+</div>
+
 <script src="/js/config.js" defer></script>
 <script src="/js/navbar.js" defer></script>
-<script src="/js/umrah-packages.js" defer></script>
+<script src="/js/notify.js" defer></script>
+<script src="/js/umrah-packages.js?v=20261105" defer></script>
 <script src="/js/hotel-pictures.js" defer></script>
 
 <script src="/js/footer-year.js"></script>

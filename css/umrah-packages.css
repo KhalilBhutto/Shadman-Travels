@@ -1255,3 +1255,251 @@ a.up-enquire-btn {
   text-align: center;
   text-decoration: none;
 }
+
+
+/* ============================================================
+   COMPACT CARD + DETAILS POP-UP
+   Added at the very end of css/umrah-packages.css so it wins over
+   the older card rules above. Desktop: the details open below the
+   card. Phone (700px and below): the details are a pop-up sheet.
+   ============================================================ */
+
+.up-inner { max-width: 1240px; }
+.up-grid  { gap: 18px; }
+
+/* ── Card shell ── */
+.up-card {
+  zoom: 1;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+.up-card:hover {
+  transform: none;
+  box-shadow: 0 14px 34px rgba(15, 61, 46, 0.14);
+}
+.up-avail-badge { top: 9px; right: 14px; }
+
+/* Top strip: package code */
+.up-topbar {
+  display: block;
+  margin: 0;
+  padding: 9px 150px 9px 18px;
+  border: 0;
+  border-bottom: 1px solid rgba(200, 164, 77, 0.35);
+  border-radius: 0;
+  background: linear-gradient(90deg, #e8ebe3, #f8f1d8);
+}
+.up-topbar::before { display: none; }
+.up-topbar-code { margin-left: 0; font-size: 1.05rem; font-weight: 600; color: #0D3B2E; }
+
+/* ── Main row: airline panel | flights + nights | prices ── */
+.up2-main { display: grid; grid-template-columns: 168px minmax(0, 1fr) 290px; }
+
+.up2-side {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 14px 10px; text-align: center; color: #FAF8F2;
+  border-right: 1px solid rgba(212, 175, 55, 0.4);
+}
+.up2-logo {
+  width: 64px; height: 64px; border-radius: 50%; background: #fff; padding: 8px;
+  box-sizing: border-box; display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.up2-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.up2-air { font-size: 0.95rem; font-weight: 700; }
+.up2-rt {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 999px; font-size: 0.8rem; font-weight: 700;
+}
+.up2-rt i { color: #D4AF37; font-size: 0.7rem; }
+.up2-date, .up2-seats {
+  width: 100%; box-sizing: border-box; padding: 6px 4px; border-radius: 10px;
+  border: 1px solid #D4AF37; background: rgba(0, 0, 0, 0.28);
+}
+.up2-date small, .up2-seats small {
+  display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #FCE8B3;
+}
+.up2-date b { display: block; font-size: 1.3rem; font-weight: 800; letter-spacing: 0.02em; color: #fff; }
+.up2-seats b { display: block; font-size: 1.7rem; line-height: 1.05; font-weight: 800; color: #F1D98A; }
+
+.up2-mid { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 14px 18px; min-width: 0; }
+.up2-m-top { display: none; }
+
+.up2-legs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.up2-leg { background: #fff; border: 1px solid #ece4cc; border-radius: 12px; padding: 8px 12px; }
+.up2-leg-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5f5f5f; }
+.up2-leg-main  { margin-top: 2px; font-size: 0.95rem; font-weight: 700; color: #0D3B2E; }
+.up2-leg-sub   { font-size: 0.85rem; color: #444; }
+
+.up2-nightsrow { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.up2-nights { margin-right: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: #0D3B2E; }
+.up2-route  { font-size: 0.9rem; color: #555; }
+.up2-m-from { display: none; }
+
+/* Makkah / Madinah nights bar with the supplier's distances */
+.up2-stay { display: flex; border-radius: 10px; overflow: hidden; font-size: 0.82rem; font-weight: 700; }
+.up2-stay > div {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 2px 8px; padding: 8px 12px; min-height: 38px; min-width: 0; box-sizing: border-box;
+}
+.up2-stay-mk { background: #0D3B2E; color: #fff; }
+.up2-stay-mk .up2-stay-d { color: #F1D98A; }
+.up2-stay-md { background: #F1D98A; color: #2b2100; }
+
+/* Price box (desktop) */
+.up2-price.up-price-panel {
+  display: flex; flex-direction: column; border: 0; border-left: 1px solid #ece4cc;
+  border-radius: 0; box-shadow: none;
+}
+.up2-price .up-price-title { padding: 10px 12px; font-size: 0.85rem; }
+.up2-price .up-price-row { padding: 7px 14px; }
+.up2-price .up-price-row .pr-val { font-size: 1.15rem; }
+.up2-price .up-enquire-btn { margin: auto 10px 10px; }
+
+/* ── Toggle row ── */
+.up2-actions { display: flex; border-top: 1px solid #ece4cc; background: #fff; }
+.up2-toggle {
+  flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  border: 0; background: none; color: #0D3B2E; font: 700 0.9rem 'DM Sans', sans-serif; cursor: pointer;
+}
+.up2-toggle i { font-size: 0.75rem; transition: transform 0.2s; }
+.up-card.is-open .up2-toggle i { transform: rotate(180deg); }
+.up2-t-mob, .up2-enq-m { display: none; }
+
+/* ── Details area (desktop: opens under the card) ── */
+.up2-details { display: none; border-top: 1px solid #ece4cc; background: #FAF8F2; }
+.up-card.is-open .up2-details { display: block; }
+.up2-sheet-head, .up2-sheet-foot, .up2-sheet-only { display: none; }
+
+.up2-d-scroll { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; padding: 16px; }
+.up2-d-side { display: flex; flex-direction: column; gap: 12px; }
+.up2-d-inc  { grid-column: 1 / -1; }
+.up2-d-inc .up-included-heading { margin-top: 0; }
+.up2-d-side .up-gifted-box { margin: 0; }
+
+.up2-codes {
+  display: flex; gap: 22px; padding: 12px 14px; border-radius: 12px; color: #FAF8F2;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+}
+.up2-codes .pc-label { font-size: 0.78rem; opacity: 0.85; }
+.up2-codes .pc-val   { font-size: 1.05rem; font-weight: 700; }
+
+.up-hotel-name { font-size: 1.15rem; }
+.up-hotel-nights, .up-hotel-loc { font-size: 0.9rem; }
+
+.up2-scrim { display: none; }
+
+@media (max-width: 1100px) {
+  .up2-main { grid-template-columns: 150px minmax(0, 1fr) 250px; }
+  .up2-d-scroll { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .up2-legs { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── Phone: compact card + pop-up ── */
+@media (max-width: 700px) {
+  .up-card, .up-card:hover { transform: none; }
+  .up-topbar { padding: 8px 112px 8px 12px; }
+  .up-topbar-code { font-size: 0.8rem; font-weight: 600; }
+
+  .up2-main { display: block; }
+  .up2-side, .up2-legs, .up2-price.up-price-panel { display: none; }
+  .up2-mid { gap: 10px; padding: 10px 12px; }
+
+  .up2-m-top { display: flex; align-items: center; gap: 8px; }
+  .up2-dot { background: #0D3B2E; width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .up-card[data-airline="pia"] .up2-dot { background: #005432; }
+  .up-card[data-airline="ab"]  .up2-dot { background: #061d56; }
+  .up-card[data-airline="fj"]  .up2-dot { background: #dc2626; }
+  .up-card[data-airline="sv"]  .up2-dot { background: #006631; }
+  .up2-m-air { font-size: 0.95rem; font-weight: 700; }
+  .up2-m-date { padding: 3px 9px; border-radius: 8px; background: #0D3B2E; color: #F1D98A; font-size: 0.75rem; font-weight: 700; }
+  .up2-m-seats { margin-left: auto; padding: 3px 8px; border-radius: 7px; font-size: 0.75rem; font-weight: 700; }
+  .up2-m-seats.low { background: #ffe3e0; color: #8a1c14; }
+  .up2-m-seats.ok  { background: #e0f1e6; color: #0b5a2c; }
+
+  .up2-nights { font-size: 1.45rem; display: block; margin: 0; }
+  .up2-route  { font-size: 0.8rem; }
+  .up2-m-from { display: block; text-align: right; }
+  .up2-m-from span, .up2-foot-price span {
+    display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5f5f5f;
+  }
+  .up2-m-from strong { font-size: 1.35rem; font-weight: 800; line-height: 1.1; color: #0D3B2E; }
+
+  .up2-actions { gap: 8px; padding: 0 12px 12px; border-top: 0; background: none; }
+  .up2-toggle { border: 1px solid #0D3B2E; border-radius: 11px; }
+  .up2-toggle i { transform: rotate(180deg); }
+  .up-card.is-open .up2-toggle i { transform: none; }
+  .up2-t-desk { display: none; }
+  .up2-t-mob  { display: inline; }
+  .up2-enq-m {
+    flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center;
+    border-radius: 11px; text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900);
+  }
+
+  /* the pop-up sheet */
+  .up2-details,
+  .up-card.is-open .up2-details {
+    display: flex; flex-direction: column;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 3000;
+    height: min(86vh, 720px); border-top: 0; border-radius: 22px 22px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(105%); visibility: hidden;
+    transition: transform 0.28s ease, visibility 0s linear 0.28s;
+  }
+  .up-card.is-open .up2-details {
+    transform: none; visibility: visible;
+    transition: transform 0.28s ease;
+  }
+
+  .up2-sheet-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 8px 12px 16px; color: #fff; border: 0; border-radius: 22px 22px 0 0;
+  }
+  .up2-sheet-title { font-size: 1.1rem; font-weight: 700; }
+  .up2-sheet-sub   { font-size: 0.75rem; opacity: 0.9; }
+  .up2-sheet-close {
+    flex: 0 0 44px; width: 44px; height: 44px; border: 0; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.18); color: #fff; font-size: 1.1rem; cursor: pointer;
+  }
+
+  .up2-d-scroll {
+    display: flex; flex-direction: column; gap: 16px; flex: 1; min-height: 0;
+    padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .up2-d-side { display: contents; }
+  .up2-sheet-only { display: block; }
+  .up2-d-flights { order: 1; display: flex; flex-direction: column; gap: 8px; }
+  .up-hotels-wrap { order: 2; }
+  .up2-d-prices  { order: 3; }
+  .up2-d-inc     { order: 4; }
+  .up-gifted-box { order: 5; }
+  .up2-codes     { order: 6; }
+  .up2-d-title { margin-bottom: 2px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #7a5d14; }
+  .up2-d-pricebox { border: 1px solid #ece4cc; border-radius: 12px; overflow: hidden; background: #fff; }
+  .up2-d-pricebox .up-price-row:first-child { border-top: 0; }
+
+  .up2-sheet-foot {
+    display: flex; align-items: center; gap: 12px; padding: 10px 14px 14px;
+    border-top: 1px solid #e6dcb8; background: #fff;
+  }
+  .up2-foot-price { flex: 1; min-width: 0; }
+  .up2-foot-price strong { font-size: 1.3rem; font-weight: 800; color: #0D3B2E; }
+  .up2-foot-enq {
+    display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px;
+    border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.95rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--g900);
+  }
+
+  .up2-scrim { position: fixed; inset: 0; z-index: 2990; background: rgba(8, 16, 30, 0.6); }
+  body.up-sheet-open .up2-scrim { display: block; }
+  body.up-sheet-open { overflow: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .up2-details, .up-card.is-open .up2-details { transition: none; }
+}
