@@ -920,19 +920,6 @@
   color: rgb(0, 0, 0) !important;
 }
 
-.btn-close-announcement {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2rem;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0 5px;
-  transition: color 0.2s;
-}
-
-.btn-close-announcement:hover { color: rgb(255, 78, 80); }
-
 @media (max-width: 600px) {
   .ann-inner { padding: 0 12px; gap: 10px; }
   .announcement-cta-btn { display: none; }
@@ -1503,7 +1490,3 @@ a.up-enquire-btn {
 @media (prefers-reduced-motion: reduce) {
   .up2-details, .up-card.is-open .up2-details { transition: none; }
 }
-
-
-/* "Featured Deals" strip: no dismiss (✕) button */
-.top-announcement-bar .btn-close-announcement { display: none !important; }
