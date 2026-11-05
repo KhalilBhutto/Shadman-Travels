@@ -5,7 +5,7 @@
  * and drives the filter bar (airline / route / nights).
  * Structure and per-airline colors matched to the reference site's
  * real CSS values.
- * "Enquire Now" opens WhatsApp (see enquireUrl); it no longer uses js/notify.js.
+ * "Enquire Now" opens WhatsApp (see enquireUrl).
  */
 
 'use strict';
@@ -447,52 +447,6 @@ function buildFilterOptions() {
   fill('up-cb-nights',  uniq(ALL_PACKAGES.map(p => Number(p.nights))).sort((a, b) => a - b).map(n => [String(n), n + ' Nights']));
 }
 
-// ── Top "Featured Deals" bar ─────────────────────────────────────────────
-// The text mentions only airlines that really have packages on sale right now.
-const ANN_PX_PER_SEC = 34;   // scroll speed, close to the supplier's 32s loop
-
-function airlineNamesText() {
-  const labels = {};
-  ALL_PACKAGES.forEach(p => {
-    const c = airlineClass(p);
-    if (!labels[c]) labels[c] = AIRLINE_LABEL[c] || p.airline || p.airlineCode || c;
-  });
-  const names = Object.values(labels).sort((a, b) => a.localeCompare(b));
-  if (names.length <= 1) return names[0] || '';
-  return names.slice(0, -1).join(', ') + ' & ' + names[names.length - 1];
-}
-
-function buildAnnouncementBar() {
-  const bar = document.getElementById('announcementBar');
-  const track = document.getElementById('announcementTrack');
-  if (!bar || !track || !ALL_PACKAGES.length) return;
-
-  const firstDate = ALL_PACKAGES.map(p => parsePkgDate(p.outbound.date)).filter(d => !isNaN(d)).sort((a, b) => a - b)[0];
-  const year = firstDate ? firstDate.getFullYear() : new Date().getFullYear();
-  const airlines = airlineNamesText();
-  const unit =
-    '<span class="announcement-slide-item">✨ <strong>Umrah Season ' + year + ' Direct Flights Available!</strong> ' +
-    (airlines ? 'Limited Seats on ' + escapeHtml(airlines) + ' • ' : '') +
-    'Special Discounts on 5-Star Hotel Packages • 24/7 Visa Assistance</span>' +
-    '<span class="announcement-separator">•</span>';
-
-  bar.hidden = false;
-  const wrap = track.parentElement;
-
-  function layout() {
-    track.innerHTML = unit;
-    const unitW = track.scrollWidth || 1;
-    const reps = Math.max(1, Math.ceil(wrap.clientWidth / unitW));
-    const group = unit.repeat(reps);
-    track.innerHTML = group + group;               // two identical halves = seamless loop
-    track.style.animationDuration = Math.max(15, Math.round(unitW * reps / ANN_PX_PER_SEC)) + 's';
-  }
-
-  layout();
-  let t;
-  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(layout, 200); });
-}
-
 function getCheckedValues(className) {
   const boxes = document.querySelectorAll('.' + className);
   return Array.from(boxes).filter(b => b.checked && b.value !== 'all').map(b => b.value);
@@ -544,7 +498,6 @@ document.addEventListener('DOMContentLoaded', function () {
       buildFilterOptions();
       wireAllGroups();
       applyFilters();
-      buildAnnouncementBar();
     })
     .catch(err => {
       console.error('Failed to load Umrah packages:', err);
