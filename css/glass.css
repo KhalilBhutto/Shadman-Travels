@@ -277,3 +277,109 @@
     linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.92));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 10px 22px rgba(0,0,0,.45);
 }
+
+/* ═══════════════════════════════════════════
+   2. BOARDING PASS — desktop and phone pop-up
+   Two glass panels: the dark form panel and the gold stub.
+═══════════════════════════════════════════ */
+
+/* A filter on the outer element would block the glass, so the shadow is a normal box-shadow */
+.ticket {
+  filter: none;
+  box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 8px 24px rgba(201,160,40,.14);
+}
+
+/* The dark form panel */
+.ticket-main {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,0) 38%),
+    linear-gradient(155deg, rgba(30,84,54,.58), rgba(15,41,22,.4) 55%, rgba(22,61,34,.52));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.38), inset 0 -1px 0 rgba(255,255,255,.06), inset 0 0 40px rgba(255,255,255,.03);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The gold stub: gold glass */
+.ticket-stub {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 45%),
+    linear-gradient(165deg, rgba(240,200,100,.84), rgba(201,160,40,.72) 55%, rgba(184,144,31,.8));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 1px 0 0 rgba(255,255,255,.22);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.ticket-stub-seal {
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(6,15,9,.62));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(228,188,90,.35);
+}
+
+/* The punched holes: dark like the page behind, with a thin glass rim */
+.ticket-perforation::before,
+.ticket-perforation::after {
+  background: #07120a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+}
+
+/* Small parts inside the form panel */
+.ticket-badge {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+}
+.ticket-brand-icon {
+  background: rgba(255,255,255,.08);
+  border-color: var(--glass-gold-edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+}
+.ticket-path::after { background: rgba(20,56,36,.9); border-radius: 4px; }
+.ticket-meta {
+  background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+/* Form fields: frosted, with a bright top edge */
+.ticket-main input,
+.ticket-main textarea {
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+.ticket-main input:focus,
+.ticket-main textarea:focus {
+  background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.07));
+  border-color: rgba(245,223,160,.75);
+}
+
+/* "Confirm & Get Exclusive Fare": glossy gold glass */
+.ticket-submit-btn {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 24px rgba(201,160,40,.35);
+}
+.ticket-submit-btn:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 14px 34px rgba(201,160,40,.5); }
+
+/* Phone pop-up: busier background behind, so a stronger tint keeps the text easy to read */
+@media (max-width: 768px) {
+  .ticket-main {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 34%),
+      linear-gradient(155deg, rgba(30,84,54,.8), rgba(15,41,22,.72) 55%, rgba(22,61,34,.78));
+  }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ticket-main { background-color: rgba(18,48,30,.92); }
+  .ticket-stub { background-color: rgba(184,144,31,.95); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .ticket-main { background-color: #12301e; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .ticket-stub { background-color: #b8901f; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
