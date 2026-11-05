@@ -608,6 +608,21 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAllDetails(); });
   if (window.matchMedia) window.matchMedia('(max-width: 700px)').addEventListener('change', closeAllDetails);
 
+  // Floating "Back to Home" button: a full pill at the top of the page,
+  // a small round button once the visitor has scrolled down
+  const glassBack = document.getElementById('glassBack');
+  if (glassBack) {
+    let ticking = false;
+    const updateGlassBack = function () {
+      glassBack.classList.toggle('is-compact', window.scrollY > 80);
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateGlassBack); }
+    }, { passive: true });
+    updateGlassBack();
+  }
+
   const sortSelect = document.getElementById('upSort');
   if (sortSelect) sortSelect.addEventListener('change', applyFilters);
 

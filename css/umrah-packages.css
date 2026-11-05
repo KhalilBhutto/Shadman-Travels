@@ -1490,3 +1490,151 @@ a.up-enquire-btn {
 @media (prefers-reduced-motion: reduce) {
   .up2-details, .up-card.is-open .up2-details { transition: none; }
 }
+
+
+/* ============================================================
+   HERO BAND + FLOATING "BACK TO HOME" GLASS BUTTON
+   Added at the very end of css/umrah-packages.css so it wins.
+   The page has no navbar or top strips any more: the dark band
+   gives the glass something to blur, and the button floats above.
+   ============================================================ */
+
+.up-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 104px 24px 56px;
+  text-align: center;
+  background: linear-gradient(135deg, #071f17 0%, #0d3b2e 55%, #1a5a42 100%);
+}
+.up-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 14px 14px, rgba(212, 175, 55, 0.28) 1.5px, transparent 2px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.up-hero::after {
+  content: '';
+  position: absolute;
+  left: -60px;
+  top: -90px;
+  width: 380px;
+  height: 280px;
+  background: radial-gradient(closest-side, rgba(212, 175, 55, 0.45), transparent);
+  pointer-events: none;
+}
+.up-hero .up-head { position: relative; z-index: 1; margin-bottom: 0; }
+.up-hero .up-eyebrow { color: #E5C36D; }
+.up-hero .up-head h1 { color: #fff; }
+.up-hero .up-head h1 em { color: #E5C36D; }
+.up-page { padding-top: 36px; }
+
+/* ── Frost glass button ── */
+.glass-back {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 20px 0 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #0D3B2E;
+  font: 700 15px/1 'DM Sans', sans-serif;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.38));
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 0 16px rgba(255, 255, 255, 0.3), 0 10px 26px rgba(13, 59, 46, 0.28);
+  -webkit-tap-highlight-color: transparent;
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.35s cubic-bezier(0.4, 0, 0.2, 1), gap 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              translate 0.15s ease, scale 0.15s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+/* shiny highlight along the top edge */
+.glass-back::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 3px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.glass-back-icon {
+  position: relative;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 6px rgba(13, 59, 46, 0.15);
+}
+.glass-back-label {
+  position: relative;
+  max-width: 160px;
+  overflow: hidden;
+  transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+/* after scrolling: a round button at the left edge */
+.glass-back.is-compact {
+  left: 24px;
+  transform: none;
+  gap: 0;
+  padding: 0 6px;
+}
+.glass-back.is-compact .glass-back-label { max-width: 0; opacity: 0; }
+
+/* hover (mouse only): brighter, lifts 1px */
+@media (hover: hover) {
+  .glass-back:hover {
+    translate: 0 -1px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.52));
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow: inset 0 1.5px 0 #fff, inset 0 0 20px rgba(255, 255, 255, 0.4), 0 14px 32px rgba(13, 59, 46, 0.34);
+  }
+  .glass-back:hover .glass-back-icon { background: rgba(255, 255, 255, 0.8); }
+}
+/* pressed: shrinks a little, inner shadow */
+.glass-back:active {
+  translate: 0 0;
+  scale: 0.96;
+  background: linear-gradient(180deg, rgba(235, 240, 236, 0.7), rgba(225, 233, 228, 0.5));
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 2px 6px rgba(13, 59, 46, 0.25), 0 3px 10px rgba(13, 59, 46, 0.25);
+}
+/* keyboard focus: gold ring with a dark gap */
+.glass-back:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px #0d3b2e, 0 0 0 5px #E5C36D, 0 10px 26px rgba(13, 59, 46, 0.28);
+}
+
+/* browsers without blur support: solid, still readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-back { background: rgba(255, 255, 255, 0.95); }
+}
+
+@media (max-width: 700px) {
+  .up-hero { padding: 92px 16px 40px; }
+  .up-page { padding-top: 28px; }
+  .glass-back { top: 14px; font-size: 14px; }
+  .glass-back.is-compact { left: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-back, .glass-back-label { transition: none; }
+}

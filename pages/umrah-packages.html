@@ -20,66 +20,17 @@
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/navbar.css">
 <link rel="stylesheet" href="/css/footer.css">
-<link rel="stylesheet" href="/css/umrah-packages.css?v=20261105">
+<link rel="stylesheet" href="/css/umrah-packages.css?v=20261106">
 <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
 
-<!-- Top "Featured Deals" announcement bar (filled in by js/umrah-packages.js) -->
-<div class="top-announcement-bar" id="announcementBar" hidden>
-  <div class="ann-inner">
-    <span class="announcement-badge"><span class="live-dot"></span><i class="fa-solid fa-bullhorn"></i> Featured Deals</span>
-    <div class="announcement-ticker-wrap">
-      <div class="announcement-ticker-track" id="announcementTrack"></div>
-    </div>
-    <div class="ann-actions">
-      <a href="#upGrid" class="announcement-cta-btn"><i class="fa-solid fa-fire"></i> View All Deals</a>
-    </div>
-  </div>
-</div>
-
-<!-- INCLUDE:navbar -->
-<!-- Announcement bar: running ticker. Messages come from data/announcements.json (see js/navbar.js).
-     Stays hidden if the data cannot be loaded. -->
-<div class="ab" id="announceBar" role="region" aria-label="Announcements" hidden>
-  <div class="ab-inner">
-    <span class="ab-label">Announcements</span>
-    <div class="ab-ticker"><div class="ab-track" id="abTrack"></div></div>
-  </div>
-</div>
-
-<nav id="navbar" aria-label="Main">
-  <div class="nav-inner">
-
-    <!-- Brand -->
-    <a href="/" class="nav-brand">
-      <picture>
-        <source srcset="/images/logos/logo.webp" type="image/webp">
-        <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
-      </picture>
-      <div class="brand-text">
-        <div class="name">Shadman Travels</div>
-        <div class="tag">New Horizon Everyday</div>
-      </div>
-    </a>
-
-    <!-- Desktop navigation links -->
-    <div class="nav-menu">
-      <a href="/#flights"      class="nav-link">Flights</a>
-      <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
-      <a href="/#airlines"     class="nav-link">Airlines</a>
-      <a href="/#destinations" class="nav-link">Destinations</a>
-      <a href="/#why-us"       class="nav-link">About</a>
-      <a href="/#faq"          class="nav-link">FAQ</a>
-      <a href="/#contact"      class="nav-link">Contact</a>
-    </div>
-
-    <!-- Phones and tablets only: licence pill (the menu lives in the bottom dock) -->
-    <span class="nav-lic">Lic. 3322</span>
-
-  </div>
-</nav>
-<!-- /INCLUDE:navbar -->
+<!-- Floating "Back to Home" button: frost glass. Full pill at the top of the page,
+     shrinks to a round button after scrolling (see js/umrah-packages.js and css/umrah-packages.css) -->
+<a href="/" class="glass-back" id="glassBack" aria-label="Back to Home">
+  <span class="glass-back-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span>
+  <span class="glass-back-label">Back to Home</span>
+</a>
 
 <!-- INCLUDE:mobile-menu -->
 <!-- Full-screen route menu (phones and tablets). Opened by the dock's Menu button, see js/navbar.js -->
@@ -131,15 +82,15 @@
 </div>
 <!-- /INCLUDE:mobile-menu -->
 
+<header class="up-hero">
+  <div class="up-head">
+    <span class="up-eyebrow">Exclusive Deals</span>
+    <h1>Umrah Group Packages <em>Availability</em></h1>
+  </div>
+</header>
+
 <main class="up-page">
   <div class="up-inner">
-
-    <a href="/" style="display:inline-block;margin-bottom:20px;font-size:.85rem;color:var(--gold);font-weight:600;">← Back to Home</a>
-
-    <div class="up-head">
-      <span class="up-eyebrow">Exclusive Deals</span>
-      <h1>Umrah Group Packages <em>Availability</em></h1>
-    </div>
 
     <div class="up-filters">
 
@@ -309,7 +260,7 @@
 <script src="/js/config.js" defer></script>
 <script src="/js/navbar.js" defer></script>
 <script src="/js/notify.js" defer></script>
-<script src="/js/umrah-packages.js?v=20261105" defer></script>
+<script src="/js/umrah-packages.js?v=20261106" defer></script>
 <script src="/js/hotel-pictures.js" defer></script>
 
 <script src="/js/footer-year.js"></script>
