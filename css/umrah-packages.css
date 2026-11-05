@@ -1638,3 +1638,10 @@ a.up-enquire-btn {
 @media (prefers-reduced-motion: reduce) {
   .glass-back, .glass-back-label { transition: none; }
 }
+
+/* hide the Back to Home button while the full-screen menu is open (navbar.js adds .menu-open to <html>) */
+html.menu-open .glass-back {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
