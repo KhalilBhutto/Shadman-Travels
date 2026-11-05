@@ -383,3 +383,91 @@
   .ticket-main { background-color: #12301e; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ticket-stub { background-color: #b8901f; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   3. DESTINATION CAROUSEL — cards, ‹ › buttons, "View all destinations"
+   The photo fills the whole card; the lower part is a glass panel over it.
+═══════════════════════════════════════════ */
+
+/* Photo fills the whole card, so the glass panel has something to blur */
+.hc-photo { height: 100%; }
+
+/* Ticket edge: glass edge (gold on the centre card) */
+.hc-ticket {
+  border-color: rgba(255,255,255,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+}
+.hc-card[data-pos="center"] .hc-ticket { border-color: var(--glass-gold-edge); }
+.hc-ring { border-color: rgba(255,255,255,.3); }
+.hc-card[data-pos="center"] .hc-ring { border-color: var(--glass-gold-edge); }
+
+/* Tear line stays visible above the glass panel */
+.hc-perf {
+  z-index: 2;
+  border-top-color: rgba(245,223,160,.75);
+}
+
+/* "One-way · Economy" pill: dark-gold glass, readable on any photo */
+.hc-badge,
+.hc-card[data-pos="center"] .hc-badge {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: linear-gradient(135deg, rgba(130,95,16,.74), rgba(85,60,8,.56));
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 3px 10px rgba(0,0,0,.35);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The lower part of the card: a frosted glass panel over the photo */
+.hc-body {
+  left: 0;
+  right: 0;
+  top: 66%;
+  bottom: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 14px 16px 12px 20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%),
+    rgba(6,15,9,.56);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.hc-barcode { right: 14px; bottom: 12px; }
+
+/* ‹ › buttons: gold glass circles */
+.hc-nav-btn {
+  color: #fff8e1;
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.hc-nav-btn:hover {
+  background: linear-gradient(135deg, rgba(245,205,110,.7), rgba(228,188,90,.34) 55%, rgba(255,235,170,.5));
+  transform: translateY(-1px);
+}
+
+/* "View all destinations →": gold glass pill */
+.hc-viewall {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.hc-viewall:hover { background: linear-gradient(135deg, rgba(245,205,110,.7), rgba(228,188,90,.34) 55%, rgba(255,235,170,.5)); }
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hc-body { background: rgba(10,28,18,.9); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .hc-body { background: rgba(10,28,18,.94); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hc-badge, .hc-card[data-pos="center"] .hc-badge { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
