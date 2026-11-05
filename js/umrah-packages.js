@@ -2,7 +2,7 @@
  * umrah-packages.js
  * Shadman Travels & Tours — Project Shadman Platform
  * Fetches data/umrah-packages.json, renders detailed package cards,
- * and drives the filter bar (airline / nights / price range).
+ * and drives the filter bar (airline / route / nights).
  * Structure and per-airline colors matched to the reference site's
  * real CSS values.
  * "Enquire Now" opens WhatsApp (see enquireUrl); it no longer uses js/notify.js.
@@ -466,7 +466,6 @@ function buildAnnouncementBar() {
   const bar = document.getElementById('announcementBar');
   const track = document.getElementById('announcementTrack');
   if (!bar || !track || !ALL_PACKAGES.length) return;
-  try { if (sessionStorage.getItem('shadmanAnnDismissed') === '1') return; } catch (e) { /* ignore */ }
 
   const firstDate = ALL_PACKAGES.map(p => parsePkgDate(p.outbound.date)).filter(d => !isNaN(d)).sort((a, b) => a - b)[0];
   const year = firstDate ? firstDate.getFullYear() : new Date().getFullYear();
@@ -608,15 +607,6 @@ document.addEventListener('DOMContentLoaded', function () {
   if (scrimEl) scrimEl.addEventListener('click', closeAllDetails);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAllDetails(); });
   if (window.matchMedia) window.matchMedia('(max-width: 700px)').addEventListener('change', closeAllDetails);
-
-  const annClose = document.getElementById('announcementClose');
-  if (annClose) {
-    annClose.addEventListener('click', function () {
-      const bar = document.getElementById('announcementBar');
-      if (bar) bar.hidden = true;
-      try { sessionStorage.setItem('shadmanAnnDismissed', '1'); } catch (e) { /* ignore */ }
-    });
-  }
 
   const sortSelect = document.getElementById('upSort');
   if (sortSelect) sortSelect.addEventListener('change', applyFilters);
