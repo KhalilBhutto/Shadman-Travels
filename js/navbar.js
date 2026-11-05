@@ -2,7 +2,7 @@
  * navbar.js
  * Shadman Travels & Tours — Project Shadman Platform
  *
- *  - Announcement bar: running ticker filled from data/announcements.json, with a pause button
+ *  - Announcement bar: running ticker filled from data/announcements.json
  *  - Mobile route menu: opened by the dock's Menu button (phones and tablets)
  *  - Navbar scroll class, scroll progress bar, smooth in-page anchors
  *  - Active link highlight (navbar, route menu, dock)
@@ -89,8 +89,6 @@
   /* ═══ MOBILE ROUTE MENU ═══ */
   function setMenu(open) {
     if (!menuEl || !menuBtn) return;
-
-    // the menu starts right below the navbar, wherever the navbar is on screen
 
     menuEl.classList.toggle('open', open);
     menuEl.setAttribute('aria-hidden', String(!open));

@@ -143,51 +143,18 @@
   background: rgba(6, 15, 9, 0.35);
 }
 
-.nav-actions { display: flex; align-items: center; gap: 8px; flex: none; }
-
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 20px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, var(--gold), var(--gold2));
-  color: var(--g900);
-  font-size: 0.85rem;
-  font-weight: 700;
-  transition: transform 0.25s, box-shadow 0.25s;
-  box-shadow: 0 4px 16px rgba(201, 160, 40, 0.3);
-}
-.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201, 160, 40, 0.45); }
-
-.nav-wa {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #25d366;
-  color: #04210f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  transition: transform 0.25s;
-}
-.nav-wa:hover { transform: translateY(-2px); }
-
 .nav-link:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
 
 .nav-lic { display: none; }   /* phones and tablets only */
 
-/* ── 4. Mobile route menu (full screen, below the navbar) ── */
+/* ── 4. Mobile route menu (full screen) ── */
 .mobile-menu,
 .dock { display: none; }
 
 .mobile-menu {
   position: fixed;
   inset: 0;                      /* covers the whole screen, from the very top */
-  z-index: 960;                  /* above the navbar (900), ticker (905) and dock (950) */
+  z-index: 960;                  /* above the navbar (900) and the dock (950) */
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: calc(14px + env(safe-area-inset-top, 0px)) 20px calc(28px + env(safe-area-inset-bottom, 0px));
@@ -302,22 +269,7 @@ html.menu-open body { overflow: hidden; }
 
 .mm-cap { display: block; margin-top: 3px; font-size: 0.75rem; color: #cfdcd2; }
 
-.mm-book {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 52px;
-  margin-top: 22px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, var(--gold), var(--gold2));
-  color: var(--g900);
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.mm-stop:focus-visible,
-.mm-book:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; border-radius: 8px; }
+.mm-stop:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; border-radius: 8px; }
 
 /* ── 5. Bottom dock ── */
 .dock {
@@ -409,9 +361,6 @@ html.menu-open body { overflow: hidden; }
   .dock { display: flex; }
 
   .wa-fab { display: none; }     /* the dock has a Chat button */
-
-  /* keep the footer clear of the dock */
-  html body footer { padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* Reduced motion: no scrolling. The messages can be swiped instead. */
@@ -419,7 +368,6 @@ html.menu-open body { overflow: hidden; }
   .ab-track { animation: none; }
   .ab-ticker { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   .ab-set[aria-hidden="true"] { display: none; }
-  .ab-pause { display: none; }
   .mobile-menu { transition: none; }
 }
 
@@ -431,10 +379,6 @@ html.menu-open body { overflow: hidden; }
   body.tk-open .dock { display: none; }
 }
 
-
-/* ── Menu open: the dock and the progress line step aside; the menu has its own ✕ ── */
-html.menu-open .dock,
-html.menu-open #progress { display: none; }
 
 /* ── Menu open: the dock and the progress line step aside; the menu has its own ✕ ── */
 html.menu-open .dock,

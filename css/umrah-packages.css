@@ -1503,3 +1503,7 @@ a.up-enquire-btn {
 @media (prefers-reduced-motion: reduce) {
   .up2-details, .up-card.is-open .up2-details { transition: none; }
 }
+
+
+/* "Featured Deals" strip: no dismiss (✕) button */
+.top-announcement-bar .btn-close-announcement { display: none !important; }
