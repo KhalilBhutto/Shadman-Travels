@@ -1545,7 +1545,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1593,7 +1593,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1641,7 +1641,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1689,7 +1689,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1737,7 +1737,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1785,7 +1785,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1833,7 +1833,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1881,7 +1881,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1929,7 +1929,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -1977,7 +1977,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2025,7 +2025,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2073,7 +2073,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2121,7 +2121,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2169,7 +2169,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2217,7 +2217,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2265,7 +2265,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -2313,7 +2313,7 @@
     "route": "KHI-JED-KHI",
     "nights": 20,
     "travelDate": "22-NOV",
-    "seatsLeft": 25,
+    "seatsLeft": 19,
     "outbound": {
       "flightNo": "9P-600",
       "from": "KHI",
@@ -3945,7 +3945,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -3993,7 +3993,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4041,7 +4041,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4089,7 +4089,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4137,7 +4137,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4185,7 +4185,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4233,7 +4233,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4281,7 +4281,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4329,7 +4329,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4377,7 +4377,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4425,7 +4425,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4473,7 +4473,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4521,7 +4521,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4569,7 +4569,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4617,7 +4617,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
@@ -4665,7 +4665,7 @@
     "route": "KHI-JED-KHI",
     "nights": 19,
     "travelDate": "25-NOV",
-    "seatsLeft": 9,
+    "seatsLeft": 6,
     "outbound": {
       "flightNo": "PA-170",
       "from": "KHI",
