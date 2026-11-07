@@ -537,3 +537,34 @@
 @media (prefers-reduced-transparency: reduce) {
   .ts { background: rgba(14,36,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   5. UMRAH SECTION — "✦ Spiritual Journeys ✦" pill
+   Markup: components/umrah.html (.umrah-eyebrow)
+═══════════════════════════════════════════ */
+.umrah-eyebrow {
+  display: inline-block;
+  padding: 9px 26px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+@media (max-width: 600px) {
+  .umrah-eyebrow { padding: 8px 20px; font-size: .95rem; }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .umrah-eyebrow { background: rgba(150,118,30,.9); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .umrah-eyebrow { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
