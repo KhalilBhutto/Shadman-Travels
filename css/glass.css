@@ -485,3 +485,55 @@
   .hc-body { background: rgba(10,28,18,.94); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .hc-badge, .hc-card[data-pos="center"] .hc-badge { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   4. TRUST STRIP — the whole band is one glass panel
+   Markup: index.html (.ts) · original styles: css/main.css
+═══════════════════════════════════════════ */
+
+/* The band itself: dark glass with bright edges */
+.ts {
+  --bronze: #e4bc5a;                       /* icons, bold numbers and separators turn gold */
+  color: #f1f5f2;                          /* text turns light */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%),
+    rgba(6,15,9,.5);
+  border-block: 1px solid rgba(245,223,160,.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -1px 0 rgba(255,255,255,.08),
+    0 8px 24px rgba(0,0,0,.3);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The pinned IATA badge: keeps its slanted shape, the dark face becomes glass */
+.ts-badge::after {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.02)),
+    rgba(6,15,9,.58);
+}
+
+/* Ticker: the old solid ivory edge fades are replaced by a soft mask on the text */
+.ts-ticker::before,
+.ts-ticker::after { display: none; }
+.ts-ticker {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 56px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 56px), transparent);
+}
+
+/* Bold figures (15+, 24/7, 2005, 81k+) read as bright gold */
+.ts-item b { color: var(--gold-hi); }
+
+/* Reduced motion: the strip is swiped by hand, so no edge mask */
+@media (prefers-reduced-motion: reduce) {
+  .ts-ticker { -webkit-mask-image: none; mask-image: none; }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ts { background: rgba(14,36,24,.92); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .ts { background: rgba(14,36,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
