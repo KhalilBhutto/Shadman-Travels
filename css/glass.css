@@ -724,3 +724,145 @@
   .offer-box { background: rgba(14,38,24,.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .offer-dialog::backdrop { background: rgba(6,15,9,.85); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   7. WHERE WE FLY
+   Heading pill · 4 region tabs · big feature card · small cards
+   Markup: index.html (#destinations) + js/animations.js
+═══════════════════════════════════════════ */
+
+/* "Where We Fly": dark glass pill with a gold edge (its gold text comes from an inline style) */
+.wwf-sec .sec-eyebrow {
+  padding: 9px 26px;
+  border-radius: 999px;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The four region tabs: frosted glass, the active one gold glass */
+.wwf-tab {
+  color: #f1f5f2;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.wwf-tab:hover {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
+  border-color: rgba(245,223,160,.7);
+}
+.wwf-tab.on,
+.wwf-tab.on:hover {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border-color: var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+}
+
+/* ── The big feature card ── */
+.wwf-banner {
+  border-color: rgba(255,255,255,.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    0 30px 70px rgba(0,0,0,.5);
+}
+
+/* "Featured destination" and the "01 / 05" counter: small glass pills */
+.wwf-pill,
+.wwf-idx {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.wwf-idx {
+  padding: 5px 16px;
+  border-radius: 999px;
+  font-size: 1.15rem;
+}
+
+/* City, country and hook: one frosted glass panel at the bottom-left of the card */
+.wwf-row > div:first-child {
+  padding: 12px 30px 16px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
+    rgba(6,15,9,.42);
+  border: 1px solid rgba(255,255,255,.26);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 14px 30px rgba(0,0,0,.35);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* "Get a quote": glossy gold glass */
+.wwf-cta {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(0,0,0,.35);
+}
+
+/* ── The small numbered cards: glass edge and a frosted strip behind the text ── */
+.wwf-tile {
+  border-color: rgba(255,255,255,.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 14px 30px rgba(0,0,0,.3);
+}
+.wwf-tile:hover {
+  border-color: var(--glass-gold-edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 14px 30px rgba(0,0,0,.3), 0 0 24px rgba(201,160,40,.2);
+}
+.wwf-tile::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 54%;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
+    rgba(6,15,9,.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.wwf-tname,
+.wwf-tcountry { position: relative; z-index: 1; }
+.wwf-n { z-index: 1; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+
+/* Phones: the small cards are pills, so they become glass pills like the tabs.
+   Your existing rule uses !important, so these need it too. */
+@media (max-width: 700px) {
+  .wwf-tile::before { display: none; }
+  .wwf-tile {
+    background: var(--glass-fill) !important;
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+  }
+  .wwf-row > div:first-child { padding: 8px 18px 12px; border-radius: 18px; }
+  .wwf-idx { font-size: 1rem; padding: 4px 12px; }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .wwf-row > div:first-child,
+  .wwf-tile::before { background: rgba(10,28,18,.88); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .wwf-row > div:first-child,
+  .wwf-tile::before { background: rgba(10,28,18,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
