@@ -568,3 +568,159 @@
 @media (prefers-reduced-transparency: reduce) {
   .umrah-eyebrow { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   6. AIRLINES SECTION
+   Heading pill · 4 filter pills · airline cards · Book Now / View offer · offer pop-up
+   Markup: index.html (#airlines) + js/animations.js (cards)
+═══════════════════════════════════════════ */
+
+/* "Our Airline Partners": dark glass pill with a gold edge (its gold text comes from an inline style in index.html) */
+.airlines-sec .sec-eyebrow {
+  padding: 9px 26px;
+  border-radius: 999px;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The four filter pills: frosted glass, the active one gold glass */
+.airlines-sec .filter-btn {
+  color: #f1f5f2;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.airlines-sec .filter-btn:hover {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
+  border-color: rgba(245,223,160,.7);
+}
+.airlines-sec .filter-btn.active,
+.airlines-sec .filter-btn.active:hover {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border-color: var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+}
+
+/* The airline card: a glass panel (hover keeps the gold edge from sections.css) */
+.acard {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 38%),
+    linear-gradient(155deg, rgba(30,84,54,.58), rgba(15,41,22,.4) 55%, rgba(22,61,34,.52));
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -1px 0 rgba(255,255,255,.06),
+    0 24px 50px rgba(0,0,0,.45);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.acard-logo-plate { box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 4px 12px rgba(0,0,0,.25); }
+
+/* The stub: glass tinted with each airline's own colour (--brand).
+   Browsers that do not know color-mix() simply keep the original solid stub. */
+.acard-stub {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,0) 42%),
+    linear-gradient(160deg, rgba(0,0,0,.14), rgba(0,0,0,.36)),
+    linear-gradient(160deg, color-mix(in srgb, var(--brand) 80%, transparent), color-mix(in srgb, var(--brand) 58%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+}
+.notch { box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+
+/* "Book Now": glossy gold glass */
+.acard .book-btn {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+/* "View offer": clear glass */
+.acard .offer-btn {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  background: linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.08));
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(255,255,255,.14), 0 6px 16px rgba(0,0,0,.28);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  backdrop-filter: blur(8px) saturate(160%);
+}
+
+/* Optional: "Show more airlines" button, same glass as the filter pills (delete this block if you do not want it) */
+.airlines-more-btn {
+  color: #f1f5f2;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.airlines-more-btn:hover {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
+  border-color: rgba(245,223,160,.7);
+}
+
+/* ── View offer pop-up ── */
+.offer-dialog::backdrop {                  /* lighter and blurred, so the glass box has something to show */
+  background: rgba(6,15,9,.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.offer-box {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 40%),
+    rgba(10,28,18,.64);
+  border: 1px solid rgba(255,255,255,.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -1px 0 rgba(255,255,255,.06),
+    0 30px 80px rgba(0,0,0,.6);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.offer-img { box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.offer-close {
+  color: #fff8e1;
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+}
+.offer-close:hover { color: #0b1e10; background: var(--gold); }
+.offer-call {                              /* Call to book: glossy gold glass */
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+.offer-wa {                                /* WhatsApp: glossy green glass */
+  color: #04210f;
+  border: 1px solid rgba(255,255,255,.5);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(60,222,120,.95), rgba(37,190,95,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,80,30,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .acard { background-color: rgba(14,38,24,.92); }
+  .offer-box { background: rgba(14,38,24,.96); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .acard { background-color: rgba(14,38,24,.95); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .offer-box { background: rgba(14,38,24,.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .offer-dialog::backdrop { background: rgba(6,15,9,.85); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
