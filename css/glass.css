@@ -1057,3 +1057,143 @@
     backdrop-filter: none;
   }
 }
+
+/* ═══════════════════════════════════════════
+   10. FAQ SECTION
+   Heading pill · section panel (desktop) · topic tabs · question cards · answer panel · Call / WhatsApp
+   Markup: index.html (#faq) · behaviour: js/faq.js · original styles: css/faq.css
+═══════════════════════════════════════════ */
+
+/* Soft colour glows behind the glass (the section is cream) */
+.faq3-sec { position: relative; overflow: hidden; }
+.faq3-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(201,160,40,.34), transparent 34%),
+    radial-gradient(circle at 92% 80%, rgba(30,84,54,.26), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(228,188,90,.26), transparent 34%);
+}
+.faq3-sec .sec-inner { position: relative; z-index: 1; }
+
+/* Light glass (for cream backgrounds) */
+.faq3-sec {
+  --glass-light-fill:   linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.34) 55%, rgba(255,255,255,.55));
+  --glass-light-edge:   rgba(255,255,255,.9);
+  --glass-light-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 14px 34px rgba(15,41,22,.16);
+}
+
+/* "Got Questions?": light glass pill with deep-gold text */
+.faq3-sec .sec-eyebrow {
+  display: inline-block;
+  padding: 9px 26px;
+  border-radius: 999px;
+  color: #8a6410;
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The topic tabs: frosted capsules, the active one dark green glass */
+.faq3-tab {
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.faq3-tab:hover { border-color: var(--gold); }
+.faq3-tab[aria-pressed="true"] {
+  color: var(--gold3);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 50%),
+    linear-gradient(160deg, rgba(40,100,62,.94), rgba(15,41,22,.92));
+  border: 1px solid rgba(255,255,255,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 6px rgba(0,0,0,.25), 0 8px 18px rgba(15,41,22,.3);
+}
+
+/* The question cards: frosted glass, the open one brighter with a gold edge */
+.faq3-q {
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.faq3-q:hover { border-color: var(--gold); }
+.faq3-q[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.62));
+  border-color: var(--gold);
+  box-shadow: inset 0 1px 0 #fff, 0 12px 26px rgba(15,41,22,.18);
+}
+
+/* The answer panel: dark green glass */
+.faq3-answer {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 38%),
+    linear-gradient(160deg, rgba(22,66,42,.82), rgba(11,30,16,.76));
+  border-color: var(--glass-gold-edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 24px 50px rgba(15,41,22,.3);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Call: glossy gold glass. WhatsApp: glossy green glass */
+.faq3-call {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+.faq3-wa {
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.5);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(30,150,80,.95), rgba(18,115,60,.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,60,25,.3), 0 6px 16px rgba(0,0,0,.3);
+}
+
+/* Desktop only: the whole FAQ content sits on one large glass panel */
+@media (min-width: 901px) {
+  .faq3-sec .sec-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 30px 32px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.2) 55%, rgba(255,255,255,.4));
+    border: 1px solid var(--glass-light-edge);
+    box-shadow: var(--glass-light-shadow);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+  }
+}
+
+/* Phones and tablets: the open ticket (question + answer) is one dark glass ticket */
+@media (max-width: 900px) {
+  .faq3-q[aria-pressed="true"] {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 60%),
+      linear-gradient(160deg, rgba(22,66,42,.84), rgba(11,30,16,.8));
+    border-color: var(--glass-gold-edge);
+    box-shadow: none;
+  }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q { background: rgba(255,255,255,.85); }
+  .faq3-answer { background: rgba(14,38,24,.94); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q { background: rgba(255,255,255,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .faq3-answer { background: rgba(14,38,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
