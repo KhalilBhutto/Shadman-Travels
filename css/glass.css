@@ -298,7 +298,7 @@ footer::before {
 
 /* Mobile bottom dock */
 .dock {
-  background: var(--glass-dark-fill);
+  background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02) 50%), rgba(6,15,9,.68);
   border: 1.5px solid rgba(245,223,160,.5);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(255,255,255,.08), 0 16px 36px rgba(0,0,0,.5);
 }
@@ -414,11 +414,11 @@ footer::before {
 .ts {
   --bronze: #e4bc5a;                       /* icons, numbers and separators turn gold */
   color: #f1f5f2;
-  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%), rgba(6,15,9,.74);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%), #0b1d12;
   border-block: 1px solid rgba(245,223,160,.45);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,.3);
 }
-.ts-badge::after { background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.02)), rgba(6,15,9,.58); }
+.ts-badge::after { background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.02)), #0d1a14; }
 .ts-ticker::before, .ts-ticker::after { display: none; }
 .ts-ticker {                               /* soft fade at both ends instead of solid edges */
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 56px), transparent);
@@ -519,6 +519,8 @@ footer::before {
   .wwf-row > div:first-child { padding: 8px 18px 12px; border-radius: 18px; }
   .wwf-idx { font-size: 1rem; padding: 4px 12px; }
 }
+
+@media (max-width: 600px) { .wwf-banner { height: 245px; } }
 
 /* ═══════════════════════════════════════════
    9. WHY SHADMAN TRAVELS — stats panel and tiles
