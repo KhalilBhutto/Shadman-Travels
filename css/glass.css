@@ -1197,3 +1197,100 @@
   .faq3-answer { background: rgba(14,38,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   11. FOOTER
+   Glass panel · trust box · 4 contact pills · website text · social buttons
+   Markup: components/footer.html (.f2) · original styles: css/footer.css
+═══════════════════════════════════════════ */
+
+/* Soft colour glows behind the panel, so the glass has something to blur */
+footer { position: relative; overflow: hidden; }
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 30%, rgba(201,160,40,.26), transparent 32%),
+    radial-gradient(circle at 92% 70%, rgba(40,110,70,.40), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(228,188,90,.18), transparent 34%);
+}
+
+/* No outer panel: the footer content sits directly on the footer background */
+footer .f2 { position: relative; z-index: 1; }
+
+/* The 2005 / 15+ / 3322 box: its own glass panel inside */
+.f2-trust {
+  background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 55%, rgba(255,255,255,.08));
+  border: 1px solid rgba(245,223,160,.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 10px 24px rgba(0,0,0,.3);
+}
+
+/* Call: glossy gold glass */
+.f2-btn-call {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+/* WhatsApp: glossy green glass */
+.f2-btn-wa {
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.5);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(30,150,80,.95), rgba(18,115,60,.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,60,25,.3), 0 6px 16px rgba(0,0,0,.3);
+}
+/* Email us and Find us on Maps: frosted glass, gold tint on hover */
+.f2-btn-ghost {
+  color: #f1f5f2;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.f2-btn-ghost:hover {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(228,188,90,.4), rgba(228,188,90,.12) 55%, rgba(228,188,90,.24));
+  border-color: rgba(245,223,160,.75);
+}
+
+/* Facebook and Instagram: glass circles */
+.f2-soc {
+  color: #fff8e1;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.f2-soc:hover {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(228,188,90,.5), rgba(228,188,90,.16) 55%, rgba(228,188,90,.3));
+  border-color: rgba(245,223,160,.75);
+}
+
+/* shadmantravels.com: a glass pill */
+.f2-site {
+  padding: 9px 20px;
+  border-radius: 999px;
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+}
+@media (prefers-reduced-transparency: reduce) {
+}
