@@ -147,14 +147,6 @@
   }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review {
-    background-color: rgba(18,48,30,.95);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
 /* ═══════════════════════════════════════════
    GLASS FOUNDATION — shared by every block below
    Reuse these variables instead of repeating numbers.
@@ -497,7 +489,7 @@
   color: #f1f5f2;                          /* text turns light */
   background:
     linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%),
-    rgba(6,15,9,.5);
+    rgba(6,15,9,.74);
   border-block: 1px solid rgba(245,223,160,.45);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.4),
@@ -523,7 +515,7 @@
 }
 
 /* Bold figures (15+, 24/7, 2005, 81k+) read as bright gold */
-.ts-item b { color: var(--gold-hi); }
+.ts-item b { color: var(--gold-hi, var(--gold2)); }
 
 /* Reduced motion: the strip is swiped by hand, so no edge mask */
 @media (prefers-reduced-motion: reduce) {
@@ -577,6 +569,7 @@
 
 /* "Our Airline Partners": dark glass pill with a gold edge (its gold text comes from an inline style in index.html) */
 .airlines-sec .sec-eyebrow {
+  display: inline-block;
   padding: 9px 26px;
   border-radius: 999px;
   text-shadow: 0 1px 2px rgba(0,0,0,.55);
@@ -733,6 +726,7 @@
 
 /* "Where We Fly": dark glass pill with a gold edge (its gold text comes from an inline style) */
 .wwf-sec .sec-eyebrow {
+  display: inline-block;
   padding: 9px 26px;
   border-radius: 999px;
   text-shadow: 0 1px 2px rgba(0,0,0,.55);
@@ -1047,11 +1041,10 @@
 
 /* Fallbacks: no backdrop blur support, or transparency turned off */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .rv2-sec .sec-inner { background: rgba(14,36,24,.9); }
   .rv2-feat, .rv2-card { background-color: rgba(14,38,24,.9); }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .rv2-sec .sec-inner, .rv2-feat, .rv2-card, .rv2-cta {
+  .rv2-feat, .rv2-card, .rv2-cta {
     background-color: rgba(14,38,24,.95);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -1195,7 +1188,9 @@
 @media (prefers-reduced-transparency: reduce) {
   .faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q { background: rgba(255,255,255,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .faq3-answer { background: rgba(14,38,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  @media (min-width: 901px) {
+    .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1287,10 +1282,4 @@ footer .f2 { position: relative; z-index: 1; }
   box-shadow: var(--glass-gold-shadow);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-}
-
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-}
-@media (prefers-reduced-transparency: reduce) {
 }
