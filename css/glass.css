@@ -866,3 +866,83 @@
   .wwf-row > div:first-child,
   .wwf-tile::before { background: rgba(10,28,18,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   8. WHY SHADMAN TRAVELS
+   Heading pill · stats panel · four stat tiles (the green board is unchanged)
+   Markup: index.html (#why-us)
+═══════════════════════════════════════════ */
+
+/* Soft colour glows behind the section, so the glass has something to blur on the cream background */
+.wy-sec { position: relative; overflow: hidden; }
+.wy-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 88%, rgba(201,160,40,.38), transparent 34%),
+    radial-gradient(circle at 88% 82%, rgba(30,84,54,.30), transparent 36%),
+    radial-gradient(circle at 50% 6%, rgba(228,188,90,.26), transparent 34%);
+}
+.wy-sec .sec-inner { position: relative; z-index: 1; }
+
+/* Light glass (for cream backgrounds) */
+.wy-sec {
+  --glass-light-fill:   linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.34) 55%, rgba(255,255,255,.55));
+  --glass-light-edge:   rgba(255,255,255,.9);
+  --glass-light-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 14px 34px rgba(15,41,22,.16);
+}
+
+/* "Why Shadman Travels": light glass pill with deep-gold text */
+.wy-sec .sec-eyebrow {
+  display: inline-block;
+  padding: 9px 26px;
+  border-radius: 999px;
+  color: #8a6410;
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The stats area: one big glass panel */
+.wy-stats {
+  padding: 30px 26px 26px;
+  border-radius: 30px;
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Each stat: its own glass tile inside the panel */
+.wy-stat {
+  padding: 22px 10px 18px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(255,255,255,.62), rgba(255,255,255,.2));
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.06), 0 8px 20px rgba(15,41,22,.12);
+}
+
+/* Tablet: two per row */
+@media (max-width: 900px) {
+  .wy-stats { padding: 22px 16px; }
+}
+
+/* Phone: four small tiles in one row */
+@media (max-width: 600px) {
+  .wy-stats { padding: 12px 8px; border-radius: 22px; }
+  .wy-stat { padding: 10px 2px 8px; border-radius: 14px; }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .wy-sec .sec-eyebrow, .wy-stats { background: rgba(255,255,255,.82); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .wy-sec .sec-eyebrow, .wy-stats { background: rgba(255,255,255,.9); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
