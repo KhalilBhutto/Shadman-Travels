@@ -1,63 +1,204 @@
 /* ═══════════════════════════════════════════
    GLASS.CSS — frosted "liquid glass" look
-   Applies to: trip tabs, Search button, 6 route pills, recent-search chip,
-   the airlines box and the Google review box (desktop and phone).
-   Loaded after search-widget.css, so it overrides it.
-   To make everything more or less glassy, change the numbers in :root.
+   Loaded LAST in every page, so it overrides the other stylesheets.
+   To change the overall look, edit the variables below.
+   To add glass to a new element: add it to "ALL GLASS SURFACES" and give it a background.
 ═══════════════════════════════════════════ */
 
 :root {
-  --glass-fill:      linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05) 50%, rgba(255,255,255,.10));
-  --glass-fill-soft: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 50%, rgba(255,255,255,.07));
-  --glass-edge:      rgba(255,255,255,.26);
-  --glass-blur:      blur(14px) saturate(180%);
+  /* frosted glass */
+  --glass-fill:        linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05) 50%, rgba(255,255,255,.10));
+  --glass-fill-soft:   linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 50%, rgba(255,255,255,.07));
+  --glass-edge:        rgba(255,255,255,.26);
   --glass-shadow:      inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.08), inset 0 0 18px rgba(255,255,255,.05), 0 10px 28px rgba(0,0,0,.35);
   --glass-shadow-soft: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(255,255,255,.06), 0 12px 32px rgba(0,0,0,.3);
+  --glass-hover:       linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
+  --glass-blur:        blur(14px) saturate(180%);
+  --glass-blur-sm:     blur(8px) saturate(160%);
+
+  /* gold glass: active items, pills */
+  --glass-gold-fill:   linear-gradient(135deg, rgba(228,188,90,.5), rgba(201,160,40,.2) 55%, rgba(245,223,160,.32));
+  --glass-gold-edge:   rgba(245,223,160,.62);
+  --glass-gold-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(255,255,255,.12), 0 4px 14px rgba(0,0,0,.35);
+  --glass-gold-hover:  linear-gradient(135deg, rgba(245,205,110,.7), rgba(228,188,90,.34) 55%, rgba(255,235,170,.5));
+
+  /* dark glass: readable over pictures */
+  --glass-dark-fill:   linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 50%, rgba(255,255,255,.08)), rgba(6,15,9,.48);
+
+  /* light glass: cream sections */
+  --glass-light-fill:   linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.34) 55%, rgba(255,255,255,.55));
+  --glass-light-edge:   rgba(255,255,255,.9);
+  --glass-light-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 14px 34px rgba(15,41,22,.16);
+
+  /* glossy buttons */
+  --glass-btn-gold:   linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%), linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  --glass-btn-green:  linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%), linear-gradient(135deg, rgba(30,150,80,.95), rgba(18,115,60,.92));
+  --glass-btn-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
 }
 
-/* ── 1. The six route pills and the recent-search chip ── */
-.quick-route-chip,
-#recentChipWrap .recent-chip {
+/* Phones: a lighter blur keeps scrolling smooth */
+@media (max-width: 700px) {
+  :root { --glass-blur: blur(9px) saturate(160%); }
+}
+
+/* ═══════════════════════════════════════════
+   ALL GLASS SURFACES — one list applies the blur
+═══════════════════════════════════════════ */
+.ab-label, .nav-pill, .dock,
+.quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review,
+.ticket-main, .ticket-stub, .ticket-badge,
+.hc-badge, .hc-body, .hc-nav-btn, .hc-viewall,
+.ts, .umrah-eyebrow,
+.airlines-sec .sec-eyebrow, .airlines-sec .filter-btn, .airlines-more-btn, .acard, .offer-box, .offer-close,
+.wwf-sec .sec-eyebrow, .wwf-tab, .wwf-pill, .wwf-idx, .wwf-row > div:first-child, .wwf-tile::before,
+.wy-sec .sec-eyebrow, .wy-stats,
+.rv2-sec .sec-eyebrow, .rv2-feat, .rv2-card, .rv2-cta,
+.faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q, .faq3-answer,
+.f2-btn-ghost, .f2-soc, .f2-site {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* ═══════════════════════════════════════════
+   SHARED LOOKS
+═══════════════════════════════════════════ */
+
+/* Gold glass pills (active and call-to-action items) */
+.ab-label, .nav-pill, .ticket-badge, .umrah-eyebrow, .hc-nav-btn, .hc-viewall, .offer-close, .f2-site,
+.airlines-sec .filter-btn.active, .airlines-sec .filter-btn.active:hover,
+.wwf-tab.on, .wwf-tab.on:hover {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  background: var(--glass-gold-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+}
+.hc-nav-btn:hover, .hc-viewall:hover { background: var(--glass-gold-hover); }
+.f2-site { padding: 9px 20px; border-radius: 999px; }
+
+/* Frosted pills */
+.quick-route-chip, #recentChipWrap .recent-chip, .airlines-sec .filter-btn, .airlines-more-btn,
+.wwf-tab, .rv2-card, .f2-btn-ghost, .f2-soc {
   background: var(--glass-fill);
   border: 1px solid var(--glass-edge);
   box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  color: #fff;
 }
-.quick-route-chip { font-weight: 700; }
-.quick-route-chip:hover {
-  background: linear-gradient(135deg, rgba(228,188,90,.42), rgba(228,188,90,.12) 55%, rgba(228,188,90,.22));
-  border-color: rgba(245,223,160,.75);
+.airlines-sec .filter-btn, .airlines-more-btn, .wwf-tab, .f2-btn-ghost { color: #f1f5f2; }
+.quick-route-chip, #recentChipWrap .recent-chip { color: #fff; }
+.f2-soc { color: #fff8e1; }
+.quick-route-chip:hover, .airlines-sec .filter-btn:hover, .airlines-more-btn:hover,
+.wwf-tab:hover, .f2-btn-ghost:hover, .f2-soc:hover {
   color: #fff;
+  background: var(--glass-hover);
+  border-color: rgba(245,223,160,.7);
 }
-.quick-route-chip .arr { color: var(--gold2); }
-#recentChipWrap .recent-chip:hover {
-  border-color: rgba(245,223,160,.75);
-  box-shadow: var(--glass-shadow), 0 8px 22px rgba(201,160,40,.18);
+#recentChipWrap .recent-chip:hover { border-color: rgba(245,223,160,.75); }
+
+/* Dark glass pills (heading labels on dark sections) */
+.airlines-sec .sec-eyebrow, .wwf-sec .sec-eyebrow, .rv2-sec .sec-eyebrow, .wwf-pill, .wwf-idx {
+  color: #fff8e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
 }
 
-/* ── 2. The airlines box and the Google review box ── */
-.hero-airlines,
-.hero-review {
+/* Heading labels: all six are pills */
+.airlines-sec .sec-eyebrow, .wwf-sec .sec-eyebrow, .rv2-sec .sec-eyebrow,
+.wy-sec .sec-eyebrow, .faq3-sec .sec-eyebrow, .umrah-eyebrow {
+  display: inline-block;
+  padding: 9px 26px;
+  border-radius: 999px;
+}
+
+/* Light glass (cream sections) */
+.wy-sec .sec-eyebrow, .faq3-sec .sec-eyebrow, .wy-stats, .faq3-tab, .faq3-q {
+  background: var(--glass-light-fill);
+  border: 1px solid var(--glass-light-edge);
+  box-shadow: var(--glass-light-shadow);
+}
+.wy-sec .sec-eyebrow, .faq3-sec .sec-eyebrow { color: #8a6410; }
+
+/* Glossy gold buttons */
+.ticket-submit-btn, .acard .book-btn, .offer-call, .wwf-cta, .rv2-gb, .faq3-call, .f2-btn-call,
+#widgetCard #mcSearchBtn, #widgetCard #mainRow .search-btn2 {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background: var(--glass-btn-gold);
+  box-shadow: var(--glass-btn-shadow);
+}
+#widgetCard #mcSearchBtn:disabled, #widgetCard #mainRow .search-btn2:disabled {
+  color: #8d7c43;
+  border-color: rgba(255,255,255,.6);
+  background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 55%), rgba(234,223,185,.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+/* Glossy green buttons */
+.faq3-wa, .f2-btn-wa {
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.5);
+  background: var(--glass-btn-green);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,60,25,.3), 0 6px 16px rgba(0,0,0,.3);
+}
+
+/* Soft colour glows behind the sections, so the glass has something to blur */
+.wy-sec, .rv2-sec, .faq3-sec, footer { position: relative; overflow: hidden; }
+.wy-sec::before, .rv2-sec::before, .faq3-sec::before, footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.wy-sec .sec-inner, .rv2-sec .sec-inner, .faq3-sec .sec-inner, footer .f2 { position: relative; z-index: 1; }
+.wy-sec::before {
+  background:
+    radial-gradient(circle at 12% 88%, rgba(201,160,40,.38), transparent 34%),
+    radial-gradient(circle at 88% 82%, rgba(30,84,54,.30), transparent 36%),
+    radial-gradient(circle at 50% 6%, rgba(228,188,90,.26), transparent 34%);
+}
+.rv2-sec::before {
+  background:
+    radial-gradient(circle at 10% 30%, rgba(201,160,40,.20), transparent 32%),
+    radial-gradient(circle at 90% 75%, rgba(40,110,70,.30), transparent 36%);
+}
+.faq3-sec::before {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(201,160,40,.34), transparent 34%),
+    radial-gradient(circle at 92% 80%, rgba(30,84,54,.26), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(228,188,90,.26), transparent 34%);
+}
+footer::before {
+  background:
+    radial-gradient(circle at 8% 30%, rgba(201,160,40,.26), transparent 32%),
+    radial-gradient(circle at 92% 70%, rgba(40,110,70,.40), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(228,188,90,.18), transparent 34%);
+}
+
+/* ═══════════════════════════════════════════
+   1. SEARCH AREA — hero boxes, trip tabs
+═══════════════════════════════════════════ */
+.quick-route-chip { font-weight: 700; }
+.quick-route-chip .arr { color: var(--gold2); }
+
+.hero-airlines, .hero-review {
   background: var(--glass-fill-soft);
   border: 1px solid var(--glass-edge);
   box-shadow: var(--glass-shadow-soft);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
 .ha-grid li { color: rgba(255,255,255,.82); border-bottom-color: rgba(255,255,255,.1); }
 .hr-head { border-bottom-color: rgba(255,255,255,.14); }
 
-/* ── 3. Trip tabs and Search button: desktop (dark ticket bar) ── */
+/* Desktop: dark ticket bar */
 @media (min-width: 1001px) {
   #widgetCard .pill-tab {
     color: rgba(255,255,255,.75);
     background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
     border: 1px solid rgba(255,255,255,.18);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 2px 8px rgba(0,0,0,.25);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
+    backdrop-filter: var(--glass-blur-sm);
   }
   #widgetCard .pill-tab:not(.active):hover { background: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.06)); color: #fff; }
   #widgetCard .pill-tab.active {
@@ -67,7 +208,6 @@
     border-color: rgba(245,223,160,.7);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(255,255,255,.1), 0 4px 14px rgba(201,160,40,.35);
   }
-
   /* Search button on the gold stub: frosted white glass */
   #widgetCard #mainRow .wf-searchbtn .search-btn2 {
     color: var(--g900);
@@ -75,26 +215,26 @@
     background: linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.14));
     border: 1px solid rgba(255,255,255,.6);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(255,255,255,.2), 0 4px 12px rgba(6,15,9,.25);
-    -webkit-backdrop-filter: blur(8px) saturate(160%);
-    backdrop-filter: blur(8px) saturate(160%);
+    -webkit-backdrop-filter: var(--glass-blur-sm);
+    backdrop-filter: var(--glass-blur-sm);
   }
   #widgetCard #mainRow .wf-searchbtn .search-btn2:hover:not(:disabled) { background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.22)); }
   #widgetCard #mainRow .wf-searchbtn .search-btn2:disabled {
+    color: rgba(6,15,9,.5);
     background: rgba(255,255,255,.12);
     border-color: rgba(255,255,255,.3);
-    color: rgba(6,15,9,.5);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
   }
 }
 
-/* ── 4. Trip tabs and Search button: phones and tablets (cream card) ── */
+/* Phones and tablets: cream card */
 @media (max-width: 1000px) {
   #widgetCard .pill-tabs {
     background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(236,230,212,.6));
     border: 1px solid rgba(255,255,255,.85);
     box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 6px 16px rgba(15,41,22,.14);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
   }
   #widgetCard .pill-tab.active {
     color: var(--gold3);
@@ -102,121 +242,30 @@
     border: 1px solid rgba(255,255,255,.28);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 6px rgba(0,0,0,.25), 0 6px 14px rgba(15,41,22,.35);
   }
-
-  /* Search button: glossy gold glass */
-  #widgetCard #mainRow .search-btn2 {
-    color: var(--g900);
-    border: 1px solid rgba(255,255,255,.55);
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
-      linear-gradient(135deg, rgba(228,188,90,.95), rgba(201,160,40,.9));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(201,160,40,.3);
-  }
-  #widgetCard #mainRow .search-btn2:disabled {
-    color: #8d7c43;
-    border-color: rgba(255,255,255,.6);
-    background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 55%), rgba(234,223,185,.85);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
-  }
-}
-
-/* ── 5. Multi-City search button (same gold glass at every width) ── */
-#widgetCard #mcSearchBtn {
-  color: var(--g900);
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.95), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(201,160,40,.3);
-}
-#widgetCard #mcSearchBtn:disabled {
-  color: #8d7c43;
-  background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 55%), rgba(234,223,185,.85);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
-}
-
-/* ── Fallbacks: browsers without backdrop blur, or people who turned transparency off ── */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review { background-color: rgba(18,48,30,.88); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review {
-    background-color: rgba(18,48,30,.95);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
 }
 
 /* ═══════════════════════════════════════════
-   GLASS FOUNDATION — shared by every block below
-   Reuse these variables instead of repeating numbers.
-═══════════════════════════════════════════ */
-:root {
-  /* gold-tinted glass: active items, call-to-action pills */
-  --glass-gold-fill:   linear-gradient(135deg, rgba(228,188,90,.5), rgba(201,160,40,.2) 55%, rgba(245,223,160,.32));
-  --glass-gold-edge:   rgba(245,223,160,.62);
-  --glass-gold-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(255,255,255,.12), 0 4px 14px rgba(0,0,0,.35);
-  /* dark glass: panels with text that must stay readable over busy pictures */
-  --glass-dark-fill:   linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 50%, rgba(255,255,255,.08)), rgba(6,15,9,.48);
-}
-
-/* Phones: a lighter blur keeps scrolling smooth on cheaper devices */
-@media (max-width: 700px) {
-  :root { --glass-blur: blur(9px) saturate(160%); }
-}
-
-/* People who asked their device for less transparency get near-solid panels */
-@media (prefers-reduced-transparency: reduce) {
-  :root {
-    --glass-blur: none;
-    --glass-dark-fill: rgba(14,38,24,.96);
-    --glass-gold-fill: rgba(150,118,30,.95);
-  }
-}
-
-/* ═══════════════════════════════════════════
-   1. HEADER — announcements pill, navbar links, mobile dock
+   2. HEADER — announcements pill, navbar capsule, mobile dock
 ═══════════════════════════════════════════ */
 
-/* "Announcements" pill */
-.ab-label {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* Navbar links: plain text on the pattern bar (the original design).
-   One liquid-glass capsule slides under the link for the section you are on (see js/navbar.js). */
-.nav-menu { position: relative; }          /* the capsule is positioned inside this */
+/* Navbar links: plain text; one glass capsule slides under the active link (js/navbar.js) */
+.nav-menu { position: relative; }
 .nav-link {
   position: relative;
-  z-index: 1;                              /* text stays above the capsule */
+  z-index: 1;
   color: #e6eee8;
   background: none;
   border: 1px solid transparent;
   box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
-.nav-link:hover {                          /* original hover look */
-  color: var(--gold3);
-  border-color: rgba(228, 188, 90, 0.6);
-  background: rgba(6, 15, 9, 0.35);
-}
-.nav-link.active,
-.nav-link.active:hover {                   /* the capsule shows the active link, so the link itself stays plain */
+.nav-link:hover { color: var(--gold3); border-color: rgba(228,188,90,.6); background: rgba(6,15,9,.35); }
+.nav-link.active, .nav-link.active:hover {
   color: #fff8e1;
   text-shadow: 0 1px 2px rgba(0,0,0,.45);
   border-color: transparent;
   background: none;
-  box-shadow: none;
 }
 
-/* The moving liquid-glass capsule */
 .nav-pill {
   position: absolute;
   top: 0;
@@ -227,11 +276,6 @@
   box-sizing: border-box;
   border-radius: 50px;
   pointer-events: none;
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
   transition:
     transform .5s cubic-bezier(.34, 1.35, .4, 1),
     width .5s cubic-bezier(.34, 1.35, .4, 1),
@@ -248,77 +292,47 @@
   border-radius: 50px;
   background: linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0));
 }
-.nav-pill.is-off { opacity: 0; }           /* no active link: hidden */
-.nav-pill.is-placing { transition: none; } /* the very first placement does not slide in from the corner */
+.nav-pill.is-off { opacity: 0; }
+.nav-pill.is-placing { transition: none; }
+@media (prefers-reduced-motion: reduce) { .nav-pill { transition: opacity .2s; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .nav-pill { transition: opacity .2s; }
-}
-
-/* Mobile bottom dock (phones and tablets) */
+/* Mobile bottom dock */
 .dock {
   background: var(--glass-dark-fill);
   border: 1.5px solid rgba(245,223,160,.5);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(255,255,255,.08), 0 16px 36px rgba(0,0,0,.5);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
-.dock-call {                            /* the raised gold Call button: glossy gold glass */
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.92));
+.dock-call {
+  background: var(--glass-btn-gold);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 10px 22px rgba(0,0,0,.45);
 }
 
 /* ═══════════════════════════════════════════
-   2. BOARDING PASS — desktop and phone pop-up
-   Two glass panels: the dark form panel and the gold stub.
+   3. BOARDING PASS — desktop and phone pop-up
 ═══════════════════════════════════════════ */
-
-/* A filter on the outer element would block the glass, so the shadow is a normal box-shadow */
-.ticket {
+.ticket {                                  /* a filter would block the glass, so a normal shadow */
   filter: none;
   box-shadow: 0 30px 70px rgba(0,0,0,.5), 0 8px 24px rgba(201,160,40,.14);
 }
-
-/* The dark form panel */
 .ticket-main {
   background:
     linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,0) 38%),
     linear-gradient(155deg, rgba(30,84,54,.58), rgba(15,41,22,.4) 55%, rgba(22,61,34,.52));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.38), inset 0 -1px 0 rgba(255,255,255,.06), inset 0 0 40px rgba(255,255,255,.03);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
-
-/* The gold stub: gold glass */
 .ticket-stub {
   background:
     linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 45%),
     linear-gradient(165deg, rgba(240,200,100,.84), rgba(201,160,40,.72) 55%, rgba(184,144,31,.8));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 1px 0 0 rgba(255,255,255,.22);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
 .ticket-stub-seal {
   background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(6,15,9,.62));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(228,188,90,.35);
 }
-
-/* The punched holes: dark like the page behind, with a thin glass rim */
-.ticket-perforation::before,
-.ticket-perforation::after {
+.ticket-perforation::before, .ticket-perforation::after {
   background: #07120a;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
-}
-
-/* Small parts inside the form panel */
-.ticket-badge {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
 }
 .ticket-brand-icon {
   background: rgba(255,255,255,.08);
@@ -332,33 +346,16 @@
   border-radius: 10px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
 }
-
-/* Form fields: frosted, with a bright top edge */
-.ticket-main input,
-.ticket-main textarea {
+.ticket-main input, .ticket-main textarea {
   background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
   border: 1px solid rgba(255,255,255,.22);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
 }
-.ticket-main input:focus,
-.ticket-main textarea:focus {
+.ticket-main input:focus, .ticket-main textarea:focus {
   background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.07));
   border-color: rgba(245,223,160,.75);
 }
-
-/* "Confirm & Get Exclusive Fare": glossy gold glass */
-.ticket-submit-btn {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 24px rgba(201,160,40,.35);
-}
-.ticket-submit-btn:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 14px 34px rgba(201,160,40,.5); }
-
-/* Phone pop-up: busier background behind, so a stronger tint keeps the text easy to read */
-@media (max-width: 768px) {
+@media (max-width: 768px) {                /* pop-up: stronger tint keeps text readable */
   .ticket-main {
     background:
       linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 34%),
@@ -366,23 +363,10 @@
   }
 }
 
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .ticket-main { background-color: rgba(18,48,30,.92); }
-  .ticket-stub { background-color: rgba(184,144,31,.95); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .ticket-main { background-color: #12301e; -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .ticket-stub { background-color: #b8901f; -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-
 /* ═══════════════════════════════════════════
-   3. DESTINATION CAROUSEL — cards, ‹ › buttons, "View all destinations"
-   The photo fills the whole card; the lower part is a glass panel over it.
+   4. DESTINATION CAROUSEL
+   The photo keeps its size; a blurred mirror of its lower edge sits under the glass panel.
 ═══════════════════════════════════════════ */
-
-/* The photo keeps its original size, so the whole picture is visible (same crop as before).
-   Under the glass panel, a blurred mirror image of the photo's lower edge gives the glass something to blur. */
 .hc-photo { height: 66%; }
 .hc-photo::after {
   content: "";
@@ -391,41 +375,25 @@
   right: -12px;
   top: 100%;
   height: 60%;
-  background: inherit;                 /* the same picture */
+  background: inherit;
   background-size: cover;
   background-position: center bottom;
-  transform: scaleY(-1);               /* mirrored, so it continues the photo's lower edge */
+  transform: scaleY(-1);
   filter: blur(10px) saturate(140%);
 }
-
-/* Ticket edge: glass edge (gold on the centre card) */
-.hc-ticket {
-  border-color: rgba(255,255,255,.3);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
-}
-.hc-card[data-pos="center"] .hc-ticket { border-color: var(--glass-gold-edge); }
+.hc-ticket { border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.4); }
 .hc-ring { border-color: rgba(255,255,255,.3); }
+.hc-card[data-pos="center"] .hc-ticket,
 .hc-card[data-pos="center"] .hc-ring { border-color: var(--glass-gold-edge); }
+.hc-perf { z-index: 2; border-top-color: rgba(245,223,160,.75); }
 
-/* Tear line stays visible above the glass panel */
-.hc-perf {
-  z-index: 2;
-  border-top-color: rgba(245,223,160,.75);
-}
-
-/* "One-way · Economy" pill: dark-gold glass, readable on any photo */
-.hc-badge,
-.hc-card[data-pos="center"] .hc-badge {
+.hc-badge, .hc-card[data-pos="center"] .hc-badge {
   color: #fff8e1;
   text-shadow: 0 1px 2px rgba(0,0,0,.55);
   background: linear-gradient(135deg, rgba(130,95,16,.74), rgba(85,60,8,.56));
   border: 1px solid var(--glass-gold-edge);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 3px 10px rgba(0,0,0,.35);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
-
-/* The lower part of the card: a frosted glass panel over the photo */
 .hc-body {
   left: 0;
   right: 0;
@@ -434,193 +402,49 @@
   z-index: 1;
   box-sizing: border-box;
   padding: 14px 16px 12px 20px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%),
-    rgba(6,15,9,.46);
+  background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%), rgba(6,15,9,.46);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
 .hc-barcode { right: 14px; bottom: 12px; }
-
-/* ‹ › buttons: gold glass circles */
-.hc-nav-btn {
-  color: #fff8e1;
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.hc-nav-btn:hover {
-  background: linear-gradient(135deg, rgba(245,205,110,.7), rgba(228,188,90,.34) 55%, rgba(255,235,170,.5));
-  transform: translateY(-1px);
-}
-
-/* "View all destinations →": gold glass pill */
-.hc-viewall {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.hc-viewall:hover { background: linear-gradient(135deg, rgba(245,205,110,.7), rgba(228,188,90,.34) 55%, rgba(255,235,170,.5)); }
-
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .hc-body { background: rgba(10,28,18,.9); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .hc-body { background: rgba(10,28,18,.94); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .hc-badge, .hc-card[data-pos="center"] .hc-badge { -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
+.hc-nav-btn:hover { transform: translateY(-1px); }
 
 /* ═══════════════════════════════════════════
-   4. TRUST STRIP — the whole band is one glass panel
-   Markup: index.html (.ts) · original styles: css/main.css
+   5. TRUST STRIP — the whole band is one glass panel
 ═══════════════════════════════════════════ */
-
-/* The band itself: dark glass with bright edges */
 .ts {
-  --bronze: #e4bc5a;                       /* icons, bold numbers and separators turn gold */
-  color: #f1f5f2;                          /* text turns light */
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%),
-    rgba(6,15,9,.74);
+  --bronze: #e4bc5a;                       /* icons, numbers and separators turn gold */
+  color: #f1f5f2;
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 50%), rgba(6,15,9,.74);
   border-block: 1px solid rgba(245,223,160,.45);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.4),
-    inset 0 -1px 0 rgba(255,255,255,.08),
-    0 8px 24px rgba(0,0,0,.3);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,.3);
 }
-
-/* The pinned IATA badge: keeps its slanted shape, the dark face becomes glass */
-.ts-badge::after {
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.02)),
-    rgba(6,15,9,.58);
-}
-
-/* Ticker: the old solid ivory edge fades are replaced by a soft mask on the text */
-.ts-ticker::before,
-.ts-ticker::after { display: none; }
-.ts-ticker {
+.ts-badge::after { background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.02)), rgba(6,15,9,.58); }
+.ts-ticker::before, .ts-ticker::after { display: none; }
+.ts-ticker {                               /* soft fade at both ends instead of solid edges */
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 56px), transparent);
   mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 56px), transparent);
 }
-
-/* Bold figures (15+, 24/7, 2005, 81k+) read as bright gold */
 .ts-item b { color: var(--gold-hi, var(--gold2)); }
-
-/* Reduced motion: the strip is swiped by hand, so no edge mask */
-@media (prefers-reduced-motion: reduce) {
-  .ts-ticker { -webkit-mask-image: none; mask-image: none; }
-}
-
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .ts { background: rgba(14,36,24,.92); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .ts { background: rgba(14,36,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
+@media (prefers-reduced-motion: reduce) { .ts-ticker { -webkit-mask-image: none; mask-image: none; } }
 
 /* ═══════════════════════════════════════════
-   5. UMRAH SECTION — "✦ Spiritual Journeys ✦" pill
-   Markup: components/umrah.html (.umrah-eyebrow)
+   6. UMRAH — "Spiritual Journeys" pill
 ═══════════════════════════════════════════ */
-.umrah-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  margin-bottom: 14px;
-  border-radius: 999px;
-  font-size: 1.05rem;
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-@media (max-width: 600px) {
-  .umrah-eyebrow { padding: 8px 20px; font-size: .95rem; }
-}
-
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .umrah-eyebrow { background: rgba(150,118,30,.9); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .umrah-eyebrow { -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
+.umrah-eyebrow { margin-bottom: 14px; font-size: 1.05rem; }
+@media (max-width: 600px) { .umrah-eyebrow { padding: 8px 20px; font-size: .95rem; } }
 
 /* ═══════════════════════════════════════════
-   6. AIRLINES SECTION
-   Heading pill · 4 filter pills · airline cards · Book Now / View offer · offer pop-up
-   Markup: index.html (#airlines) + js/animations.js (cards)
+   7. AIRLINES — cards, offer buttons, offer pop-up
 ═══════════════════════════════════════════ */
-
-/* "Our Airline Partners": dark glass pill with a gold edge (its gold text comes from an inline style in index.html) */
-.airlines-sec .sec-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  border-radius: 999px;
-  text-shadow: 0 1px 2px rgba(0,0,0,.55);
-  background: var(--glass-dark-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The four filter pills: frosted glass, the active one gold glass */
-.airlines-sec .filter-btn {
-  color: #f1f5f2;
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.airlines-sec .filter-btn:hover {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
-  border-color: rgba(245,223,160,.7);
-}
-.airlines-sec .filter-btn.active,
-.airlines-sec .filter-btn.active:hover {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border-color: var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-}
-
-/* The airline card: a glass panel (hover keeps the gold edge from sections.css) */
 .acard {
   background:
     linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 38%),
     linear-gradient(155deg, rgba(30,84,54,.58), rgba(15,41,22,.4) 55%, rgba(22,61,34,.52));
   border: 1px solid var(--glass-edge);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.4),
-    inset 0 -1px 0 rgba(255,255,255,.06),
-    0 24px 50px rgba(0,0,0,.45);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.06), 0 24px 50px rgba(0,0,0,.45);
 }
 .acard-logo-plate { box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 4px 12px rgba(0,0,0,.25); }
-
-/* The stub: glass tinted with each airline's own colour (--brand).
-   Browsers that do not know color-mix() simply keep the original solid stub. */
-.acard-stub {
+.acard-stub {                              /* glass tinted with each airline's colour (--brand) */
   background:
     linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,0) 42%),
     linear-gradient(160deg, rgba(0,0,0,.14), rgba(0,0,0,.36)),
@@ -628,196 +452,48 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
 }
 .notch { box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
-
-/* "Book Now": glossy gold glass */
-.acard .book-btn {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
-}
-/* "View offer": clear glass */
 .acard .offer-btn {
   color: #fff;
   text-shadow: 0 1px 2px rgba(0,0,0,.5);
   background: linear-gradient(135deg, rgba(255,255,255,.3), rgba(255,255,255,.08));
   border: 1px solid rgba(255,255,255,.6);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -1px 0 rgba(255,255,255,.14), 0 6px 16px rgba(0,0,0,.28);
-  -webkit-backdrop-filter: blur(8px) saturate(160%);
-  backdrop-filter: blur(8px) saturate(160%);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  backdrop-filter: var(--glass-blur-sm);
 }
 
-/* Optional: "Show more airlines" button, same glass as the filter pills (delete this block if you do not want it) */
-.airlines-more-btn {
-  color: #f1f5f2;
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.airlines-more-btn:hover {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
-  border-color: rgba(245,223,160,.7);
-}
-
-/* ── View offer pop-up ── */
-.offer-dialog::backdrop {                  /* lighter and blurred, so the glass box has something to show */
-  background: rgba(6,15,9,.55);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
+/* "View offer" pop-up */
+.offer-dialog::backdrop { background: rgba(6,15,9,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .offer-box {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 40%),
-    rgba(10,28,18,.64);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 40%), rgba(10,28,18,.64);
   border: 1px solid rgba(255,255,255,.3);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.4),
-    inset 0 -1px 0 rgba(255,255,255,.06),
-    0 30px 80px rgba(0,0,0,.6);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(255,255,255,.06), 0 30px 80px rgba(0,0,0,.6);
 }
 .offer-img { box-shadow: 0 8px 24px rgba(0,0,0,.4); }
-.offer-close {
-  color: #fff8e1;
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-}
 .offer-close:hover { color: #0b1e10; background: var(--gold); }
-.offer-call {                              /* Call to book: glossy gold glass */
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
-}
-.offer-wa {                                /* WhatsApp: glossy green glass */
+.offer-wa {
   color: #04210f;
   border: 1px solid rgba(255,255,255,.5);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(60,222,120,.95), rgba(37,190,95,.9));
+  background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%), linear-gradient(135deg, rgba(60,222,120,.95), rgba(37,190,95,.9));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.65), inset 0 -2px 6px rgba(0,80,30,.25), 0 6px 16px rgba(0,0,0,.3);
 }
 
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .acard { background-color: rgba(14,38,24,.92); }
-  .offer-box { background: rgba(14,38,24,.96); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .acard { background-color: rgba(14,38,24,.95); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .offer-box { background: rgba(14,38,24,.97); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .offer-dialog::backdrop { background: rgba(6,15,9,.85); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-
 /* ═══════════════════════════════════════════
-   7. WHERE WE FLY
-   Heading pill · 4 region tabs · big feature card · small cards
-   Markup: index.html (#destinations) + js/animations.js
+   8. WHERE WE FLY — feature card and small cards
 ═══════════════════════════════════════════ */
-
-/* "Where We Fly": dark glass pill with a gold edge (its gold text comes from an inline style) */
-.wwf-sec .sec-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  border-radius: 999px;
-  text-shadow: 0 1px 2px rgba(0,0,0,.55);
-  background: var(--glass-dark-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The four region tabs: frosted glass, the active one gold glass */
-.wwf-tab {
-  color: #f1f5f2;
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.wwf-tab:hover {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(228,188,90,.34), rgba(228,188,90,.1) 55%, rgba(228,188,90,.2));
-  border-color: rgba(245,223,160,.7);
-}
-.wwf-tab.on,
-.wwf-tab.on:hover {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border-color: var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-}
-
-/* ── The big feature card ── */
-.wwf-banner {
-  border-color: rgba(255,255,255,.3);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.4),
-    0 30px 70px rgba(0,0,0,.5);
-}
-
-/* "Featured destination" and the "01 / 05" counter: small glass pills */
-.wwf-pill,
-.wwf-idx {
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.55);
-  background: var(--glass-dark-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.wwf-idx {
-  padding: 5px 16px;
-  border-radius: 999px;
-  font-size: 1.15rem;
-}
-
-/* City, country and hook: one frosted glass panel at the bottom-left of the card */
-.wwf-row > div:first-child {
+.wwf-banner { border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 30px 70px rgba(0,0,0,.5); }
+.wwf-idx { padding: 5px 16px; border-radius: 999px; font-size: 1.15rem; }
+.wwf-row > div:first-child {               /* city, country and hook on one glass panel */
   padding: 12px 30px 16px;
   border-radius: 22px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
-    rgba(6,15,9,.42);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%), rgba(6,15,9,.42);
   border: 1px solid rgba(255,255,255,.26);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 14px 30px rgba(0,0,0,.35);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
 
-/* "Get a quote": glossy gold glass */
-.wwf-cta {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 8px 20px rgba(0,0,0,.35);
-}
-
-/* ── The small numbered cards: glass edge and a frosted strip behind the text ── */
-.wwf-tile {
-  border-color: rgba(255,255,255,.28);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 14px 30px rgba(0,0,0,.3);
-}
-.wwf-tile:hover {
-  border-color: var(--glass-gold-edge);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 14px 30px rgba(0,0,0,.3), 0 0 24px rgba(201,160,40,.2);
-}
-.wwf-tile::before {
+.wwf-tile { border-color: rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 14px 30px rgba(0,0,0,.3); }
+.wwf-tile:hover { border-color: var(--glass-gold-edge); box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 14px 30px rgba(0,0,0,.3), 0 0 24px rgba(201,160,40,.2); }
+.wwf-tile::before {                        /* frosted strip behind the city name */
   content: "";
   position: absolute;
   left: 0;
@@ -825,20 +501,13 @@
   bottom: 0;
   height: 54%;
   z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
-    rgba(6,15,9,.42);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%), rgba(6,15,9,.42);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
-.wwf-tname,
-.wwf-tcountry { position: relative; z-index: 1; }
+.wwf-tname, .wwf-tcountry { position: relative; z-index: 1; }
 .wwf-n { z-index: 1; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
 
-/* Phones: the small cards are pills, so they become glass pills like the tabs.
-   Your existing rule uses !important, so these need it too. */
-@media (max-width: 700px) {
+@media (max-width: 700px) {                /* small cards become glass pills (sections.css uses !important) */
   .wwf-tile::before { display: none; }
   .wwf-tile {
     background: var(--glass-fill) !important;
@@ -851,69 +520,10 @@
   .wwf-idx { font-size: 1rem; padding: 4px 12px; }
 }
 
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .wwf-row > div:first-child,
-  .wwf-tile::before { background: rgba(10,28,18,.88); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .wwf-row > div:first-child,
-  .wwf-tile::before { background: rgba(10,28,18,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-
 /* ═══════════════════════════════════════════
-   8. WHY SHADMAN TRAVELS
-   Heading pill · stats panel · four stat tiles (the green board is unchanged)
-   Markup: index.html (#why-us)
+   9. WHY SHADMAN TRAVELS — stats panel and tiles
 ═══════════════════════════════════════════ */
-
-/* Soft colour glows behind the section, so the glass has something to blur on the cream background */
-.wy-sec { position: relative; overflow: hidden; }
-.wy-sec::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 88%, rgba(201,160,40,.38), transparent 34%),
-    radial-gradient(circle at 88% 82%, rgba(30,84,54,.30), transparent 36%),
-    radial-gradient(circle at 50% 6%, rgba(228,188,90,.26), transparent 34%);
-}
-.wy-sec .sec-inner { position: relative; z-index: 1; }
-
-/* Light glass (for cream backgrounds) */
-.wy-sec {
-  --glass-light-fill:   linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.34) 55%, rgba(255,255,255,.55));
-  --glass-light-edge:   rgba(255,255,255,.9);
-  --glass-light-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 14px 34px rgba(15,41,22,.16);
-}
-
-/* "Why Shadman Travels": light glass pill with deep-gold text */
-.wy-sec .sec-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  border-radius: 999px;
-  color: #8a6410;
-  background: var(--glass-light-fill);
-  border: 1px solid var(--glass-light-edge);
-  box-shadow: var(--glass-light-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The stats area: one big glass panel */
-.wy-stats {
-  padding: 30px 26px 26px;
-  border-radius: 30px;
-  background: var(--glass-light-fill);
-  border: 1px solid var(--glass-light-edge);
-  box-shadow: var(--glass-light-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* Each stat: its own glass tile inside the panel */
+.wy-stats { padding: 30px 26px 26px; border-radius: 30px; }
 .wy-stat {
   padding: 22px 10px 18px;
   border-radius: 22px;
@@ -921,241 +531,58 @@
   border: 1px solid rgba(255,255,255,.85);
   box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.06), 0 8px 20px rgba(15,41,22,.12);
 }
-
-/* Tablet: two per row */
-@media (max-width: 900px) {
-  .wy-stats { padding: 22px 16px; }
-}
-
-/* Phone: four small tiles in one row */
+@media (max-width: 900px) { .wy-stats { padding: 22px 16px; } }
 @media (max-width: 600px) {
   .wy-stats { padding: 12px 8px; border-radius: 22px; }
   .wy-stat { padding: 10px 2px 8px; border-radius: 14px; }
 }
 
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .wy-sec .sec-eyebrow, .wy-stats { background: rgba(255,255,255,.82); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .wy-sec .sec-eyebrow, .wy-stats { background: rgba(255,255,255,.9); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-
 /* ═══════════════════════════════════════════
-   9. REVIEWS SECTION
-   Section panel · heading pill · rating card · review cards · Google bar and button
-   Markup: index.html (.rv2-sec) + js/google-reviews.js
+   10. REVIEWS
 ═══════════════════════════════════════════ */
-
-/* Soft glows behind the panel, so the glass has something to blur */
-.rv2-sec { position: relative; overflow: hidden; }
-.rv2-sec::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 10% 30%, rgba(201,160,40,.20), transparent 32%),
-    radial-gradient(circle at 90% 75%, rgba(40,110,70,.30), transparent 36%);
-}
-
-/* No outer panel: the section content sits directly on the section background */
-.rv2-sec .sec-inner { position: relative; z-index: 1; }
-
-/* "What Our Customers Say": its own dark glass pill (gold text comes from an inline style) */
-.rv2-sec .sec-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  border-radius: 999px;
-  text-shadow: 0 1px 2px rgba(0,0,0,.55);
-  background: var(--glass-dark-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The 4.5 rating card: glossy gold glass */
 .rv2-rate {
   border: 1px solid rgba(255,255,255,.6);
   background:
     linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 45%),
     linear-gradient(160deg, rgba(245,223,160,.95), rgba(228,188,90,.9) 40%, rgba(201,160,40,.92));
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.8),
-    inset 0 -2px 8px rgba(138,100,16,.25),
-    0 20px 40px rgba(0,0,0,.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), inset 0 -2px 8px rgba(138,100,16,.25), 0 20px 40px rgba(0,0,0,.4);
 }
-
-/* The featured review: frosted glass with a gold edge */
 .rv2-feat {
   background:
     linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
     linear-gradient(150deg, rgba(30,84,54,.6), rgba(11,30,16,.5));
   border: 1px solid var(--glass-gold-edge);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 20px 40px rgba(0,0,0,.35);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The four small review cards: frosted glass */
-.rv2-card {
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
 .rv2-card:hover { border-color: var(--glass-gold-edge); }
-
-/* "See what customers say in full" bar */
-.rv2-cta {
-  background: var(--glass-fill-soft);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow-soft);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* "Read all on Google": glossy gold glass */
-.rv2-gb {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
-}
-
-/* Phones: panel side padding stays 20px so the swipe carousel (margin 0 -20px) still lines up */
-@media (max-width: 620px) {
-  .rv2-cta {                               /* on phones only the button shows, so no bar around it */
-    background: none;
-    border: 0;
-    box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .rv2-feat, .rv2-card { background-color: rgba(14,38,24,.9); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .rv2-feat, .rv2-card, .rv2-cta {
-    background-color: rgba(14,38,24,.95);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
+.rv2-cta { background: var(--glass-fill-soft); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow-soft); }
+@media (max-width: 620px) {                /* on phones only the button shows, no bar around it */
+  .rv2-cta { background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 /* ═══════════════════════════════════════════
-   10. FAQ SECTION
-   Heading pill · section panel (desktop) · topic tabs · question cards · answer panel · Call / WhatsApp
-   Markup: index.html (#faq) · behaviour: js/faq.js · original styles: css/faq.css
+   11. FAQ
 ═══════════════════════════════════════════ */
-
-/* Soft colour glows behind the glass (the section is cream) */
-.faq3-sec { position: relative; overflow: hidden; }
-.faq3-sec::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(201,160,40,.34), transparent 34%),
-    radial-gradient(circle at 92% 80%, rgba(30,84,54,.26), transparent 36%),
-    radial-gradient(circle at 50% 100%, rgba(228,188,90,.26), transparent 34%);
-}
-.faq3-sec .sec-inner { position: relative; z-index: 1; }
-
-/* Light glass (for cream backgrounds) */
-.faq3-sec {
-  --glass-light-fill:   linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.34) 55%, rgba(255,255,255,.55));
-  --glass-light-edge:   rgba(255,255,255,.9);
-  --glass-light-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(15,41,22,.08), 0 14px 34px rgba(15,41,22,.16);
-}
-
-/* "Got Questions?": light glass pill with deep-gold text */
-.faq3-sec .sec-eyebrow {
-  display: inline-block;
-  padding: 9px 26px;
-  border-radius: 999px;
-  color: #8a6410;
-  background: var(--glass-light-fill);
-  border: 1px solid var(--glass-light-edge);
-  box-shadow: var(--glass-light-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* The topic tabs: frosted capsules, the active one dark green glass */
-.faq3-tab {
-  background: var(--glass-light-fill);
-  border: 1px solid var(--glass-light-edge);
-  box-shadow: var(--glass-light-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.faq3-tab:hover { border-color: var(--gold); }
+.faq3-tab:hover, .faq3-q:hover { border-color: var(--gold); }
 .faq3-tab[aria-pressed="true"] {
   color: var(--gold3);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 50%),
-    linear-gradient(160deg, rgba(40,100,62,.94), rgba(15,41,22,.92));
+  background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 50%), linear-gradient(160deg, rgba(40,100,62,.94), rgba(15,41,22,.92));
   border: 1px solid rgba(255,255,255,.3);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 6px rgba(0,0,0,.25), 0 8px 18px rgba(15,41,22,.3);
 }
-
-/* The question cards: frosted glass, the open one brighter with a gold edge */
-.faq3-q {
-  background: var(--glass-light-fill);
-  border: 1px solid var(--glass-light-edge);
-  box-shadow: var(--glass-light-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.faq3-q:hover { border-color: var(--gold); }
 .faq3-q[aria-pressed="true"] {
   background: linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.62));
   border-color: var(--gold);
   box-shadow: inset 0 1px 0 #fff, 0 12px 26px rgba(15,41,22,.18);
 }
-
-/* The answer panel: dark green glass */
 .faq3-answer {
   background:
     linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 38%),
     linear-gradient(160deg, rgba(22,66,42,.82), rgba(11,30,16,.76));
   border-color: var(--glass-gold-edge);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 24px 50px rgba(15,41,22,.3);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
 }
-
-/* Call: glossy gold glass. WhatsApp: glossy green glass */
-.faq3-call {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
-}
-.faq3-wa {
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.5);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(30,150,80,.95), rgba(18,115,60,.92));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,60,25,.3), 0 6px 16px rgba(0,0,0,.3);
-}
-
-/* Desktop only: the whole FAQ content sits on one large glass panel */
-@media (min-width: 901px) {
+@media (min-width: 901px) {                /* desktop: the whole FAQ sits on one glass panel */
   .faq3-sec .sec-inner {
     max-width: 1180px;
     margin: 0 auto;
@@ -1168,118 +595,40 @@
     backdrop-filter: var(--glass-blur);
   }
 }
-
-/* Phones and tablets: the open ticket (question + answer) is one dark glass ticket */
-@media (max-width: 900px) {
+@media (max-width: 900px) {                /* phones: the open ticket is one dark glass ticket */
   .faq3-q[aria-pressed="true"] {
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 60%),
-      linear-gradient(160deg, rgba(22,66,42,.84), rgba(11,30,16,.8));
+    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 60%), linear-gradient(160deg, rgba(22,66,42,.84), rgba(11,30,16,.8));
     border-color: var(--glass-gold-edge);
     box-shadow: none;
   }
 }
 
-/* Fallbacks: no backdrop blur support, or transparency turned off */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q { background: rgba(255,255,255,.85); }
-  .faq3-answer { background: rgba(14,38,24,.94); }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .faq3-sec .sec-eyebrow, .faq3-tab, .faq3-q { background: rgba(255,255,255,.92); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .faq3-answer { background: rgba(14,38,24,.96); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  @media (min-width: 901px) {
-    .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  }
-}
-
 /* ═══════════════════════════════════════════
-   11. FOOTER
-   Glass panel · trust box · 4 contact pills · website text · social buttons
-   Markup: components/footer.html (.f2) · original styles: css/footer.css
+   12. FOOTER
 ═══════════════════════════════════════════ */
-
-/* Soft colour glows behind the panel, so the glass has something to blur */
-footer { position: relative; overflow: hidden; }
-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 8% 30%, rgba(201,160,40,.26), transparent 32%),
-    radial-gradient(circle at 92% 70%, rgba(40,110,70,.40), transparent 36%),
-    radial-gradient(circle at 50% 100%, rgba(228,188,90,.18), transparent 34%);
-}
-
-/* No outer panel: the footer content sits directly on the footer background */
-footer .f2 { position: relative; z-index: 1; }
-
-/* The 2005 / 15+ / 3322 box: its own glass panel inside */
 .f2-trust {
   background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 55%, rgba(255,255,255,.08));
   border: 1px solid rgba(245,223,160,.4);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 10px 24px rgba(0,0,0,.3);
 }
 
-/* Call: glossy gold glass */
-.f2-btn-call {
-  color: #0b1e10;
-  border: 1px solid rgba(255,255,255,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+/* ═══════════════════════════════════════════
+   REDUCED TRANSPARENCY — people who turned transparency off get near-solid panels
+═══════════════════════════════════════════ */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-blur: none;
+    --glass-blur-sm: none;
+    --glass-dark-fill: rgba(14,38,24,.96);
+    --glass-gold-fill: rgba(150,118,30,.95);
+  }
+  .ticket-main, .acard, .offer-box, .hc-body, .ts, .rv2-feat, .rv2-card, .rv2-cta,
+  .faq3-answer, .wwf-row > div:first-child, .wwf-tile::before,
+  .quick-route-chip, #recentChipWrap .recent-chip, .hero-airlines, .hero-review { background-color: rgba(14,38,24,.95); }
+  .ticket-stub { background-color: #b8901f; }
+  .wy-sec .sec-eyebrow, .faq3-sec .sec-eyebrow, .wy-stats, .faq3-tab, .faq3-q { background: rgba(255,255,255,.92); }
+  .offer-dialog::backdrop { background: rgba(6,15,9,.85); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
-/* WhatsApp: glossy green glass */
-.f2-btn-wa {
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.5);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 55%),
-    linear-gradient(135deg, rgba(30,150,80,.95), rgba(18,115,60,.92));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,60,25,.3), 0 6px 16px rgba(0,0,0,.3);
-}
-/* Email us and Find us on Maps: frosted glass, gold tint on hover */
-.f2-btn-ghost {
-  color: #f1f5f2;
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.f2-btn-ghost:hover {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(228,188,90,.4), rgba(228,188,90,.12) 55%, rgba(228,188,90,.24));
-  border-color: rgba(245,223,160,.75);
-}
-
-/* Facebook and Instagram: glass circles */
-.f2-soc {
-  color: #fff8e1;
-  background: var(--glass-fill);
-  border: 1px solid var(--glass-edge);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.f2-soc:hover {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(228,188,90,.5), rgba(228,188,90,.16) 55%, rgba(228,188,90,.3));
-  border-color: rgba(245,223,160,.75);
-}
-
-/* shadmantravels.com: a glass pill */
-.f2-site {
-  padding: 9px 20px;
-  border-radius: 999px;
-  color: #fff8e1;
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
-  background: var(--glass-gold-fill);
-  border: 1px solid var(--glass-gold-edge);
-  box-shadow: var(--glass-gold-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+@media (prefers-reduced-transparency: reduce) and (min-width: 901px) {
+  .faq3-sec .sec-inner { background: rgba(255,255,255,.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
