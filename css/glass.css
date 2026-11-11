@@ -946,3 +946,114 @@
 @media (prefers-reduced-transparency: reduce) {
   .wy-sec .sec-eyebrow, .wy-stats { background: rgba(255,255,255,.9); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* ═══════════════════════════════════════════
+   9. REVIEWS SECTION
+   Section panel · heading pill · rating card · review cards · Google bar and button
+   Markup: index.html (.rv2-sec) + js/google-reviews.js
+═══════════════════════════════════════════ */
+
+/* Soft glows behind the panel, so the glass has something to blur */
+.rv2-sec { position: relative; overflow: hidden; }
+.rv2-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 30%, rgba(201,160,40,.20), transparent 32%),
+    radial-gradient(circle at 90% 75%, rgba(40,110,70,.30), transparent 36%);
+}
+
+/* No outer panel: the section content sits directly on the section background */
+.rv2-sec .sec-inner { position: relative; z-index: 1; }
+
+/* "What Our Customers Say": its own dark glass pill (gold text comes from an inline style) */
+.rv2-sec .sec-eyebrow {
+  display: inline-block;
+  padding: 9px 26px;
+  border-radius: 999px;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  background: var(--glass-dark-fill);
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: var(--glass-gold-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The 4.5 rating card: glossy gold glass */
+.rv2-rate {
+  border: 1px solid rgba(255,255,255,.6);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 45%),
+    linear-gradient(160deg, rgba(245,223,160,.95), rgba(228,188,90,.9) 40%, rgba(201,160,40,.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.8),
+    inset 0 -2px 8px rgba(138,100,16,.25),
+    0 20px 40px rgba(0,0,0,.4);
+}
+
+/* The featured review: frosted glass with a gold edge */
+.rv2-feat {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.02) 45%),
+    linear-gradient(150deg, rgba(30,84,54,.6), rgba(11,30,16,.5));
+  border: 1px solid var(--glass-gold-edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 20px 40px rgba(0,0,0,.35);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* The four small review cards: frosted glass */
+.rv2-card {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.rv2-card:hover { border-color: var(--glass-gold-edge); }
+
+/* "See what customers say in full" bar */
+.rv2-cta {
+  background: var(--glass-fill-soft);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow-soft);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* "Read all on Google": glossy gold glass */
+.rv2-gb {
+  color: #0b1e10;
+  border: 1px solid rgba(255,255,255,.55);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(228,188,90,.96), rgba(201,160,40,.9));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -2px 6px rgba(138,100,16,.25), 0 6px 16px rgba(0,0,0,.3);
+}
+
+/* Phones: panel side padding stays 20px so the swipe carousel (margin 0 -20px) still lines up */
+@media (max-width: 620px) {
+  .rv2-cta {                               /* on phones only the button shows, so no bar around it */
+    background: none;
+    border: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Fallbacks: no backdrop blur support, or transparency turned off */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .rv2-sec .sec-inner { background: rgba(14,36,24,.9); }
+  .rv2-feat, .rv2-card { background-color: rgba(14,38,24,.9); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .rv2-sec .sec-inner, .rv2-feat, .rv2-card, .rv2-cta {
+    background-color: rgba(14,38,24,.95);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
