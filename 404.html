@@ -1,122 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found | Shadman Travels & Tours</title>
-  <meta name="description" content="Page not found — return to Shadman Travels & Tours homepage for flight bookings, Umrah packages, and visa services.">
-  <meta name="robots" content="noindex, follow">
 
-  <link rel="stylesheet" href="/css/fontawesome/all.min.css"/>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-054Q03RSLR"></script>
+<script src="/js/analytics-init.js"></script>
 
-  <link rel="stylesheet" href="/css/variables.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/footer.css">
-  <link rel="stylesheet" href="/css/responsive.css">
+<!-- Microsoft Clarity -->
+<script src="/js/clarity-init.js"></script>
 
-  <style>
-    .error-wrap {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 140px 24px 100px;
-      text-align: center;
-      color: var(--ink);
-    }
-    .error-code {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      opacity: 0.35;
-      margin-bottom: 16px;
-    }
-    .error-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      color: var(--g700);
-      margin-bottom: 16px;
-    }
-    .error-sub {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 40px;
-    }
-    .error-actions {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .error-links {
-      margin-top: 40px;
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-    .error-links a {
-      color: var(--gold);
-      font-weight: 600;
-      margin: 0 8px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found | Shadman Travels & Tours</title>
+<meta name="description" content="Page not found — return to Shadman Travels & Tours homepage for flight bookings, Umrah packages, and visa services.">
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" href="/images/logos/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/logos/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/fontawesome/all.min.css"/>
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/responsive.css">
+
+<style>
+  .error-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 72px 24px 100px;
+    text-align: center;
+    color: var(--ink);
+  }
+  .error-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.35;
+    margin-bottom: 16px;
+  }
+  .error-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: var(--g700);
+    margin-bottom: 16px;
+  }
+  .error-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .error-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .error-links {
+    margin-top: 40px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .error-links a {
+    color: var(--gold);
+    font-weight: 600;
+    margin: 0 8px;
+  }
+</style>
 </head>
 <body>
 
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a href="/" class="nav-brand">
-        <div class="brand-text">
-          <div class="name">Shadman Travels</div>
-          <div class="tag">New Horizon Everyday</div>
-        </div>
-      </a>
-      <div class="nav-menu">
-        <a href="/#flights"      class="nav-link">Flights</a>
-        <a href="/#airlines"     class="nav-link">Airlines</a>
-        <a href="/#destinations" class="nav-link">Destinations</a>
-        <a href="/#why-us"       class="nav-link">About</a>
-        <a href="/#coming-soon"  class="nav-link">Services</a>
-        <a href="/#contact"      class="nav-link">Contact</a>
-        <a href="/#faq"          class="nav-link">FAQ</a>
+<!-- INCLUDE:navbar -->
+<!-- Announcement bar: running ticker. Messages come from data/announcements.json (see js/navbar.js).
+     Stays hidden if the data cannot be loaded. -->
+<div class="ab" id="announceBar" role="region" aria-label="Announcements" hidden>
+  <div class="ab-inner">
+    <span class="ab-label">Announcements</span>
+    <div class="ab-ticker"><div class="ab-track" id="abTrack"></div></div>
+  </div>
+</div>
+
+<nav id="navbar" aria-label="Main">
+  <div class="nav-inner">
+
+    <!-- Brand -->
+    <a href="/" class="nav-brand">
+      <picture>
+        <source srcset="/images/logos/logo.webp" type="image/webp">
+        <img src="/images/logos/logo.png" alt="Shadman Travels & Tours logo" class="nav-logo-img">
+      </picture>
+      <div class="brand-text">
+        <div class="name">Shadman Travels</div>
+        <div class="tag">New Horizon Everyday</div>
       </div>
-    </div>
-  </nav>
+    </a>
 
-  <main class="error-wrap">
-    <div class="error-code">404</div>
-    <h1 class="error-title">Page Not Found</h1>
-    <p class="error-sub">
-      The page you're looking for doesn't exist or may have been moved.<br>
-      Let's get you back on track.
-    </p>
-    <div class="error-actions">
-      <a href="/" class="btn-gold">
-        <i class="fas fa-home"></i> Back to Homepage
-      </a>
-      <a href="tel:+923000041510" class="btn-ghost" style="color:var(--g700);border-color:var(--g700)">
-        <i class="fas fa-phone"></i> Call Us Now
-      </a>
+    <!-- Desktop navigation links -->
+    <div class="nav-menu">
+      <a href="/#flights"      class="nav-link">Flights</a>
+      <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="nav-link umrah-dual-link">Umrah & Hajj</a>
+      <a href="/#airlines"     class="nav-link">Airlines</a>
+      <a href="/#destinations" class="nav-link">Destinations</a>
+      <a href="/#why-us"       class="nav-link">About</a>
+      <a href="/#faq"          class="nav-link">FAQ</a>
+      <a href="/#contact"      class="nav-link">Contact</a>
     </div>
-    <div class="error-links">
-      <a href="/#flights">Search Flights</a>
-      <a href="/#airlines">Our Airlines</a>
-      <a href="/#contact">Contact Us</a>
-      <a href="/pages/about.html">About Us</a>
-    </div>
-  </main>
 
-  <footer>
-    <div class="foot-inner">
-      <div class="foot-bottom">
-        <p>© <span id="footer-year">2026</span> Shadman Travels & Tours. All rights reserved.</p>
-        <p><span class="lic">Govt. License #3322</span></p>
-      </div>
-    </div>
-  </footer>
+    <!-- Phones and tablets only: licence pill (the menu lives in the bottom dock) -->
+    <span class="nav-lic">Lic. 3322</span>
 
-  <script src="/js/footer-year.js"></script>
+  </div>
+</nav>
+<!-- /INCLUDE:navbar -->
+
+<!-- INCLUDE:mobile-menu -->
+<!-- Full-screen route menu (phones and tablets). Opened by the dock's Menu button, see js/navbar.js -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Site menu" aria-hidden="true">
+  <div class="mm-head">
+    <div class="mm-label">Choose your route</div>
+    <button type="button" class="mm-close" id="mmClose" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+  </div>
+
+  <div class="mm-route">
+    <a href="/#flights" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Flights</span><span class="mm-cap">Search and get a fare quote</span>
+    </a>
+    <a href="/pages/umrah-packages.html" target="_blank" rel="noopener" class="mm-stop umrah-dual-link">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Umrah &amp; Hajj</span><span class="mm-cap">Packages and hotels</span>
+    </a>
+    <a href="/#airlines" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Airlines</span><span class="mm-cap">15+ airline partners</span>
+    </a>
+    <a href="/#destinations" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Destinations</span><span class="mm-cap">Where we fly</span>
+    </a>
+    <a href="/#why-us" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Why Us</span><span class="mm-cap">IATA licensed since 2005</span>
+    </a>
+    <a href="/#faq" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">FAQ</span><span class="mm-cap">Quick answers</span>
+    </a>
+    <a href="/#contact" class="mm-stop">
+      <i class="fa-solid fa-plane mm-plane" aria-hidden="true"></i>
+      <span class="mm-name">Contact</span><span class="mm-cap">Call or WhatsApp us</span>
+    </a>
+  </div>
+</div>
+
+<!-- Permanent bottom dock (phones and tablets) -->
+<div class="dock" id="dock" role="navigation" aria-label="Quick actions">
+  <a href="/#flights" class="dock-item"><i class="fa-solid fa-plane" aria-hidden="true"></i><span>Flights</span></a>
+  <a href="/#umrah" class="dock-item"><i class="fa-solid fa-moon" aria-hidden="true"></i><span>Umrah</span></a>
+  <a href="tel:+923000041510" class="dock-call" aria-label="Call now"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
+  <a href="https://wa.me/923000041510" class="dock-item dock-chat" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>Chat</span></a>
+  <button type="button" class="dock-item" id="dockMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><i class="fa-solid fa-bars" aria-hidden="true"></i><span>Menu</span></button>
+</div>
+<!-- /INCLUDE:mobile-menu -->
+
+<main class="error-wrap">
+  <div class="error-code">404</div>
+  <h1 class="error-title">Page Not Found</h1>
+  <p class="error-sub">
+    The page you're looking for doesn't exist or may have been moved.<br>
+    Let's get you back on track.
+  </p>
+  <div class="error-actions">
+    <a href="/" class="btn-gold">
+      <i class="fas fa-home"></i> Back to Homepage
+    </a>
+    <a href="tel:+923000041510" class="btn-ghost" style="color:var(--g700);border-color:var(--g700)">
+      <i class="fas fa-phone"></i> Call Us Now
+    </a>
+  </div>
+  <div class="error-links">
+    <a href="/#flights">Search Flights</a>
+    <a href="/#airlines">Our Airlines</a>
+    <a href="/#contact">Contact Us</a>
+    <a href="/pages/about.html">About Us</a>
+  </div>
+</main>
+
+<!-- INCLUDE:footer -->
+<footer>
+  <div class="foot-inner f2">
+
+    <!-- Brand -->
+    <div class="f2-brand">
+      <div class="f2-name">Shadman Travels &amp; Tours</div>
+      <span class="f2-tag">New Horizon Everyday</span>
+    </div>
+
+    <div class="f2-path" aria-hidden="true"><i class="fa-solid fa-plane"></i></div>
+
+    <p class="f2-desc">Pakistan's premier IATA-licensed flight agency. Exclusive guaranteed fares on 15+ airlines.</p>
+
+    <!-- Trust panel -->
+    <div class="f2-trust">
+      <div class="f2-stat"><span class="f2-num">2005</span><span class="f2-lbl">Serving travellers since</span></div>
+      <div class="f2-stat"><span class="f2-num">15+</span><span class="f2-lbl">Airlines, exclusive fares</span></div>
+      <div class="f2-stat"><span class="f2-num">3322</span><span class="f2-lbl">Govt. licence &middot; IATA</span></div>
+    </div>
+
+    <!-- Airlines -->
+    <div class="f2-airlines">
+      <h4>Airlines we fly</h4>
+      <ul>
+        <li class="foot-airline-name">Airblue</li>
+        <li class="foot-airline-name">AirSial</li>
+        <li class="foot-airline-name">Emirates</li>
+        <li class="foot-airline-name">Etihad Airways</li>
+        <li class="foot-airline-name">Fly Jinnah</li>
+        <li class="foot-airline-name">Flyadeal</li>
+        <li class="foot-airline-name">FlyDubai</li>
+        <li class="foot-airline-name">Flynas</li>
+        <li class="foot-airline-name">Gulf Air</li>
+        <li class="foot-airline-name">Oman Air</li>
+        <li class="foot-airline-name">PIA</li>
+        <li class="foot-airline-name">Qatar Airways</li>
+        <li class="foot-airline-name">SalamAir</li>
+        <li class="foot-airline-name">Saudia Airlines</li>
+        <li class="foot-airline-name">Turkish Airlines</li>
+      </ul>
+    </div>
+
+    <!-- Contact buttons. id="contact" is the target of the navbar Contact link: keep it. -->
+    <div class="f2-actions" id="contact">
+      <a class="f2-btn f2-btn-call" href="tel:+923000041510"><i class="fa-solid fa-phone"></i> Call +92 300 0041510</a>
+      <a class="f2-btn f2-btn-wa" href="https://wa.me/923000041510" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      <a class="f2-btn f2-btn-ghost" href="mailto:shadmantravel@yahoo.com?subject=Travel%20Inquiry%20-%20Shadman%20Travels"><i class="fa-solid fa-envelope"></i> Email us</a>
+      <a class="f2-btn f2-btn-ghost" href="https://maps.app.goo.gl/VC3xpDUezByyPFrX7" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Find us on Maps</a>
+    </div>
+
+    <!-- Social -->
+    <div class="f2-social">
+      <a class="f2-soc" href="https://www.facebook.com/shadmantravels/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a class="f2-soc" href="https://instagram.com/shadman_travels" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a class="f2-site" href="https://shadmantravels.com" target="_blank" rel="noopener">shadmantravels.com</a>
+    </div>
+
+    <!-- Copyright bar -->
+    <div class="foot-bottom">
+      <p>© <span id="footer-year">2026</span> Shadman Travels &amp; Tours. All rights reserved. <span class="lic">IATA Licensed · Govt. Lic. 3322</span></p>
+      <p class="foot-legal-links">
+        <a href="/pages/about.html">About Us</a>
+        <span>·</span>
+        <a href="/pages/privacy-policy.html">Privacy Policy</a>
+        <span>·</span>
+        <a href="/pages/terms.html">Terms &amp; Conditions</a>
+        <span>·</span>
+        <a href="/pages/cookies.html">Cookie Policy</a>
+      </p>
+      <p>Your Journey. Our Commitment. 🌍</p>
+    </div>
+
+  </div>
+</footer><!-- /footer -->
+<!-- /INCLUDE:footer -->
+
+<a href="https://wa.me/923000041510" class="wa-fab" target="_blank" rel="noopener">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="wa-label">Chat on WhatsApp</span>
+</a>
+
+<script src="/js/navbar.js" defer></script>
+<script src="/js/footer-year.js"></script>
 
 </body>
 </html>

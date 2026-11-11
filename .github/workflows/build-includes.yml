@@ -8,6 +8,7 @@ on:
     paths:
       - 'components/**'
       - 'index.html'
+      - '404.html'
       - 'pages/**'
       - 'scripts/build-includes.js'
       - '.github/workflows/build-includes.yml'
@@ -36,4 +37,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild HTML includes from components/ [skip ci]"
-          file_pattern: 'index.html pages/*.html'
+          file_pattern: 'index.html pages/*.html 404.html'

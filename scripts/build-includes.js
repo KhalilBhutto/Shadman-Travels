@@ -34,6 +34,7 @@ const TARGET_FILES = [
   'pages/cookies.html',
   'pages/umrah-packages.html',
   'pages/hotel-gallery.html',
+  '404.html',
 ];
 
 const INCLUDE_PATTERN = /<!--\s*INCLUDE:(\w[\w-]*)\s*-->[\s\S]*?<!--\s*\/INCLUDE:\1\s*-->/g;
