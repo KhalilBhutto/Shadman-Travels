@@ -67,38 +67,38 @@
 .route-tracer-wrap {
   max-width: 860px;
   height: auto;
-  margin: 0 auto 6px;
+  margin: 0 auto 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .rm { display: flex; align-items: center; justify-content: center; }
 
 .rm-card {
-  width: 210px;
+  width: 190px;
   box-sizing: border-box;
-  padding: 11px 16px;
+  padding: 9px 14px;
   border-radius: 14px;
   background: rgba(3, 20, 15, .62);
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 214, 107, .55);
-  text-align: right;
+  text-align: center;
 }
-.rm-to { border-color: rgba(111, 242, 224, .55); text-align: left; }
+.rm-to { border-color: rgba(111, 242, 224, .55); text-align: center; }
 
 .rm-lab {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 7px;
   font-size: 10px;
   letter-spacing: .2em;
   color: #E3CF98;
 }
-.rm-to .rm-lab { justify-content: flex-start; }
+.rm-to .rm-lab { justify-content: center; }
 
 .rm-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -112,20 +112,20 @@
   display: block;
   margin-top: 4px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1;
   color: #FFD66B;
 }
 .rm-to .rm-code { color: #6FF2E0; }
-.rm-city { display: block; margin-top: 4px; font-size: 14px; font-weight: 700; color: #fff; }
-.rm-ctry { display: block; font-size: 11px; color: rgba(255, 255, 255, .66); }
+.rm-city { display: block; margin-top: 4px; font-size: 13px; font-weight: 700; color: #fff; }
+.rm-ctry { display: block; font-size: 10px; color: rgba(255, 255, 255, .66); }
 
 .rm-conn { width: 22px; height: 1px; flex: 0 0 22px; background: linear-gradient(90deg, rgba(255,214,107,0), #FFD66B); }
 .rm-conn-b { background: linear-gradient(90deg, #6FF2E0, rgba(111,242,224,0)); }
 
-.rm-globe { width: 176px; height: 176px; flex: 0 0 176px; position: relative; }
-.rm-globe canvas { position: absolute; left: 50%; top: 50%; width: 204px; height: 204px; transform: translate(-50%, -50%); }
+.rm-globe { width: 150px; height: 150px; flex: 0 0 150px; position: relative; }
+.rm-globe canvas { position: absolute; left: 50%; top: 50%; width: 176px; height: 176px; transform: translate(-50%, -50%); }
 
 .rm-readout {
   display: flex;
@@ -133,13 +133,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  padding: 7px 16px;
+  padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid rgba(229, 195, 109, .45);
   background: rgba(3, 20, 15, .66);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
-  font-size: 12px;
+  font-size: 11.5px;
   color: #F3EEDC;
 }
 .rm-readout b { letter-spacing: .1em; }
@@ -147,15 +147,18 @@
 .rm-readout .rm-time { color: rgba(243, 238, 220, .78); }
 
 @media (max-width: 900px) {
-  .rm-card { width: 98px; padding: 9px 10px; border-radius: 14px; }
-  .rm-lab { font-size: 9px; letter-spacing: .18em; gap: 6px; }
-  .rm-code { font-size: 28px; margin-top: 2px; }
-  .rm-city { font-size: 11px; margin-top: 2px; }
+  .rm-card { width: 88px; padding: 7px 8px; border-radius: 12px; }
+  .rm-lab { font-size: 8.5px; letter-spacing: .16em; gap: 5px; }
+  .rm-code { font-size: 24px; margin-top: 2px; }
+  .rm-city { font-size: 10.5px; margin-top: 1px; }
   .rm-ctry { display: none; }
   .rm-conn { display: none; }
-  .rm-globe { width: 154px; height: 150px; flex-basis: 154px; }
-  .rm-globe canvas { width: 162px; height: 162px; }
-  .rm-readout { font-size: 11px; padding: 7px 14px; gap: 8px; }
+  .rm-globe { width: 132px; height: 128px; flex-basis: 132px; }
+  .rm-globe canvas { width: 144px; height: 144px; }
+  .rm-readout { font-size: 10.5px; padding: 6px 12px; gap: 6px; }
+  .since-wrap { display: none !important; }
+  .wgt-eyebrow h3 { font-size: 1.4rem; }
+  .route-tracer-wrap + .widget-wrap { margin-top: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -164,4 +167,16 @@
 
 /* The old tracer was a 130px box the widget overlapped by 50px; the medallion
    is taller and fills its own space, so the widget sits cleanly beneath it. */
-.route-tracer-wrap + .widget-wrap { margin-top: 10px; }
+.route-tracer-wrap + .widget-wrap { margin-top: 6px; }
+
+/* ── Compact spacing around the search widget ── */
+.wgt-eyebrow { margin-bottom: 14px; }
+.wgt-eyebrow h3 { margin-top: 4px; }
+#recentChipWrap { margin-top: 10px; }
+
+@media (min-width: 901px) {
+  .wgt-eyebrow h3 { font-size: 1.7rem; }
+}
+@media (min-width: 1001px) {
+  .widget-wrap { padding-bottom: 24px; }
+}
