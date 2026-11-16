@@ -472,6 +472,7 @@ function rtSetPair(fromCode, toCode) {
   if (!originEl || !destEl) return;
   originEl.textContent = fromCode;
   destEl.textContent = toCode;
+  if (window.ShadmanGlobe) window.ShadmanGlobe.setRoute(fromCode, toCode);
 }
 function rtRotate() {
   if (rtLocked) return;
@@ -487,7 +488,7 @@ function rtLockToSelection() {
 function initRouteTracer() {
   if (!document.getElementById('rtOriginLabel')) return;
   rtRotate();
-  rtInterval = setInterval(rtRotate, 2800);
+  rtInterval = setInterval(rtRotate, 8500);
 }
 
 /* ── Quick-select route chips ── */

@@ -149,6 +149,7 @@
   <link rel="stylesheet" href="css/footer.css"/>
   <link rel="stylesheet" href="css/responsive.css"/>
   <link rel="stylesheet" href="css/glass.css?v=20261103"/>
+  <link rel="stylesheet" href="css/hero-bg.css?v=20261116"/>
 
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -188,9 +189,11 @@
        ═══════════════════════════════════════════════════════════ -->
   <script src="js/config.js" defer></script>
   <script src="js/airports.js" defer></script>
+  <script src="js/land-mask.js?v=20261115" defer></script>
+  <script src="js/hero-globe.js?v=20261115" defer></script>
   <script src="js/navbar.js" defer></script>
   <script src="js/nearest-airport.js?v=20261102" defer></script>
-  <script src="js/search-widget.js?v=20261102" defer></script>
+  <script src="js/search-widget.js?v=20261115" defer></script>
   <script src="js/google-reviews.js" defer></script>
   <script src="js/animations.js?v=20261104" defer></script>
   <script src="js/faq.js" defer></script>
@@ -379,27 +382,33 @@
 
         <!-- Route Tracer -->
         <div class="route-tracer-wrap">
-          <svg viewBox="0 0 620 130" width="100%" height="100%">
-            <circle cx="560" cy="95" r="5" fill="#c9a028"/>
-            <text id="rtOriginLabel" class="rt-code" x="560" y="118" text-anchor="middle">KHI</text>
-            <text class="rt-label" x="560" y="38" text-anchor="middle" opacity="0.6">FROM</text>
-            <path id="rtRoute" d="M 560,95 Q 310,15 60,55" stroke="#e4bc5a" stroke-width="1.5" fill="none" stroke-dasharray="6 6"/>
-            <path id="rtMotionPath" d="M 560,95 Q 310,15 60,55" fill="none" stroke="none"/>
-            <circle cx="60" cy="55" r="5" fill="#c9a028"/>
-            <text id="rtDestLabel" class="rt-code" x="60" y="78" text-anchor="middle">DXB</text>
-            <text class="rt-label" x="60" y="38" text-anchor="middle" opacity="0.6">TO</text>
-            <text font-size="16" fill="#e4bc5a">
-              <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto">
-                <mpath href="#rtMotionPath"/>
-              </animateMotion>
-              ✈
-            </text>
-          </svg>
+          <div class="rm" id="routeMedallion" role="img" aria-label="Route from Karachi to Dubai">
+            <div class="rm-card rm-from">
+              <div class="rm-lab"><i class="rm-dot"></i>FROM</div>
+              <span class="rm-code" id="rtOriginLabel">KHI</span>
+              <span class="rm-city" id="rmFromCity">Karachi</span>
+              <span class="rm-ctry" id="rmFromCtry">Pakistan</span>
+            </div>
+            <i class="rm-conn"></i>
+            <div class="rm-globe"><canvas id="rmCanvas" width="246" height="246"></canvas></div>
+            <i class="rm-conn rm-conn-b"></i>
+            <div class="rm-card rm-to">
+              <div class="rm-lab"><i class="rm-dot rm-dot-b"></i>TO</div>
+              <span class="rm-code" id="rtDestLabel">DXB</span>
+              <span class="rm-city" id="rmToCity">Dubai</span>
+              <span class="rm-ctry" id="rmToCtry">UAE</span>
+            </div>
+          </div>
+          <div class="rm-readout" id="rmReadout">
+            <span id="rmReadFrom">KHI</span> → <span id="rmReadTo">DXB</span>
+            <i class="rm-sep"></i><b id="rmReadDist">1,200 km</b>
+            <i class="rm-sep"></i><span class="rm-time" id="rmReadTime">≈ 2h 10m non-stop</span>
+          </div>
         </div>
 
         <!-- Search widget -->
         <div class="widget-wrap">
-          <div style="display:flex;justify-content:center;margin-bottom:20px">
+          <div style="display:flex;justify-content:center;margin-bottom:10px">
            <div class="hero-eyebrow" style="margin-bottom:0;font-size:0.68rem;letter-spacing:0.22em">
             <span class="hero-eyebrow-dot"></span>
            Since 2005
