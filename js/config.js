@@ -31,9 +31,9 @@ const BUSINESS = {
   instagram:   'https://instagram.com/shadman_travels',
   govLicense:  '3322',
   founded:     2005,
-  customers:   '81k+',
+  customers:   '54k+',
   airlines:    '15+',
-  yearsActive: '19+',
+  yearsActive: '21+',
 };
 
 /* ─── PASSENGER PICKER STATE ─── */
