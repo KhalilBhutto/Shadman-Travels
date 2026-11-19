@@ -2,7 +2,7 @@
   {
     "topic": "Booking",
     "q": "How do I book a flight with Shadman Travels?",
-    "a": "Use the flight search form at the top of this page to submit your travel details, or simply call or WhatsApp us at +92 300 0041510. Our team will get back to you with an exclusive fare quote, usually within minutes during business hours."
+    "a": "Use the flight search form at the top of this page to submit your travel details, or simply call or WhatsApp us at +92 300 0041510. Our team will get back to you with an exclusive fare quote during business hours: Monday to Saturday, 9 AM to 9 PM (Pakistan time). We are closed on Sundays."
   },
   {
     "topic": "Booking",
@@ -12,12 +12,12 @@
   {
     "topic": "Booking",
     "q": "What if I need to book for multiple passengers, including children or infants?",
-    "a": "No problem — our booking form supports up to 9 passengers per enquiry across adults, children (2–11 years), and infants (under 2). Just add their details when you submit your search."
+    "a": "Yes. In the search form you choose how many adults, children (2–11 years) and infants (under 2) are travelling. You can add up to 9 adults and children in total, and there can be no more infants than adults. You don't enter passenger names in the form. We ask for them when you confirm your booking."
   },
   {
     "topic": "Booking",
     "q": "How fast will I hear back after submitting an enquiry?",
-    "a": "Our team typically responds within minutes during business hours. For urgent same-day travel, calling or WhatsApping us directly at +92 300 0041510 is the fastest way to reach us."
+    "a": "We reply during business hours, Monday to Saturday, 9 AM to 9 PM (Pakistan time). Enquiries sent outside these hours, or on Sunday, are answered when we reopen. For urgent same-day travel, call or WhatsApp +92 300 0041510 during business hours."
   },
   {
     "topic": "Payments & changes",
@@ -31,8 +31,8 @@
   },
   {
     "topic": "Umrah & visa",
-    "q": "Do you help with Umrah and Hajj packages?",
-    "a": "Yes, Umrah and Hajj packages are one of our specialties. Pricing and availability are seasonal, so reach out directly for current package details and accommodation options."
+    "q": "Do you help with Umrah packages?",
+    "a": "Yes, we offer Umrah packages. Pricing and availability are seasonal, so reach out directly for current package details and accommodation options."
   },
   {
     "topic": "Umrah & visa",
@@ -42,7 +42,7 @@
   {
     "topic": "About us",
     "q": "Is Shadman Travels a licensed travel agency?",
-    "a": "Yes. We're a government-licensed travel agency (License #3322) and an IATA-recognized agent, meaning every ticket we issue goes through proper, accountable channels."
+    "a": "Yes. We're a government-licensed travel agency (License #3322) and an IATA-accredited agency, meaning every ticket we issue goes through proper, accountable channels."
   },
   {
     "topic": "About us",

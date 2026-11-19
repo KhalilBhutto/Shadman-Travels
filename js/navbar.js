@@ -6,7 +6,7 @@
  *  - Mobile route menu: opened by the dock's Menu button (phones and tablets)
  *  - Navbar scroll class, scroll progress bar, smooth in-page anchors
  *  - Active link highlight (navbar, route menu, dock)
- *  - Umrah & Hajj double link
+ *  - Umrah double link
  * Styles: css/navbar.css      Markup: components/navbar.html, components/mobile-menu.html
  */
 
@@ -186,12 +186,11 @@
   }
 
   /* ═══ ACTIVE LINK (navbar, route menu, dock) ═══
-  
-  /* ═══ ACTIVE LINK (navbar, route menu, dock) ═══
      The link whose section is nearest the top of the screen gets the .active class. */
   function initActiveLinks() {
     const links = Array.from(document.querySelectorAll('.nav-link, .mm-stop, .dock-item[href]'));
     const hashOf = function (a) {
+      if (a.classList.contains('umrah-dual-link')) return 'umrah';
       const h = a.getAttribute('href') || '';
       const i = h.indexOf('#');
       return i > -1 ? h.slice(i + 1) : '';
@@ -236,11 +235,11 @@
     });
   }
 
-  /* ═══ UMRAH & HAJJ: open packages page + scroll this page to the section ═══ */
+  /* ═══ UMRAH: open packages page + scroll this page to the section ═══ */
   document.querySelectorAll('.umrah-dual-link').forEach(function (link) {
     link.addEventListener('click', function () {
       // target="_blank" already opens the packages page in a new tab —
-      // this additionally scrolls the CURRENT page to the Umrah & Hajj section.
+      // this additionally scrolls the CURRENT page to the UMRAH section.
       const section = document.getElementById('umrah');
       if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });

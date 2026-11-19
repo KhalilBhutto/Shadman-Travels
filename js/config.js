@@ -35,15 +35,3 @@ const BUSINESS = {
   airlines:    '15+',
   yearsActive: '21+',
 };
-
-/* ─── PASSENGER PICKER STATE ─── */
-// Shared mutable state for all three trip-type passenger pickers (oneway / roundtrip / multicity).
-const paxState = {
-  ow: { adults: 1, children: 0, infants: 0 },
-  rt: { adults: 1, children: 0, infants: 0 },
-  mc: { adults: 1, children: 0, infants: 0 },
-};
-
-/* ─── MULTI-CITY LEG COUNTERS ─── */
-// mcLegIdCounter and mcVisibleLegs are defined in forms.js
-// (monotonic ID counter + visible leg count for 9-leg cap)

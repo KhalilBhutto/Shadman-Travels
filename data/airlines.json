@@ -198,7 +198,7 @@
     "textOnColor": "light",
     "hub": "Abu Dhabi (AUH)",
     "categories": ["gulf", "premium"],
-    "desc": "90+ destinations in 70+ countries via Abu Dhabi. Award-winning premium hospitality at every altitude.",
+    "desc": "90+ destinations in 70+ countries via Abu Dhabi. Premium hospitality at every altitude.",
     "destinations": [
       {
         "label": "Europe & North America",
@@ -758,7 +758,7 @@
     "textOnColor": "light",
     "hub": "Doha (DOH)",
     "categories": ["gulf", "premium"],
-    "desc": "World's Best Airline — 170+ destinations globally. Award-winning service through Doha.",
+    "desc": "170+ destinations globally, through Doha.",
     "destinations": [
       {
         "label": "Middle East",
@@ -984,7 +984,7 @@
     "textOnColor": "light",
     "hub": "Istanbul (IST)",
     "categories": ["europe", "premium"],
-    "desc": "Connecting 300+ destinations in 120+ countries via Istanbul. Best airline for Europe & Americas.",
+    "desc": "Connecting 300+ destinations in 120+ countries via Istanbul. Strong coverage of Europe & Americas.",
     "destinations": [
       {
         "label": "Europe",
