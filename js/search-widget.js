@@ -1016,10 +1016,6 @@ function submitTicketEnquiry() {
     notes: notes || '—',
     tripType: tripLabel,
     passengerBreakdown: passengerBreakdown,
-    additionalTravelers: '—',
-    preferredAirline: '—',
-    travelPurpose: '—',
-    enquiryId: '',
     passengers: passengersLabel,
     travelClass: wState.cabin,
   };
